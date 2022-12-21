@@ -31,29 +31,4 @@ public final class Constants {
     public static final double SPEED_PROPORTION = 1;
 
     public static final int kUnitsPerRevolution = 2048;
-
-    //shooter constants
-    public static final int SHOOTER_FLYWHEEL_ID = 5;
-    public static final int SHOOTER_HOOD_ROTATOR_ID = 91; //FIXME fix can id's
-    public static final int SHOOTER_HOOD_POWER_ID = 90;
-
-    public static final double SHOOTER_RAMP_RATE = 1;
-    
-    //climber constants
-    public static final int LEFT_CLIMBER_ID = 8;
-    public static final int RIGHT_CLIMBER_ID = 7;
-
-    public static final int PCM_CAN_ID = 15;
-    public static final int CLIMBER_SOLENOID_ID = 7;
-    public static final int ARM_SOLENOID_ID = 9;
-
-    public static final int BOTTOM_OPTICAL_ID = 0;
-    public static final int MIDDLE_OPTICAL_ID = 2;
-    public static final int TOP_OPTICAL_ID = 1;
-
-    //intake constants
-    public static final int INTAKE_MOTOR_ID = 93; // FIXME fix intake motor id
-    public static final int INTAKE_DIRECTION = 1; //FIXME set to make the buttons do the right thing
-    public static final double INTAKE_SPEED_PROPORTION = 0.2;
-    public static final int INTAKE_SOLENOID_ID = 94; // FIXME fix intake solenoid id
 }
