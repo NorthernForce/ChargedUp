@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.subsystems.CameraMount;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.TrackingSystem;
 import frc.robot.subsystems.TrackingSystem.CameraFilter;
@@ -22,11 +23,12 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Drivetrain drivetrain = new Drivetrain();
+  public static final CameraMount cameraMount = new CameraMount();
+  public static final TrackingSystem trackingSystem = new TrackingSystem(Constants.CAMERA_ID,
+   CameraFilter.APRILTAG);
   SendableChooser<Command> autonomousChooser;
 
   private final OI oi = new OI();
-  public static final TrackingSystem trackingSystem = new TrackingSystem(Constants.CAMERA_ID,
-   CameraFilter.APRILTAG);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

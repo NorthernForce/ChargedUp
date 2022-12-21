@@ -8,8 +8,11 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.RobotContainer.cameraMount;
 
 public class TrackingSystem extends SubsystemBase {
   public enum CameraFilter
@@ -62,9 +65,14 @@ public class TrackingSystem extends SubsystemBase {
   public Transform3d getTransformToTarget()
   {
     assert hasTargets();
-    return lastResult.getBestTarget().getBestCameraToTarget();
+    Transform3d transform = lastResult.getBestTarget().getBestCameraToTarget();
+    transform.getTranslation().rotateBy(
+      new Rotation3d(0, 
+        Rotation2d.fromDegrees(cameraMount.getYAxisRotate()).getRadians(),
+        Rotation2d.fromDegrees(cameraMount.getZAxisRotate()).getRadians()));
+    return transform;
   }
-  /* Pythagorean theorem: REQUIRES 3D CALIBRATION! */
+  /** Pythagorean theorem: REQUIRES 3D CALIBRATION! */
   public double estimateRangeMeters()
   {
     Transform3d targetTransform = getTransformToTarget();
