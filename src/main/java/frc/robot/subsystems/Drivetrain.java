@@ -24,13 +24,14 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive robotDrive;
 
-  /** Creates a new Drivetrain. */
+  /**
+   * Constructs a drivetrain
+   */
   public Drivetrain() {
     leftPrimary = new WPI_TalonFX(LEFT_PRIMARY_ID);
     rightPrimary = new WPI_TalonFX(RIGHT_PRIMARY_ID);
     leftFollower = new WPI_TalonFX(LEFT_FOLLOWER_ID);
     rightFollower = new WPI_TalonFX(RIGHT_FOLLOWER_ID);
-
     setFollowers();
     setInvert();
     configureAllControllers();

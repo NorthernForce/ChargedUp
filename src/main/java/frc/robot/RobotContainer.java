@@ -5,14 +5,13 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.auto.FollowTarget;
-import frc.robot.commands.auto.TurnToTarget;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.TrackingSystem;
 import frc.robot.subsystems.TrackingSystem.CameraFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,8 +33,7 @@ public class RobotContainer {
     initDefaultCommands();
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
-    autonomousChooser.addOption("Follow Target", new FollowTarget(2));
-    autonomousChooser.addOption("Turn To Target", new TurnToTarget());
+    autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
   }
 
