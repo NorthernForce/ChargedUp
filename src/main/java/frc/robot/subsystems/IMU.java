@@ -14,6 +14,7 @@ public class IMU extends SubsystemBase {
   private final AHRS ahrs = new AHRS();
   /** Creates a new IMU. */
   public IMU() {
+    ahrs.reset();
   }
 
   public Rotation3d getRotation()
