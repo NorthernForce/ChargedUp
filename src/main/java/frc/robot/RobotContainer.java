@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.IMU;
+import frc.robot.commands.CalibrateIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Drivetrain drivetrain = new Drivetrain();
+  public static final IMU imu = new IMU();
   private final SendableChooser<Command> autonomousChooser;
 
   private final OI oi = new OI();
@@ -36,6 +39,7 @@ public class RobotContainer {
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
+    SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
   }
 
   /**
@@ -50,5 +54,10 @@ public class RobotContainer {
 
   private void initDefaultCommands() {
     drivetrain.setDefaultCommand(new DriveWithJoystick());
+  }
+  public void periodic()
+  {
+    SmartDashboard.putNumber("Forward Speed Proportion", drivetrain.getSpeedProportion());
+    SmartDashboard.putNumber("Rotation Speed Proportion", drivetrain.getRotationSpeedProportion());
   }
 }

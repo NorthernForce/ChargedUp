@@ -24,6 +24,8 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive robotDrive;
 
+  private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
+
   /**
    * Constructs a drivetrain
    */
@@ -39,7 +41,23 @@ public class Drivetrain extends SubsystemBase {
     robotDrive = new DifferentialDrive(leftPrimary, rightPrimary);
   }
   public void drive(double speed, double rotation) {
-    robotDrive.arcadeDrive(speed * SPEED_PROPORTION, rotation * ROTATION_SPEED_PROPORTION);
+    robotDrive.arcadeDrive(speed * speedProportion, rotation * rotationSpeedProportion);
+  }
+
+  public void setSpeedProportions(double speedProportion, double rotationSpeedProportion)
+  {
+    this.speedProportion = speedProportion;
+    this.rotationSpeedProportion = rotationSpeedProportion;
+  }
+
+  public double getSpeedProportion()
+  {
+    return speedProportion;
+  }
+
+  public double getRotationSpeedProportion()
+  {
+    return rotationSpeedProportion;
   }
 
   public void driveUsingSpeeds(double speed, double rotation) {
@@ -90,12 +108,7 @@ public class Drivetrain extends SubsystemBase {
     TalonFXConfiguration configs = new TalonFXConfiguration();
     configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
     controller.configAllSettings(configs);
-    
-
-
-
-}
-
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
