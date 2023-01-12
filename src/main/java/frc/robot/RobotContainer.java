@@ -10,7 +10,7 @@ import frc.robot.subsystems.IMU;
 import frc.robot.subsystems.PositioningSubsystem;
 import frc.robot.commands.CalibrateIMU;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.photonvision.PhotonCamera;
 
@@ -33,13 +33,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static final ArrayList<Pair<PhotonCamera, Transform3d>> cameras = new ArrayList<>();
-  {
-    // TODO: add cameras
-  }
+  public static final List<Pair<PhotonCamera, Transform3d>> cameras = List.of(); // TODO
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final IMU imu = new IMU();
-  public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(null);
+  public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(cameras);
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
