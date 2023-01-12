@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
@@ -36,6 +37,16 @@ public final class Constants {
     public static final double DRIVE_RAMP_RATE = 0.2;
 
     public static final int kUnitsPerRevolution = 2048;
+    public static final double trackWidth = 0; // TODO
+    public static final double METERS_PER_REVOLUTION = 0; // TODO
+
+    public static final double maxSpeed = 0; // TODO
+
+    public static final double maxAcceleration = 0; // TODO
+    public static final double kS = 0; // TODO
+    public static final double kV = 0; // TODO
+    public static final double kA = 0; // TODO
+    public static final double driveP = 0; // TODO
     
     public static final AprilTag[] tags = {
         new AprilTag(1, new Pose3d(Units.inchesToMeters(610.77), Units.inchesToMeters(42.19),
@@ -65,4 +76,15 @@ public final class Constants {
     }
 
     public static final AprilTagFieldLayout apriltagLayout = new AprilTagFieldLayout(targetPoses, 16.4846, 8.1026);
+
+    public static Pose2d[] bluePoses = new Pose2d[] {
+        new Pose2d(),
+        new Pose2d(),
+        new Pose2d()
+    };
+    public static Pose2d[] redPoses = new Pose2d[] {
+        new Pose2d(),
+        new Pose2d(),
+        new Pose2d()
+    };
 }

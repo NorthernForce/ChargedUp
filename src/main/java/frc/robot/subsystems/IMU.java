@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,6 +21,11 @@ public class IMU extends SubsystemBase {
   public Rotation3d getRotation()
   {
     return new Rotation3d(Math.toRadians(ahrs.getRoll()), Math.toRadians(ahrs.getPitch()), Math.toRadians(ahrs.getYaw()));
+  }
+  
+  public Rotation2d getHeading()
+  {
+    return Rotation2d.fromDegrees(ahrs.getYaw());
   }
 
   public void reset()

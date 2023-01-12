@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
@@ -70,6 +71,15 @@ public class Drivetrain extends SubsystemBase {
     return new double[] {leftSideRotations, rightSideRotations};
   }
 
+  public double getLeftDistance()
+  {
+    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+  }
+  public double getRightDistance()
+  {
+    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+  }
+
   private void setFollowers() {
     leftFollower.follow(leftPrimary);
     rightFollower.follow(rightPrimary);
@@ -108,6 +118,20 @@ public class Drivetrain extends SubsystemBase {
     TalonFXConfiguration configs = new TalonFXConfiguration();
     configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
     controller.configAllSettings(configs);
+  }
+
+  public DifferentialDriveWheelSpeeds getSpeeds()
+  {
+    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
+  }
+
+  public void driveVolts(double left, double right)
+  {
+    leftPrimary.setVoltage(left);
+    rightPrimary.setVoltage(right);
+    robotDrive.feed();
   }
   @Override
   public void periodic() {

@@ -7,7 +7,15 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IMU;
+import frc.robot.subsystems.PositioningSubsystem;
 import frc.robot.commands.CalibrateIMU;
+
+import java.util.ArrayList;
+
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,8 +32,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  public static final ArrayList<Pair<PhotonCamera, Transform3d>> cameras = new ArrayList<>();
+  {
+    // TODO: add cameras
+  }
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final IMU imu = new IMU();
+  public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(null);
   private final SendableChooser<Command> autonomousChooser;
 
   private final OI oi = new OI();
