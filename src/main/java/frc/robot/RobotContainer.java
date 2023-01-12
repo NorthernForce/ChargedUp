@@ -16,6 +16,7 @@ import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,6 +41,7 @@ public class RobotContainer {
   public static final IMU imu = new IMU();
   public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(null);
   private final SendableChooser<Command> autonomousChooser;
+  private final Field2d field;
 
   private final OI oi = new OI();
 
@@ -53,6 +55,8 @@ public class RobotContainer {
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
+    field = new Field2d();
+    SmartDashboard.putData("Field", field);
   }
 
   /**
@@ -72,5 +76,6 @@ public class RobotContainer {
   {
     SmartDashboard.putNumber("Forward Speed Proportion", drivetrain.getSpeedProportion());
     SmartDashboard.putNumber("Rotation Speed Proportion", drivetrain.getRotationSpeedProportion());
+    field.setRobotPose(positioningSubsystem.estimatePose());
   }
 }
