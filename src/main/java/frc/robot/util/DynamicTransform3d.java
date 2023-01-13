@@ -63,6 +63,14 @@ public class DynamicTransform3d extends Transform3d {
     {
         return rotation;
     }
+    public void setRotation(Rotation3d rotation)
+    {
+        this.rotation = rotation;
+    }
+    public void setTranslation(Translation3d translation)
+    {
+        this.translation = translation;
+    }
     @Override
     public String toString()
     {
