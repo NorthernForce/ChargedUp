@@ -17,8 +17,10 @@ import frc.robot.Constants;
 import static frc.robot.RobotContainer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class DriveToLocation extends RamseteCommand {
+  public final Supplier<Boolean> canDrive;
   /** Creates a new DriveToLocation. */
   public DriveToLocation(Pose2d newLocation) {
     super(
@@ -37,6 +39,31 @@ public class DriveToLocation extends RamseteCommand {
       drivetrain::driveVolts,
       drivetrain, positioningSubsystem, imu
     );
-    // Use addRequirements() here to declare subsystem dependencies.
+    canDrive = () -> true;
+  }
+  /** Creates a new DriveToLocation. */
+  public DriveToLocation(Pose2d newLocation, Supplier<Boolean> canDrive) {
+    super(
+      TrajectoryGenerator.generateTrajectory(
+        positioningSubsystem.estimatePose(),
+        List.of(),
+        newLocation,
+        new TrajectoryConfig(Constants.maxSpeed, Constants.maxAcceleration)),
+      positioningSubsystem::estimatePose,
+      new RamseteController(),
+      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
+      new DifferentialDriveKinematics(Constants.trackWidth),
+      drivetrain::getSpeeds,
+      new PIDController(Constants.driveP, 0, 0),
+      new PIDController(Constants.driveP, 0, 0),
+      drivetrain::driveVolts,
+      drivetrain, positioningSubsystem, imu
+    );
+    this.canDrive = canDrive;
+  }
+  @Override
+  public void execute()
+  {
+    if (canDrive.get()) super.execute();
   }
 }
