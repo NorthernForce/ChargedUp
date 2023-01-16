@@ -32,21 +32,6 @@ public class IMU extends SubsystemBase {
    * Gets the heading of the robot
    * @return A Rotation3d of the heading.
    */
-
-  public double getYaw()
-  {
-    return ahrs.getYaw();
-  }
-
-  public double getRoll()
-  {
-    return ahrs.getPitch();
-  }
-
-  public double getPitch()
-  {
-    return ahrs.getRoll();
-  }
   
   public Rotation2d getHeading()
   {
