@@ -55,6 +55,7 @@ public class RobotContainer {
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
+    SmartDashboard.putData("PID Balance", new PIDBalance());
     field = new Field2d();
     SmartDashboard.putData("Field", field);
   }

@@ -22,6 +22,21 @@ public class IMU extends SubsystemBase {
   {
     return new Rotation3d(Math.toRadians(ahrs.getRoll()), Math.toRadians(ahrs.getPitch()), Math.toRadians(ahrs.getYaw()));
   }
+
+  public double getYaw()
+  {
+    return ahrs.getYaw();
+  }
+
+  public double getRoll()
+  {
+    return ahrs.getPitch();
+  }
+
+  public double getPitch()
+  {
+    return ahrs.getRoll();
+  }
   
   public Rotation2d getHeading()
   {
