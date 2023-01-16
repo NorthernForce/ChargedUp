@@ -11,38 +11,65 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * A Subsystem responsible for maintaining the NavX on the RoboRIO.
+ */
 public class IMU extends SubsystemBase {
   private final AHRS ahrs = new AHRS();
   /** Creates a new IMU. */
   public IMU() {
     ahrs.reset();
   }
-
+  /**
+   * Gets the Rotation3d representing the rotation of the robot
+   * @return Rotation3d - All angles are in Radians
+   */
   public Rotation3d getRotation()
   {
-    return new Rotation3d(Math.toRadians(ahrs.getRoll()), Math.toRadians(ahrs.getPitch()), Math.toRadians(ahrs.getYaw()));
+    return new Rotation3d(Math.toRadians(ahrs.getPitch()), Math.toRadians(ahrs.getRoll()), Math.toRadians(ahrs.getYaw()));
   }
-  
+  /**
+   * Gets the heading of the robot
+   * @return A Rotation3d of the heading.
+   */
   public Rotation2d getHeading()
   {
     return Rotation2d.fromDegrees(ahrs.getYaw());
   }
-
+  public double getRoll()
+  {
+    return ahrs.getPitch();
+  }
+  public double getPitch()
+  {
+    return ahrs.getRoll();
+  }
+  public double getYaw()
+  {
+    return ahrs.getYaw();
+  }
+  /**
+   * Resets the Navx.
+   */
   public void reset()
   {
     ahrs.reset();
   }
-
+  /**
+   * Calibrates the Navx. Requires 10ish seconds.
+   */
   public void calibrate()
   {
     ahrs.calibrate();
   }
-
+  /**
+   * Implementation of SubsystemBase.periodic(). Puts the roll, pitch, and yaw
+   */
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Roll", ahrs.getRoll());
-    SmartDashboard.putNumber("Pitch", ahrs.getPitch());
-    SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+    SmartDashboard.putNumber("Roll", getRoll());
+    SmartDashboard.putNumber("Pitch", getPitch());
+    SmartDashboard.putNumber("Yaw", getYaw());
     // This method will be called once per scheduler run
   }
 }

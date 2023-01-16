@@ -20,7 +20,10 @@ import static frc.robot.RobotContainer.imu;
 import java.util.List;
 
 import static frc.robot.RobotContainer.drivetrain;
-
+/**
+ * A subsystem responsible for maintaining the position of the robot based on the vision measurements
+ * and the encoder rotations.
+ */
 public class PositioningSubsystem extends SubsystemBase {
   private final DifferentialDrivePoseEstimator estimator;
   private final Pose2d initialPose;
@@ -37,12 +40,19 @@ public class PositioningSubsystem extends SubsystemBase {
     visionEstimator = new RobotPoseEstimator(Constants.apriltagLayout, 
       RobotPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cameras);
   }
-
+  /**
+   * Gets the estimated position of the robot
+   * @return the estimated Pose2d in meters
+   */
   public Pose2d estimatePose()
   {
     return estimator.getEstimatedPosition();
   }
-
+  /**
+   * Implementation of SubsystemBase.periodic(). Updates the DifferentialDrivePoseEstimator based
+   * on current encoder distances. Also checks to see whether there are vision readings, in which
+   * they are passed to the DifferentialDrivePoseEstimator.
+   */
   @Override
   public void periodic() {
     estimator.update(imu.getHeading(), drivetrain.getLeftDistance(), drivetrain.getRightDistance());
