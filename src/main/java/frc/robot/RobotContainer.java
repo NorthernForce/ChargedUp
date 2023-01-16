@@ -5,11 +5,8 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.RequestCone;
-import frc.robot.commands.RequestCube;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IMU;
-import frc.robot.subsystems.LightSystem;
 import frc.robot.subsystems.PositioningSubsystem;
 import frc.robot.commands.CalibrateIMU;
 
@@ -42,7 +39,6 @@ public class RobotContainer {
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final IMU imu = new IMU();
   public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(cameras);
-  public static final LightSystem lightSystem = new LightSystem();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
@@ -58,8 +54,6 @@ public class RobotContainer {
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
-    SmartDashboard.putData("Request Cone", new RequestCone());
-    SmartDashboard.putData("Request Cube", new RequestCube());
     SmartDashboard.putData("Stop", new Stop(0.1));
     field = new Field2d();
     SmartDashboard.putData("Field", field);
