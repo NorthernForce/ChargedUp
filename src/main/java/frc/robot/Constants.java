@@ -37,8 +37,10 @@ public final class Constants {
     public static final double DRIVE_RAMP_RATE = 0.2;
 
     public static final int kUnitsPerRevolution = 2048;
-    public static final double trackWidth = 0; // TODO
-    public static final double METERS_PER_REVOLUTION = 0; // TODO
+    public static final double gearRatio = (62.0/9.0) * (30.0/18.0);
+    public static final double trackWidth = Units.inchesToMeters(25); // TODO
+    public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6); // TODO
+    public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / gearRatio; // TODO
 
     public static final double maxSpeed = 0; // TODO
 
