@@ -23,12 +23,6 @@ import edu.wpi.first.math.util.Units;
  */
 
 public final class Constants {
-    // Targeting constants
-    public static final String CAMERA_ID = "webcam";
-    public static final double CAMERA_HEIGHT_METERS = 0.22;
-    public static final double TARGET_HEIGHT_METERS = 0.77;
-    public static final double CAMERA_PITCH_RADIANS = 0;
-    //drive constants
     public static final int LEFT_PRIMARY_ID = 2;
     public static final int RIGHT_PRIMARY_ID = 1;
     public static final int LEFT_FOLLOWER_ID = 4;
@@ -38,9 +32,9 @@ public final class Constants {
 
     public static final int kUnitsPerRevolution = 2048;
     public static final double gearRatio = (62.0/9.0) * (30.0/18.0);
-    public static final double trackWidth = Units.inchesToMeters(25); // TODO
-    public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6); // TODO
-    public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / gearRatio; // TODO
+    public static final double trackWidth = Units.inchesToMeters(25);
+    public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
+    public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / gearRatio;
 
     public static final double maxSpeed = 0; // TODO
 
@@ -72,12 +66,13 @@ public final class Constants {
         16.4846, 
         8.1026
     );
-
+    /** TODO */
     public static Pose2d[] bluePoses = new Pose2d[] {
         new Pose2d(),
         new Pose2d(),
         new Pose2d()
     };
+    /** TODO */
     public static Pose2d[] redPoses = new Pose2d[] {
         new Pose2d(),
         new Pose2d(),

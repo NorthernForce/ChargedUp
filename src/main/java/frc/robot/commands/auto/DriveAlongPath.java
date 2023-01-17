@@ -20,9 +20,16 @@ import static frc.robot.RobotContainer.*;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Simple command to drive along a path of translations using a RamseteCommand
+ */
 public class DriveAlongPath extends RamseteCommand {
-  public final Supplier<Boolean> canDrive;
-  /** Creates a new DriveAlongPath. */
+  private final Supplier<Boolean> canDrive;
+  /**
+   * Creates a new DriveAlongPath
+   * @param waypoints a list of waypoints (List<Translation2d>)
+   * @param newLocation a final destination (Pose2d)
+   */
   public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation) {
     super(
       TrajectoryGenerator.generateTrajectory(
@@ -42,6 +49,12 @@ public class DriveAlongPath extends RamseteCommand {
     );
     canDrive = () -> true;
   }
+  /**
+   * Creates a new DriveAlongPath
+   * @param waypoints a list of waypoints (List<Translation2d>)
+   * @param newLocation a final destination (Pose2d)
+   * @param canDrive a supplier to check whether the drivetrain can drive or not
+   */
   public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation, Supplier<Boolean> canDrive) {
     super(
       TrajectoryGenerator.generateTrajectory(
@@ -61,6 +74,9 @@ public class DriveAlongPath extends RamseteCommand {
     );
     this.canDrive = canDrive;
   }
+  /**
+   * Overrides Ramsete.execute() to only execute if canDrive returns true
+   */
   @Override
   public void execute()
   {

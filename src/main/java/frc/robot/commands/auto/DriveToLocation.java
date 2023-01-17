@@ -19,9 +19,15 @@ import static frc.robot.RobotContainer.*;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Simple command to drive to a destination using a RamseteCommand
+ */
 public class DriveToLocation extends RamseteCommand {
-  public final Supplier<Boolean> canDrive;
-  /** Creates a new DriveToLocation. */
+  private final Supplier<Boolean> canDrive;
+  /**
+   * Creates a new DriveToLocation
+   * @param newLocation the destination (Pose2d)
+   */
   public DriveToLocation(Pose2d newLocation) {
     super(
       TrajectoryGenerator.generateTrajectory(
@@ -41,7 +47,11 @@ public class DriveToLocation extends RamseteCommand {
     );
     canDrive = () -> true;
   }
-  /** Creates a new DriveToLocation. */
+  /**
+   * Creates a new DriveToLocation
+   * @param newLocation the destination (Pose2d)
+   * @param canDrive whether the drivetrain can drive or not
+   */
   public DriveToLocation(Pose2d newLocation, Supplier<Boolean> canDrive) {
     super(
       TrajectoryGenerator.generateTrajectory(
@@ -61,6 +71,9 @@ public class DriveToLocation extends RamseteCommand {
     );
     this.canDrive = canDrive;
   }
+  /**
+  * Overrides Ramsete.execute() to only execute if canDrive returns true
+  */
   @Override
   public void execute()
   {

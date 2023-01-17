@@ -37,14 +37,26 @@ public class IMU extends SubsystemBase {
   {
     return Rotation2d.fromDegrees(ahrs.getYaw());
   }
+  /**
+   * Gets Roll
+   * @return Roll in degrees
+   */
   public double getRoll()
   {
     return ahrs.getPitch();
   }
+  /**
+   * Gets Pitch
+   * @return Pitch in degrees
+   */
   public double getPitch()
   {
     return ahrs.getRoll();
   }
+  /**
+   * Gets Yaw
+   * @return Yaw in degrees
+   */
   public double getYaw()
   {
     return ahrs.getYaw();

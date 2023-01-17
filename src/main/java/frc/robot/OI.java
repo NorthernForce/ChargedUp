@@ -11,11 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 /** Add your docs here. */
 public class OI {
     private static final XboxController driverController = new XboxController(0);
-
-    public OI() {
-        // intake = new Intake();
-    }
-
+    public OI() {}
     public static DoubleSupplier[] getDriveSuppliers() {
        return new DoubleSupplier[] {() -> -driverController.getLeftY(), () -> driverController.getRightX()};
     }
