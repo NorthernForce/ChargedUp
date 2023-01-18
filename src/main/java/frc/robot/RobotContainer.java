@@ -35,7 +35,9 @@ import frc.robot.commands.auto.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private static final List<Pair<PhotonCamera, Transform3d>> cameras = List.of(); // TODO
+  private static final List<Pair<PhotonCamera, Transform3d>> cameras = List.of(
+    new Pair<>(new PhotonCamera("webcam"), new Transform3d())
+  ); // TODO
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final IMU imu = new IMU();
   public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(cameras);
