@@ -33,11 +33,11 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation) {
     super(
       TrajectoryGenerator.generateTrajectory(
-        positioningSubsystem.estimatePose(),
+        navigation.getPose2d(),
         waypoints,
         newLocation,
         new TrajectoryConfig(Constants.maxSpeed, Constants.maxAcceleration)),
-      positioningSubsystem::estimatePose,
+      navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
       new DifferentialDriveKinematics(Constants.trackWidth),
@@ -45,7 +45,7 @@ public class DriveAlongPath extends RamseteCommand {
       new PIDController(Constants.driveP, 0, 0),
       new PIDController(Constants.driveP, 0, 0),
       drivetrain::driveVolts,
-      drivetrain, positioningSubsystem, imu
+      drivetrain, navigation
     );
     canDrive = () -> true;
   }
@@ -58,11 +58,11 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation, Supplier<Boolean> canDrive) {
     super(
       TrajectoryGenerator.generateTrajectory(
-        positioningSubsystem.estimatePose(),
+        navigation.getPose2d(),
         waypoints,
         newLocation,
         new TrajectoryConfig(Constants.maxSpeed, Constants.maxAcceleration)),
-      positioningSubsystem::estimatePose,
+      navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
       new DifferentialDriveKinematics(Constants.trackWidth),
@@ -70,7 +70,7 @@ public class DriveAlongPath extends RamseteCommand {
       new PIDController(Constants.driveP, 0, 0),
       new PIDController(Constants.driveP, 0, 0),
       drivetrain::driveVolts,
-      drivetrain, positioningSubsystem, imu
+      drivetrain, navigation
     );
     this.canDrive = canDrive;
   }

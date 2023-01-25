@@ -6,15 +6,10 @@ package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.IMU;
-import frc.robot.subsystems.PositioningSubsystem;
+import frc.robot.subsystems.Navigation;
 import frc.robot.commands.CalibrateIMU;
 
-import java.util.List;
-
-import org.photonvision.PhotonCamera;
-
-import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,13 +29,9 @@ import frc.robot.commands.auto.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private static final List<Pair<PhotonCamera, Transform3d>> cameras = List.of(
-    new Pair<>(new PhotonCamera("webcam"), new Transform3d())
-  ); // TODO
   public static final Drivetrain drivetrain = new Drivetrain();
-  public static final IMU imu = new IMU();
-  public static final PositioningSubsystem positioningSubsystem = new PositioningSubsystem(cameras);
+  public static final Navigation navigation
+    = new Navigation(new Pose2d(), "webcam", new Transform3d());
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
@@ -79,6 +70,6 @@ public class RobotContainer {
   {
     SmartDashboard.putNumber("Forward Speed Proportion", drivetrain.getSpeedProportion());
     SmartDashboard.putNumber("Rotation Speed Proportion", drivetrain.getRotationSpeedProportion());
-    field.setRobotPose(positioningSubsystem.estimatePose());
+    field.setRobotPose(navigation.getPose2d());
   }
 }

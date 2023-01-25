@@ -79,6 +79,14 @@ public class Drivetrain extends SubsystemBase {
     robotDrive.arcadeDrive(speed, rotation);
   }
   /**
+   * Resets the encoder rotations to (0, 0)
+   */
+  public void resetEncoderRotations()
+  {
+    leftPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    rightPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+  }
+  /**
    * Gets the current encoder rotations
    * @return an array of two encoder rotations (one for each side)
    */

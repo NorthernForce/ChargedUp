@@ -4,26 +4,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import static frc.robot.RobotContainer.imu;
+import static frc.robot.RobotContainer.navigation;
 /**
  * Calibrates the IMU.
  */
 public class CalibrateIMU extends CommandBase {
-  private double startTimeMillis;
   /** Creates a new CalibrateIMU. */
   public CalibrateIMU() {
-    addRequirements(imu);
+    addRequirements(navigation);
   }
   /**
    * Initializes calibration and starts a timer.
    */
   @Override
   public void initialize() {
-    startTimeMillis = Timer.getFPGATimestamp();
-    imu.calibrate();
+    navigation.calibrate();
   }
   @Override
   public void execute() {}
@@ -34,6 +31,6 @@ public class CalibrateIMU extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTimeMillis) >= 10;
+    return navigation.isCalibrating();
   }
 }
