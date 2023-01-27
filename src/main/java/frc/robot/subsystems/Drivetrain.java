@@ -4,12 +4,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,20 +14,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
 public class Drivetrain extends SubsystemBase {
-  private final WPI_TalonFX leftPrimary;
-  private final WPI_TalonFX rightPrimary;
-  private final WPI_TalonFX leftFollower;
-  private final WPI_TalonFX rightFollower;
+  private final CANSparkMax leftPrimary;
+  private final CANSparkMax rightPrimary;
+  private final CANSparkMax leftFollower;
+  private final CANSparkMax rightFollower;
   private final DifferentialDrive robotDrive;
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
   /**
    * Constructs a drivetrain
    */
   public Drivetrain() {
-    leftPrimary = new WPI_TalonFX(LEFT_PRIMARY_ID);
-    rightPrimary = new WPI_TalonFX(RIGHT_PRIMARY_ID);
-    leftFollower = new WPI_TalonFX(LEFT_FOLLOWER_ID);
-    rightFollower = new WPI_TalonFX(RIGHT_FOLLOWER_ID);
+    leftPrimary = new CANSparkMax(LEFT_PRIMARY_ID, MotorType.kBrushless);
+    rightPrimary = new CANSparkMax(RIGHT_PRIMARY_ID, MotorType.kBrushless);
+    leftFollower = new CANSparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
+    rightFollower = new CANSparkMax(RIGHT_FOLLOWER_ID, MotorType.kBrushless);
     setFollowers();
     setInvert();
     configureAllControllers();
@@ -83,16 +80,16 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetEncoderRotations()
   {
-    leftPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    rightPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    leftPrimary.getEncoder().setPosition(0);
+    rightPrimary.getEncoder().setPosition(0);
   }
   /**
    * Gets the current encoder rotations
    * @return an array of two encoder rotations (one for each side)
    */
   public double[] getEncoderRotations() {
-    double leftSideRotations = (leftPrimary.getSensorCollection().getIntegratedSensorPosition() * -1) / 2048;
-    double rightSideRotations = rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048;
+    double leftSideRotations = (leftPrimary.getEncoder().getPosition() * -1);
+    double rightSideRotations = rightPrimary.getEncoder().getPosition();
     return new double[] {leftSideRotations, rightSideRotations};
   }
   /**
@@ -101,7 +98,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public double getLeftDistance()
   {
-    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (-leftPrimary.getEncoder().getPosition()) * METERS_PER_REVOLUTION;
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -109,7 +106,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public double getRightDistance()
   {
-    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (rightPrimary.getEncoder().getPosition() / 2048) * METERS_PER_REVOLUTION;
   }
   /**
    * Sets the two secondary motors to follow the primary motors
@@ -123,9 +120,7 @@ public class Drivetrain extends SubsystemBase {
    */
   private void setInvert() {
     rightPrimary.setInverted(true);
-    rightFollower.setInverted(InvertType.FollowMaster);
     leftPrimary.setInverted(false);
-    leftFollower.setInverted(InvertType.FollowMaster);
   }
   /**
    * Configures each of the PID Controllers for the motors
@@ -141,20 +136,8 @@ public class Drivetrain extends SubsystemBase {
    * @param controller the controller to reset
    * @param isFollower whether it is a follower
    */
-  private void configureController(WPI_TalonFX controller, Boolean isFollower) {
-    final double currentLimit = 60;
-    final double limitThreshold = 90;
-    final double triggerThreshTimeInSec = 1;
-    controller.configFactoryDefault();
-    controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
-    if (!isFollower) {
-      controller.configClosedloopRamp(DRIVE_RAMP_RATE);
-      controller.configOpenloopRamp(DRIVE_RAMP_RATE);
-    }
-    controller.setNeutralMode(NeutralMode.Brake);
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-    controller.configAllSettings(configs);
+  private void configureController(CANSparkMax controller, Boolean isFollower) {
+    controller.setIdleMode(IdleMode.kBrake);
   }
   /**
    * Gets the speed that the wheels are moving at
@@ -162,8 +145,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
-    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    double leftVelocity = ((-leftPrimary.getEncoder().getVelocity())) * 60 * METERS_PER_REVOLUTION;
+    double rightVelocity = ((rightPrimary.getEncoder().getVelocity()) / 2048) * 60 * METERS_PER_REVOLUTION;
     return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
   }
   /**
