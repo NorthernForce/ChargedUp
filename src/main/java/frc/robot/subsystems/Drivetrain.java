@@ -1,6 +1,6 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// the WPILib BSD license file in the root directory of this project. 
 
 package frc.robot.subsystems;
 
@@ -77,6 +77,14 @@ public class Drivetrain extends SubsystemBase {
    */
   public void driveUsingSpeeds(double speed, double rotation) {
     robotDrive.arcadeDrive(speed, rotation);
+  }
+  /**
+   * Resets the encoder rotations to (0, 0)
+   */
+  public void resetEncoderRotations()
+  {
+    leftPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    rightPrimary.getSensorCollection().setIntegratedSensorPosition(0, 0);
   }
   /**
    * Gets the current encoder rotations
