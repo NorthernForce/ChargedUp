@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.Navigation;
 import frc.robot.commands.CalibrateIMU;
 
@@ -32,6 +32,11 @@ public class RobotContainer {
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Navigation navigation
     = new Navigation(new Pose2d(), "webcam", new Transform3d());
+  public static final IMU imu = new IMU();
+  public static final LED led = new LED();
+  public static final Gripper gripper = new Gripper();
+  public static final Compressor compresser = new Compressor();
+  public static final Arm arm = new Arm();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
