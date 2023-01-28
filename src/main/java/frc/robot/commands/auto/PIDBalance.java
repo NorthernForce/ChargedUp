@@ -15,7 +15,7 @@ public class PIDBalance extends CommandBase {
   private PIDController controller;
   /** Creates a new PIDBalance. */
   public PIDBalance() {
-    addRequirements(drivetrain, navigation);
+    addRequirements(drivetrain, imu);
   }
   /**
    * Implements CommandBase.initialize(). Initializes PIDController.
@@ -31,7 +31,7 @@ public class PIDBalance extends CommandBase {
    */
   @Override
   public void execute() {
-    double forwardSpeed = -controller.calculate(Math.toDegrees(navigation.getRotation().getY()));
+    double forwardSpeed = -controller.calculate(imu.getPitch());
     drivetrain.drive(forwardSpeed, 0);
   }
   /**
