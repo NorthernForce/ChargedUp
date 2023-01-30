@@ -31,7 +31,7 @@ public class PIDBalance extends CommandBase {
    */
   @Override
   public void execute() {
-    double forwardSpeed = -controller.calculate(Math.toDegrees(navigation.getRotation().getY()));
+    double forwardSpeed = -controller.calculate(Math.toDegrees(imu.getPitch()));
     drivetrain.drive(forwardSpeed, 0);
   }
   /**

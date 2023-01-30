@@ -24,10 +24,10 @@ public class Drivetrain extends SubsystemBase {
    * Constructs a drivetrain
    */
   public Drivetrain() {
-    leftPrimary = new CANSparkMax(LEFT_PRIMARY_ID, MotorType.kBrushless);
-    rightPrimary = new CANSparkMax(RIGHT_PRIMARY_ID, MotorType.kBrushless);
-    leftFollower = new CANSparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
-    rightFollower = new CANSparkMax(RIGHT_FOLLOWER_ID, MotorType.kBrushless);
+    leftPrimary = new CANSparkMax(1, MotorType.kBrushless);
+    rightPrimary = new CANSparkMax(2, MotorType.kBrushless);
+    leftFollower = new CANSparkMax(3, MotorType.kBrushless);
+    rightFollower = new CANSparkMax(4, MotorType.kBrushless);
     setFollowers();
     setInvert();
     configureAllControllers();
@@ -119,8 +119,8 @@ public class Drivetrain extends SubsystemBase {
    * Sets the right side as inverted whereas the left is not
    */
   private void setInvert() {
-    rightPrimary.setInverted(true);
-    leftPrimary.setInverted(false);
+    rightPrimary.setInverted(false);
+    leftPrimary.setInverted(true);
   }
   /**
    * Configures each of the PID Controllers for the motors
