@@ -10,18 +10,29 @@ import java.util.Objects;
 public class DynamicTransform3d extends Transform3d {
     private Translation3d translation;
     private Rotation3d rotation;
+    /** Creates a new DynamicTransform3d */
     public DynamicTransform3d()
     {
         super();
         translation = new Translation3d();
         rotation = new Rotation3d();
     }
+    /**
+     * Creates a new DynamicTransform3d
+     * @param initial Starting Position
+     * @param last Ending Position
+     */
     public DynamicTransform3d(Pose3d initial, Pose3d last)
     {
         super();
         translation = last.getTranslation().minus(initial.getTranslation()).rotateBy(initial.getRotation().unaryMinus());
         rotation = last.getRotation().minus(initial.getRotation());
     }
+    /**
+     * Creates a new DynamicTransform3d
+     * @param translation Translation3d
+     * @param rotation Rotation3d
+     */
     public DynamicTransform3d(Translation3d translation, Rotation3d rotation)
     {
         super();
