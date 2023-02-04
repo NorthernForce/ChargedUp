@@ -5,17 +5,16 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import static frc.robot.RobotContainer.*;
 
-public class TurnToTarget extends CommandBase {
+public class GoToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
   private PIDController calculator;
   private PIDController calculator2;
 
-  public TurnToTarget() {
+  public GoToTarget() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain, vision);
   }
@@ -34,7 +33,6 @@ public class TurnToTarget extends CommandBase {
   public void execute() {
     if (vision.hasTarget()){
       double requiredTurn = -calculator.calculate(Math.toDegrees(vision.getTargetYaw()));
-      SmartDashboard.putNumber("Range", vision.getTargetRange());
       drivetrain.drive(calculator2.calculate(vision.getTargetRange()), requiredTurn);
     }
   }

@@ -22,14 +22,14 @@ public class Navigation extends SubsystemBase {
   public Navigation() {
     drivetrain.resetEncoderRotations();
     poseEstimator = new DifferentialDrivePoseEstimator(
-      new DifferentialDriveKinematics(Constants.trackWidth),
+      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
       imu.getRotation2d(),
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance(),
       new Pose2d()
     );
     visionEstimator = new PhotonPoseEstimator(
-      Constants.apriltagLayout,
+      Constants.APRILTAG_LAYOUT,
       PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
       camera,
       transform3d
