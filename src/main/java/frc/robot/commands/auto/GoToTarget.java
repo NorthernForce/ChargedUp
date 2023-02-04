@@ -6,6 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Vision.VisionPipeline;
 
 import static frc.robot.RobotContainer.*;
 
@@ -26,6 +27,7 @@ public class GoToTarget extends CommandBase {
     calculator.setSetpoint(0);
     calculator2 = new PIDController(0.2, 0, 0);
     calculator2.setSetpoint(0.5);
+    vision.setPipeline(VisionPipeline.YELLOW_CONE);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

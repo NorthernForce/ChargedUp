@@ -20,9 +20,34 @@ public class Vision extends SubsystemBase {
   // Change this to match the name of your camera
   private PhotonCamera camera = new PhotonCamera("apriltagCamera");
   private PhotonPipelineResult result = null;
+  public enum VisionPipeline
+  {
+    YELLOW_CONE,
+    PURPLE_CUBE,
+    REFLECTIVE_TARGET;
+    /** Gets index of pipeline */
+    public int getPipelineIndex()
+    {
+      switch (this)
+      {
+      case YELLOW_CONE:
+        return 1;
+      case PURPLE_CUBE:
+        return 2;
+      case REFLECTIVE_TARGET:
+        return 3;
+      default:
+        return 0;
+      }
+    }
+  };
   /** Creates a new Vision. */
   public Vision() {
-    camera.setPipelineIndex(1);
+  }
+
+  public void setPipeline(VisionPipeline pipeline)
+  {
+    camera.setPipelineIndex(pipeline.getPipelineIndex());
   }
 
   @Override
