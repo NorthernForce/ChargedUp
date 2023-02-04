@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Navigation;
+import frc.robot.subsystems.Vision;
 import frc.robot.commands.CalibrateIMU;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -32,6 +33,7 @@ public class RobotContainer {
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Navigation navigation
     = new Navigation(new Pose2d(), "webcam", new Transform3d());
+  public static final Vision vision = new Vision();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
