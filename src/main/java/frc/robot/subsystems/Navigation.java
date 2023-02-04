@@ -52,13 +52,13 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance()
     );
     visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
-    var results = visionEstimator.update();
-    if (results.isPresent())
+    //var results = visionEstimator.update();
+    /*if (results.isPresent())
     {
       poseEstimator.addVisionMeasurement(
         results.get().estimatedPose.toPose2d(),
         results.get().timestampSeconds
       );
-    }
+    }*/
   }
 }

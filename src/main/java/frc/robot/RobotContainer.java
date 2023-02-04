@@ -32,6 +32,7 @@ public class RobotContainer {
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Navigation navigation
     = new Navigation();
+  public static final Vision vision = new Vision();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
 
