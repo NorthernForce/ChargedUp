@@ -7,13 +7,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public abstract class DrivetrainSuper extends SubsystemBase
+public abstract class Drivetrain extends SubsystemBase
 {
   /** 
-   * Creates a new DrivetrainSuper. 
-   * This is the parent class for other drivetrains 
+   * Creates a new Drivetrain. 
+   * This is the parent class for drivetrain variants 
    */
-  public DrivetrainSuper() {}
+  public Drivetrain() {}
 
   /**
    * Drives the robot forward applying the speed proportions

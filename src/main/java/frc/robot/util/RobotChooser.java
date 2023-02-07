@@ -8,10 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import frc.robot.util.robots.*;
-import frc.robot.subsystems.DrivetrainSuper;
-import frc.robot.subsystems.DrivetrainSpeedy;
-import frc.robot.subsystems.DrivetrainSquishy;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.variants.DrivetrainSpeedy;
+import frc.robot.subsystems.variants.DrivetrainSquishy;
 
 /** Add your docs here. */
 public class RobotChooser 
@@ -43,33 +42,12 @@ public class RobotChooser
     }
 
     /**
-     * Creates a robot object when given a valid ID.
-     * @param id String identifying the robot
-     */
-    private RobotSuper CreateObject(String id)
-    {
-        RobotSuper tempBot;
-        switch (id) {
-            case SQUISHY_ID:
-                tempBot = new Squishy();
-                break;
-            case SPEEDY_ID:
-                tempBot = new Speedy();
-                break;
-            default:
-                tempBot = new Speedy();
-                break;
-        }
-        return tempBot;
-    }
-
-    /**
      * Chooses drivetrain object based on persistent ID on robot.
      * @return Drivetrain object for current robot.
      */
-    public DrivetrainSuper GetDrivetrain()
+    public Drivetrain GetDrivetrain()
     {
-        DrivetrainSuper drivetrain;
+        Drivetrain drivetrain;
         String id = ReadRobotID();
         switch (id) {
             case SQUISHY_ID:
@@ -83,15 +61,5 @@ public class RobotChooser
                 break;
         }
         return drivetrain;
-    }
-
-    /**
-     * Returns a robot object corresponding to the robot running the code.
-     * @return Robot object for current robot.
-     */
-    public RobotSuper SelectRobot()
-    {
-        String id = ReadRobotID();
-        return CreateObject(id);
     }
 }

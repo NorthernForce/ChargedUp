@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project. 
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.variants;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -13,9 +13,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.subsystems.Drivetrain;
+
 import static frc.robot.Constants.*;
 
-public class DrivetrainSpeedy extends DrivetrainSuper {
+public class DrivetrainSpeedy extends Drivetrain {
   private final WPI_TalonFX leftPrimary;
   private final WPI_TalonFX rightPrimary;
   private final WPI_TalonFX leftFollower;
