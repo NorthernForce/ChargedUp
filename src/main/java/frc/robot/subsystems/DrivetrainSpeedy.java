@@ -13,10 +13,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
-public class Drivetrain extends SubsystemBase {
+public class DrivetrainSpeedy extends DrivetrainSuper {
   private final WPI_TalonFX leftPrimary;
   private final WPI_TalonFX rightPrimary;
   private final WPI_TalonFX leftFollower;
@@ -26,7 +25,7 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Constructs a drivetrain
    */
-  public Drivetrain() {
+  public DrivetrainSpeedy() {
     leftPrimary = new WPI_TalonFX(LEFT_PRIMARY_ID);
     rightPrimary = new WPI_TalonFX(RIGHT_PRIMARY_ID);
     leftFollower = new WPI_TalonFX(LEFT_FOLLOWER_ID);

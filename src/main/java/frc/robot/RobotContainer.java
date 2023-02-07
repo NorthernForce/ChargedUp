@@ -5,7 +5,8 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DrivetrainSuper;
+import frc.robot.util.RobotChooser;
 import frc.robot.subsystems.Navigation;
 import frc.robot.commands.CalibrateIMU;
 
@@ -29,7 +30,7 @@ import frc.robot.commands.auto.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final DrivetrainSuper drivetrain = new RobotChooser().GetDrivetrain();
   public static final Navigation navigation
     = new Navigation(new Pose2d(), "webcam", new Transform3d());
   private final SendableChooser<Command> autonomousChooser;
