@@ -35,7 +35,7 @@ public class RobotContainer {
   public static final IMU imu = new IMU();
   public static final LED led = new LED();
   public static final Gripper gripper = new Gripper();
-  public static final Compressor compresser = new Compressor();
+  public static final Pneumatics compresser = new Pneumatics();
   public static final Arm arm = new Arm();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
