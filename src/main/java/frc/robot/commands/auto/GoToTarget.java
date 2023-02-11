@@ -27,7 +27,7 @@ public class GoToTarget extends CommandBase {
     calculator.setSetpoint(0);
     calculator2 = new PIDController(0.2, 0, 0);
     calculator2.setSetpoint(0.5);
-    vision.setPipeline(VisionPipeline.YELLOW_CONE);
+    //vision.setPipeline(VisionPipeline.YELLOW_CONE);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -6,9 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.RobotContainer.*;
-public class EnableLED extends CommandBase {
+public class PurpleLED extends CommandBase {
   /** Creates a new EnableLED. */
-  public EnableLED() {
+  public PurpleLED() {
     addRequirements(led);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -17,6 +17,7 @@ public class EnableLED extends CommandBase {
   @Override
   public void initialize() {
     led.enable();
+    led.setPurple();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

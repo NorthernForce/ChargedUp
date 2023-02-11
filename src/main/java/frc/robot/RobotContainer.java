@@ -8,7 +8,9 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Navigation;
 import frc.robot.commands.CalibrateIMU;
-
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,9 +37,7 @@ public class RobotContainer {
   public static final Vision vision = new Vision();
   private final SendableChooser<Command> autonomousChooser;
   private final Field2d field;
-
   private final OI oi = new OI();
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -46,6 +46,12 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
+    autonomousChooser.addOption("Drive to Point", new DriveToLocation(
+      new Pose2d(
+        13.07,
+        1.09,
+        new Rotation2d(Math.toRadians(180))
+    )));
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
@@ -53,7 +59,6 @@ public class RobotContainer {
     field = new Field2d();
     SmartDashboard.putData("Field", field);
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -63,7 +68,6 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return autonomousChooser.getSelected();
   }
-
   private void initDefaultCommands() {
     drivetrain.setDefaultCommand(new DriveWithJoystick());
   }
@@ -72,5 +76,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("Forward Speed Proportion", drivetrain.getSpeedProportion());
     SmartDashboard.putNumber("Rotation Speed Proportion", drivetrain.getRotationSpeedProportion());
     field.setRobotPose(navigation.getPose2d());
+    SmartDashboard.putNumber("X", navigation.getPose2d().getX());
+    SmartDashboard.putNumber("Y", navigation.getPose2d().getY());
   }
 }

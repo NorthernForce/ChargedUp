@@ -32,12 +32,12 @@ public final class Constants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(25);
     public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
     public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / GEAR_RATIO;
-    public static final double MAX_SPEED = 0; // TODO
-    public static final double MAX_ACCELERATION = 0; // TODO
-    public static final double kS = 0; // TODO
-    public static final double kV = 0; // TODO
-    public static final double kA = 0; // TODO
-    public static final double DRIVE_PROPORTION = 0; // TODO
+    public static final double MAX_SPEED = 2; // TODO
+    public static final double MAX_ACCELERATION = 0.5; // TODO
+    public static final double kS = 0.56438; // TODO
+    public static final double kV = 2.8466; // TODO
+    public static final double kA = 1.1878; // TODO
+    public static final double DRIVE_PROPORTION = 0.0811; // TODO
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
         List.of(
             new AprilTag(1, new Pose3d(

@@ -10,6 +10,8 @@ import frc.robot.util.DynamicTransform3d;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+
 import static frc.robot.RobotContainer.*;
 
 /** Simple subsystem to keep track of the current location of the robot. */
@@ -34,6 +36,7 @@ public class Navigation extends SubsystemBase {
       camera,
       transform3d
     );
+    camera.setPipelineIndex(0);
   }
   /**
    * Gets the current location in Meters
@@ -52,13 +55,13 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance()
     );
     visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
-    //var results = visionEstimator.update();
-    /*if (results.isPresent())
+    var results = visionEstimator.update();
+    if (results.isPresent())
     {
       poseEstimator.addVisionMeasurement(
         results.get().estimatedPose.toPose2d(),
         results.get().timestampSeconds
       );
-    }*/
+    }
   }
 }

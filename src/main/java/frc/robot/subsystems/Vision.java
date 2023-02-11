@@ -52,7 +52,7 @@ public class Vision extends SubsystemBase {
 
   @Override
   public void periodic() {
-    result = camera.getLatestResult();
+  //  result = camera.getLatestResult();
     // This method will be called once per scheduler run
   }
   public boolean hasTarget()
