@@ -8,6 +8,7 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.util.RobotChooser;
 import frc.robot.subsystems.Navigation;
+import frc.robot.chassis.ChassisBase;
 import frc.robot.commands.CalibrateIMU;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -30,7 +31,8 @@ import frc.robot.commands.auto.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public static final Drivetrain drivetrain = new RobotChooser().GetDrivetrain();
+  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final Drivetrain drivetrain = activeChassis.getDrivetrain();
   public static final Navigation navigation
     = new Navigation(new Pose2d(), "webcam", new Transform3d());
   private final SendableChooser<Command> autonomousChooser;
@@ -50,6 +52,7 @@ public class RobotContainer {
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
+    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName()); 
     field = new Field2d();
     SmartDashboard.putData("Field", field);
   }

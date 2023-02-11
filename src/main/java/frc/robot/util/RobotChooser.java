@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.variants.DrivetrainSpeedy;
-import frc.robot.subsystems.variants.DrivetrainSquishy;
+import frc.robot.chassis.*;
 
 /** Add your docs here. */
 public class RobotChooser 
 {
-    private final String ID_FILE_PATH = "robot_settings.txt";
+    private final String ID_FILE_PATH = "/home/admin/robot_settings.txt";
     private final String SQUISHY_ID = "Squishy";
     private final String SPEEDY_ID = "Speedy";
     public RobotChooser() {}
@@ -30,11 +28,12 @@ public class RobotChooser
         {
             File myObj = new File(ID_FILE_PATH);
             Scanner myReader = new Scanner(myObj);
+            String str = myReader.nextLine();
             myReader.close();
-            return myReader.nextLine();
+            return str;
         } catch (FileNotFoundException e)
         {
-            System.out.println("An error occured.");
+            System.err.println("Could not open file " + ID_FILE_PATH);
             e.printStackTrace();
             return "";
         }
@@ -45,21 +44,21 @@ public class RobotChooser
      * Chooses drivetrain object based on persistent ID on robot.
      * @return Drivetrain object for current robot.
      */
-    public Drivetrain GetDrivetrain()
+    public ChassisBase GetChassis()
     {
-        Drivetrain drivetrain;
+        ChassisBase chassis;
         String id = ReadRobotID();
         switch (id) {
             case SQUISHY_ID:
-                drivetrain = new DrivetrainSquishy();
+                chassis = new SquishyChassis();
                 break;
             case SPEEDY_ID:
-                drivetrain = new DrivetrainSpeedy();
+                chassis = new SpeedyChassis();
                 break;
             default:
-                drivetrain = new DrivetrainSpeedy();
+                chassis = new SpeedyChassis();
                 break;
         }
-        return drivetrain;
+        return chassis;
     }
 }

@@ -22,7 +22,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 
-public class Constants {
+public final class Constants {
     public static final int LEFT_PRIMARY_ID = 2;
     public static final int RIGHT_PRIMARY_ID = 1;
     public static final int LEFT_FOLLOWER_ID = 4;
