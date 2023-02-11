@@ -6,7 +6,7 @@ package frc.robot.chassis;
 
 import frc.robot.subsystems.Drivetrain;
 
-/** Add your docs here. */
+/** This is ChassisBase. It is an interface that allows you to get chassis specifics */
 public interface ChassisBase {
     public Drivetrain getDrivetrain();
     public double getConstant(String key);

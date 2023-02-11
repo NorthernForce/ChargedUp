@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import frc.robot.chassis.*;
 
-/** Add your docs here. */
+/** This is RobotChooser. It reads the persistent ID on the roboRIO to choose a chassis.*/
 public class RobotChooser 
 {
     private final String ID_FILE_PATH = "/home/admin/robot_settings.txt";

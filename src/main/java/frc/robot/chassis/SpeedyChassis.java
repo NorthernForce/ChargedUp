@@ -7,7 +7,7 @@ package frc.robot.chassis;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.variants.DrivetrainSpeedy;
 
-/** Add your docs here. */
+/** Chassis specific details about speedy. */
 public class SpeedyChassis implements ChassisBase {
     public SpeedyChassis() {}
     public Drivetrain getDrivetrain() {

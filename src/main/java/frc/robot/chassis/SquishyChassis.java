@@ -7,7 +7,7 @@ package frc.robot.chassis;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.variants.DrivetrainSquishy;
 
-/** Add your docs here. */
+/** Chassis specific details about squishy. */
 public class SquishyChassis implements ChassisBase {
     public SquishyChassis() {}
     public Drivetrain getDrivetrain() {
