@@ -15,9 +15,9 @@ import frc.robot.subsystems.variants.DrivetrainSquishy;
 /** Add your docs here. */
 public class RobotChooser 
 {
-    private final String ID_FILE_PATH = "filename.txt";
-    private final String SQUISHY_ID = "squishy";
-    private final String SPEEDY_ID = "speedy";
+    private final String ID_FILE_PATH = "robot_settings.txt";
+    private final String SQUISHY_ID = "Squishy";
+    private final String SPEEDY_ID = "Speedy";
     public RobotChooser() {}
 
     /**
