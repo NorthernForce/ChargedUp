@@ -37,6 +37,10 @@ public final class Constants {
     public static final double kA = 0; // TODO
     public static final double LEFT_DRIVE_PROPORTION = 0; // TODO
     public static final double RIGHT_DRIVE_PROPORTION = 0; // TODO
+    public static final double FAST_SPEED_FORWARD = 1.0;
+    public static final double FAST_SPEED_ROTATION = 0.75;
+    public static final double SLOW_SPEED_FORWARD = 0.25;
+    public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
     public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
