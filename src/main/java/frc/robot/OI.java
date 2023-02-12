@@ -21,6 +21,12 @@ public class OI {
             () -> driverController.getRightX()
         };
     }
+    public static DoubleSupplier[] getManipulatorSuppliers() {
+            return new DoubleSupplier[] {
+            () -> -driverController.getLeftY(),
+            () -> driverController.getRightX()
+        };
+    }
 
     public void bindButtons() {
         new JoystickButton(driverController, XboxController.Button.kA.value)

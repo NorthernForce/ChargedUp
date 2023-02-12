@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Navigation;
 
@@ -60,7 +61,8 @@ public class RobotContainer {
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
-    drivetrain.setDefaultCommand(new DriveWithJoystick());
+    if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
+    if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
   }
   public void periodic()
   {
