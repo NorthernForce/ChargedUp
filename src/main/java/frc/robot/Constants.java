@@ -131,4 +131,11 @@ public final class Constants {
     public static final double ARM_RAMP_RATE = 0.2;
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
+    /** Solenoids */
+    public static final int ARM_SOLENOID_FORWARD = 0;
+    public static final int ARM_SOLENOID_REVERSE = 1;
+    public static final int MOTOR_SOLENOID_FORWARD = 2;
+    public static final int MOTOR_SOLENOID_REVERSE = 3;
+    public static final int ARM_SOLENOID_ID = 0;
+    public static final int MOTOR_SOLENOID_ID = 1;
 }

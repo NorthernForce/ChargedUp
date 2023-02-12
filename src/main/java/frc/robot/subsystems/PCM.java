@@ -4,7 +4,11 @@
 
 package frc.robot.subsystems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -12,14 +16,38 @@ import frc.robot.Constants;
 public class PCM extends SubsystemBase {
   private final Compressor compressor = new Compressor(Constants.COMPRESSOR_ID,
     PneumaticsModuleType.REVPH);
+  private final Map<Integer, DoubleSolenoid> solenoids = new HashMap<>();
   /** Creates a new Compressor. */
-  public PCM() {}
+  public PCM() {
+    solenoids.put(Constants.ARM_SOLENOID_ID,
+      new DoubleSolenoid(PneumaticsModuleType.REVPH,
+        Constants.ARM_SOLENOID_FORWARD, Constants.ARM_SOLENOID_REVERSE));
+    solenoids.put(Constants.MOTOR_SOLENOID_ID,
+      new DoubleSolenoid(PneumaticsModuleType.REVPH,
+        Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE));
+  }
   /**
-   * Sets solenoid to on or off
-   * @param ID solenoid ID or port
+   * Sets state of the solenoid
+   * @param ID solenoid ID
    * @param state the state to set it at
    */
-  public void setSolenoid(int ID, boolean state)
+  public void setSolenoidState(int ID, DoubleSolenoid.Value state)
+  {
+  }
+  /**
+   * Gets the state of the solenoid
+   * @param ID solenoid ID
+   * @return the state it is at
+   */
+  public DoubleSolenoid.Value getSolenoidState(int ID)
+  {
+    return null;
+  }
+  /**
+   * Toggles the solenoid
+   * @param ID solenoid ID
+   */
+  public void toggleSolenoid(int ID)
   {
   }
   @Override
