@@ -23,8 +23,8 @@ public class OI {
     }
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
-            () -> -driverController.getLeftY(),
-            () -> driverController.getRightX()
+            () -> -manipulatorController.getLeftY(),
+            () -> manipulatorController.getRightX()
         };
     }
 

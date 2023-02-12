@@ -12,7 +12,7 @@ import static frc.robot.RobotContainer.*;
 import java.util.function.DoubleSupplier;
 
 public class ManipulateArmWithJoystick extends CommandBase {
-  private DoubleSupplier[] Speeds = OI.getDriveSuppliers();
+  private DoubleSupplier[] Speeds = OI.getManipulatorSuppliers();
   /** Creates a new ManipulateWithJoystick. */
   public ManipulateArmWithJoystick() {
     addRequirements(arm);
