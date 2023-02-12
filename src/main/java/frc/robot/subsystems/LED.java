@@ -7,13 +7,12 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(0);
+  private final AddressableLED led = new AddressableLED(Constants.LED_PORT);
   private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LED_NUM_LEDS);
   /** Creates a new LED. */
   public LED() {
     led.setLength(buffer.getLength());
     led.setData(buffer);
-
   }
   // Turns LED on.
   public void enable(){
@@ -32,7 +31,7 @@ public class LED extends SubsystemBase {
   {
     for (int i = 0; i < buffer.getLength(); i++)
     {
-      buffer.setLED(i, new Color(1, 1, 0));
+      buffer.setLED(i, Color.kYellow);
     }
     led.setData(buffer);
     led.start();
@@ -41,7 +40,6 @@ public class LED extends SubsystemBase {
   public void disable(){
     led.stop();
   }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

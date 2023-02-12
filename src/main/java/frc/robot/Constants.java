@@ -118,6 +118,7 @@ public final class Constants {
     public static final boolean ROLL_PITCH_SWAPPED = true;
     /** LED Constants */
     public static final int LED_NUM_LEDS = 40;
+    public static final int LED_PORT = 0;
     /** Vision Constants */
     public static final String VISION_CAMERA_NAME = "visionCamera";
 }
