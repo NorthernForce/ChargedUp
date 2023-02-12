@@ -24,7 +24,7 @@ import frc.robot.commands.auto.*;
  */
 public class RobotContainer {
   public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
-  public static final Compressor compressor = Constants.COMPRESSOR_ENABLED ? new Compressor() : null;
+  public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
   public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? new Drivetrain() : null;
   public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
   public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;

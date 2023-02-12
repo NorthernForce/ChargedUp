@@ -4,25 +4,22 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class Compressor extends SubsystemBase {
+public class PCM extends SubsystemBase {
+  private final Compressor compressor = new Compressor(Constants.COMPRESSOR_ID,
+    PneumaticsModuleType.REVPH);
   /** Creates a new Compressor. */
-  public Compressor() {}
-  /** Enables Compressor */
-  public void enable()
-  {
-  }
+  public PCM() {}
   /**
    * Sets solenoid to on or off
    * @param ID solenoid ID or port
    * @param state the state to set it at
    */
   public void setSolenoid(int ID, boolean state)
-  {
-  }
-  /** Turns the compressor off */
-  public void disable()
   {
   }
   @Override

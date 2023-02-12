@@ -25,6 +25,8 @@ public class Navigation extends SubsystemBase {
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
+    assert drivetrain != null;
+    assert imu != null;
     drivetrain.resetEncoderRotations();
     poseEstimator = new DifferentialDrivePoseEstimator(
       new DifferentialDriveKinematics(Constants.TRACK_WIDTH),

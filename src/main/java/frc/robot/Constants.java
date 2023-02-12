@@ -125,4 +125,10 @@ public final class Constants {
     public static final int LED_PORT = 0;
     /** Vision Constants */
     public static final String VISION_CAMERA_NAME = "visionCamera";
+    /** Arm Constants */
+    public static final int ARM_LEFT_MOTOR = 5;
+    public static final int ARM_RIGHT_MOTOR = 6;
+    public static final double ARM_RAMP_RATE = 0.2;
+    /** Compressor Constants */
+    public static final int COMPRESSOR_ID = 7;
 }
