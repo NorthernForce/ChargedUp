@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.*;
 
 /**
@@ -48,6 +48,9 @@ public class RobotContainer {
         1.09,
         new Rotation2d(Math.toRadians(180))
     )));
+    autonomousChooser.addOption("Blue #1", new SequentialCommandGroup(
+      new DriveToLocation(null)
+    ));
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
   }
   /**
