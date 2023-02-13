@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -90,6 +92,17 @@ public class Arm extends SubsystemBase {
    */
   public void setArmSpeed(double speed)
   {
+  }
+  /**
+   * Gets the current translation of the end of the arm from the robot orign
+   * @return Translation3d
+   */
+  public Translation3d getArmTranslation()
+  {
+    return Constants.ARM_ORIGIN.plus(new Translation3d(
+      isExtended() ? Constants.ARM_EXTENDED_LENGTH : Constants.ARM_RETRACTED_LENGTH,
+      new Rotation3d(0, getAngle().getRadians(), 0)
+    ));
   }
   @Override
   public void periodic() {

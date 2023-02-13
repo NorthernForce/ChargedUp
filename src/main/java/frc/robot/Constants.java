@@ -7,7 +7,10 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.util.DynamicTransform3d;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -43,6 +46,7 @@ public final class Constants {
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
     public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
+    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d();
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
         List.of(
             new AprilTag(1, new Pose3d(
@@ -129,6 +133,9 @@ public final class Constants {
     public static final int ARM_LEFT_MOTOR = 5;
     public static final int ARM_RIGHT_MOTOR = 6;
     public static final double ARM_RAMP_RATE = 0.2;
+    public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
+    public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
+    public static final Translation3d ARM_ORIGIN = null; // TODO
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */
