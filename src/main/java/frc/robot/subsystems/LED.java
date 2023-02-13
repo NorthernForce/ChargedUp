@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.util.Color;
 public class LED extends SubsystemBase {
   private final AddressableLED led = new AddressableLED(Constants.LED_PORT);
   private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LED_NUM_LEDS);
+  private Color currentColor = null;
   /** Creates a new LED. */
   public LED() {
     led.setLength(buffer.getLength());
@@ -20,25 +21,30 @@ public class LED extends SubsystemBase {
   }
   public void setPurple()
   {
+    currentColor = Color.kPurple;
     for (int i = 0; i < buffer.getLength(); i++)
     {
       buffer.setLED(i, Color.kPurple);
     }
     led.setData(buffer);
-    led.start();
   }
   public void setYellow()
   {
+    currentColor = Color.kYellow;
     for (int i = 0; i < buffer.getLength(); i++)
     {
       buffer.setLED(i, Color.kYellow);
     }
     led.setData(buffer);
-    led.start();
   }
   // Turns LED off.
-  public void disable(){
+  public void disable()
+  {
     led.stop();
+  }
+  public Color getColor()
+  {
+    return currentColor;
   }
   @Override
   public void periodic() {
