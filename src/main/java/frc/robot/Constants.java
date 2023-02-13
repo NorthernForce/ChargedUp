@@ -136,6 +136,7 @@ public final class Constants {
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
     public static final Translation3d ARM_ORIGIN = null; // TODO
+    public static final int ARM_POTENTIOMETER_ID = 0;
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,6 +24,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Arm extends SubsystemBase {
   // We know we will have two talons
   private final WPI_TalonFX leftMotor, rightMotor;
+  private final AnalogPotentiometer potentiometer;
   /**
    * Configures a controller
    * @param controller motor controller
@@ -50,6 +52,7 @@ public class Arm extends SubsystemBase {
     assert pcm != null;
     leftMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
     rightMotor = new WPI_TalonFX(Constants.ARM_RIGHT_MOTOR);
+    potentiometer = new AnalogPotentiometer(Constants.ARM_POTENTIOMETER_ID, 180, -90);
     leftMotor.setInverted(TalonFXInvertType.OpposeMaster);
     leftMotor.follow(rightMotor);
     configureController(leftMotor, true);
@@ -69,7 +72,7 @@ public class Arm extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return null;
+    return Rotation2d.fromDegrees(potentiometer.get());
   }
   /**
    * Set arm angle

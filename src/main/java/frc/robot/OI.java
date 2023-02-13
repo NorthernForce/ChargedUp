@@ -29,7 +29,6 @@ public class OI {
             () -> manipulatorController.getRightX()
         };
     }
-
     public void bindButtons() {
         if (Constants.DRIVETRAIN_ENABLED)
         {
