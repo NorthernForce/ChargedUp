@@ -10,6 +10,7 @@ import frc.robot.subsystems.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,7 +32,7 @@ public class RobotContainer {
   public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
   public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
-  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? new activeChassis.getDrivetrain() : null;
+  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? activeChassis.getDrivetrain() : null;
   public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
   public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;
   public static final LED led = Constants.LED_ENABLED ? new LED() : null;
@@ -61,7 +62,7 @@ public class RobotContainer {
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
     SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName()); 
-    field = new Field2d();
+    Field2d field = new Field2d();
     SmartDashboard.putData("Field", field);
   }
   /**
