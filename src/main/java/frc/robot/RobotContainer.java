@@ -1,24 +1,20 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.util.RobotChooser;
-import frc.robot.subsystems.Navigation;
-import frc.robot.chassis.ChassisBase;
+import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.CalibrateIMU;
 
+import frc.robot.util.RobotChooser;
+import frc.robot.chassis.ChassisBase;
+import frc.robot.subsystems.*;
+
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.*;
 
 /**
@@ -31,15 +27,18 @@ import frc.robot.commands.auto.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
   public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
-  public static final Drivetrain drivetrain = activeChassis.getDrivetrain();
-  public static final Navigation navigation
-    = new Navigation(new Pose2d(), "webcam", new Transform3d());
+  public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
+  public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
+  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? new activeChassis.getDrivetrain() : null;
+  public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
+  public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;
+  public static final LED led = Constants.LED_ENABLED ? new LED() : null;
+  public static final Navigation navigation = Constants.NAVIGATION_ENABLED ? new Navigation() : null;
+  public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
   private final SendableChooser<Command> autonomousChooser;
-  private final Field2d field;
-
   private final OI oi = new OI();
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -48,6 +47,15 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
+    autonomousChooser.addOption("Drive to Point", new DriveToLocation(
+      new Pose2d(
+        13.07,
+        1.09,
+        new Rotation2d(Math.toRadians(180))
+    )));
+    autonomousChooser.addOption("Blue #1", new SequentialCommandGroup(
+      new DriveToLocation(null)
+    ));
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
@@ -56,7 +64,6 @@ public class RobotContainer {
     field = new Field2d();
     SmartDashboard.putData("Field", field);
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -66,14 +73,12 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return autonomousChooser.getSelected();
   }
-
+  /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
-    drivetrain.setDefaultCommand(new DriveWithJoystick());
+    if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
+    if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
   }
   public void periodic()
   {
-    SmartDashboard.putNumber("Forward Speed Proportion", drivetrain.getSpeedProportion());
-    SmartDashboard.putNumber("Rotation Speed Proportion", drivetrain.getRotationSpeedProportion());
-    field.setRobotPose(navigation.getPose2d());
   }
 }
