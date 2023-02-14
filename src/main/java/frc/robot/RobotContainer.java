@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.CalibrateIMU;
 
 import frc.robot.util.RobotChooser;
@@ -16,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.auto.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

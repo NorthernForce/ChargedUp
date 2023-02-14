@@ -2,12 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.auto;
+package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
@@ -20,19 +21,20 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Simple command to drive to a destination using a RamseteCommand
+ * Simple command to drive along a path of translations using a RamseteCommand
  */
-public class DriveToLocation extends RamseteCommand {
+public class DriveAlongPath extends RamseteCommand {
   private final Supplier<Boolean> canDrive;
   /**
-   * Creates a new DriveToLocation
-   * @param newLocation the destination (Pose2d)
+   * Creates a new DriveAlongPath
+   * @param waypoints a list of waypoints (List<Translation2d>)
+   * @param newLocation a final destination (Pose2d)
    */
-  public DriveToLocation(Pose2d newLocation) {
+  public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation) {
     super(
       TrajectoryGenerator.generateTrajectory(
         navigation.getPose2d(),
-        List.of(),
+        waypoints,
         newLocation,
         new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
       navigation::getPose2d,
@@ -48,15 +50,16 @@ public class DriveToLocation extends RamseteCommand {
     canDrive = () -> true;
   }
   /**
-   * Creates a new DriveToLocation
-   * @param newLocation the destination (Pose2d)
-   * @param canDrive whether the drivetrain can drive or not
+   * Creates a new DriveAlongPath
+   * @param waypoints a list of waypoints (List<Translation2d>)
+   * @param newLocation a final destination (Pose2d)
+   * @param canDrive a supplier to check whether the drivetrain can drive or not
    */
-  public DriveToLocation(Pose2d newLocation, Supplier<Boolean> canDrive) {
+  public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation, Supplier<Boolean> canDrive) {
     super(
       TrajectoryGenerator.generateTrajectory(
         navigation.getPose2d(),
-        List.of(),
+        waypoints,
         newLocation,
         new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
       navigation::getPose2d,
@@ -72,8 +75,8 @@ public class DriveToLocation extends RamseteCommand {
     this.canDrive = canDrive;
   }
   /**
-  * Overrides Ramsete.execute() to only execute if canDrive returns true
-  */
+   * Overrides Ramsete.execute() to only execute if canDrive returns true
+   */
   @Override
   public void execute()
   {
