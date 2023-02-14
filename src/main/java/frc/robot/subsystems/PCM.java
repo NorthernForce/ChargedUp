@@ -19,12 +19,11 @@ public class PCM extends SubsystemBase {
   private final Map<Integer, DoubleSolenoid> solenoids = new HashMap<>();
   /** Creates a new Compressor. */
   public PCM() {
-    solenoids.put(Constants.ARM_SOLENOID_ID,
-      new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.ARM_SOLENOID_FORWARD, Constants.ARM_SOLENOID_REVERSE));
+    compressor.enableDigital();
     solenoids.put(Constants.MOTOR_SOLENOID_ID,
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE));
+        Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
+    );
   }
   /**
    * Sets state of the solenoid
