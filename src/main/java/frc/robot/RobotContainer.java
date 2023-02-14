@@ -2,8 +2,11 @@ package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.CalibrateIMU;
+
+import frc.robot.util.RobotChooser;
+import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Navigation;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,9 +27,11 @@ import frc.robot.commands.auto.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
   public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
-  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? new Drivetrain() : null;
+  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? new activeChassis.getDrivetrain() : null;
   public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
   public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;
   public static final LED led = Constants.LED_ENABLED ? new LED() : null;
@@ -52,6 +57,12 @@ public class RobotContainer {
       new DriveToLocation(null)
     ));
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
+    SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
+    SmartDashboard.putData("Stop", new Stop(0.1));
+    SmartDashboard.putData("PID Balance", new PIDBalance());
+    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName()); 
+    field = new Field2d();
+    SmartDashboard.putData("Field", field);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
