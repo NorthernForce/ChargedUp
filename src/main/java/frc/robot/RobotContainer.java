@@ -10,7 +10,6 @@ import frc.robot.subsystems.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,9 +60,7 @@ public class RobotContainer {
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
-    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName()); 
-    Field2d field = new Field2d();
-    SmartDashboard.putData("Field", field);
+    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
