@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Relay;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.getNumber;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber;
 import edu.wpi.first.wpilibj.util.Color;
 
 
@@ -19,7 +21,9 @@ public class LED extends SubsystemBase {
   public LED() {
     led.setLength(50);
     led.setData(buffer);
-
+    putNumber("red", 255);
+    putNumber("green", 100);
+    putNumber("blue", 0);
   }
   // Turns LED on.
   public void enable(){
@@ -38,7 +42,11 @@ public class LED extends SubsystemBase {
   {
     for (int i = 0; i < buffer.getLength(); i++)
     {
-      buffer.setLED(i, new Color(1, 1, 0));
+      buffer.setLED(i, new Color(
+        (int)getNumber("red", 255), 
+        (int)getNumber("green", 100), 
+        (int)getNumber("blue", 0)
+      ));
     }
     led.setData(buffer);
     led.start();
