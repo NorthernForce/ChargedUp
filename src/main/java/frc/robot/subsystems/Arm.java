@@ -10,9 +10,8 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
-import static frc.robot.RobotContainer.*;
+import static frc.robot.RobotContainer.activeChassis;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -25,6 +24,9 @@ public class Arm extends SubsystemBase {
   // We know we will have two talons
   private final WPI_TalonFX leftMotor, rightMotor;
   private final AnalogPotentiometer potentiometer;
+  private final Translation3d ARM_ORIGIN = (Translation3d)activeChassis.getObjectConstant("ARM_ORIGIN");
+  private final double ARM_EXTENDED_LENGTH = activeChassis.getDoubleConstant("ARM_EXTENDED_LENGTH");
+  private final double ARM_RETRACTED_LENGTH = activeChassis.getDoubleConstant("ARM_RETRACTED_LENGTH");
   /**
    * Configures a controller
    * @param controller motor controller
@@ -38,8 +40,8 @@ public class Arm extends SubsystemBase {
     controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,
       currentLimit, limitThreshold, triggerThreshTimeInSec));
     if (!isFollower) {
-      controller.configClosedloopRamp(Constants.ARM_RAMP_RATE);
-      controller.configOpenloopRamp(Constants.ARM_RAMP_RATE);
+      controller.configClosedloopRamp(activeChassis.getDoubleConstant("ARM_RAMP_RATE"));
+      controller.configOpenloopRamp(activeChassis.getDoubleConstant("ARM_RAMP_RATE"));
     }
     controller.setNeutralMode(NeutralMode.Brake);
     TalonFXConfiguration configs = new TalonFXConfiguration();
@@ -49,10 +51,9 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {
     // Assert required subsystem have been declared
-    assert pcm != null;
-    leftMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
-    rightMotor = new WPI_TalonFX(Constants.ARM_RIGHT_MOTOR);
-    potentiometer = new AnalogPotentiometer(Constants.ARM_POTENTIOMETER_ID, 180, -90);
+    leftMotor = new WPI_TalonFX(activeChassis.getIntegerConstant("ARM_LEFT_MOTOR_ID"));
+    rightMotor = new WPI_TalonFX(activeChassis.getIntegerConstant("ARM_RIGHT_MOTOR_ID"));
+    potentiometer = new AnalogPotentiometer(activeChassis.getIntegerConstant("ARM_POTENTIOMETER_ID"), 180, -90);
     leftMotor.setInverted(TalonFXInvertType.OpposeMaster);
     leftMotor.follow(rightMotor);
     configureController(leftMotor, true);
@@ -102,13 +103,13 @@ public class Arm extends SubsystemBase {
    */
   public Translation3d getArmTranslation()
   {
-    return Constants.ARM_ORIGIN.plus(new Translation3d(
-      isExtended() ? Constants.ARM_EXTENDED_LENGTH : Constants.ARM_RETRACTED_LENGTH,
+    return ARM_ORIGIN.plus(new Translation3d(
+      isExtended() ? ARM_EXTENDED_LENGTH : ARM_RETRACTED_LENGTH,
       new Rotation3d(0, getAngle().getRadians(), 0)
     ));
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Arm Angle", arm.getAngle().getDegrees());
+    SmartDashboard.putNumber("Arm Angle", getAngle().getDegrees());
   }
 }

@@ -1,14 +1,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 
+import static frc.robot.RobotContainer.activeChassis;
+
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(Constants.LED_PORT);
-  private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LED_NUM_LEDS);
+  private final AddressableLED led = new AddressableLED(activeChassis.getIntegerConstant("LED_PORT"));
+  private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(activeChassis.getIntegerConstant("NUM_ACTIVE_LEDS"));
   private Color currentColor = null;
   /** Creates a new LED. */
   public LED() {

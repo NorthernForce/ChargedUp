@@ -6,13 +6,13 @@ import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.RobotContainer.activeChassis;
 
 public class Vision extends SubsystemBase {
-  private final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(4);
-  private final double TARGET_HEIGHT_METERS = Units.feetToMeters(0);
-  private final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);
-  private PhotonCamera camera = new PhotonCamera(Constants.VISION_CAMERA_NAME);
+  private final double CAMERA_HEIGHT_METERS = activeChassis.getDoubleConstant("CAMERA_HEIGHT_METERS");
+  private final double TARGET_HEIGHT_METERS = activeChassis.getDoubleConstant("TARGET_HEIGHT_METERS");
+  private final double CAMERA_PITCH_RADIANS = activeChassis.getDoubleConstant("CAMERA_PITCH_RADIANS");
+  private PhotonCamera camera = new PhotonCamera(activeChassis.getStringConstant("VISION_CAMERA_NAME"));
   private PhotonPipelineResult result = null;
   public enum VisionPipeline
   {

@@ -11,8 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.subsystems.Drivetrain;
-
-import static frc.robot.Constants.*;
+import static frc.robot.RobotContainer.activeChassis;
 
 public class DrivetrainSquishy extends Drivetrain {
   private final CANSparkMax leftPrimary;
@@ -26,10 +25,10 @@ public class DrivetrainSquishy extends Drivetrain {
    * Constructs a drivetrain
    */
   public DrivetrainSquishy() {
-    leftPrimary = new CANSparkMax(1, MotorType.kBrushless);
-    rightPrimary = new CANSparkMax(2, MotorType.kBrushless);
-    leftFollower = new CANSparkMax(3, MotorType.kBrushless);
-    rightFollower = new CANSparkMax(4, MotorType.kBrushless);
+    leftPrimary = new CANSparkMax(activeChassis.getIntegerConstant("LEFT_PRIMARY_ID"), MotorType.kBrushless);
+    rightPrimary = new CANSparkMax(activeChassis.getIntegerConstant("RIGHT_PRIMARY_ID"), MotorType.kBrushless);
+    leftFollower = new CANSparkMax(activeChassis.getIntegerConstant("LEFT_FOLLOWER_ID"), MotorType.kBrushless);
+    rightFollower = new CANSparkMax(activeChassis.getIntegerConstant("LEFT_FOLLOWER_ID"), MotorType.kBrushless);
     setFollowers();
     setInvert();
     configureAllControllers();
@@ -104,7 +103,7 @@ public class DrivetrainSquishy extends Drivetrain {
    */
   public double getLeftDistance()
   {
-    return (-leftPrimary.getEncoder().getPosition()) * METERS_PER_REVOLUTION;
+    return (-leftPrimary.getEncoder().getPosition()) * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -112,7 +111,7 @@ public class DrivetrainSquishy extends Drivetrain {
    */
   public double getRightDistance()
   {
-    return (rightPrimary.getEncoder().getPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (rightPrimary.getEncoder().getPosition() / 2048) * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
   }
   /**
    * Sets the two secondary motors to follow the primary motors
@@ -151,8 +150,8 @@ public class DrivetrainSquishy extends Drivetrain {
    */
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    double leftVelocity = ((-leftPrimary.getEncoder().getVelocity())) * 60 * METERS_PER_REVOLUTION;
-    double rightVelocity = ((rightPrimary.getEncoder().getVelocity()) / 2048) * 60 * METERS_PER_REVOLUTION;
+    double leftVelocity = ((-leftPrimary.getEncoder().getVelocity())) * 60 * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
+    double rightVelocity = ((rightPrimary.getEncoder().getVelocity()) / 2048) * 60 * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
     return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
   }
   /**

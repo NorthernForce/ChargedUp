@@ -15,7 +15,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.subsystems.Drivetrain;
 
-import static frc.robot.Constants.*;
+import static frc.robot.RobotContainer.activeChassis;
 
 public class DrivetrainSpeedy extends Drivetrain {
   private final WPI_TalonFX leftPrimary;
@@ -28,10 +28,10 @@ public class DrivetrainSpeedy extends Drivetrain {
    * Constructs a drivetrain
    */
   public DrivetrainSpeedy() {
-    leftPrimary = new WPI_TalonFX(LEFT_PRIMARY_ID);
-    rightPrimary = new WPI_TalonFX(RIGHT_PRIMARY_ID);
-    leftFollower = new WPI_TalonFX(LEFT_FOLLOWER_ID);
-    rightFollower = new WPI_TalonFX(RIGHT_FOLLOWER_ID);
+    leftPrimary = new WPI_TalonFX(activeChassis.getIntegerConstant("LEFT_PRIMARY_ID"));
+    rightPrimary = new WPI_TalonFX(activeChassis.getIntegerConstant("RIGHT_PRIMARY_ID"));
+    leftFollower = new WPI_TalonFX(activeChassis.getIntegerConstant("LEFT_FOLLOWER_ID"));
+    rightFollower = new WPI_TalonFX(activeChassis.getIntegerConstant("RIGHT_FOLLOWER_ID"));
     setFollowers();
     setInvert();
     configureAllControllers();
@@ -102,7 +102,7 @@ public class DrivetrainSpeedy extends Drivetrain {
    */
   public double getLeftDistance()
   {
-    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -110,7 +110,7 @@ public class DrivetrainSpeedy extends Drivetrain {
    */
   public double getRightDistance()
   {
-    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
   }
   /**
    * Sets the two secondary motors to follow the primary motors
@@ -149,8 +149,8 @@ public class DrivetrainSpeedy extends Drivetrain {
     controller.configFactoryDefault();
     controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
     if (!isFollower) {
-      controller.configClosedloopRamp(DRIVE_RAMP_RATE);
-      controller.configOpenloopRamp(DRIVE_RAMP_RATE);
+      controller.configClosedloopRamp(activeChassis.getDoubleConstant("DRIVE_RAMP_RATE"));
+      controller.configOpenloopRamp(activeChassis.getDoubleConstant("DRIVE_RAMP_RATE"));
     }
     controller.setNeutralMode(NeutralMode.Brake);
     TalonFXConfiguration configs = new TalonFXConfiguration();
@@ -163,8 +163,8 @@ public class DrivetrainSpeedy extends Drivetrain {
    */
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
-    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
+    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * activeChassis.getDoubleConstant("METERS_PER_REVOLUTION");
     return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
   }
   /**

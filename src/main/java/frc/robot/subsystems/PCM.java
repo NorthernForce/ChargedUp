@@ -11,18 +11,18 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.RobotContainer.activeChassis;
 
 public class PCM extends SubsystemBase {
-  private final Compressor compressor = new Compressor(Constants.COMPRESSOR_ID,
+  private final Compressor compressor = new Compressor(activeChassis.getIntegerConstant("COMPRESSOR_ID"),
     PneumaticsModuleType.REVPH);
   private final Map<Integer, DoubleSolenoid> solenoids = new HashMap<>();
   /** Creates a new Compressor. */
   public PCM() {
     compressor.enableDigital();
-    solenoids.put(Constants.MOTOR_SOLENOID_ID,
+    solenoids.put(activeChassis.getIntegerConstant("MOTOR_SOLENOID_ID"),
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
+      activeChassis.getIntegerConstant("MOTOR_SOLENOID_FORWARD"), activeChassis.getIntegerConstant("MOTOR_SOLENOID_REVERSE"))
     );
   }
   /**

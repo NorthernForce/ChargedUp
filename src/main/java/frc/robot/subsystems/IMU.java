@@ -4,10 +4,11 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.RobotContainer.activeChassis;
 
 public class IMU extends SubsystemBase {
   private final AHRS ahrs = new AHRS();
+  private final boolean ROLL_PITCH_SWAPPED = activeChassis.getBooleanConstant("ROLL_PITCH_SWAPPED");
   /** Creates a new IMU. */
   public IMU() {
   }
@@ -16,7 +17,7 @@ public class IMU extends SubsystemBase {
    * @return pitch in degrees
    */
   public double getPitch() {
-    return Constants.ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch();
+    return ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch();
   }
   /**
    * Gets the yaw.
@@ -30,7 +31,7 @@ public class IMU extends SubsystemBase {
    * @return roll in degrees
    */
   public double getRoll() {
-    return Constants.ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll();
+    return ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll();
   }
   /**
    * Gets the current Rotation2d

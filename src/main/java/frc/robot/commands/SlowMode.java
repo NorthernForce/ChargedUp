@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import static frc.robot.RobotContainer.activeChassis;
 
 import static frc.robot.RobotContainer.drivetrain;
 
@@ -17,7 +17,7 @@ public class SlowMode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setSpeedProportions(Constants.SLOW_SPEED_FORWARD, Constants.SLOW_SPEED_ROTATION);
+    drivetrain.setSpeedProportions(activeChassis.getDoubleConstant("SLOW_SPEED_FORWARD"), activeChassis.getDoubleConstant("SLOW_SPEED_ROTATION"));
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -25,7 +25,7 @@ public class SlowMode extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.setSpeedProportions(Constants.FAST_SPEED_FORWARD, Constants.FAST_SPEED_ROTATION);
+    drivetrain.setSpeedProportions(activeChassis.getDoubleConstant("FAST_SPEED_FORWARD"), activeChassis.getDoubleConstant("FAST_SPEED_ROTATION"));
   }
   // Returns true when the command should end.
   @Override

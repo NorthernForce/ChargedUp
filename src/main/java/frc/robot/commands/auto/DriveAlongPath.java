@@ -13,7 +13,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants;
 
 import static frc.robot.RobotContainer.*;
 
@@ -36,14 +35,14 @@ public class DriveAlongPath extends RamseteCommand {
         navigation.getPose2d(),
         waypoints,
         newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
+        new TrajectoryConfig(activeChassis.getDoubleConstant("MAX_SPEED"), activeChassis.getDoubleConstant("MAX_ACCELERATION"))),
       navigation::getPose2d,
       new RamseteController(),
-      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
+      new SimpleMotorFeedforward(activeChassis.getDoubleConstant("kS"), activeChassis.getDoubleConstant("kV"), activeChassis.getDoubleConstant("kA")),
+      new DifferentialDriveKinematics(activeChassis.getDoubleConstant("TRACK_WIDTH")),
       drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
+      new PIDController(activeChassis.getDoubleConstant("LEFT_DRIVE_PROPORTION"), 0, 0),
+      new PIDController(activeChassis.getDoubleConstant("RIGHT_DRIVE_PROPORTION"), 0, 0),
       drivetrain::driveVolts,
       drivetrain, navigation
     );
@@ -61,14 +60,14 @@ public class DriveAlongPath extends RamseteCommand {
         navigation.getPose2d(),
         waypoints,
         newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
+        new TrajectoryConfig(activeChassis.getDoubleConstant("MAX_SPEED"), activeChassis.getDoubleConstant("MAX_ACCELERATION"))),
       navigation::getPose2d,
       new RamseteController(),
-      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
+      new SimpleMotorFeedforward(activeChassis.getDoubleConstant("kS"), activeChassis.getDoubleConstant("kV"), activeChassis.getDoubleConstant("kA")),
+      new DifferentialDriveKinematics(activeChassis.getDoubleConstant("TRACK_WIDTH")),
       drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
+      new PIDController(activeChassis.getDoubleConstant("LEFT_DRIVE_PROPORTION"), 0, 0),
+      new PIDController(activeChassis.getDoubleConstant("RIGHT_DRIVE_PROPORTION"), 0, 0),
       drivetrain::driveVolts,
       drivetrain, navigation
     );
