@@ -6,9 +6,16 @@ package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import static frc.robot.RobotContainer.drivetrain;;
+
 public class DriveMeters extends CommandBase {
+  private final double speed, rotation, meters;
   /** Creates a new DriveForDistance. */
-  public DriveMeters() {
+  public DriveMeters(double speed, double rotation, double meters) {
+    addRequirements(drivetrain);
+    this.speed = speed;
+    this.rotation = rotation;
+    this.meters = meters;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,7 +25,9 @@ public class DriveMeters extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    drivetrain.drive(speed, rotation);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -27,6 +36,6 @@ public class DriveMeters extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(drivetrain.getRightDistance() + drivetrain.getLeftDistance())/2 > meters);
   }
 }
