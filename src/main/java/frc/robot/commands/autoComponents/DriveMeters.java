@@ -10,6 +10,7 @@ import static frc.robot.RobotContainer.drivetrain;;
 
 public class DriveMeters extends CommandBase {
   private final double speed, rotation, meters;
+  private double startMeters;
   /** Creates a new DriveForDistance. */
   public DriveMeters(double speed, double rotation, double meters) {
     addRequirements(drivetrain);
@@ -21,7 +22,9 @@ public class DriveMeters extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.startMeters = (drivetrain.getRightDistance() + drivetrain.getLeftDistance())/2;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -36,6 +39,7 @@ public class DriveMeters extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(drivetrain.getRightDistance() + drivetrain.getLeftDistance())/2 > meters);
+    final double currentMeters = (drivetrain.getRightDistance() + drivetrain.getLeftDistance())/2;
+    return (Math.abs(currentMeters - this.startMeters) > meters);
   }
 }

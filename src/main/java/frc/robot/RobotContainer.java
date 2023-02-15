@@ -3,7 +3,7 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
-import frc.robot.commands.autoPaths.HG_Mob;
+import frc.robot.commands.autoPaths.*;
 import frc.robot.commands.CalibrateIMU;
 
 import frc.robot.util.RobotChooser;
@@ -61,7 +61,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autonomousChooser.getSelected();
+    // return autonomousChooser.getSelected();
+    return new OG_1PieMob();
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
