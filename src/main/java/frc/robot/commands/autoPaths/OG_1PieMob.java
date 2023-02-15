@@ -34,6 +34,5 @@ public class OG_1PieMob extends SequentialCommandGroup {
     addCommands(new DriveMeters(-0.55, 0, 1));
 
     addCommands(new Stop(0.1));
-
   }
 }
