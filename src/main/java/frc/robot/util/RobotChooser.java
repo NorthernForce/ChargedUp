@@ -16,6 +16,7 @@ public class RobotChooser
     private final String ID_FILE_PATH = "/home/admin/robot_settings.txt";
     private final String SQUISHY_ID = "Squishy";
     private final String SPEEDY_ID = "Speedy";
+    private final String MAXWELL_ID = "Maxwell";
     public RobotChooser() {}
 
     /**
@@ -55,8 +56,11 @@ public class RobotChooser
             case SPEEDY_ID:
                 chassis = new SpeedyChassis();
                 break;
+            case MAXWELL_ID:
+                chassis = new MaxwellChassis();
+                break;
             default:
-                chassis = new SpeedyChassis();
+                chassis = new MaxwellChassis();
                 break;
         }
         return chassis;
