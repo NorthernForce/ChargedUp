@@ -5,31 +5,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+
 import static frc.robot.RobotContainer.*;
 
-public class DefaultClamp extends CommandBase {
-  /** Creates a new DefaultClamp. */
-  public DefaultClamp() {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class RunOuttake extends CommandBase {
+  /** Creates a new RunIntake. */
+  public RunOuttake() {
     addRequirements(gripper);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (gripper.hasObject() && !gripper.isClamped())
-    {
-      gripper.clamp();
-    }
-    else if (!gripper.hasObject() && gripper.isClamped())
-    {
-      gripper.release();
-    }
+    gripper.setSpeed(Constants.GRIPPER_OUTTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
