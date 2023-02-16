@@ -47,15 +47,13 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-    // autonomousChooser.addOption("Drive to Point", new DriveToLocation(
-    //   new Pose2d(
-    //     13.07,
-    //     1.09,
-    //     new Rotation2d(Math.toRadians(180))
-    // )));
-    autonomousChooser.addOption("Blue #1", new SequentialCommandGroup(
-      // new DriveToLocation(null)
-    ));
+/*    autonomousChooser.addOption("Drive to Point", new DriveToLocation(
+      new Pose2d(
+        13.07,
+        1.09,
+        new Rotation2d(Math.toRadians(180))
+    )));
+    */
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
