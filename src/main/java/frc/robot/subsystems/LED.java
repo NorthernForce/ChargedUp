@@ -30,10 +30,10 @@ public class LED extends SubsystemBase {
   }
   public void setYellow()
   {
-    currentColor = Color.kYellow;
+    currentColor = new Color(255, 100, 0);
     for (int i = 0; i < buffer.getLength(); i++)
     {
-      buffer.setLED(i, Color.kYellow);
+      buffer.setLED(i, new Color(255, 100, 0));
     }
     led.setData(buffer);
   }

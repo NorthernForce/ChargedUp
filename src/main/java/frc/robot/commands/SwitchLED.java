@@ -18,11 +18,11 @@ public class SwitchLED extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (led.getColor() == Color.kYellow)
+    if (led.getColor() == Color.kPurple)
     {
-      led.setPurple();
+      led.setYellow();
     }
-    else led.setYellow();
+    else led.setPurple();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
