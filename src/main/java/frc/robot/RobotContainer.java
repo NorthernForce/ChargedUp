@@ -2,20 +2,19 @@ package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.autoComponents.*;
+import frc.robot.commands.autoPaths.*;
 import frc.robot.commands.CalibrateIMU;
 
 import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.auto.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -47,13 +46,9 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-/*    autonomousChooser.addOption("Drive to Point", new DriveToLocation(
-      new Pose2d(
-        13.07,
-        1.09,
-        new Rotation2d(Math.toRadians(180))
-    )));
-    */
+    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
+    autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
+
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
@@ -74,7 +69,5 @@ public class RobotContainer {
     if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
     if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
   }
-  public void periodic()
-  {
-  }
+  public void periodic() {}
 }
