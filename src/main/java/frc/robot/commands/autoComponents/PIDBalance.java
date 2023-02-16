@@ -34,12 +34,7 @@ public class PIDBalance extends CommandBase {
    */
   @Override
   public void execute() {
-    System.err.println("Im doing it!!!");
-    double forwardSpeed = -controller.calculate(Math.toDegrees(imu.getPitch()));
-
-    SmartDashboard.putNumber("Pitch", Math.toDegrees(imu.getPitch()));
-    SmartDashboard.putNumber("PID Output", forwardSpeed);
-
+    double forwardSpeed = -controller.calculate(imu.getPitch());
     drivetrain.drive(forwardSpeed, 0);
   }
   /**
