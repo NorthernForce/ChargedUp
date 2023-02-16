@@ -5,6 +5,7 @@
 package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import static frc.robot.RobotContainer.*;
@@ -15,6 +16,7 @@ public class PIDBalance extends CommandBase {
   private PIDController controller;
   /** Creates a new PIDBalance. */
   public PIDBalance() {
+    System.err.println("Balance do be constructing tho");
     addRequirements(drivetrain, navigation);
   }
   /**
@@ -22,6 +24,7 @@ public class PIDBalance extends CommandBase {
    */
   @Override
   public void initialize() {
+    System.err.println("Im gonna blance :)");
     controller = new PIDController(2e-2, 0, 0);
     controller.setSetpoint(0);
   }
@@ -31,14 +34,21 @@ public class PIDBalance extends CommandBase {
    */
   @Override
   public void execute() {
+    System.err.println("Im doing it!!!");
     double forwardSpeed = -controller.calculate(Math.toDegrees(imu.getPitch()));
+
+    SmartDashboard.putNumber("Pitch", Math.toDegrees(imu.getPitch()));
+    SmartDashboard.putNumber("PID Output", forwardSpeed);
+
     drivetrain.drive(forwardSpeed, 0);
   }
   /**
    * Implements CommandBase.end(boolean)
    */
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.err.println("Im donneee");
+  }
   /**
    * Implements CommandBase.isFinished(). Always returns false.
    */

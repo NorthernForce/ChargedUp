@@ -6,6 +6,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class IMU extends SubsystemBase {
   private final AHRS ahrs = new AHRS();
   /** Creates a new IMU. */
@@ -53,5 +55,8 @@ public class IMU extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Pitch", getPitch());
+    SmartDashboard.putNumber("Roll", getRoll()); 
+    SmartDashboard.putNumber("Yaw", getYaw()); 
   }
 }
