@@ -19,20 +19,21 @@ public class OG_1PieMob extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     
-    //Backup
-    addCommands(new DriveMeters(-0.3, 0, 0.3));
-    //Push piece off front
-    addCommands(new DriveMeters(0.3, 0, 0.05));
-    addCommands(new DriveMeters(0.55, 0, 0.05));
-    addCommands(new DriveMeters(-0.55, 0, 0.2));
-    //Push piece forward
-    addCommands(new DriveMeters(0.35, 0, 0.4));
-    addCommands(new DriveForMilliseconds(.3, 0, 5500));
-    //Exit Community
-    addCommands(new DriveMeters(-0.55, 0, 1));
-    addCommands(new DriveMeters(-0.35, 0, 0.6));
-    addCommands(new DriveMeters(-0.55, 0, 1));
-
-    addCommands(new Stop(0.1));
+    addCommands(
+      //Backup
+      new DriveMeters(-0.3, 0, 0.3),
+      //Push piece of front
+      new DriveMeters(0.3, 0, 0.05),
+      new DriveMeters(0.55, 0, 0.05),
+      new DriveMeters(-0.55, 0, 0.2),
+      //Push piece forward
+      new DriveMeters(0.35, 0, 0.4),
+      new DriveForMilliseconds(.3, 0, 5500),
+      //Exit Community
+      new DriveMeters(-0.55, 0, 1),
+      new DriveMeters(-0.35, 0, 0.6),
+      new DriveMeters(-0.55, 0, 1),
+      //Stop
+      new Stop(0.1));
   }
 }

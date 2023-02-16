@@ -46,8 +46,9 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
+    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
+    autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
 
-    autonomousChooser.addOption("HG Mobility", new HG_Mob());
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
@@ -61,8 +62,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // return autonomousChooser.getSelected();
-    return new OG_1PieMob();
+    return autonomousChooser.getSelected();
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
