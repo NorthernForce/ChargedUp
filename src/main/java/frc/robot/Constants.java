@@ -6,6 +6,7 @@ import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -135,8 +136,23 @@ public final class Constants {
     public static final double ARM_RAMP_RATE = 0.2;
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
+    public static final double ARM_INNER_EXTENDED_LENGTH = 0.0; // TODO
+    public static final double ARM_INNER_RETRACTED_LENGTH = 0.0; // TODO
+    public static final double ARM_OUTER_EXTENDED_LENGTH = 0.0; // TODO
+    public static final double ARM_OUTER_RETRACTED_LENGTH = 0.0; // TODO
     public static final Translation3d ARM_ORIGIN = null; // TODO
-    public static final int ARM_POTENTIOMETER_ID = 0;
+    public static final double ARM_KS = 0.0; // TODO
+    public static final double ARM_KG = 0.0; // TODO
+    public static final double ARM_KV = 0.0; // TODO
+    public static final double ARM_KA = 0.0; // TODO
+    public static final double ARM_MAX_SPEED = 0.0; // TODO
+    public static final double ARM_MAX_ACCELERATION = 0.0; // TODO
+    public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
+    public static final double ARM_PROPORTION = 0.0; // TODO
+    public static final double ARM_GEAR_RATION = 0.0; // TODO
+    public static final int ARM_EXTENSION_MOTOR_1_ID = 7;
+    public static final int ARM_EXTENSION_MOTOR_2_ID = 8;
+    public static final double ARM_EXTENSION_PROPORTION = 0.0; // TODO
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */
