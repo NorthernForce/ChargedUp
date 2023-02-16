@@ -23,6 +23,7 @@ public class SwitchLED extends CommandBase {
       led.setYellow();
     }
     else led.setPurple();
+    led.enable();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
