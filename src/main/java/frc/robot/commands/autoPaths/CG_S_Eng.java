@@ -10,13 +10,26 @@ import frc.robot.commands.autoComponents.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class HG_Mob extends SequentialCommandGroup {
-  /** Creates a new HG_Mob. */
-  public HG_Mob() {
+public class CG_S_Eng extends SequentialCommandGroup {
+  /** Creates a new CG_S_Eng. */
+  public CG_S_Eng() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveMeters(0.5, 0.0, 2),
+      //Backup
+      new DriveMeters(-0.3, 0, 0.3),
+      //Push piece of front
+      new DriveMeters(0.3, 0, 0.05),
+      new DriveMeters(0.55, 0, 0.05),
+      new DriveMeters(-0.55, 0, 0.2),
+      //Push piece forward
+      new DriveMeters(0.35, 0, 0.4),
+      new DriveForMilliseconds(.3, 0, 5500),
+      //Exit Community
+      new DriveMeters(-0.55, 0, 1),
+      new DriveMeters(-0.35, 0, 0.6),
+      new DriveMeters(-0.55, 0, 1),
+      //Stop
       new Stop(0.1));
   }
 }

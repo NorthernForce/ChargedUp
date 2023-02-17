@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -46,15 +45,19 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
-    autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
+    autonomousChooser.addOption("Human Grid", new HG());
+    autonomousChooser.addOption("Outer Grid -> start piece", new OG_S());
+    autonomousChooser.addOption("Coop Grid -> start piece", new OG_S());   
 
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
+    SmartDashboard.putData("New Balance", new Balance());
+
     SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

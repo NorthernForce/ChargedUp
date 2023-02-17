@@ -13,9 +13,9 @@ import frc.robot.commands.autoComponents.Stop;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class OG_1PieMob extends SequentialCommandGroup {
+public class OG_S extends SequentialCommandGroup {
   /** Creates a new HG_1PieMob. */
-  public OG_1PieMob() {
+  public OG_S() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     
