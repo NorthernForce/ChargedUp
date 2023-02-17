@@ -52,10 +52,18 @@ public class Vision extends SubsystemBase {
     if (result == null) return false;
     return result.hasTargets();
   }
+  /**
+   * Gets the target radians
+   * @return degree measure
+   */
   public double getTargetYaw()
   {
     return result.getBestTarget().getYaw();
   }
+  /**
+   * Gets the target pitch
+   * @return degree measure
+   */
   public double getTargetPitch()
   {
     return result.getBestTarget().getPitch();
