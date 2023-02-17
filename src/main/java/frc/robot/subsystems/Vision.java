@@ -53,7 +53,7 @@ public class Vision extends SubsystemBase {
     return result.hasTargets();
   }
   /**
-   * Gets the target radians
+   * Gets the target yaw
    * @return degree measure
    */
   public double getTargetYaw()
