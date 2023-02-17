@@ -121,6 +121,7 @@ public final class Constants {
     public static final boolean IMU_ENABLED = true;
     public static final boolean LED_ENABLED = true;
     public static final boolean NAVIGATION_ENABLED = true;
+    public static final boolean WRIST_ENABLED = false;
     public static final boolean VISION_ENABLED = true;
     /** IMU Constants */
     public static final boolean ROLL_PITCH_SWAPPED = false;
@@ -136,11 +137,14 @@ public final class Constants {
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
     public static final Translation3d ARM_ORIGIN = null; // TODO
-    public static final int ARM_POTENTIOMETER_ID = 0;
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */
     public static final int MOTOR_SOLENOID_FORWARD = 2;
     public static final int MOTOR_SOLENOID_REVERSE = 3;
     public static final int MOTOR_SOLENOID_ID = 1;
+    /** Wrist Constants */
+    public static final int WRIST_MOTOR_ID = 10;
+    public static final double WRIST_PROPORTION = 0.0; // TODO
+    public static final double WRIST_GEAT_RATIO = 0.0; // TODO
 }
