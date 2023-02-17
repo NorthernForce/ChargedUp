@@ -145,6 +145,7 @@ public final class Constants {
     public static final double EXTENSION_DISTANCE_PER_ROTATION = 0.0; // TODO
     public static final double EXTENSION_GEAR_RATIO = 0.0; // TODO
     public static final double ROTATE_GEAR_RATIO = 0.0; // TODO
+    public static final double EXTENSION_STARTING_DISTANCE = 0.0; // TODO
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */
