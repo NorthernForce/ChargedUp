@@ -23,18 +23,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Arm extends SubsystemBase {
   // We know we will have two talons
-  private final WPI_TalonFX leftMotor, rightMotor;
+  private final WPI_TalonFX rotateMotor;
   private final WPI_TalonFX extensionMotor;
   private final PIDController rotateController, extensionController;
   /** Creates a new Arm. */
   public Arm() {
     // Assert required subsystem have been declared
-    leftMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
-    rightMotor = new WPI_TalonFX(Constants.ARM_RIGHT_MOTOR);
-    leftMotor.setInverted(TalonFXInvertType.OpposeMaster);
-    leftMotor.follow(rightMotor);
-    configureController(leftMotor, true);
-    configureController(rightMotor, false);
+    rotateMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
+    rotateMotor.setInverted(TalonFXInvertType.CounterClockwise);
+    configureController(rotateMotor, false);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateController.setSetpoint(Constants.ARM_STARTING_ROTATION.getRadians());
     extensionMotor = new WPI_TalonFX(Constants.ARM_EXTENSION_MOTOR_ID);
@@ -74,7 +71,7 @@ public class Arm extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations((rightMotor.getSelectedSensorPosition() / 2048)
+    return Rotation2d.fromRotations((rotateMotor.getSelectedSensorPosition() / 2048)
       / Constants.ROTATE_GEAR_RATIO);
   }
   /**
@@ -122,7 +119,7 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    rightMotor.set(rotateController.calculate(getAngle().getRadians()));
+    rotateMotor.set(rotateController.calculate(getAngle().getRadians()));
     extensionMotor.set(extensionController.calculate(getExtendedArmLength()));
     SmartDashboard.putNumber("Arm Angle", arm.getAngle().getDegrees());
   }
