@@ -4,7 +4,6 @@
 
 package frc.robot.commands.autoComponents;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Vision.VisionPipeline;
@@ -21,6 +20,7 @@ public class TurnToCone extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.runOnce(() -> vision.setPipeline(VisionPipeline.YELLOW_CONE)),
+      Commands.runOnce(() -> vision.setTargetHeight(0.0)),
       new TurnToTarget()
     );
   }
