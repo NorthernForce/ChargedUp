@@ -1,10 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.util.Units;
-import frc.robot.util.DynamicTransform3d;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,4 +10,17 @@ import frc.robot.util.DynamicTransform3d;
  */
 
 public final class Constants {
+    /** General Constants */
+    public static boolean ARM_ENABLED = false;
+    public static boolean PCM_ENABLED = false;
+    public static boolean DRIVETRAIN_ENABLED = false;
+    public static boolean GRIPPER_ENABLED = false;
+    public static boolean IMU_ENABLED = false;
+    public static boolean LED_ENABLED = false;
+    public static boolean NAVIGATION_ENABLED = false;
+    public static boolean VISION_ENABLED = false;
+    public static boolean ROLL_PITCH_SWAPPED = false;
+    /** Arm Constants */
+    public static double ARM_RAMP_RATE = 0.0;
+    public static double ARM_EXTENDED_LENGTH = 0.0;
 }

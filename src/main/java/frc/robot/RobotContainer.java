@@ -26,7 +26,7 @@ import frc.robot.commands.auto.*;
  */
 public class RobotContainer {
 
-  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final ChassisBase activeChassis = new RobotChooser().getChassis();
   public static final Arm arm = activeChassis.getBooleanConstant("ARM_ENABLED") ? new Arm() : null;
   public static final PCM pcm = activeChassis.getBooleanConstant("PCM_ENABLED") ? new PCM() : null;
   public static final Drivetrain drivetrain = activeChassis.getBooleanConstant("DRIVETRAIN_ENABLED") ? activeChassis.getDrivetrain() : null;
