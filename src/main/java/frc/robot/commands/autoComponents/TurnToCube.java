@@ -18,7 +18,9 @@ public class TurnToCube extends SequentialCommandGroup {
   public TurnToCube() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(Commands.runOnce(() -> vision.setPipeline(VisionPipeline.PURPLE_CUBE)),
-    new TurnToTarget());
+    addCommands(
+      Commands.runOnce(() -> vision.setPipeline(VisionPipeline.PURPLE_CUBE)),
+    new TurnToTarget()
+    );
   }
 }

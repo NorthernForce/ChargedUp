@@ -18,7 +18,9 @@ public class TurnToReflectiveTape extends SequentialCommandGroup {
   public TurnToReflectiveTape() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(Commands.runOnce(() -> vision.setPipeline(VisionPipeline.REFLECTIVE_TARGET)),
-    new TurnToTarget());
+    addCommands(
+      Commands.runOnce(() -> vision.setPipeline(VisionPipeline.REFLECTIVE_TARGET)),
+      new TurnToTarget()
+    );
   }
 }
