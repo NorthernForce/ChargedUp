@@ -20,7 +20,7 @@ public class TurnToCube extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.runOnce(() -> vision.setPipeline(VisionPipeline.PURPLE_CUBE)),
-    new TurnToTarget()
+      new TurnToTarget()
     );
   }
 }
