@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.RobotContainer.activeChassis;
 
@@ -24,9 +25,9 @@ public class Arm extends SubsystemBase {
   // We know we will have two talons
   private final WPI_TalonFX leftMotor, rightMotor;
   private final AnalogPotentiometer potentiometer;
-  private final Translation3d ARM_ORIGIN = (Translation3d)activeChassis.getObjectConstant("ARM_ORIGIN");
-  private final double ARM_EXTENDED_LENGTH = activeChassis.getDoubleConstant("ARM_EXTENDED_LENGTH");
-  private final double ARM_RETRACTED_LENGTH = activeChassis.getDoubleConstant("ARM_RETRACTED_LENGTH");
+  private final Translation3d ARM_ORIGIN = Constants.ARM_ORIGIN;
+  private final double ARM_EXTENDED_LENGTH = Constants.ARM_EXTENDED_LENGTH;
+  private final double ARM_RETRACTED_LENGTH = Constants.ARM_RETRACTED_LENGTH;
   /**
    * Configures a controller
    * @param controller motor controller

@@ -27,14 +27,14 @@ import frc.robot.commands.auto.*;
 public class RobotContainer {
 
   public static final ChassisBase activeChassis = new RobotChooser().getChassis();
-  public static final Arm arm = activeChassis.getBooleanConstant("ARM_ENABLED") ? new Arm() : null;
-  public static final PCM pcm = activeChassis.getBooleanConstant("PCM_ENABLED") ? new PCM() : null;
-  public static final Drivetrain drivetrain = activeChassis.getBooleanConstant("DRIVETRAIN_ENABLED") ? activeChassis.getDrivetrain() : null;
-  public static final Gripper gripper = activeChassis.getBooleanConstant("GRIPPER_ENABLED") ? new Gripper() : null;
-  public static final IMU imu = activeChassis.getBooleanConstant("IMU_ENABLED") ? new IMU() : null;
-  public static final LED led = activeChassis.getBooleanConstant("LED_ENABLED") ? new LED() : null;
-  public static final Navigation navigation = activeChassis.getBooleanConstant("NAVIGATION_ENABLED") ? new Navigation() : null;
-  public static final Vision vision = activeChassis.getBooleanConstant("VISION_ENABLED") ? new Vision() : null;
+  public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
+  public static final PCM pcm = Constants.PCM_ENABLED ? new PCM() : null;
+  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? activeChassis.getDrivetrain() : null;
+  public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
+  public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;
+  public static final LED led = Constants.LED_ENABLED ? new LED() : null;
+  public static final Navigation navigation = Constants.NAVIGATION_ENABLED ? new Navigation() : null;
+  public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
   private final SendableChooser<Command> autonomousChooser;
   private final OI oi = new OI();
   /**
@@ -55,12 +55,12 @@ public class RobotContainer {
       // new DriveToLocation(null)
     ));
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
-    if (activeChassis.getBooleanConstant("IMU_ENABLED"))
+    if (Constants.IMU_ENABLED)
     {
       SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
+      SmartDashboard.putData("PID Balance", new PIDBalance());
     }
     SmartDashboard.putData("Stop", new Stop(0.1));
-    SmartDashboard.putData("PID Balance", new PIDBalance());
     SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
   /**
@@ -74,8 +74,8 @@ public class RobotContainer {
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
-    if (activeChassis.getBooleanConstant("DRIVETRAIN_ENABLED")) drivetrain.setDefaultCommand(new DriveWithJoystick());
-    if (activeChassis.getBooleanConstant("ARM_ENABLED")) arm.setDefaultCommand(new ManipulateArmWithJoystick());
+    if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
+    if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
   }
   public void periodic()
   {

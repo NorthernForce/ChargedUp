@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.SlowMode;
 import frc.robot.commands.SwitchLED;
-import static frc.robot.RobotContainer.activeChassis;
 
 /** Add your docs here. */
 public class OI {
@@ -31,17 +30,17 @@ public class OI {
         };
     }
     public void bindButtons() {
-        if (activeChassis.getBooleanConstant("DRIVE_TRAIN_ENABLED"))
+        if (Constants.DRIVETRAIN_ENABLED)
         {
             new JoystickButton(driverController, XboxController.Button.kA.value)
                 .toggleOnTrue(new SlowMode());
         }
-        if (activeChassis.getBooleanConstant("ARM_ENABLED"))
+        if (Constants.ARM_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
                 .toggleOnTrue(new ExtendArm());
         }
-        if (activeChassis.getBooleanConstant("LED_ENABLED"))
+        if (Constants.LED_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kA.value)
                 .onTrue(new SwitchLED());

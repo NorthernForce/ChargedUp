@@ -26,9 +26,7 @@ public class RobotChooser
 
     /**
      * Returns the persisten ID stored on the robot
-     * @return String value from robot  
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @return String value from robot
      */
     private String readRobotID()
     {
@@ -59,6 +57,10 @@ public class RobotChooser
                 else if (constant.getValue().isTextual())
                 {
                     field.set(null, constant.getValue().textValue());
+                }
+                else
+                {
+                    field.set(null, mapper.treeToValue(constant.getValue(), field.getType()));
                 }
             }
             return name;
