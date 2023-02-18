@@ -6,6 +6,7 @@ import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -136,9 +137,15 @@ public final class Constants {
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
     public static final Translation3d ARM_ORIGIN = null; // TODO
-    public static final int ARM_POTENTIOMETER_ID = 0;
+    public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
+    public static final double ARM_PROPORTION = 0.0; // TODO
+    public static final int ARM_EXTENSION_MOTOR_ID = 7;
+    public static final double ARM_EXTENSION_PROPORTION = 0.0; // TODO
+    public static final double EXTENSION_DISTANCE_PER_ROTATION = 0.0; // TODO
+    public static final double EXTENSION_GEAR_RATIO = 0.0; // TODO
+    public static final double ROTATE_GEAR_RATIO = 0.0; // TODO
     /** Compressor Constants */
-    public static final int COMPRESSOR_ID = 7;
+    public static final int COMPRESSOR_ID = 20;
     /** Solenoids */
     public static final int MOTOR_SOLENOID_FORWARD = 2;
     public static final int MOTOR_SOLENOID_REVERSE = 3;
