@@ -9,6 +9,8 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
+import frc.robot.commands.RunConeIntake;
+import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SlowMode;
 import frc.robot.commands.SwitchLED;
 
@@ -40,9 +42,16 @@ public class OI {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
                 .whileTrue(new ExtendArm());
         }
-        if (Constants.LED_ENABLED)
+        if (Constants.GRIPPER_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kA.value)
+                .onTrue(new RunConeIntake());
+            new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+                .onTrue(new RunConeOuttake());
+        }
+        if (Constants.LED_ENABLED)
+        {
+            new JoystickButton(manipulatorController, XboxController.Button.kY.value)
                 .onTrue(new SwitchLED());
         }
     }

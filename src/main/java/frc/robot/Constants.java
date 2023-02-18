@@ -137,6 +137,11 @@ public final class Constants {
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
     public static final Translation3d ARM_ORIGIN = null; // TODO
+    public static final int ARM_POTENTIOMETER_ID = 0;
+    /** Gripper Constants */
+    public static final int GRIPPER_MOTOR_ID = 9;
+    public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO
+    public static final double GRIPPER_CONE_OUTTAKE_SPEED = -1.0; // TODO
     public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
     public static final double ARM_PROPORTION = 0.0; // TODO
     public static final int ARM_EXTENSION_MOTOR_ID = 7;
