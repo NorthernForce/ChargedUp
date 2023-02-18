@@ -139,7 +139,6 @@ public final class Constants {
     public static final Translation3d ARM_ORIGIN = null; // TODO
     public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
     public static final double ARM_PROPORTION = 0.0; // TODO
-    public static final double ARM_GEAR_RATION = 0.0; // TODO
     public static final int ARM_EXTENSION_MOTOR_ID = 7;
     public static final double ARM_EXTENSION_PROPORTION = 0.0; // TODO
     public static final double EXTENSION_DISTANCE_PER_ROTATION = 0.0; // TODO

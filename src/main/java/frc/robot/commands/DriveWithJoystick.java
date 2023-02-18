@@ -15,7 +15,7 @@ import java.util.function.DoubleSupplier;
  * Drives based on controller input.
  */
 public class DriveWithJoystick extends CommandBase {
-  private DoubleSupplier[] Speeds = OI.getDriveSuppliers();
+  private DoubleSupplier[] driverSpeeds = OI.getDriveSuppliers();
   private DoubleSupplier[] manipulatorSpeeds = OI.getDriveSuppliers();
   /** Creates a new DriveWithJoystick. */
   public DriveWithJoystick() {
@@ -30,11 +30,11 @@ public class DriveWithJoystick extends CommandBase {
   public void execute() {
     if (manipulatorSpeeds[1].getAsDouble() == 0)
     {
-      drivetrain.drive(Speeds[0].getAsDouble(), Speeds[1].getAsDouble());
+      drivetrain.drive(driverSpeeds[0].getAsDouble(), driverSpeeds[1].getAsDouble());
     }
     else
     {
-      drivetrain.drive(Speeds[0].getAsDouble(), manipulatorSpeeds[1].getAsDouble() * 0.4);
+      drivetrain.drive(driverSpeeds[0].getAsDouble(), manipulatorSpeeds[1].getAsDouble() * 0.4);
     }
   }
   @Override
