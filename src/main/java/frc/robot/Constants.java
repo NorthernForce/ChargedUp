@@ -139,8 +139,8 @@ public final class Constants {
     public static final int ARM_POTENTIOMETER_ID = 0;
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
-    public static final double GRIPPER_INTAKE_SPEED = 0.0; // TODO
-    public static final double GRIPPER_OUTTAKE_SPEED = 0.0; // TODO
+    public static final double GRIPPER_INTAKE_SPEED = 1.0; // TODO
+    public static final double GRIPPER_OUTTAKE_SPEED = -1.0; // TODO
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 7;
     /** Solenoids */
