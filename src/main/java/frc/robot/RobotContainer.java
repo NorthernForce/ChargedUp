@@ -48,7 +48,7 @@ public class RobotContainer {
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
     autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
-    autonomousChooser.addOption("Outer Grid. 1 piece mobility", new CG_Mob_E());
+    autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
 
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
