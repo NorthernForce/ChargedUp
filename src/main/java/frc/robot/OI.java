@@ -39,8 +39,8 @@ public class OI {
         }
         if (Constants.ARM_ENABLED)
         {
-            new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
-                .toggleOnTrue(new ExtendArm());
+            new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+                .whileTrue(new ExtendArm());
         }
         if (Constants.GRIPPER_ENABLED)
         {

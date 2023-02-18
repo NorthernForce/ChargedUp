@@ -6,6 +6,7 @@ import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -119,11 +120,11 @@ public final class Constants {
     public static final boolean DRIVETRAIN_ENABLED = true;
     public static final boolean GRIPPER_ENABLED = false;
     public static final boolean IMU_ENABLED = true;
-    public static final boolean LED_ENABLED = false;
+    public static final boolean LED_ENABLED = true;
     public static final boolean NAVIGATION_ENABLED = true;
     public static final boolean VISION_ENABLED = true;
     /** IMU Constants */
-    public static final boolean ROLL_PITCH_SWAPPED = true;
+    public static final boolean ROLL_PITCH_SWAPPED = false;
     /** LED Constants */
     public static final int LED_NUM_LEDS = 40;
     public static final int LED_PORT = 0;
@@ -141,8 +142,15 @@ public final class Constants {
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_INTAKE_SPEED = 1.0; // TODO
     public static final double GRIPPER_OUTTAKE_SPEED = -1.0; // TODO
+    public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
+    public static final double ARM_PROPORTION = 0.0; // TODO
+    public static final int ARM_EXTENSION_MOTOR_ID = 7;
+    public static final double ARM_EXTENSION_PROPORTION = 0.0; // TODO
+    public static final double EXTENSION_DISTANCE_PER_ROTATION = 0.0; // TODO
+    public static final double EXTENSION_GEAR_RATIO = 0.0; // TODO
+    public static final double ROTATE_GEAR_RATIO = 0.0; // TODO
     /** Compressor Constants */
-    public static final int COMPRESSOR_ID = 7;
+    public static final int COMPRESSOR_ID = 20;
     /** Solenoids */
     public static final int MOTOR_SOLENOID_FORWARD = 2;
     public static final int MOTOR_SOLENOID_REVERSE = 3;
