@@ -5,7 +5,7 @@ import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
 import frc.robot.commands.CalibrateIMU;
-
+import frc.robot.commands.DefaultWrist;
 import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
@@ -35,6 +35,7 @@ public class RobotContainer {
   public static final LED led = Constants.LED_ENABLED ? new LED() : null;
   public static final Navigation navigation = Constants.NAVIGATION_ENABLED ? new Navigation() : null;
   public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
+  public static final Wrist wrist = Constants.WRIST_ENABLED ? new Wrist() : null;
   private final SendableChooser<Command> autonomousChooser;
   private final OI oi = new OI();
   /**
@@ -67,6 +68,7 @@ public class RobotContainer {
   private void initDefaultCommands() {
     if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
     if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
+    if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
   }
   public void periodic() {}
 }
