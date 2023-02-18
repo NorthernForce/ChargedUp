@@ -9,9 +9,9 @@ import frc.robot.Constants;
 
 import static frc.robot.RobotContainer.*;
 
-public class RunIntake extends CommandBase {
+public class RunConeOuttake extends CommandBase {
   /** Creates a new RunIntake. */
-  public RunIntake() {
+  public RunConeOuttake() {
     addRequirements(gripper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +23,7 @@ public class RunIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gripper.setSpeed(Constants.GRIPPER_INTAKE_SPEED);
+    gripper.setSpeed(Constants.GRIPPER_CONE_OUTTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
