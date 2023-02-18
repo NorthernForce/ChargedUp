@@ -4,35 +4,27 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.geometry.Rotation2d;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Gripper extends SubsystemBase {
+  private final CANSparkMax motor;
   /** Creates a new Gripper. */
-  public Gripper() {}
-  public void clamp()
+  public Gripper() {
+    motor = new CANSparkMax(Constants.GRIPPER_MOTOR_ID, MotorType.kBrushless);
+    motor.setIdleMode(IdleMode.kBrake);
+  }
+  public void setSpeed(double speed)
   {
+    motor.set(speed);
   }
   public boolean hasObject()
   {
     return false;
-  }
-  public void release()
-  {
-  }
-  public boolean isClamped()
-  {
-    return false;
-  }
-  public Rotation2d getWristAngle()
-  {
-    return null;
-  }
-  public void setWristAngle(Rotation2d rotation)
-  {
-  }
-  public void setWristSpeed(double speed)
-  {
   }
   @Override
   public void periodic() {
