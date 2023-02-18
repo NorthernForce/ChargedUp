@@ -13,7 +13,6 @@ public class RunConeIntake extends CommandBase {
   /** Creates a new RunConeIntake. */
   public RunConeIntake() {
     addRequirements(gripper);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
