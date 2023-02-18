@@ -20,11 +20,13 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Arm extends SubsystemBase {
   // We know we will have two talons
   private final WPI_TalonFX rotateMotor;
-  private final WPI_TalonFX extensionMotor;
+  private final CANSparkMax extensionMotor;
   private final PIDController rotateController, extensionController;
   /** Creates a new Arm. */
   public Arm() {
@@ -35,10 +37,11 @@ public class Arm extends SubsystemBase {
     rotateMotor.setSelectedSensorPosition(Constants.ARM_STARTING_ROTATION.getRotations() * Constants.ROTATE_GEAR_RATIO * 2048);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateController.setSetpoint(Constants.ARM_STARTING_ROTATION.getRadians());
-    extensionMotor = new WPI_TalonFX(Constants.ARM_EXTENSION_MOTOR_ID);
-    configureController(extensionMotor, false);
+    extensionMotor = new CANSparkMax(Constants.ARM_EXTENSION_MOTOR_ID, MotorType.kBrushless);
+    extensionMotor.setInverted(false);
     extensionController = new PIDController(Constants.ARM_EXTENSION_PROPORTION, 0, 0);
-    extensionMotor.setSelectedSensorPosition(Constants.EXTENSION_STARTING_DISTANCE * Constants.EXTENSION_GEAR_RATIO * 2048 / Constants.EXTENSION_DISTANCE_PER_ROTATION);
+    extensionMotor.getEncoder().setPositionConversionFactor(Constants.EXTENSION_DISTANCE_PER_ROTATION / Constants.EXTENSION_GEAR_RATIO);
+    extensionMotor.getEncoder().setPosition(Constants.EXTENSION_STARTING_DISTANCE);
   }
   /** Extends Arm */
   public void extend()
@@ -64,8 +67,7 @@ public class Arm extends SubsystemBase {
    */
   public double getExtendedArmLength()
   {
-    return (extensionMotor.getSelectedSensorPosition() / 2048) / Constants.EXTENSION_GEAR_RATIO
-      * Constants.EXTENSION_DISTANCE_PER_ROTATION;
+    return extensionMotor.getEncoder().getPosition();
   }
   /**
    * Get arm angle
