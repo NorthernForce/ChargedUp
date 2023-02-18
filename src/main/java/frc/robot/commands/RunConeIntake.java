@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import static frc.robot.RobotContainer.*;
 
 public class RunConeIntake extends CommandBase {
-  /** Creates a new RunIntake. */
+  /** Creates a new RunConeIntake. */
   public RunConeIntake() {
     addRequirements(gripper);
     // Use addRequirements() here to declare subsystem dependencies.
