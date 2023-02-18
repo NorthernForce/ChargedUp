@@ -15,7 +15,7 @@ public class PIDBalance extends CommandBase {
   private PIDController controller;
   /** Creates a new PIDBalance. */
   public PIDBalance() {
-    addRequirements(drivetrain, navigation);
+    addRequirements(drivetrain);
   }
   /**
    * Implements CommandBase.initialize(). Initializes PIDController.
