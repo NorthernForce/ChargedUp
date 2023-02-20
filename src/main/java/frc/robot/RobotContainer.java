@@ -10,6 +10,8 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,6 +44,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    PhotonCamera.setVersionCheckEnabled(false);
     initDefaultCommands();
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
