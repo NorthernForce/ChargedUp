@@ -15,10 +15,11 @@ public class LED extends SubsystemBase {
     led.setLength(buffer.getLength());
     led.setData(buffer);
   }
-  // Turns LED on.
+  /** Turns the led on */
   public void enable(){
     led.start();
   }
+  /** Sets the led to the color purple: (127, 0, 127) */
   public void setPurple()
   {
     currentColor = Color.kPurple;
@@ -28,6 +29,7 @@ public class LED extends SubsystemBase {
     }
     led.setData(buffer);
   }
+  /** Sets the led to the color yellow: (255, 100, 0) */
   public void setYellow()
   {
     currentColor = new Color(255, 100, 0);
@@ -37,15 +39,20 @@ public class LED extends SubsystemBase {
     }
     led.setData(buffer);
   }
-  // Turns LED off.
+  /** Turns LED off. */
   public void disable()
   {
     led.stop();
   }
+  /**
+   * Gets the current color displayed by the LED
+   * @return wpilib Color object
+   */
   public Color getColor()
   {
     return currentColor;
   }
+  /** Overrides the subsytem's periodic */
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

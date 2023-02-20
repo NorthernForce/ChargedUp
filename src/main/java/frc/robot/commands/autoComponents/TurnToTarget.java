@@ -29,7 +29,7 @@ public class TurnToTarget extends CommandBase {
   @Override
   public void execute() {
     if (vision.hasTarget()){
-      double requiredTurn = -calculator.calculate(vision.getTargetYaw());
+      double requiredTurn = -calculator.calculate(vision.getTargetYaw().getDegrees());
       drivetrain.drive(0, requiredTurn);
     }
   }

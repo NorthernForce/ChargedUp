@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
 
-  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final ChassisBase activeChassis = RobotChooser.getChassis();
   public static final Arm arm = Constants.ARM_ENABLED ? new Arm() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
   public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? activeChassis.getDrivetrain() : null;
