@@ -47,7 +47,7 @@ public class RobotContainer {
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
-    autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
+    autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
 
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
