@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
@@ -69,6 +70,7 @@ public class RobotContainer {
     if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
     if (Constants.ARM_ENABLED) arm.setDefaultCommand(new ManipulateArmWithJoystick());
     if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
+    if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }
   public void periodic() {}
 }

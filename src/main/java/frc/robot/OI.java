@@ -12,7 +12,8 @@ import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SlowMode;
-import frc.robot.commands.SwitchLED;
+import frc.robot.commands.LEDPurple;
+import frc.robot.commands.LEDYellow;
 
 /** Add your docs here. */
 public class OI {
@@ -52,7 +53,12 @@ public class OI {
         if (Constants.LED_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kY.value)
-                .onTrue(new SwitchLED());
+                .whileTrue(new LEDPurple());
+        }
+        if (Constants.LED_ENABLED)
+        {
+            new JoystickButton(manipulatorController, XboxController.Button.kX.value)
+                .whileTrue(new LEDYellow());
         }
     }
 }
