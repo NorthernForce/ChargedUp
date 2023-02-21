@@ -5,9 +5,11 @@
 package frc.robot.commands.autoPaths;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.autoComponents.Balance;
 import frc.robot.commands.autoComponents.DriveForMilliseconds;
+import frc.robot.commands.autoComponents.DriveForSeconds;
 import frc.robot.commands.autoComponents.DriveMeters;
-import frc.robot.commands.autoComponents.PIDBalance;
+import frc.robot.commands.autoComponents.Stop;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,17 +26,14 @@ public class CG_Mob_E extends SequentialCommandGroup {
       new DriveMeters(0.55, 0, 0.05),
       new DriveMeters(-0.55, 0, 0.2),
       //Push piece forward
-      new DriveMeters(0.35, 0, 0.4),
-      new DriveForMilliseconds(.3, 0, 5500),
-
+      new DriveMeters(0.35, 0, 0.5),
       //Exit Community
-      new DriveMeters(-0.6, 0, 1),
-      new DriveMeters(-0.5, 0, 0.6),
-      new DriveMeters(-0.6, 0, 1),
+      new DriveMeters(-0.75, 0, 0.6),
+      new DriveMeters(-0.5, 0, 1.5),
+      new DriveMeters(-0.4, 0, 1),
       // Reenter Charge Station
-      new DriveMeters(0.6, 0, 1.3),
-      //Stop
-      new PIDBalance()
+      new DriveMeters(0.7, 0, 1.4),
+      new Stop(0.05)
     );
   }
 }
