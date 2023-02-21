@@ -11,8 +11,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 import static frc.robot.Constants.*;
@@ -23,6 +27,8 @@ public class DrivetrainMaxwell extends Drivetrain {
   private final WPI_TalonFX leftFollower;
   private final WPI_TalonFX rightFollower;
   private final DifferentialDrive robotDrive;
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
   /**
    * Constructs a drivetrain
@@ -184,5 +190,12 @@ public class DrivetrainMaxwell extends Drivetrain {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  @Override
+  public void driveUsingChassisSpeeds(ChassisSpeeds speeds) {
+    DifferentialDriveWheelSpeeds driveSpeeds = kinematics.toWheelSpeeds(speeds);
+    leftPrimary.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
+    rightPrimary.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
+    robotDrive.feed();
   }
 }
