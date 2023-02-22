@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
-  private final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(4);
-  private final double TARGET_HEIGHT_METERS = Units.feetToMeters(0);
-  private final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);
-  private PhotonCamera camera = new PhotonCamera(Constants.VISION_CAMERA_NAME);
+  private final double CAMERA_HEIGHT_METERS = Constants.VISION_CAMERA_HEIGHT;
+  private double targetHeight = 0.0;
+  private final double CAMERA_PITCH_RADIANS = Constants.VISION_CAMERA_PITCH.getRadians();
+  private final PhotonCamera camera = new PhotonCamera(Constants.VISION_CAMERA_NAME);
   private PhotonPipelineResult result = null;
   /** Enum representing the various pipeline IDs */
   public enum VisionPipeline
@@ -48,10 +48,18 @@ public class Vision extends SubsystemBase {
   {
     camera.setPipelineIndex(pipeline.getPipelineIndex());
   }
+  /**
+   * Sets the target height
+   * @param targetHeight height in meters
+   */
+  public void setTargetHeight(double targetHeight)
+  {
+    this.targetHeight = targetHeight;
+  }
+  /** This method will be called once per scheduler run */
   @Override
   public void periodic() {
     result = camera.getLatestResult();
-    // This method will be called once per scheduler run
   }
   /**
    * Does the camera see a target
@@ -63,16 +71,16 @@ public class Vision extends SubsystemBase {
     return result.hasTargets();
   }
   /**
-   * Gets the target yaw
-   * @return degree measure
+   * Gets the target yaw (given by Photonvision)
+   * @return degree measure of yaw
    */
   public Rotation2d getTargetYaw()
   {
     return Rotation2d.fromDegrees(result.getBestTarget().getYaw());
   }
   /**
-   * Gets the target pitch
-   * @return degree measure
+   * Gets the target pitch (given by Photonvision)
+   * @return degree measure of pitch
    */
   public Rotation2d getTargetPitch()
   {
@@ -86,7 +94,7 @@ public class Vision extends SubsystemBase {
   {
     double range = PhotonUtils.calculateDistanceToTargetMeters(
         CAMERA_HEIGHT_METERS,
-        TARGET_HEIGHT_METERS,
+        targetHeight,
         CAMERA_PITCH_RADIANS,
         Units.degreesToRadians(result.getBestTarget().getPitch()));
     return range;

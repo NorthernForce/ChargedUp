@@ -131,6 +131,8 @@ public final class Constants {
     public static final int LED_PORT = 0;
     /** Vision Constants */
     public static final String VISION_CAMERA_NAME = "visionCamera";
+    public static final double VISION_CAMERA_HEIGHT = Units.inchesToMeters(4);
+    public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
     public static final int ARM_LEFT_MOTOR = 5;
     public static final int ARM_RIGHT_MOTOR = 6;

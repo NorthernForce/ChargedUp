@@ -20,6 +20,7 @@ public class TurnToCone extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.runOnce(() -> vision.setPipeline(VisionPipeline.YELLOW_CONE)),
+      Commands.runOnce(() -> vision.setTargetHeight(0.0)),
       new TurnToTarget()
     );
   }
