@@ -34,8 +34,8 @@ public class OI {
     public void bindButtons() {
         if (Constants.DRIVETRAIN_ENABLED)
         {
-            new JoystickButton(driverController, XboxController.Button.kA.value)
-                .toggleOnTrue(new SlowMode());
+            //new JoystickButton(driverController, XboxController.Button.kA.value)
+              //  .toggleOnTrue(new SlowMode());
         }
         if (Constants.ARM_ENABLED)
         {
