@@ -10,6 +10,7 @@ public class LED extends SubsystemBase {
   private final AddressableLED led = new AddressableLED(Constants.LED_PORT);
   private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LED_NUM_LEDS);
   private Color currentColor = null;
+  private int startHue = 0;
   /** Creates a new LED. */
   public LED() {
     led.setLength(buffer.getLength());
@@ -21,7 +22,7 @@ public class LED extends SubsystemBase {
   }
   public void setPurple()
   {
-    currentColor = Color.kPurple;
+    currentColor = new Color(58, 0, 181);
     for (int i = 0; i < buffer.getLength(); i++)
     {
       buffer.setLED(i, Color.kPurple);
@@ -33,7 +34,22 @@ public class LED extends SubsystemBase {
     currentColor = new Color(255, 100, 0);
     for (int i = 0; i < buffer.getLength(); i++)
     {
-      buffer.setLED(i, new Color(255, 100, 0));
+      buffer.setLED(i, currentColor);
+    }
+    led.setData(buffer);
+  }
+  public void rainbow() {
+    for (int i = 0; i < buffer.getLength(); i++) {
+      final int hue = (startHue + (i * 180 / buffer.getLength())) % 180;
+      buffer.setHSV(i, hue, 255, 128);
+    }
+    led.setData(buffer);
+    startHue += 3;
+    startHue %= 180;
+  }
+  public void setPink() {
+    for (int i = 0; i < buffer.getLength(); i++) {
+      buffer.setHSV(i, 178, 255, 255);
     }
     led.setData(buffer);
   }
@@ -47,7 +63,5 @@ public class LED extends SubsystemBase {
     return currentColor;
   }
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 }
