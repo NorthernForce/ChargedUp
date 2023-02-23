@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -20,6 +21,8 @@ public class Drivetrain extends SubsystemBase
   private MotorGroup rightSide;
   private DifferentialDrive robotDrive;
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   /** 
    * Creates a new Drivetrain. 
    */
@@ -27,8 +30,6 @@ public class Drivetrain extends SubsystemBase
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
-    private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(activeChassis.TRACK_WIDTH);
-    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   }
   /**
    * Drives the robot forward applying the speed proportions
