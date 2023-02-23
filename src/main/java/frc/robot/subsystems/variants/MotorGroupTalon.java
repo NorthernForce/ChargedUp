@@ -1,0 +1,102 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot.subsystems.variants;
+
+import java.util.*;
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import frc.robot.subsystems.MotorGroup;
+
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import static frc.robot.Constants.*;
+
+/** Add your docs here. */
+public class MotorGroupTalon implements MotorGroup {
+    private WPI_TalonFX primary;
+    private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
+    private int COUNTS_PER_REVOLUTION = 2048;
+    /**
+     * Creates a new motor controlled by a talon
+     * @param primaryID id for the Talon being created
+     */
+    public MotorGroupTalon(int primaryID) {
+        this(primaryID, new int[]{});
+    }
+    /**
+     * Creates a new motor with followers controlled by talons.
+     * @param primaryID id for the Talon being created
+     * @param followerIDs ids in integer array for the followers
+     */
+    public MotorGroupTalon(int primaryID, int[] followerIDs) {
+        this.primary = new WPI_TalonFX(primaryID);
+        for (int followerID: followerIDs) {
+            this.followers.add(new WPI_TalonFX(followerID));
+        }
+        setFollowers();
+        setInverted(false);
+        configureAllControllers();
+    }
+    public void disable() {
+        primary.disable();
+    }
+    public double get() {
+        return primary.get();
+    }
+    public double getEncoderRotations() {
+        return primary.getSensorCollection().getIntegratedSensorPosition() / COUNTS_PER_REVOLUTION;
+    }
+    public double getEncoderRPS() {
+        //10 represents the amount of 100ms periods in a single second.
+        return primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
+    }
+    public boolean getInverted() {
+        return primary.getInverted();
+    }
+    public void set(double speed) {
+        primary.set(speed);
+    }
+    public void setInverted(boolean isInverted) {
+        primary.setInverted(isInverted);
+        for (WPI_TalonFX wpi_TalonFX : followers) {
+            wpi_TalonFX.setInverted(InvertType.FollowMaster);
+        }
+    }
+    public void stopMotor() {
+        primary.stopMotor();
+    }
+    public void resetEncoderRotations() {
+        primary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    }
+    private void configureAllControllers() {
+        configureController(primary, false);
+        for (WPI_TalonFX wpi_TalonFX : followers) {
+            configureController(wpi_TalonFX, true);
+        }
+    }
+    private void configureController(WPI_TalonFX controller, Boolean isFollower) {
+        final double currentLimit = 60;
+        final double limitThreshold = 90;
+        final double triggerThreshTimeInSec = 1;
+        controller.configFactoryDefault();
+        controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
+        if (!isFollower) {
+          controller.configClosedloopRamp(DRIVE_RAMP_RATE);
+          controller.configOpenloopRamp(DRIVE_RAMP_RATE);
+        }
+        controller.setNeutralMode(NeutralMode.Brake);
+        TalonFXConfiguration configs = new TalonFXConfiguration();
+        configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
+        controller.configAllSettings(configs);
+    }
+    private void setFollowers() {
+        for (WPI_TalonFX wpi_TalonFX : followers) {
+            wpi_TalonFX.follow(primary);
+        }
+    }
+}
