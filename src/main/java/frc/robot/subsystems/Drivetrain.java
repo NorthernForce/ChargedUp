@@ -10,16 +10,15 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-
-import static frc.robot.RobotContainer.activeChassis;
 
 public class Drivetrain extends SubsystemBase
 {
   private MotorGroup leftSide;
   private MotorGroup rightSide;
   private DifferentialDrive robotDrive;
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
   private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
@@ -125,6 +124,10 @@ public class Drivetrain extends SubsystemBase
     rightSide.setVoltage(right);
     robotDrive.feed();
   }
+  /**
+   * Drives using feet per second
+   * @param speeds
+   */
   public void driveUsingChassisSpeeds(ChassisSpeeds speeds) {
     DifferentialDriveWheelSpeeds driveSpeeds = kinematics.toWheelSpeeds(speeds);
     leftSide.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
