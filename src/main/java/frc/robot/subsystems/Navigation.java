@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -19,8 +20,8 @@ import static frc.robot.RobotContainer.*;
 /** Simple subsystem to keep track of the current location of the robot. */
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
-  private final PhotonPoseEstimator visionEstimator;
-  private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
+  //private final PhotonPoseEstimator visionEstimator;
+  //private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
   private final Transform3d transform3d = new DynamicTransform3d();
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
@@ -35,13 +36,13 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance(),
       new Pose2d()
     );
-    visionEstimator = new PhotonPoseEstimator(
+    /*visionEstimator = new PhotonPoseEstimator(
       Constants.APRILTAG_LAYOUT,
       PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
       camera,
       transform3d
-    );
-    camera.setPipelineIndex(0);
+    );*/
+    //camera.setPipelineIndex(0);
   }
   /**
    * Gets the current location in Meters
@@ -59,16 +60,23 @@ public class Navigation extends SubsystemBase {
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance()
     );
-    visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
-    var results = visionEstimator.update();
-    if (results.isPresent())
-    {
-      poseEstimator.addVisionMeasurement(
+    //visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
+    //var results = visionEstimator.update();
+    //if (results.isPresent())
+    //{
+      /*poseEstimator.addVisionMeasurement(
         results.get().estimatedPose.toPose2d(),
         results.get().timestampSeconds
-      );
-    }
+      );*/
+    //}
     field.setRobotPose(poseEstimator.getEstimatedPosition());
     SmartDashboard.putData(field);
+    /*double x = SmartDashboard.getNumber("X", poseEstimator.getEstimatedPosition().getX());
+    double y = SmartDashboard.getNumber("X", poseEstimator.getEstimatedPosition().getY());
+    double rotation = SmartDashboard.getNumber("X", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+    poseEstimator.resetPosition(imu.getRotation2d(), drivetrain.getLeftDistance(), drivetrain.getRightDistance(), new Pose2d(x, y, Rotation2d.fromDegrees(rotation)));
+    SmartDashboard.putNumber("X", poseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber("Y", poseEstimator.getEstimatedPosition().getY());
+    SmartDashboard.putNumber("Rotation", poseEstimator.getEstimatedPosition().getRotation().getDegrees());*/
   }
 }

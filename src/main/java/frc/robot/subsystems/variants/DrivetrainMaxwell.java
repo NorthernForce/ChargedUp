@@ -102,7 +102,7 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getLeftDistance()
   {
-    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -110,7 +110,7 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getRightDistance()
   {
-    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (-rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
   }
   /**
    * Sets the two secondary motors to follow the primary motors
