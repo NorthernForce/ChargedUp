@@ -15,7 +15,7 @@ public class ManipulateArmWithJoystick extends CommandBase {
   private DoubleSupplier[] Speeds = OI.getManipulatorSuppliers();
   /** Creates a new ManipulateWithJoystick. */
   public ManipulateArmWithJoystick() {
-    addRequirements(arm);
+    addRequirements(armRotate);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,7 +26,7 @@ public class ManipulateArmWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setArmSpeed(Speeds[0].getAsDouble());
+    armRotate.setArmSpeed(Speeds[0].getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
