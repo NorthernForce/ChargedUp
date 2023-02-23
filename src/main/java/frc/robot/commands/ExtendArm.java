@@ -16,7 +16,7 @@ public class ExtendArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.extend();
+    //arm.extend();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -27,7 +27,7 @@ public class ExtendArm extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.retract();
+    //arm.retract();
   }
 
   // Returns true when the command should end.
