@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -101,6 +102,8 @@ public abstract class Drivetrain extends SubsystemBase
    * @param right amount of voltage to go into the right motors
    */
   public void driveVolts(double left, double right) {}
+
+  public abstract void driveUsingChassisSpeeds(ChassisSpeeds speeds);
 
   @Override
   public void periodic() {
