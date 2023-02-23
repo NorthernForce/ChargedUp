@@ -5,29 +5,42 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public abstract class Drivetrain extends SubsystemBase
+public class Drivetrain extends SubsystemBase
 {
+  private MotorGroup leftSide;
+  private MotorGroup rightSide;
+  private DifferentialDrive robotDrive;
+  private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
   /** 
    * Creates a new Drivetrain. 
-   * This is the parent class for drivetrain variants 
    */
-  public Drivetrain() {}
+  public Drivetrain(MotorGroup leftSide, MotorGroup rightSide) {
+    this.leftSide = leftSide;
+    this.rightSide = rightSide;
+    robotDrive = new DifferentialDrive(leftSide, rightSide);
+  }
 
   /**
    * Drives the robot forward applying the speed proportions
    * @param speed forward speed [1.0.. -1.0]
    * @param rotation rotational speed [1.0.. -1.0]
    */
-  public void drive(double speed, double rotation) {}
+  public void drive(double speed, double rotation) {
+    robotDrive.arcadeDrive(speed * speedProportion, rotation * rotationSpeedProportion);
+  }
 
   /**
    * Sets the speed proportions
    * @param speedProportion Forward speed proportion
    * @param rotationSpeedProportion Rotational speed proportion
    */
-  public void setSpeedProportions(double speedProportion, double rotationSpeedProportion) {}
+  public void setSpeedProportions(double speedProportion, double rotationSpeedProportion) {
+    this.speedProportion = speedProportion;
+    this.rotationSpeedProportion = rotationSpeedProportion;
+  }
 
   /**
    * Gets the forward speed proportion
@@ -35,7 +48,7 @@ public abstract class Drivetrain extends SubsystemBase
    */
   public double getSpeedProportion()
   {
-    return 0;
+    return speedProportion;
   }
 
   /**
@@ -44,7 +57,7 @@ public abstract class Drivetrain extends SubsystemBase
    */
   public double getRotationSpeedProportion()
   {
-    return 0;
+    return rotationSpeedProportion;
   }
 
   /**
@@ -52,12 +65,17 @@ public abstract class Drivetrain extends SubsystemBase
    * @param speed forward speed [1.0.. -1.0]
    * @param rotation rotational speed [1.0.. -1.0]
    */
-  public void driveUsingSpeeds(double speed, double rotation) {}
+  public void driveUsingSpeeds(double speed, double rotation) {
+    robotDrive.arcadeDrive(speed, rotation);
+  }
 
   /**
    * Resets the encoder rotations to (0, 0)
    */
-  public void resetEncoderRotations() {}
+  public void resetEncoderRotations() {
+    leftSide.resetEncoderRotations();
+    rightSide.resetEncoderRotations();
+  }
 
   /**
    * Gets the current encoder rotations
@@ -65,7 +83,11 @@ public abstract class Drivetrain extends SubsystemBase
    */
   public double[] getEncoderRotations()
   {
-    return new double[] {0,0};
+    return new double[] 
+    {
+      leftSide.getEncoderRotations(), 
+      rightSide.getEncoderRotations()
+    };
   }
 
   /**
@@ -100,7 +122,10 @@ public abstract class Drivetrain extends SubsystemBase
    * @param left amount of voltage to go into the left motors
    * @param right amount of voltage to go into the right motors
    */
-  public void driveVolts(double left, double right) {}
+  public void driveVolts(double left, double right) {
+    leftSide.setVoltage(left);
+    rightSide.setVoltage(right);
+  }
 
   @Override
   public void periodic() {
