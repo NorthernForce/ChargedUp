@@ -10,19 +10,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import static frc.robot.RobotContainer.*;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
 
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final WPI_TalonFX rotateMotor;
   private final PIDController rotateController;
+  private final CANCoder rotateEncoder;
   /** Creates a new Arm. */
   public ArmRotate() {
     // Assert required subsystem have been declared
@@ -32,6 +32,7 @@ public class ArmRotate extends SubsystemBase {
     rotateMotor.setSelectedSensorPosition(Constants.ARM_STARTING_ROTATION.getRotations() * Constants.ROTATE_GEAR_RATIO * 2048);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateController.setSetpoint(Constants.ARM_STARTING_ROTATION.getRadians());
+    rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
   }
   /**
    * Get arm angle
@@ -39,8 +40,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations((rotateMotor.getSelectedSensorPosition() / 2048)
-      / Constants.ROTATE_GEAR_RATIO);
+    return Rotation2d.fromDegrees(rotateEncoder.getPosition());
   }
   /**
    * Set arm angle
