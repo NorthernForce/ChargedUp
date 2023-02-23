@@ -150,7 +150,6 @@ public final class Constants {
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO
     public static final double GRIPPER_CONE_OUTTAKE_SPEED = -1.0; // TODO
-    public static final double ROTATE_GEAR_RATIO = 0.0; // TODO
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 20;
     /** Solenoids */
