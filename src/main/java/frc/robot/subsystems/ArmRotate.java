@@ -29,9 +29,7 @@ public class ArmRotate extends SubsystemBase {
     rotateMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
     rotateMotor.setInverted(TalonFXInvertType.CounterClockwise);
     configureController(rotateMotor, false);
-    rotateMotor.setSelectedSensorPosition(Constants.ARM_STARTING_ROTATION.getRotations() * Constants.ROTATE_GEAR_RATIO * 2048);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
-    rotateController.setSetpoint(Constants.ARM_STARTING_ROTATION.getRadians());
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
   }
   /**
