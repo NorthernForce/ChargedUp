@@ -139,7 +139,11 @@ public final class Constants {
     public static final double ARM_RAMP_RATE = 0.2;
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
-    public static final Translation3d ARM_ORIGIN = null; // TODO
+    public static final Translation3d ARM_ORIGIN = new Translation3d(
+        Units.inchesToMeters(3),
+        Units.inchesToMeters(0),
+        Units.inchesToMeters(26.5)
+    ); // TODO
     public static final Rotation2d ARM_STARTING_ROTATION = Rotation2d.fromDegrees(90); // TODO
     public static final double ARM_PROPORTION = 0.0; // TODO
     public static final double ARM_GEAR_RATIO = 0.0; // TODO
