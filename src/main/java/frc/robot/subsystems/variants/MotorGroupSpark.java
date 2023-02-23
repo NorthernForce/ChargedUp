@@ -9,15 +9,16 @@ import java.util.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.subsystems.MotorGroup;
 
-import static frc.robot.Constants.*;
-
-/** Add your docs here. */
+/** 
+ * Group of Sparks to be used like MotorController Class
+*/
 public class MotorGroupSpark implements MotorGroup {
     private CANSparkMax primary;
     private List<CANSparkMax> followers = new ArrayList<CANSparkMax>();
-    private int COUNTS_PER_REVOLUTION = 2048;
     /**
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
@@ -58,6 +59,9 @@ public class MotorGroupSpark implements MotorGroup {
     }
     public void set(double speed) {
         primary.set(speed);
+    }
+    public void setFollowerOppose(int i) {
+        followers.get(i).follow(primary, true);
     }
     public void setInverted(boolean isInverted) {
         primary.setInverted(isInverted);

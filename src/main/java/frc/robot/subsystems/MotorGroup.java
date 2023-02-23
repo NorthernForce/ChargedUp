@@ -6,7 +6,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
-/** Add your docs here. */
+/** 
+ * Motor controller that can be constructed with followers.
+ * Also interfaces with encoders.
+ */
 public interface MotorGroup extends MotorController {
     /**
      * Gives the rotations done by the encoder
@@ -18,6 +21,12 @@ public interface MotorGroup extends MotorController {
      * @return double rotations per second
      */
     public double getEncoderRPS();
+    /**
+     * Sets a follower to have the opposite invert type as primary.
+     * This must be called after followers are set.
+     * @param index of the follower in parameter list.
+     */
+    public void setFollowerOppose(int i);
     /**
      * Resets the encoder rotations to (0,0)
      */

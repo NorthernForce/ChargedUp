@@ -5,18 +5,20 @@
 package frc.robot.subsystems.variants;
 
 import java.util.*;
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import frc.robot.subsystems.MotorGroup;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import static frc.robot.Constants.*;
+import frc.robot.subsystems.MotorGroup;
 
-/** Add your docs here. */
+
+/** 
+ * Group of Talons to be used like MotorController Class
+*/
 public class MotorGroupTalon implements MotorGroup {
     private WPI_TalonFX primary;
     private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
@@ -61,11 +63,11 @@ public class MotorGroupTalon implements MotorGroup {
     public void set(double speed) {
         primary.set(speed);
     }
+    public void setFollowerOppose(int i) {
+        followers.get(i).setInverted(InvertType.OpposeMaster);
+    }
     public void setInverted(boolean isInverted) {
         primary.setInverted(isInverted);
-        for (WPI_TalonFX wpi_TalonFX : followers) {
-            wpi_TalonFX.setInverted(InvertType.FollowMaster);
-        }
     }
     public void stopMotor() {
         primary.stopMotor();
@@ -97,6 +99,7 @@ public class MotorGroupTalon implements MotorGroup {
     private void setFollowers() {
         for (WPI_TalonFX wpi_TalonFX : followers) {
             wpi_TalonFX.follow(primary);
+            wpi_TalonFX.setInverted(InvertType.FollowMaster);
         }
     }
 }
