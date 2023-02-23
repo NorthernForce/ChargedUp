@@ -4,18 +4,20 @@
 
 package frc.robot.commands.autoComponents;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import static frc.robot.RobotContainer.drivetrain;;
+import static frc.robot.RobotContainer.*;
 
 public class DriveMeters extends CommandBase {
   private final double speed, rotation, meters;
+  private final PIDController alignController = new PIDController(0.04, 0, 0);
   private double startMeters;
   /** Creates a new DriveForDistance. */
-  public DriveMeters(double speed, double rotation, double meters) {
+  public DriveMeters(double speed, double meters) {
     addRequirements(drivetrain);
     this.speed = speed;
-    this.rotation = rotation;
+    this.rotation = imu.getYaw();
     this.meters = meters;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,7 +31,7 @@ public class DriveMeters extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(speed, rotation);
+    drivetrain.drive(speed, -alignController.calculate(imu.getYaw(), rotation));
   }
 
   // Called once the command ends or is interrupted.

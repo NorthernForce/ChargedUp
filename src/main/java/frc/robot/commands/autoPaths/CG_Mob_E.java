@@ -18,21 +18,21 @@ public class CG_Mob_E extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveMeters(-0.3, 0, 0.3),
+      new DriveMeters(-0.3, 0.3),
       //Push piece of front
-      new DriveMeters(0.3, 0, 0.05),
-      new DriveMeters(0.55, 0, 0.05),
-      new DriveMeters(-0.55, 0, 0.2),
+      new DriveMeters(0.3, 0.05),
+      new DriveMeters(0.55, 0.05),
+      new DriveMeters(-0.55, 0.2),
       //Push piece forward
-      new DriveMeters(0.35, 0, 0.4),
+      new DriveMeters(0.35, 0.4),
       new DriveForMilliseconds(.3, 0, 5500),
 
       //Exit Community
-      new DriveMeters(-0.6, 0, 1),
-      new DriveMeters(-0.5, 0, 0.6),
-      new DriveMeters(-0.6, 0, 1),
+      new DriveMeters(-0.6, 1),
+      new DriveMeters(-0.5, .6),
+      new DriveMeters(-0.6, 1),
       // Reenter Charge Station
-      new DriveMeters(0.6, 0, 1.3),
+      new DriveMeters(0.6, 1.3),
       //Stop
       new PIDBalance()
     );

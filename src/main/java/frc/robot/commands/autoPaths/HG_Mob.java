@@ -16,7 +16,7 @@ public class HG_Mob extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveMeters(0.5, 0.0, 2),
+      new DriveMeters(0.5, 2),
       new Stop(0.1));
   }
 }

@@ -21,18 +21,18 @@ public class OG_1PieMob extends SequentialCommandGroup {
     
     addCommands(
       //Backup
-      new DriveMeters(-0.3, 0, 0.3),
+      new DriveMeters(-0.3, 0.3),
       //Push piece of front
-      new DriveMeters(0.3, 0, 0.05),
-      new DriveMeters(0.55, 0, 0.05),
-      new DriveMeters(-0.55, 0, 0.2),
+      new DriveMeters(0.3, 0.05),
+      new DriveMeters(0.55, 0.05),
+      new DriveMeters(-0.55, 0.2),
       //Push piece forward
-      new DriveMeters(0.35, 0, 0.4),
+      new DriveMeters(0.35, 0.4),
       new DriveForMilliseconds(.3, 0, 5500),
       //Exit Community
-      new DriveMeters(-0.55, 0, 1),
-      new DriveMeters(-0.35, 0, 0.6),
-      new DriveMeters(-0.55, 0, 1),
+      new DriveMeters(-0.55, 1),
+      new DriveMeters(-0.35, 0.6),
+      new DriveMeters(-0.55, 1),
       //Stop
       new Stop(0.1));
   }
