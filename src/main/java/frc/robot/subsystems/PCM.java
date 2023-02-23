@@ -24,6 +24,10 @@ public class PCM extends SubsystemBase {
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
         Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
     );
+    solenoids.put(Constants.TELESCOPE_SOLENOID_ID,
+      new DoubleSolenoid(PneumaticsModuleType.REVPH,
+        Constants.TELESCOPE_SOLENOID_FORWARD, Constants.TELESCOPE_SOLENOID_REVERSE)
+    );
   }
   /**
    * Sets state of the solenoid
