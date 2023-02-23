@@ -137,8 +137,8 @@ public final class Constants {
     public static final int ARM_MOTOR_ID = 5;
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
-    public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
-    public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
+    public static final double ARM_EXTENDED_LENGTH = Units.inchesToMeters(40.0);
+    public static final double ARM_RETRACTED_LENGTH = Units.inchesToMeters(26.0);
     public static final Translation3d ARM_ORIGIN = new Translation3d(
         Units.inchesToMeters(3),
         Units.inchesToMeters(0),
