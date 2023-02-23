@@ -136,6 +136,7 @@ public final class Constants {
     /** Arm Constants */
     public static final int ARM_LEFT_MOTOR = 5;
     public static final int ARM_RIGHT_MOTOR = 6;
+    public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
     public static final double ARM_EXTENDED_LENGTH = 0.0; // TODO
     public static final double ARM_RETRACTED_LENGTH = 0.0; // TODO
