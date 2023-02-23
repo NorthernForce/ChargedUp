@@ -26,7 +26,7 @@ public class ArmRotate extends SubsystemBase {
   /** Creates a new Arm. */
   public ArmRotate() {
     // Assert required subsystem have been declared
-    rotateMotor = new WPI_TalonFX(Constants.ARM_LEFT_MOTOR);
+    rotateMotor = new WPI_TalonFX(Constants.ARM_MOTOR_ID);
     rotateMotor.setInverted(TalonFXInvertType.CounterClockwise);
     configureController(rotateMotor, false);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
