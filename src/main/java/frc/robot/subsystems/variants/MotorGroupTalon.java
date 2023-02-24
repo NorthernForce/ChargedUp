@@ -23,6 +23,7 @@ public class MotorGroupTalon implements MotorGroup {
     private WPI_TalonFX primary;
     private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
     private int COUNTS_PER_REVOLUTION = 2048;
+    private int invertCoefficient = 1;
     /**
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
@@ -56,7 +57,7 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
-        return primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
+        return invertCoefficient * primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
     }
     public boolean getInverted() {
         return primary.getInverted();
@@ -69,6 +70,7 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public void setInverted(boolean isInverted) {
         primary.setInverted(isInverted);
+        invertCoefficient = (isInverted ? -1 : 1);
     }
     public void stopMotor() {
         primary.stopMotor();
