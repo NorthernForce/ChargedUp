@@ -20,9 +20,13 @@ public class PCM extends SubsystemBase {
   /** Creates a new Compressor. */
   public PCM() {
     compressor.enableDigital();
-    solenoids.put(Constants.MOTOR_SOLENOID_ID,
+    /*solenoids.put(Constants.MOTOR_SOLENOID_ID,
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
         Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
+    );*/
+    solenoids.put(Constants.TELESCOPE_SOLENOID_ID,
+      new DoubleSolenoid(PneumaticsModuleType.REVPH,
+        Constants.TELESCOPE_SOLENOID_FORWARD, Constants.TELESCOPE_SOLENOID_REVERSE)
     );
   }
   /**

@@ -4,15 +4,14 @@
 
 package frc.robot.commands.autoComponents;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import static frc.robot.RobotContainer.*;
 
@@ -22,54 +21,49 @@ import java.util.function.Supplier;
 /**
  * Simple command to drive to a destination using a RamseteCommand
  */
-public class DriveToLocation extends RamseteCommand {
+public class DriveToLocation extends CommandBase {
   private final Supplier<Boolean> canDrive;
+  private final RamseteController controller;
+  private final double maxVelocity, maxAcceleration;
+  private Trajectory trajectory;
+  private final Pose2d targetPose;
+  private double timeStart;
   /**
    * Creates a new DriveToLocation
    * @param newLocation the destination (Pose2d)
+   * @param maxVelocity the maximum velocity (m/s)
+   * @param maxAcceleration the maximum acceleration (m^2/s)
    */
-  public DriveToLocation(Pose2d newLocation) {
-    super(
-      TrajectoryGenerator.generateTrajectory(
-        navigation.getPose2d(),
-        List.of(),
-        newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
-      navigation::getPose2d,
-      new RamseteController(),
-      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
-      drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
-      drivetrain::driveVolts,
-      drivetrain, navigation
-    );
+  public DriveToLocation(Pose2d newLocation, double maxVelocity, double maxAcceleration) {
+    addRequirements(drivetrain, navigation);
+    targetPose = newLocation;
+    controller = new RamseteController();
+    this.maxVelocity = maxVelocity;
+    this.maxAcceleration = maxAcceleration;
     canDrive = () -> true;
   }
   /**
    * Creates a new DriveToLocation
    * @param newLocation the destination (Pose2d)
+   * @param maxVelocity the maximum velocity (m/s)
+   * @param maxAcceleration the maximum acceleration (m^2/s)
    * @param canDrive whether the drivetrain can drive or not
    */
-  public DriveToLocation(Pose2d newLocation, Supplier<Boolean> canDrive) {
-    super(
-      TrajectoryGenerator.generateTrajectory(
-        navigation.getPose2d(),
-        List.of(),
-        newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
-      navigation::getPose2d,
-      new RamseteController(),
-      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
-      drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
-      drivetrain::driveVolts,
-      drivetrain, navigation
-    );
+  public DriveToLocation(Pose2d newLocation, double maxVelocity, double maxAcceleration, Supplier<Boolean> canDrive) {
+    addRequirements(drivetrain, navigation);
+    targetPose = newLocation;
+    controller = new RamseteController();
+    this.maxVelocity = maxVelocity;
+    this.maxAcceleration = maxAcceleration;
     this.canDrive = canDrive;
+  }
+  @Override
+  public void initialize() {
+    trajectory = TrajectoryGenerator.generateTrajectory(
+      List.of(navigation.getPose2d(), targetPose),
+      new TrajectoryConfig(maxVelocity, maxAcceleration)
+    );
+    timeStart = Timer.getFPGATimestamp();
   }
   /**
   * Overrides Ramsete.execute() to only execute if canDrive returns true
@@ -77,6 +71,15 @@ public class DriveToLocation extends RamseteCommand {
   @Override
   public void execute()
   {
-    if (canDrive.get()) super.execute();
+    if (canDrive.get())
+    {
+      Trajectory.State state = trajectory.sample(Timer.getFPGATimestamp() - timeStart);
+      ChassisSpeeds speeds = controller.calculate(targetPose, state);
+      drivetrain.driveUsingChassisSpeeds(speeds);
+    }
+  }
+  @Override
+  public boolean isFinished() {
+    return controller.atReference();
   }
 }
