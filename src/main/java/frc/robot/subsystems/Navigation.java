@@ -51,6 +51,19 @@ public class Navigation extends SubsystemBase {
   {
     return poseEstimator.getEstimatedPosition();
   }
+  /**
+   * Sets the robot position to a pose. This method does not check the validity of the pose.
+   * @param pose A Pose2d Object
+   */
+  public void setRobotPose(Pose2d pose)
+  {
+    poseEstimator.resetPosition(
+      imu.getRotation2d(),
+      drivetrain.getLeftDistance(),
+      drivetrain.getRightDistance(),
+      pose
+    );
+  }
   /** Runs once every 20ms. */
   @Override
   public void periodic() {
