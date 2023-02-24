@@ -31,7 +31,7 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(String pathName) throws IOException {
     super(
       TrajectoryUtil.fromPathweaverJson(
-        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
       ),
       navigation::getPose2d,
       new RamseteController(),
@@ -53,7 +53,7 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(String pathName, Supplier<Boolean> canDrive) throws IOException {
     super(
       TrajectoryUtil.fromPathweaverJson(
-        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
       ),
       navigation::getPose2d,
       new RamseteController(),
