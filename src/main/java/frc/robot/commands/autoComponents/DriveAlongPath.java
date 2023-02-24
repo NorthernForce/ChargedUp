@@ -7,17 +7,15 @@ package frc.robot.commands.autoComponents;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
 
 import static frc.robot.RobotContainer.*;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.function.Supplier;
 
 /**
@@ -27,16 +25,14 @@ public class DriveAlongPath extends RamseteCommand {
   private final Supplier<Boolean> canDrive;
   /**
    * Creates a new DriveAlongPath
-   * @param waypoints a list of waypoints (List<Translation2d>)
-   * @param newLocation a final destination (Pose2d)
+   * @param pathName name of the pathweaver json
+   * @throws IOException
    */
-  public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation) {
+  public DriveAlongPath(String pathName) throws IOException {
     super(
-      TrajectoryGenerator.generateTrajectory(
-        navigation.getPose2d(),
-        waypoints,
-        newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
+      TrajectoryUtil.fromPathweaverJson(
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+      ),
       navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
@@ -51,17 +47,14 @@ public class DriveAlongPath extends RamseteCommand {
   }
   /**
    * Creates a new DriveAlongPath
-   * @param waypoints a list of waypoints (List<Translation2d>)
-   * @param newLocation a final destination (Pose2d)
+   * @param pathName name of the pathweaver json
    * @param canDrive a supplier to check whether the drivetrain can drive or not
    */
-  public DriveAlongPath(List<Translation2d> waypoints, Pose2d newLocation, Supplier<Boolean> canDrive) {
+  public DriveAlongPath(String pathName, Supplier<Boolean> canDrive) throws IOException {
     super(
-      TrajectoryGenerator.generateTrajectory(
-        navigation.getPose2d(),
-        waypoints,
-        newLocation,
-        new TrajectoryConfig(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)),
+      TrajectoryUtil.fromPathweaverJson(
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+      ),
       navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
