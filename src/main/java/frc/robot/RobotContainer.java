@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.photonvision.PhotonCamera;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,6 +45,8 @@ public class RobotContainer {
   public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
   public static final Wrist wrist = Constants.WRIST_ENABLED ? new Wrist() : null;
   private final SendableChooser<Command> auto1, auto2, auto3;
+  private final SendableChooser<Command> autonomousChooser;
+  private final SendableChooser<Pose2d> startingLocationChooser;
   private final OI oi = new OI();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -53,6 +55,14 @@ public class RobotContainer {
     PhotonCamera.setVersionCheckEnabled(false);
     initDefaultCommands();
     oi.bindButtons();
+
+    startingLocationChooser = new SendableChooser<>();
+    startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
+    startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
+    startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
+    startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
+    startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
+    startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
 
     auto1 = new SendableChooser<>();
     auto1.addOption("Do nothing", new InstantCommand());
@@ -92,6 +102,9 @@ public class RobotContainer {
     SmartDashboard.putData("Autonomous 1", auto1);
     SmartDashboard.putData("Autonomous 2", auto2);
     SmartDashboard.putData("Autonomous 3", auto3);
+
+    SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
+    SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
