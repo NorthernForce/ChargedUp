@@ -121,7 +121,7 @@ public final class Constants {
     public static final boolean GRIPPER_ENABLED = false;
     public static final boolean IMU_ENABLED = true;
     public static final boolean LED_ENABLED = true;
-    public static final boolean NAVIGATION_ENABLED = false;
+    public static final boolean NAVIGATION_ENABLED = true;
     public static final boolean WRIST_ENABLED = false;
     public static final boolean VISION_ENABLED = false;
     /** IMU Constants */
