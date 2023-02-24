@@ -11,6 +11,8 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
+import java.io.IOException;
+
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -56,6 +58,17 @@ public class RobotContainer {
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
     autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
+    try
+    {
+      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece1ToRed1"))
+        .andThen(new Stop(0.1)));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
     startingLocationChooser = new SendableChooser<>();
     startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
     startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
