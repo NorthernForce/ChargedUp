@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /** 
- * Motor controller that can be constructed with followers.
+ * Interface for motor controller that can be constructed with followers.
  * Also interfaces with encoders.
  */
 public interface MotorGroup extends MotorController {

@@ -26,7 +26,8 @@ public class MotorGroupSpark implements MotorGroup {
         this(primaryID, new int[]{}, type);
     }
     /**
-     * Creates a new motor with followers controlled by talons.
+     * Creates a new motor with optional followers controlled by talons. 
+     * Default inverted state is false.
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */

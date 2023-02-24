@@ -8,6 +8,11 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
+import static frc.robot.RobotContainer.activeChassis;
 
 public class Drivetrain extends SubsystemBase
 {
@@ -22,8 +27,9 @@ public class Drivetrain extends SubsystemBase
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
+    private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(activeChassis.TRACK_WIDTH);
+    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   }
-
   /**
    * Drives the robot forward applying the speed proportions
    * @param speed forward speed [1.0.. -1.0]
@@ -32,7 +38,6 @@ public class Drivetrain extends SubsystemBase
   public void drive(double speed, double rotation) {
     robotDrive.arcadeDrive(speed * speedProportion, rotation * rotationSpeedProportion);
   }
-
   /**
    * Sets the speed proportions
    * @param speedProportion Forward speed proportion
@@ -42,7 +47,6 @@ public class Drivetrain extends SubsystemBase
     this.speedProportion = speedProportion;
     this.rotationSpeedProportion = rotationSpeedProportion;
   }
-
   /**
    * Gets the forward speed proportion
    * @return Forward speed proportion
@@ -51,7 +55,6 @@ public class Drivetrain extends SubsystemBase
   {
     return speedProportion;
   }
-
   /**
    * Gets the Rotational Speed Proportion
    * @return the rotational speed proportion
@@ -60,7 +63,6 @@ public class Drivetrain extends SubsystemBase
   {
     return rotationSpeedProportion;
   }
-
   /**
    * Drives using speeds without proportions
    * @param speed forward speed [1.0.. -1.0]
@@ -69,7 +71,6 @@ public class Drivetrain extends SubsystemBase
   public void driveUsingSpeeds(double speed, double rotation) {
     robotDrive.arcadeDrive(speed, rotation);
   }
-
   /**
    * Resets the encoder rotations to (0, 0)
    */
@@ -77,7 +78,6 @@ public class Drivetrain extends SubsystemBase
     leftSide.resetEncoderRotations();
     rightSide.resetEncoderRotations();
   }
-
   /**
    * Gets the current encoder rotations
    * @return an array of two encoder rotations (one for each side)
@@ -90,7 +90,6 @@ public class Drivetrain extends SubsystemBase
       rightSide.getEncoderRotations()
     };
   }
-
   /**
    * Gets the distance traveled by the left encoder
    * @return left encoder distance in meters
@@ -99,7 +98,6 @@ public class Drivetrain extends SubsystemBase
   {
     return 0;
   }
-
   /**
    * Gets the distance traveled by the right encoder
    * @return right encoder distance in meters
@@ -108,7 +106,6 @@ public class Drivetrain extends SubsystemBase
   {
     return 0;
   }
-
   /**
    * Gets the speed that the wheels are moving at
    * @return DifferentialDriveWheelSpeeds in m/s
@@ -117,7 +114,6 @@ public class Drivetrain extends SubsystemBase
   {
     return new DifferentialDriveWheelSpeeds(0,0);
   }
-
   /**
    * Drives the drivetrain based on voltage amounts
    * @param left amount of voltage to go into the left motors
@@ -126,10 +122,14 @@ public class Drivetrain extends SubsystemBase
   public void driveVolts(double left, double right) {
     leftSide.setVoltage(left);
     rightSide.setVoltage(right);
+    robotDrive.feed();
   }
-
-  public abstract void driveUsingChassisSpeeds(ChassisSpeeds speeds);
-
+  public void driveUsingChassisSpeeds(ChassisSpeeds speeds) {
+    DifferentialDriveWheelSpeeds driveSpeeds = kinematics.toWheelSpeeds(speeds);
+    leftSide.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
+    rightSide.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
+    robotDrive.feed();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

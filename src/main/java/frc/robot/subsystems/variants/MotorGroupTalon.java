@@ -31,7 +31,8 @@ public class MotorGroupTalon implements MotorGroup {
         this(primaryID, new int[]{});
     }
     /**
-     * Creates a new motor with followers controlled by talons.
+     * Creates a new motor with optional followers controlled by talons.
+     * Default inverted state is false.
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
