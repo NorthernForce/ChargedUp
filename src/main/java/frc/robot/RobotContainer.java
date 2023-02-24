@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
 
-  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final ChassisBase activeChassis = RobotChooser.getChassis();
   public static final ArmRotate armRotate = Constants.ARM_ENABLED ? new ArmRotate() : null;
   public static final ArmTelescope armTelescope = Constants.ARM_ENABLED ? new ArmTelescope() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
