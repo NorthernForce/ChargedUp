@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -55,7 +56,7 @@ public class RobotContainer {
 
     auto1 = new SendableChooser<>();
     auto1.addOption("Do nothing", new InstantCommand());
-    auto1.addOption("Roll Cube off", new InstantCommand());
+    auto1.addOption("Roll Cube off", new PushOffPiece());
     auto1.addOption("Place Upper left", new InstantCommand());
     auto1.addOption("Place Upper Center", new InstantCommand());
     auto1.addOption("Place Upper Right", new InstantCommand());
@@ -68,7 +69,7 @@ public class RobotContainer {
 
     auto2 = new SendableChooser<>();
     auto2.addOption("Do Nothing", new InstantCommand());
-    auto2.addOption("Mobility", new InstantCommand());
+    auto2.addOption("Mobility", new ExitCommunity());
     auto2.addOption("Engage", new InstantCommand());
     auto2.addOption("Pick up P1", new InstantCommand());
     auto2.addOption("Pick up P2", new InstantCommand());
@@ -103,7 +104,7 @@ public class RobotContainer {
    */
   public SequentialCommandGroup getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialCommandGroup(auto1.getSelected(), auto2.getSelected(), auto3.getSelected());
+    return new SequentialCommandGroup(auto1.getSelected(), auto2.getSelected(), auto3.getSelected(), new Stop(0.1));
 
   }
   /** Initializes the default commands for each subsystem */
