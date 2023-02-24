@@ -14,6 +14,7 @@ import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SlowMode;
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
+import frc.robot.commands.RetractArm;
 
 /** Add your docs here. */
 public class OI {
@@ -42,6 +43,8 @@ public class OI {
         {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
                 .whileTrue(new ExtendArm());
+            new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+                .whileFalse(new RetractArm());
         }
         if (Constants.GRIPPER_ENABLED)
         {

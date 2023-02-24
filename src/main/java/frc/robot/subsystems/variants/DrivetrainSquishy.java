@@ -8,8 +8,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 import static frc.robot.Constants.*;
@@ -20,6 +24,8 @@ public class DrivetrainSquishy extends Drivetrain {
   private final CANSparkMax leftFollower;
   private final CANSparkMax rightFollower;
   private final DifferentialDrive robotDrive;
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
 
   /**
@@ -164,6 +170,13 @@ public class DrivetrainSquishy extends Drivetrain {
   {
     leftPrimary.setVoltage(left);
     rightPrimary.setVoltage(right);
+    robotDrive.feed();
+  }
+  @Override
+  public void driveUsingChassisSpeeds(ChassisSpeeds speeds) {
+    DifferentialDriveWheelSpeeds driveSpeeds = kinematics.toWheelSpeeds(speeds);
+    leftPrimary.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
+    rightPrimary.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
     robotDrive.feed();
   }
   /**

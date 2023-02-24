@@ -30,17 +30,17 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_ID = 3;
     public static final double DRIVE_RAMP_RATE = 0.2;
     public static final int UNITS_PER_REVOLUTION = 2048;
-    public static final double GEAR_RATIO = 15.5;
+    public static final double GEAR_RATIO = 11.37777778;
     public static final double TRACK_WIDTH = Units.inchesToMeters(24);
     public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
     public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / GEAR_RATIO;
     public static final double MAX_SPEED = 0; // TODO
     public static final double MAX_ACCELERATION = 0; // TODO
-    public static final double kS = 0; // TODO
-    public static final double kV = 0; // TODO
-    public static final double kA = 0; // TODO
-    public static final double LEFT_DRIVE_PROPORTION = 0; // TODO
-    public static final double RIGHT_DRIVE_PROPORTION = 0; // TODO
+    public static final double kS = 0.071975;
+    public static final double kV = 2.6116;
+    public static final double kA = 0.27655;
+    public static final double LEFT_DRIVE_PROPORTION = 0.50935;
+    public static final double RIGHT_DRIVE_PROPORTION = 0.50935;
     public static final double FAST_SPEED_FORWARD = 1.0;
     public static final double FAST_SPEED_ROTATION = 0.75;
     public static final double SLOW_SPEED_FORWARD = 0.25;
@@ -134,7 +134,9 @@ public final class Constants {
     public static final double VISION_CAMERA_HEIGHT = Units.inchesToMeters(4);
     public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
+
     public static final int ARM_MOTOR_ID = 5;
+
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
     public static final double ARM_EXTENDED_LENGTH = Units.inchesToMeters(40.0);
@@ -149,6 +151,7 @@ public final class Constants {
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO
     public static final double GRIPPER_CONE_OUTTAKE_SPEED = -1.0; // TODO
+
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 20;
     /** Solenoids */
