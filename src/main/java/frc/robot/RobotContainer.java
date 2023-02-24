@@ -11,12 +11,15 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
+import java.util.List;
+
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -40,7 +43,7 @@ public class RobotContainer {
   public static final Navigation navigation = Constants.NAVIGATION_ENABLED ? new Navigation() : null;
   public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
   public static final Wrist wrist = Constants.WRIST_ENABLED ? new Wrist() : null;
-  private final SendableChooser<Command> autonomousChooser;
+  private final SendableChooser<Command> auto1, auto2, auto3;
   private final OI oi = new OI();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -49,13 +52,45 @@ public class RobotContainer {
     PhotonCamera.setVersionCheckEnabled(false);
     initDefaultCommands();
     oi.bindButtons();
-    autonomousChooser = new SendableChooser<>();
-    autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
-    autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
-    autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
 
-    SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
+    auto1 = new SendableChooser<>();
+    auto1.addOption("Do nothing", new InstantCommand());
+    auto1.addOption("Roll Cube off", new InstantCommand());
+    auto1.addOption("Place Upper left", new InstantCommand());
+    auto1.addOption("Place Upper Center", new InstantCommand());
+    auto1.addOption("Place Upper Right", new InstantCommand());
+    auto1.addOption("Place Middle left", new InstantCommand());
+    auto1.addOption("Place Middle Center", new InstantCommand());
+    auto1.addOption("Place Middle Right", new InstantCommand());
+    auto1.addOption("Place Lower left", new InstantCommand());
+    auto1.addOption("Place Upper Center", new InstantCommand());
+    auto1.addOption("Place Upper Right", new InstantCommand());
+
+    auto2 = new SendableChooser<>();
+    auto2.addOption("Do Nothing", new InstantCommand());
+    auto2.addOption("Mobility", new InstantCommand());
+    auto2.addOption("Engage", new InstantCommand());
+    auto2.addOption("Pick up P1", new InstantCommand());
+    auto2.addOption("Pick up P2", new InstantCommand());
+    auto2.addOption("Pick up P3", new InstantCommand());
+    auto2.addOption("Pick up P4", new InstantCommand());
+
+    auto3 = new SendableChooser<>();
+    auto3.addOption("Do Nothing", new InstantCommand());
+    auto3.addOption("Engage", new InstantCommand());
+    auto3.addOption("Place Upper left", new InstantCommand());
+    auto3.addOption("Place Upper Center", new InstantCommand());
+    auto3.addOption("Place Upper Right", new InstantCommand());
+    auto3.addOption("Place Middle left", new InstantCommand());
+    auto3.addOption("Place Middle Center", new InstantCommand());
+    auto3.addOption("Place Middle Right", new InstantCommand());
+    auto3.addOption("Place Lower left", new InstantCommand());
+    auto3.addOption("Place Upper Center", new InstantCommand());
+    auto3.addOption("Place Upper Right", new InstantCommand());
+
+    SmartDashboard.putData("Autonomous 1", auto1);
+    SmartDashboard.putData("Autonomous 2", auto2);
+    SmartDashboard.putData("Autonomous 3", auto3);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
@@ -66,9 +101,10 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public SequentialCommandGroup getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autonomousChooser.getSelected();
+    return new SequentialCommandGroup(auto1.getSelected(), auto2.getSelected(), auto3.getSelected());
+
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
