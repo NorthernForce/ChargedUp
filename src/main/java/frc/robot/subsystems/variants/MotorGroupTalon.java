@@ -82,9 +82,10 @@ public class MotorGroupTalon implements MotorGroup {
         }
     }
     private void configureController(WPI_TalonFX controller, Boolean isFollower) {
-        final double currentLimit = 60;
-        final double limitThreshold = 90;
-        final double triggerThreshTimeInSec = 1;
+        /** These 3 values are used to prevent breakers from tripping*/
+        final double currentLimit = 40; //Holding current in amps to limit when feature is activated
+        final double limitThreshold = 90; //Current must excede this threshold (amps) before limiting occurs
+        final double triggerThreshTimeInSec = 1; //How long the current must excede thrreshold (seconds) before limiting occurs
         controller.configFactoryDefault();
         controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
         if (!isFollower) {
