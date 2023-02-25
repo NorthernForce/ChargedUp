@@ -4,6 +4,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,6 +15,7 @@ public class Vision extends SubsystemBase {
   private final double CAMERA_PITCH_RADIANS = Constants.VISION_CAMERA_PITCH.getRadians();
   private final PhotonCamera camera = new PhotonCamera(Constants.VISION_CAMERA_NAME);
   private PhotonPipelineResult result = null;
+  /** Enum representing the various pipeline IDs */
   public enum VisionPipeline
   {
     YELLOW_CONE,
@@ -40,7 +42,7 @@ public class Vision extends SubsystemBase {
   }
   /**
    * Sets the pipeline index
-   * @param pipeline VisionPipeline instance
+   * @param pipeline VisionPipeline enum
    */
   public void setPipeline(VisionPipeline pipeline)
   {
@@ -60,8 +62,8 @@ public class Vision extends SubsystemBase {
     result = camera.getLatestResult();
   }
   /**
-   * Checks to see whether there is a target.
-   * @return whether the camera can see a target
+   * Does the camera see a target
+   * @return has target?
    */
   public boolean hasTarget()
   {
@@ -72,21 +74,21 @@ public class Vision extends SubsystemBase {
    * Gets the target yaw (given by Photonvision)
    * @return degree measure of yaw
    */
-  public double getTargetYaw()
+  public Rotation2d getTargetYaw()
   {
-    return result.getBestTarget().getYaw();
+    return Rotation2d.fromDegrees(result.getBestTarget().getYaw());
   }
   /**
    * Gets the target pitch (given by Photonvision)
    * @return degree measure of pitch
    */
-  public double getTargetPitch()
+  public Rotation2d getTargetPitch()
   {
-    return result.getBestTarget().getPitch();
+    return Rotation2d.fromDegrees(result.getBestTarget().getPitch());
   }
   /**
-   * Gets the target range
-   * @return distance in meters
+   * Gets the range of the target
+   * @return range in meters
    */
   public double getTargetRange()
   {
