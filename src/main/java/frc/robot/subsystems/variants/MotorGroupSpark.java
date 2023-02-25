@@ -9,7 +9,6 @@ import java.util.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import frc.robot.subsystems.MotorGroup;
 
 /** 

@@ -13,24 +13,24 @@ public class IMU extends SubsystemBase {
   }
   /**
    * Gets the pitch. Roll and Pitch are swapped on specific NavXs
-   * @return pitch in degrees
+   * @return pitch in Rotation2d
    */
-  public double getPitch() {
-    return Constants.ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch();
+  public Rotation2d getPitch() {
+    return Rotation2d.fromDegrees(Constants.ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch());
   }
   /**
    * Gets the yaw.
-   * @return yaw in degrees
+   * @return yaw in Rotation2d
    */
-  public double getYaw() {
-    return ahrs.getYaw();
+  public Rotation2d getYaw() {
+    return Rotation2d.fromDegrees(ahrs.getYaw());
   }
   /**
    * Gets the roll. Roll and Pitch are swapped on specific NavXs
-   * @return roll in degrees
+   * @return roll in Rotation2d
    */
-  public double getRoll() {
-    return Constants.ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll();
+  public Rotation2d getRoll() {
+    return Rotation2d.fromDegrees(Constants.ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll());
   }
   /**
    * Gets the current Rotation2d

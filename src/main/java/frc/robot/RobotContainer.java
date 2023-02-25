@@ -11,8 +11,7 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
-import org.photonvision.PhotonCamera;
-
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
 
-  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final ChassisBase activeChassis = RobotChooser.getChassis();
   public static final ArmRotate armRotate = Constants.ARM_ENABLED ? new ArmRotate() : null;
   public static final ArmTelescope armTelescope = Constants.ARM_ENABLED ? new ArmTelescope() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
@@ -41,12 +40,12 @@ public class RobotContainer {
   public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
   public static final Wrist wrist = Constants.WRIST_ENABLED ? new Wrist() : null;
   private final SendableChooser<Command> autonomousChooser;
+  private final SendableChooser<Pose2d> startingLocationChooser;
   private final OI oi = new OI();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    PhotonCamera.setVersionCheckEnabled(false);
     initDefaultCommands();
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
@@ -54,8 +53,15 @@ public class RobotContainer {
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
     autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
-
+    startingLocationChooser = new SendableChooser<>();
+    startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
+    startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
+    startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
+    startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
+    startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
+    startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
+    SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
@@ -67,7 +73,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    if (Constants.NAVIGATION_ENABLED) navigation.setRobotPose(startingLocationChooser.getSelected());
     // An ExampleCommand will run in autonomous
+
     return autonomousChooser.getSelected();
   }
   /** Initializes the default commands for each subsystem */

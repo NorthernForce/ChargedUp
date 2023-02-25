@@ -66,7 +66,8 @@ public class Drivetrain extends SubsystemBase
    * @param speed forward speed [1.0.. -1.0]
    * @param rotation rotational speed [1.0.. -1.0]
    */
-  public void driveUsingSpeeds(double speed, double rotation) {
+  public void driveUsingSpeeds(double speed, double rotation)
+  {
     robotDrive.arcadeDrive(speed, rotation);
   }
   /**
@@ -77,12 +78,6 @@ public class Drivetrain extends SubsystemBase
     rightSide.resetEncoderRotations();
   }
   /**
-   * Gets the current encoder rotations
-   * @return an array of two encoder rotations (one for each side)
-   */
-  public double[] getEncoderRotations()
-  {
-    return new double[] 
     {
       leftSide.getEncoderRotations(), 
       rightSide.getEncoderRotations()
