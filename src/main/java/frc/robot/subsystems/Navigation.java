@@ -21,7 +21,6 @@ public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
   private final PhotonPoseEstimator visionEstimator;
   private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
-  private final Transform3d transform3d = new DynamicTransform3d();
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
@@ -37,9 +36,9 @@ public class Navigation extends SubsystemBase {
     );
     visionEstimator = new PhotonPoseEstimator(
       Constants.APRILTAG_LAYOUT,
-      PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
+      PoseStrategy.MULTI_TAG_PNP,
       camera,
-      transform3d
+      Constants.NAVIGATION_CAMERA_TRANSFORM
     );
     camera.setPipelineIndex(0);
   }
@@ -76,10 +75,14 @@ public class Navigation extends SubsystemBase {
     var results = visionEstimator.update();
     if (results.isPresent())
     {
-      poseEstimator.addVisionMeasurement(
-        results.get().estimatedPose.toPose2d(),
-        results.get().timestampSeconds
-      );
+      Pose2d diff = results.get().estimatedPose.toPose2d().relativeTo(poseEstimator.getEstimatedPosition());
+      if (Math.sqrt(Math.pow(diff.getX(), 2) + Math.pow(diff.getY(), 2)) < 1.0)
+      {
+        /*poseEstimator.addVisionMeasurement(
+          results.get().estimatedPose.toPose2d(),
+          results.get().timestampSeconds
+        );*/
+      }
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
     SmartDashboard.putData(field);

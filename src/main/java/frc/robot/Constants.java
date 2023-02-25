@@ -47,7 +47,18 @@ public final class Constants {
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
     public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
-    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d();
+    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11),
+            Units.inchesToMeters(3),
+            Units.inchesToMeters(12.5)
+        ),
+        new Rotation3d(
+            0,
+            0,
+            Math.toRadians(12)
+        )
+    );
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
         List.of(
             new AprilTag(1, new Pose3d(
