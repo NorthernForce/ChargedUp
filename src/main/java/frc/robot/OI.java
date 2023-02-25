@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
-import frc.robot.commands.SlowMode;
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
 import frc.robot.commands.RetractArm;
@@ -20,25 +19,28 @@ import frc.robot.commands.RetractArm;
 public class OI {
     private static final XboxController driverController = new XboxController(0);
     private static final XboxController manipulatorController = new XboxController(1);
-    public OI() {}
+    /**
+     * Gets two double suppliers representing the two major axis of control on drive controller.
+     * @return two doubles that will be within [-1.0, 1.0]
+     */
     public static DoubleSupplier[] getDriveSuppliers() {
             return new DoubleSupplier[] {
             () -> -driverController.getLeftY(),
             () -> driverController.getRightX()
         };
     }
+    /**
+     * Gets two double suppliers representing the two major axis of control on manipulator controller.
+     * @return two doubles that will be within [-1.0, 1.0]
+     */
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
             () -> -manipulatorController.getLeftY(),
             () -> manipulatorController.getRightX()
         };
     }
+    /** Binds the buttons of the OI */
     public void bindButtons() {
-        if (Constants.DRIVETRAIN_ENABLED)
-        {
-            //new JoystickButton(driverController, XboxController.Button.kA.value)
-              //  .toggleOnTrue(new SlowMode());
-        }
         if (Constants.ARM_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)

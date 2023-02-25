@@ -11,8 +11,6 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
-import org.photonvision.PhotonCamera;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
 
-  public static final ChassisBase activeChassis = new RobotChooser().GetChassis();
+  public static final ChassisBase activeChassis = RobotChooser.getChassis();
   public static final ArmRotate armRotate = Constants.ARM_ENABLED ? new ArmRotate() : null;
   public static final ArmTelescope armTelescope = Constants.ARM_ENABLED ? new ArmTelescope() : null;
   public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
@@ -48,7 +46,6 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    PhotonCamera.setVersionCheckEnabled(false);
     initDefaultCommands();
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
