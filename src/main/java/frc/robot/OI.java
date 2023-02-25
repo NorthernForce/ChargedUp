@@ -21,10 +21,16 @@ public class OI {
     private static final XboxController driverController = new XboxController(0);
     private static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
+    /**
+     * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
+     * @return Index[0]: Joystick forward(positve)/back(negative).
+     * <li> Index[1]: Joystick left(positive)/right(negative). </li>
+     */
     public static DoubleSupplier[] getDriveSuppliers() {
             return new DoubleSupplier[] {
+            //Joystick defaults to forward being negative so we negate it.
             () -> -driverController.getLeftY(),
-            () -> driverController.getRightX()
+            () -> -driverController.getRightX()
         };
     }
     public static DoubleSupplier[] getManipulatorSuppliers() {

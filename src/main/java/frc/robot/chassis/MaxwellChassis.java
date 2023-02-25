@@ -14,14 +14,14 @@ public class MaxwellChassis implements ChassisBase {
     public Drivetrain getDrivetrain() {
         MotorGroup left = new MotorGroupTalon(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
         MotorGroup right = new MotorGroupTalon(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
-        right.setInverted(true);
+        left.setInverted(true);
         return new Drivetrain(left, right);
     }
     public String getChassisName() {
         return "Maxwell";
     }
-    public static final int LEFT_PRIMARY_ID = 2;
-    public static final int RIGHT_PRIMARY_ID = 1;
-    public static final int LEFT_FOLLOWER_ID = 4;
-    public static final int RIGHT_FOLLOWER_ID = 3;
+    public static final int LEFT_PRIMARY_ID = 1;
+    public static final int RIGHT_PRIMARY_ID = 2;
+    public static final int LEFT_FOLLOWER_ID = 3;
+    public static final int RIGHT_FOLLOWER_ID = 4;
 }
