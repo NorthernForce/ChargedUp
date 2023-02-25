@@ -63,7 +63,11 @@ public class RobotContainer {
       autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
         .andThen(new Stop(0.1))
         .andThen(new DriveAlongPath("Piece1ToRed1"))
-        .andThen(new Stop(0.1)));
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Red1ToPiece2"))
+        .andThen(new Stop(0.2))
+        .andThen(new DriveAlongPath("Piece2ToRed1"))
+        .andThen(new Stop(0.2)));
     }
     catch (IOException exception)
     {
