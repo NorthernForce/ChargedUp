@@ -26,7 +26,6 @@ public class CG_Mob_E extends SequentialCommandGroup {
       //Push piece forward
       new DriveMeters(0.35, 0, 0.4),
       new DriveForMilliseconds(.3, 0, 5500),
-
       //Exit Community
       new DriveMeters(-0.6, 0, 1),
       new DriveMeters(-0.5, 0, 0.6),
