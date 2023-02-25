@@ -28,7 +28,7 @@ public class DriveWithJoystick extends CommandBase {
    */
   @Override
   public void execute() {
-      drivetrain.drive(driverSpeeds[0].getAsDouble(), driverSpeeds[1].getAsDouble());
+    drivetrain.drive(driverSpeeds[0].getAsDouble(), -driverSpeeds[1].getAsDouble());
   }
   @Override
   public void end(boolean interrupted) {}

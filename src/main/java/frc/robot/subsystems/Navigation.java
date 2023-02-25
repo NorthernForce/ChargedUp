@@ -30,7 +30,7 @@ public class Navigation extends SubsystemBase {
     drivetrain.resetEncoderRotations();
     poseEstimator = new DifferentialDrivePoseEstimator(
       new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
-      imu.getRotation2d().unaryMinus(),
+      imu.getRotation2d(),
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance(),
       new Pose2d()
@@ -58,7 +58,7 @@ public class Navigation extends SubsystemBase {
   public void setRobotPose(Pose2d pose)
   {
     poseEstimator.resetPosition(
-      imu.getRotation2d().unaryMinus(),
+      imu.getRotation2d(),
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance(),
       pose
@@ -68,7 +68,7 @@ public class Navigation extends SubsystemBase {
   @Override
   public void periodic() {
     poseEstimator.update(
-      imu.getRotation2d().unaryMinus(),
+      imu.getRotation2d(),
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance()
     );

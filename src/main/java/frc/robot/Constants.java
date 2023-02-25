@@ -24,10 +24,10 @@ import frc.robot.util.DynamicTransform3d;
 
 public final class Constants {
     /** Drive Constants */
-    public static final int LEFT_PRIMARY_ID = 2;
-    public static final int RIGHT_PRIMARY_ID = 1;
-    public static final int LEFT_FOLLOWER_ID = 4;
-    public static final int RIGHT_FOLLOWER_ID = 3;
+    public static final int LEFT_PRIMARY_ID = 1;
+    public static final int RIGHT_PRIMARY_ID = 2;
+    public static final int LEFT_FOLLOWER_ID = 3;
+    public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double DRIVE_RAMP_RATE = 0.2;
     public static final int UNITS_PER_REVOLUTION = 2048;
     public static final double GEAR_RATIO = 11.37777778;
