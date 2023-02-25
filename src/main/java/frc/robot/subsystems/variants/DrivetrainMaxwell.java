@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
@@ -180,8 +181,10 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public void driveVolts(double left, double right)
   {
+    SmartDashboard.putNumber("Left Voltage: ", left);
+    SmartDashboard.putNumber("Right Voltage: ", right);
     leftPrimary.setVoltage(left);
-    rightPrimary.setVoltage(-right);
+    rightPrimary.setVoltage(right);
     robotDrive.feed();
   }
   /**
