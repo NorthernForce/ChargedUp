@@ -52,9 +52,11 @@ public class MotorGroupTalon implements MotorGroup {
     public double get() {
         return primary.get();
     }
+    /** Encoder Rotations need to be negated if inverted */
     public double getEncoderRotations() {
         return primary.getSensorCollection().getIntegratedSensorPosition() / COUNTS_PER_REVOLUTION;
     }
+    /** Encoder RPS need to be negated if inverted */
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
         return invertCoefficient * primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
