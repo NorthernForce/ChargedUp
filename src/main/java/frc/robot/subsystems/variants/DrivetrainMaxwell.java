@@ -11,11 +11,19 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
@@ -30,6 +38,7 @@ public class DrivetrainMaxwell extends Drivetrain {
   private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
+  private final DifferentialDrivetrainSim robotDriveSim;
   /**
    * Constructs a drivetrain
    */
@@ -42,6 +51,21 @@ public class DrivetrainMaxwell extends Drivetrain {
     setInvert();
     configureAllControllers();
     robotDrive = new DifferentialDrive(leftPrimary, rightPrimary);
+    if (RobotBase.isSimulation())
+    {
+      robotDriveSim = new DifferentialDrivetrainSim(
+        LinearSystemId.identifyDrivetrainSystem(Constants.kV, Constants.kA, Constants.kV, Constants.kA),
+        DCMotor.getFalcon500(2),
+        Constants.GEAR_RATIO,
+        Constants.TRACK_WIDTH,
+        Units.inchesToMeters(3),
+        VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005)
+      );
+    }
+    else
+    {
+      robotDriveSim = null;
+    }
   }
   /**
    * Drives the robot forward applying the speed proportions
@@ -108,7 +132,10 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getLeftDistance()
   {
-    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    if (RobotBase.isReal())
+      return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    else
+      return robotDriveSim.getLeftPositionMeters();
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -116,7 +143,10 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getRightDistance()
   {
-    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    if (RobotBase.isReal())
+      return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    else
+      return robotDriveSim.getRightPositionMeters();
   }
   /**
    * Sets the two secondary motors to follow the primary motors
@@ -169,9 +199,16 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
-    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
-    return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
+    if (RobotBase.isReal())
+    {
+      double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+      double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+      return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
+    }
+    else
+    {
+      return new DifferentialDriveWheelSpeeds(robotDriveSim.getLeftVelocityMetersPerSecond(), robotDriveSim.getRightVelocityMetersPerSecond());
+    }
   }
   /**
    * Drives the drivetrain based on voltage amounts
@@ -197,5 +234,12 @@ public class DrivetrainMaxwell extends Drivetrain {
     leftPrimary.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
     rightPrimary.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
     robotDrive.feed();
+  }
+  @Override
+  public void simulationPeriodic()
+  {
+    robotDriveSim.setInputs(leftPrimary.get() * RobotController.getInputVoltage(),
+      -rightPrimary.get() * RobotController.getInputVoltage());
+    robotDriveSim.update(0.02);
   }
 }

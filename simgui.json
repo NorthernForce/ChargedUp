@@ -6,7 +6,7 @@
           "open": true
         }
       },
-      "navX-Sensor[0]": {
+      "Talon FX[2]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -22,5 +22,26 @@
       "/SmartDashboard/Starting Location Chooser": "String Chooser",
       "/SmartDashboard/Stop": "Command"
     }
+  },
+  "NetworkTables": {
+    "Retained Values": {
+      "open": false
+    },
+    "Transitory Values": {
+      "open": false
+    },
+    "transitory": {
+      "CameraPublisher": {
+        "open": true
+      },
+      "SmartDashboard": {
+        "Autonomous Routine Chooser": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }
