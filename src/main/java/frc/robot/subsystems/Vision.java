@@ -1,20 +1,17 @@
 package frc.robot.subsystems;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
-  private final double CAMERA_HEIGHT_METERS = Constants.VISION_CAMERA_HEIGHT;
-  private double targetHeight = 0.0;
-  private final double CAMERA_PITCH_RADIANS = Constants.VISION_CAMERA_PITCH.getRadians();
-  private final PhotonCamera camera = new PhotonCamera(Constants.VISION_CAMERA_NAME);
-  private PhotonPipelineResult result = null;
+  private final NetworkTableEntry tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv");
+  private final NetworkTableEntry tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
+  private final NetworkTableEntry ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+  private final NetworkTableEntry pipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline");
+  private double targetHeight;
   /** Enum representing the various pipeline IDs */
   public enum VisionPipeline
   {
@@ -27,11 +24,11 @@ public class Vision extends SubsystemBase {
       switch (this)
       {
       case YELLOW_CONE:
-        return 0;
-      case PURPLE_CUBE:
         return 1;
-      case REFLECTIVE_TARGET:
+      case PURPLE_CUBE:
         return 2;
+      case REFLECTIVE_TARGET:
+        return 0;
       default:
         return 0;
       }
@@ -46,7 +43,7 @@ public class Vision extends SubsystemBase {
    */
   public void setPipeline(VisionPipeline pipeline)
   {
-    camera.setPipelineIndex(pipeline.getPipelineIndex());
+    this.pipeline.setDouble(pipeline.getPipelineIndex());
   }
   /**
    * Sets the target height
@@ -59,7 +56,6 @@ public class Vision extends SubsystemBase {
   /** This method will be called once per scheduler run */
   @Override
   public void periodic() {
-    result = camera.getLatestResult();
   }
   /**
    * Does the camera see a target
@@ -67,24 +63,23 @@ public class Vision extends SubsystemBase {
    */
   public boolean hasTarget()
   {
-    if (result == null) return false;
-    return result.hasTargets();
+    return tv.getDouble(0.0) == 0.0;
   }
   /**
-   * Gets the target yaw (given by Photonvision)
+   * Gets the target yaw (given by Limelight)
    * @return degree measure of yaw
    */
   public Rotation2d getTargetYaw()
   {
-    return Rotation2d.fromDegrees(result.getBestTarget().getYaw());
+    return Rotation2d.fromDegrees(tx.getDouble(0.0));
   }
   /**
-   * Gets the target pitch (given by Photonvision)
+   * Gets the target pitch (given by Limelight)
    * @return degree measure of pitch
    */
   public Rotation2d getTargetPitch()
   {
-    return Rotation2d.fromDegrees(result.getBestTarget().getPitch());
+    return Rotation2d.fromDegrees(ty.getDouble(0.0));
   }
   /**
    * Gets the range of the target
@@ -92,11 +87,6 @@ public class Vision extends SubsystemBase {
    */
   public double getTargetRange()
   {
-    double range = PhotonUtils.calculateDistanceToTargetMeters(
-        CAMERA_HEIGHT_METERS,
-        targetHeight,
-        CAMERA_PITCH_RADIANS,
-        Units.degreesToRadians(result.getBestTarget().getPitch()));
-    return range;
+    return (targetHeight - Constants.VISION_CAMERA_HEIGHT) / Constants.VISION_CAMERA_PITCH.plus(getTargetPitch()).getTan();
   }
 }
