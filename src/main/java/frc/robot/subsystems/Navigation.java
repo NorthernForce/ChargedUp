@@ -4,8 +4,8 @@ import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.util.DynamicTransform3d;
@@ -42,6 +42,7 @@ public class Navigation extends SubsystemBase {
       transform3d
     );
     camera.setPipelineIndex(0);
+    Shuffleboard.getTab("Autonomous").add("Field", field).withSize(3, 2);
   }
   /**
    * Gets the current location in Meters
@@ -82,6 +83,5 @@ public class Navigation extends SubsystemBase {
       );
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
-    SmartDashboard.putData(field);
   }
 }
