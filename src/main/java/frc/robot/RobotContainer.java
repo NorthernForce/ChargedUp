@@ -12,6 +12,7 @@ import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -60,12 +61,12 @@ public class RobotContainer {
     startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
     startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
     startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
-    SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
-    SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
-    SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
-    SmartDashboard.putData("Stop", new Stop(0.1));
-    SmartDashboard.putData("PID Balance", new PIDBalance());
-    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
+    Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser);
+    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser);
+    Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU());
+    Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1));
+    Shuffleboard.getTab("Utility").add("PID Balance", new PIDBalance());
+    Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
