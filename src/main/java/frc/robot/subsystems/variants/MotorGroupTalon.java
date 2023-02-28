@@ -7,11 +7,15 @@ package frc.robot.subsystems.variants;
 import java.util.*;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.wpilibj.RobotBase;
+
 import static frc.robot.Constants.*;
 import frc.robot.subsystems.MotorGroup;
 
@@ -22,6 +26,7 @@ import frc.robot.subsystems.MotorGroup;
 public class MotorGroupTalon implements MotorGroup {
     private WPI_TalonFX primary;
     private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
+    private TalonFXSimCollection sim;
     private int COUNTS_PER_REVOLUTION = 2048;
     private int invertCoefficient = 1;
     /**
@@ -39,6 +44,14 @@ public class MotorGroupTalon implements MotorGroup {
      */
     public MotorGroupTalon(int primaryID, int[] followerIDs) {
         this.primary = new WPI_TalonFX(primaryID);
+        if (RobotBase.isSimulation())
+        {
+            this.sim = this.primary.getSimCollection();
+        }
+        else
+        {
+            this.sim = null;
+        }
         for (int followerID: followerIDs) {
             this.followers.add(new WPI_TalonFX(followerID));
         }
@@ -77,6 +90,22 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public void resetEncoderRotations() {
         primary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    }
+    public void setSimulationBusVoltage(double busVoltage)
+    {
+        sim.setBusVoltage(busVoltage);
+    }
+    public void setSimulationPosition(double rotations)
+    {
+        sim.setIntegratedSensorRawPosition((int)(invertCoefficient * rotations * 2048));
+    }
+    public void setSimulationVelocity(double rotationsPerSecond)
+    {
+        sim.setIntegratedSensorVelocity((int)(invertCoefficient * rotationsPerSecond * 2048));
+    }
+    public double getSimulationOutputVoltage()
+    {
+        return invertCoefficient * sim.getMotorOutputLeadVoltage();
     }
     private void configureAllControllers() {
         configureController(primary, false);
