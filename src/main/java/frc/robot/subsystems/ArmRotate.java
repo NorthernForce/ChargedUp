@@ -4,28 +4,40 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.variants.MotorGroupTalon;
 
 import com.ctre.phoenix.sensors.CANCoder;
 
-public class ArmRotate extends SubsystemBase {
+public class ArmRotate extends ProfiledPIDSubsystem {
   // We know we will have two talons
   private final MotorGroupTalon talonGroup;
-  private final PIDController rotateController;
   private final CANCoder rotateEncoder;
+  private final ArmFeedforward feedforward = new ArmFeedforward(Constants.ARM_KS, Constants.ARM_KG, Constants.ARM_KV);
   /** Creates a new Arm. */
   public ArmRotate() {
+    super(
+      new ProfiledPIDController(
+        Constants.ARM_PROPORTION,
+        0,
+        0,
+        new Constraints(Constants.ARM_MAX_RADIANS_PER_SECOND, Constants.ARM_MAX_RADIANS_PER_SECOND_SQUARED)
+      )
+    );
     talonGroup = new MotorGroupTalon(Constants.ARM_PRIMARY_MOTOR_ID, new int[]
     {
       Constants.ARM_FOLLOWER_MOTOR_ID
     });
     talonGroup.setFollowerOppose(0);
-    rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
   }
   /**
@@ -42,7 +54,7 @@ public class ArmRotate extends SubsystemBase {
   */
   public void setAngle(Rotation2d angle)
   {
-    rotateController.setSetpoint(angle.getRadians());
+    setGoal(angle.getRadians());
   }
   /**
    * Set arm angular speed
@@ -50,11 +62,18 @@ public class ArmRotate extends SubsystemBase {
    */
   public void setArmSpeed(double speed)
   {
-    rotateController.setSetpoint(rotateController.getSetpoint() + Rotation2d.fromDegrees(speed).getRadians());
+    setGoal(getController().getGoal().position + Rotation2d.fromDegrees(speed).getRadians());
   }
   @Override
   public void periodic() {
-    talonGroup.set(rotateController.calculate(getAngle().getRadians()));
     SmartDashboard.putNumber("Arm Angle", getAngle().getDegrees());
+  }
+  @Override
+  protected void useOutput(double output, State setpoint) {
+    talonGroup.setVoltage(output + feedforward.calculate(setpoint.position, setpoint.velocity));
+  }
+  @Override
+  protected double getMeasurement() {
+    return getAngle().getRadians();
   }
 }

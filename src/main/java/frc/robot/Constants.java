@@ -134,10 +134,8 @@ public final class Constants {
     public static final double VISION_CAMERA_HEIGHT = Units.inchesToMeters(4);
     public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
-
     public static final int ARM_PRIMARY_MOTOR_ID = 5;
     public static final int ARM_FOLLOWER_MOTOR_ID = 6;
-
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
     public static final double ARM_EXTENDED_LENGTH = Units.inchesToMeters(40.0);
@@ -148,6 +146,11 @@ public final class Constants {
         Units.inchesToMeters(26.5)
     );
     public static final double ARM_PROPORTION = 0.0; // TODO
+    public static final double ARM_MAX_RADIANS_PER_SECOND = 0.0; // TODO
+    public static final double ARM_MAX_RADIANS_PER_SECOND_SQUARED = 0.0; // TODO
+    public static final double ARM_KS = 0.0; // TODO
+    public static final double ARM_KG = 0.0; // TODO
+    public static final double ARM_KV = 0.0; // TODO
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO
