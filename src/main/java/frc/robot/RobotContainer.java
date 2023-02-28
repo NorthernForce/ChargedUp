@@ -5,6 +5,7 @@ import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
+import frc.robot.commands.Brake;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.DefaultWrist;
 import frc.robot.util.RobotChooser;
@@ -65,6 +66,7 @@ public class RobotContainer {
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
     SmartDashboard.putData("PID Balance", new PIDBalance());
+    SmartDashboard.putData("Brake", new Brake());
     SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
   /**
