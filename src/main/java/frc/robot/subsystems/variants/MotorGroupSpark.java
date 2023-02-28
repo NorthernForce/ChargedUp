@@ -9,8 +9,6 @@ import java.util.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.subsystems.MotorGroup;
 
 /** 
@@ -19,6 +17,7 @@ import frc.robot.subsystems.MotorGroup;
 public class MotorGroupSpark implements MotorGroup {
     private CANSparkMax primary;
     private List<CANSparkMax> followers = new ArrayList<CANSparkMax>();
+    private int invertCoefficient = 1;
     /**
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
@@ -27,7 +26,8 @@ public class MotorGroupSpark implements MotorGroup {
         this(primaryID, new int[]{}, type);
     }
     /**
-     * Creates a new motor with followers controlled by talons.
+     * Creates a new motor with optional followers controlled by talons. 
+     * Default inverted state is false.
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
@@ -47,12 +47,12 @@ public class MotorGroupSpark implements MotorGroup {
         return primary.get();
     }
     public double getEncoderRotations() {
-        return primary.getEncoder().getPosition();
+        return invertCoefficient * primary.getEncoder().getPosition();
     }
     public double getEncoderRPS() {
         // 1/60 represents the amount of 1 minute periods in a single second.
         primary.getEncoder().setVelocityConversionFactor(1/60);
-        return primary.getEncoder().getVelocity();
+        return invertCoefficient * primary.getEncoder().getVelocity();
     }
     public boolean getInverted() {
         return primary.getInverted();
@@ -65,6 +65,7 @@ public class MotorGroupSpark implements MotorGroup {
     }
     public void setInverted(boolean isInverted) {
         primary.setInverted(isInverted);
+        invertCoefficient = (isInverted ? -1 : 1);
     }
     public void stopMotor() {
         primary.stopMotor();
