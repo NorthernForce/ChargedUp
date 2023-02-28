@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,11 +18,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.variants.MotorGroupTalon;
 
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.CANCoderSimCollection;
 
 public class ArmRotate extends ProfiledPIDSubsystem {
   // We know we will have two talons
   private final MotorGroupTalon talonGroup;
   private final CANCoder rotateEncoder;
+  private final CANCoderSimCollection rotateEncoderSim;
   private final ArmFeedforward feedforward = new ArmFeedforward(Constants.ARM_KS, Constants.ARM_KG, Constants.ARM_KV);
   /** Creates a new Arm. */
   public ArmRotate() {
@@ -39,6 +42,14 @@ public class ArmRotate extends ProfiledPIDSubsystem {
     });
     talonGroup.setFollowerOppose(0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
+    if (RobotBase.isSimulation())
+    {
+      rotateEncoderSim = rotateEncoder.getSimCollection();
+    }
+    else
+    {
+      rotateEncoderSim = null;
+    }
   }
   /**
    * Get arm angle
@@ -75,5 +86,9 @@ public class ArmRotate extends ProfiledPIDSubsystem {
   @Override
   protected double getMeasurement() {
     return getAngle().getRadians();
+  }
+  @Override
+  public void simulationPeriodic()
+  {
   }
 }
