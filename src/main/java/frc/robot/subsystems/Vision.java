@@ -63,7 +63,7 @@ public class Vision extends SubsystemBase {
    */
   public boolean hasTarget()
   {
-    return tv.getDouble(0.0) == 0.0;
+    return tv.getDouble(0.0) == 1.0;
   }
   /**
    * Gets the target yaw (given by Limelight)
