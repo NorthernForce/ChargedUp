@@ -82,7 +82,9 @@ public class Vision extends SubsystemBase {
     return Rotation2d.fromDegrees(ty.getDouble(0.0));
   }
   /**
-   * Gets the range of the target
+   * Gets the range of the target.
+   * Uses trigonometry to calculate the target distance based on the known target height, the height of the vision camera,
+   * and the pitches of the camera and the target pitch.
    * @return range in meters
    */
   public double getTargetRange()
