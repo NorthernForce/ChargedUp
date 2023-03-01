@@ -99,8 +99,8 @@ public class DrivetrainMaxwell extends Drivetrain {
    * @return an array of two encoder rotations (one for each side)
    */
   public double[] getEncoderRotations() {
-    double leftSideRotations = (leftPrimary.getSensorCollection().getIntegratedSensorPosition()) / 2048;
-    double rightSideRotations = -rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048;
+    double leftSideRotations = (-leftPrimary.getSensorCollection().getIntegratedSensorPosition()) / 2048;
+    double rightSideRotations = rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048;
     return new double[] {leftSideRotations, rightSideRotations};
   }
   /**
@@ -109,7 +109,7 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getLeftDistance()
   {
-    return (leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (-leftPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -117,7 +117,7 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public double getRightDistance()
   {
-    return (-rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
+    return (rightPrimary.getSensorCollection().getIntegratedSensorPosition() / 2048) * METERS_PER_REVOLUTION;
   }
   /**
    * Sets the two secondary motors to follow the primary motors
@@ -130,9 +130,9 @@ public class DrivetrainMaxwell extends Drivetrain {
    * Sets the right side as inverted whereas the left is not
    */
   private void setInvert() {
-    rightPrimary.setInverted(true);
+    rightPrimary.setInverted(false);
     rightFollower.setInverted(InvertType.FollowMaster);
-    leftPrimary.setInverted(false);
+    leftPrimary.setInverted(true);
     leftFollower.setInverted(InvertType.FollowMaster);
   }
   /**
@@ -170,8 +170,8 @@ public class DrivetrainMaxwell extends Drivetrain {
    */
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    double leftVelocity = ((leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
-    double rightVelocity = ((-rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    double leftVelocity = ((-leftPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
+    double rightVelocity = ((rightPrimary.getSelectedSensorVelocity()) / 2048) * 10 * METERS_PER_REVOLUTION;
     return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
   }
   /**

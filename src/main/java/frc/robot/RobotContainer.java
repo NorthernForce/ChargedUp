@@ -65,7 +65,15 @@ public class RobotContainer {
         .andThen(new Stop(0.2))
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2)));
-    }
+      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece4ToRed3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Red3ToPiece3"))
+        .andThen(new Stop(0.2))
+        .andThen(new DriveAlongPath("Piece3ToRed3"))
+        .andThen(new Stop(0.2)));
+  }
     catch (IOException exception)
     {
       exception.printStackTrace();
@@ -90,6 +98,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    System.out.println(startingLocationChooser.getSelected());
     if (Constants.NAVIGATION_ENABLED) navigation.setRobotPose(startingLocationChooser.getSelected());
     // An ExampleCommand will run in autonomous
 

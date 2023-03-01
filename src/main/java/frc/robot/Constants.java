@@ -24,10 +24,10 @@ import frc.robot.util.DynamicTransform3d;
 
 public final class Constants {
     /** Drive Constants */
-    public static final int LEFT_PRIMARY_ID = 2;
-    public static final int RIGHT_PRIMARY_ID = 1;
-    public static final int LEFT_FOLLOWER_ID = 4;
-    public static final int RIGHT_FOLLOWER_ID = 3;
+    public static final int LEFT_PRIMARY_ID = 1;
+    public static final int RIGHT_PRIMARY_ID = 2;
+    public static final int LEFT_FOLLOWER_ID = 3;
+    public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double DRIVE_RAMP_RATE = 0.2;
     public static final int UNITS_PER_REVOLUTION = 2048;
     public static final double GEAR_RATIO = 11.37777778;
@@ -115,15 +115,15 @@ public final class Constants {
     );
     /** TODO */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),
+        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),
+        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))
     };
     /** TODO */
     public static final Pose2d[] RED_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)),
+        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)),
+        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0))
     };
     /** General Constants */
     public static final boolean ARM_ENABLED = false;
