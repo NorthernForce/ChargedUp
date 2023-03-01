@@ -1,0 +1,44 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Arm/Arm diagram": "Mechanism2d",
+      "/SmartDashboard/Autonomous Routine Chooser": "String Chooser",
+      "/SmartDashboard/Calibrate IMU": "Command",
+      "/SmartDashboard/PID Balance": "Command",
+      "/SmartDashboard/Starting Location Chooser": "String Chooser",
+      "/SmartDashboard/Stop": "Command"
+    },
+    "windows": {
+      "/Shuffleboard/Arm/Arm diagram": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Starting Location Chooser": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        },
+        ".recording": {
+          "open": true
+        },
+        "Arm": {
+          "Arm diagram": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    }
+  }
+}

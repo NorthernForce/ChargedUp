@@ -111,7 +111,7 @@ public final class Constants {
         new Pose2d()
     };
     /** General Constants */
-    public static final boolean ARM_ENABLED = false;
+    public static final boolean ARM_ENABLED = true;
     public static final boolean COMPRESSOR_ENABLED = false;
     public static final boolean DRIVETRAIN_ENABLED = true;
     public static final boolean GRIPPER_ENABLED = false;
@@ -141,12 +141,12 @@ public final class Constants {
         Units.inchesToMeters(0),
         Units.inchesToMeters(26.5)
     );
-    public static final double ARM_PROPORTION = 0.0; // TODO
-    public static final double ARM_MAX_RADIANS_PER_SECOND = 0.0; // TODO
-    public static final double ARM_MAX_RADIANS_PER_SECOND_SQUARED = 0.0; // TODO
-    public static final double ARM_KS = 0.0; // TODO
-    public static final double ARM_KG = 0.0; // TODO
-    public static final double ARM_KV = 0.0; // TODO
+    public static final double ARM_PROPORTION = 0.5; // TODO
+    public static final double ARM_MAX_RADIANS_PER_SECOND = 0.5; // TODO
+    public static final double ARM_MAX_RADIANS_PER_SECOND_SQUARED = 0.5; // TODO
+    public static final double ARM_KS = 1.0; // TODO
+    public static final double ARM_KG = 0.65; // TODO
+    public static final double ARM_KV = 0.55; // TODO
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO
