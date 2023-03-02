@@ -1,7 +1,24 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "window": {
+        "visible": false
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [2]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [4]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [5]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/Arm/Arm diagram": "Mechanism2d",
       "/SmartDashboard/Autonomous Routine Chooser": "String Chooser",
       "/SmartDashboard/Calibrate IMU": "Command",
@@ -10,7 +27,12 @@
       "/SmartDashboard/Stop": "Command"
     },
     "windows": {
-      "/Shuffleboard/Arm/Arm diagram": {
+      "/LiveWindow/Ungrouped/PIDController[1]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/LiveWindow/Ungrouped/Scheduler": {
         "window": {
           "visible": true
         }
@@ -24,6 +46,9 @@
   },
   "NetworkTables": {
     "transitory": {
+      "LiveWindow": {
+        "open": true
+      },
       "Shuffleboard": {
         ".metadata": {
           "open": true
@@ -32,11 +57,11 @@
           "open": true
         },
         "Arm": {
-          "Arm diagram": {
-            "open": true
-          },
           "open": true
         },
+        "open": true
+      },
+      "SmartDashboard": {
         "open": true
       }
     }

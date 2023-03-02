@@ -144,9 +144,9 @@ public final class Constants {
     public static final double ARM_PROPORTION = 0.5; // TODO
     public static final double ARM_MAX_RADIANS_PER_SECOND = 0.5; // TODO
     public static final double ARM_MAX_RADIANS_PER_SECOND_SQUARED = 0.5; // TODO
-    public static final double ARM_KS = 1.0; // TODO
-    public static final double ARM_KG = 0.65; // TODO
-    public static final double ARM_KV = 0.55; // TODO
+    public static final double ARM_KS = 0.071975;
+    public static final double ARM_KG = 2.6116;
+    public static final double ARM_KV = 0.27655;
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = 1.0; // TODO

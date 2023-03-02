@@ -73,11 +73,10 @@ public class ArmRotate extends ProfiledPIDSubsystem {
         2200.0 / 634,
         SingleJointedArmSim.estimateMOI(Constants.ARM_RETRACTED_LENGTH, 9.07185),
         Constants.ARM_RETRACTED_LENGTH,
-        -Math.toRadians(-30),
+        -Math.toRadians(-100),
         Math.toRadians(210),
         true
       );
-      System.out.println("????????? " + armSim.getAngleRads());
     }
     else
     {
@@ -85,8 +84,10 @@ public class ArmRotate extends ProfiledPIDSubsystem {
       rotateEncoderSim = null;
     }
     Shuffleboard.getTab("Arm").add("Arm diagram", mech2d);
+    Shuffleboard.getTab("Arm").addNumber("Arm Angle", () -> getAngle().getDegrees());
     armTower.setColor(new Color8Bit(Color.kBlue));
-    setAngle(Rotation2d.fromDegrees(-20));
+    setAngle(Rotation2d.fromDegrees(0));
+    enable();
   }
   /**
    * Get arm angle
@@ -115,12 +116,12 @@ public class ArmRotate extends ProfiledPIDSubsystem {
   @Override
   public void periodic() {
     super.periodic();
-    SmartDashboard.putNumber("Arm Angle", getAngle().getDegrees());
     armMech.setAngle(getAngle());
   }
   @Override
   protected void useOutput(double output, State setpoint) {
-    System.out.println(output + ": " + setpoint);
+    SmartDashboard.putNumber("setpoint.position", setpoint.position);
+    SmartDashboard.putNumber("output", output + feedforward.calculate(setpoint.position, setpoint.velocity));
     talonGroup.setVoltage(output + feedforward.calculate(setpoint.position, setpoint.velocity));
   }
   @Override
@@ -131,7 +132,7 @@ public class ArmRotate extends ProfiledPIDSubsystem {
   public void simulationPeriodic()
   {
     talonGroup.setSimulationBusVoltage(RobotController.getBatteryVoltage());
-    System.out.println(talonGroup.getSimulationOutputVoltage());
+    SmartDashboard.putNumber("talonGroup.get", talonGroup.getSimulationOutputVoltage());
     armSim.setInputVoltage(talonGroup.getSimulationOutputVoltage());
     armSim.update(0.02);
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));

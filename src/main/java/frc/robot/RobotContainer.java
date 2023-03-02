@@ -81,7 +81,7 @@ public class RobotContainer {
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
     if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
-    if (Constants.ARM_ENABLED) armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
+    //if (Constants.ARM_ENABLED) armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
     if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
     if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }
