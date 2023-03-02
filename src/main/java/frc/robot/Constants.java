@@ -102,6 +102,7 @@ public final class Constants {
         16.4846, 
         8.1026
     );
+    /** DRIVER ORIENTED */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
         new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* Blue left */
         new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),  /* Blue center */
