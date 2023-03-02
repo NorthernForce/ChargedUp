@@ -130,6 +130,22 @@ public class Drivetrain extends SubsystemBase
     rightSide.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
     robotDrive.feed();
   }
+  /** 
+   * Returns SimpleMotorFeedforward
+   * @return feedforward
+   */
+  public SimpleMotorFeedforward getFeedforward()
+  {
+    return feedforward;
+  }
+  /** 
+   * Returns DifferentialDriveKinematics
+   * @return kinematics
+   */
+  public DifferentialDriveKinematics getKinematics()
+  {
+    return kinematics;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
