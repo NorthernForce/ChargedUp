@@ -73,7 +73,7 @@ public class RobotContainer {
         .andThen(new Stop(0.2))
         .andThen(new DriveAlongPath("Piece3ToRed3"))
         .andThen(new Stop(0.2)));
-  }
+    }
     catch (IOException exception)
     {
       exception.printStackTrace();
