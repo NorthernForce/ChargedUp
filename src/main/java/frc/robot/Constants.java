@@ -130,7 +130,8 @@ public final class Constants {
     public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
 
-    public static final int ARM_MOTOR_ID = 5;
+    public static final int ARM_PRIMARY_MOTOR_ID = 5;
+    public static final int ARM_FOLLOWER_MOTOR_ID = 6;
 
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
