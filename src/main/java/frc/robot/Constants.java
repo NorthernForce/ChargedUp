@@ -103,14 +103,14 @@ public final class Constants {
         8.1026
     );
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
-        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),
-        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),
-        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))
+        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* Blue left */
+        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),  /* Blue center */
+        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))  /* Blue right */
     };
     public static final Pose2d[] RED_POSES = new Pose2d[] {
-        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)),
-        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)),
-        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0))
+        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)), /* Red left */
+        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* Red center */
+        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* Red right */
     };
     /** General Constants */
     public static final boolean ARM_ENABLED = false;
