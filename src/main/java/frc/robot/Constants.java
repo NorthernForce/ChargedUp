@@ -126,6 +126,7 @@ public final class Constants {
         new Pose2d()
     };
     /** General Constants */
+    /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
     public static final boolean COMPRESSOR_ENABLED = false;
     public static final boolean DRIVETRAIN_ENABLED = true;
