@@ -408,6 +408,32 @@ public final class Constants {
             0
         )
     };
+    public static final Translation3d[] RED_SHELF_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            1.605,
+            5.575,
+            0.946
+        ),
+        new Translation3d(
+            1.605,
+            7.61,
+            0.946
+        )
+    };
+    public static final Translation3d[] BLUE_SHELF_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            16.41,
+            5.575,
+            0.946
+        ),
+        new Translation3d(
+            16.41,
+            7.61,
+            0.946
+        )
+    };
     /** General Constants */
     /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
