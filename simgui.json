@@ -37,6 +37,11 @@
           "visible": true
         }
       },
+      "/Shuffleboard/Arm/Arm diagram": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Starting Location Chooser": {
         "window": {
           "visible": true
@@ -51,6 +56,12 @@
       },
       "Shuffleboard": {
         ".metadata": {
+          "Arm": {
+            "Arm Angle": {
+              "open": true
+            },
+            "open": true
+          },
           "open": true
         },
         ".recording": {

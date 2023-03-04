@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -15,6 +16,8 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -133,8 +136,9 @@ public class ArmRotate extends ProfiledPIDSubsystem {
   {
     talonGroup.setSimulationBusVoltage(RobotController.getBatteryVoltage());
     SmartDashboard.putNumber("talonGroup.get", talonGroup.getSimulationOutputVoltage());
-    armSim.setInputVoltage(talonGroup.getSimulationOutputVoltage());
+    armSim.setInputVoltage(2.5);
     armSim.update(0.02);
+    SmartDashboard.putNumber("tmp1", Math.toDegrees(armSim.getAngleRads()));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
   }
 }
