@@ -246,6 +246,39 @@ public final class Constants {
             1.162
         )
     };
+    public static final Translation3d[] BLUE_CUBE_PLACEMENT_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            0.7945,
+            1.0715,
+            0.523
+        ),
+        new Translation3d(
+            0.3505,
+            1.0715,
+            0.826
+        ),
+        new Translation3d(
+            0.7945,
+            2.754,
+            0.523
+        ),
+        new Translation3d(
+            0.3505,
+            2.574,
+            0.826
+        ),
+        new Translation3d(
+            0.7945,
+            4.4305,
+            0.523
+        ),
+        new Translation3d(
+            0.3505,
+            4.4305,
+            0.826
+        )
+    };
     /** General Constants */
     /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
