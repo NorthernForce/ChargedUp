@@ -434,6 +434,52 @@ public final class Constants {
             0.946
         )
     };
+    public static final Translation3d[] BLUE_GAME_PIECE_AUTO_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            7.062,
+            0.925,
+            0
+        ),
+        new Translation3d(
+            7.062,
+            2.143,
+            0
+        ),
+        new Translation3d(
+            7.062,
+            3.361,
+            0
+        ),
+        new Translation3d(
+            7.062,
+            4.583,
+            0
+        )
+    };
+    public static final Translation3d[] RED_GAME_PIECE_AUTO_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            9.468,
+            0.925,
+            0
+        ),
+        new Translation3d(
+            9.468,
+            2.143,
+            0
+        ),
+        new Translation3d(
+            9.468,
+            3.361,
+            0
+        ),
+        new Translation3d(
+            9.468,
+            4.583,
+            0
+        )
+    };
     /** General Constants */
     /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
