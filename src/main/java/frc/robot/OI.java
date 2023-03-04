@@ -19,14 +19,17 @@ import frc.robot.commands.RetractArm;
 public class OI {
     private static final XboxController driverController = new XboxController(0);
     private static final XboxController manipulatorController = new XboxController(1);
+    public OI() {}
     /**
-     * Gets two double suppliers representing the two major axis of control on drive controller.
-     * @return two doubles that will be within [-1.0, 1.0]
+     * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
+     * @return Index[0]: Joystick forward(positve)/back(negative).
+     * <li> Index[1]: Joystick left(positive)/right(negative). </li>
      */
     public static DoubleSupplier[] getDriveSuppliers() {
             return new DoubleSupplier[] {
+            //Joystick defaults to forward being negative so we negate it.
             () -> -driverController.getLeftY(),
-            () -> driverController.getRightX()
+            () -> -driverController.getRightX()
         };
     }
     /**
