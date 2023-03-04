@@ -98,17 +98,16 @@ public final class Constants {
         16.4846, 
         8.1026
     );
-    /** TODO */
+    /** DRIVER ORIENTED */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue left */
+        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue center */
+        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))  /* DRIVER ORIENTED Blue right */
     };
-    /** TODO */
     public static final Pose2d[] RED_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red left */
+        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
+        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
     /** General Constants */
     public static final boolean ARM_ENABLED = false;
@@ -131,7 +130,8 @@ public final class Constants {
     public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
 
-    public static final int ARM_MOTOR_ID = 5;
+    public static final int ARM_PRIMARY_MOTOR_ID = 5;
+    public static final int ARM_FOLLOWER_MOTOR_ID = 6;
 
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
