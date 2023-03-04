@@ -48,6 +48,7 @@ public class RobotContainer {
   public RobotContainer() {
     initDefaultCommands();
     oi.bindButtons();
+    armRotate.enable();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
