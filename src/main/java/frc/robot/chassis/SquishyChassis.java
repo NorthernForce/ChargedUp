@@ -4,7 +4,7 @@
 
 package frc.robot.chassis;
 
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;=
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.util.Units;
 
