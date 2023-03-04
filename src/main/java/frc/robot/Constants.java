@@ -265,7 +265,7 @@ public final class Constants {
         ),
         new Translation3d(
             0.3505,
-            2.574,
+            2.754,
             0.826
         ),
         new Translation3d(
@@ -298,7 +298,7 @@ public final class Constants {
         ),
         new Translation3d(
             16.449,
-            2.574,
+            2.754,
             0.826
         ),
         new Translation3d(
@@ -310,6 +310,102 @@ public final class Constants {
             16.449,
             4.4305,
             0.826
+        )
+    };
+    public static final Translation3d[] BLUE_FLOOR_PLACEMENT_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            1.118,
+            0.519,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            1.0715,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            1.629,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            2.195,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            2.754,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            3.330,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            3.865,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            4.4305,
+            0
+        ),
+        new Translation3d(
+            1.118,
+            5.007,
+            0
+        )
+    };
+    public static final Translation3d[] RED_FLOOR_PLACEMENT_LOCATIONS = new Translation3d[]
+    {
+        new Translation3d(
+            15.411,
+            0.519,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            1.0715,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            1.629,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            2.195,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            2.754,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            3.330,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            3.865,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            4.4305,
+            0
+        ),
+        new Translation3d(
+            15.411,
+            5.007,
+            0
         )
     };
     /** General Constants */
