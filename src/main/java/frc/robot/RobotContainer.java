@@ -83,12 +83,12 @@ public class RobotContainer {
     startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
     startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
     startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
-    Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser);
-    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser);
-    Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU());
-    Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1));
-    Shuffleboard.getTab("Utility").add("PID Balance", new PIDBalance());
-    Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName());
+    Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 2);
+    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 2);
+    Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
+    Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
+    Shuffleboard.getTab("Utility").add("PID Balance", new PIDBalance()).withPosition(2, 0);
+    Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName()).withPosition(0, 1);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

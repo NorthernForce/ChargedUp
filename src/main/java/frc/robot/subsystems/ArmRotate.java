@@ -27,7 +27,7 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.setFollowerOppose(0);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
-    Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees());
+    Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
   }
   /**
    * Get arm angle
