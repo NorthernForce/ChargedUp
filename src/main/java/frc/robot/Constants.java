@@ -121,7 +121,12 @@ public final class Constants {
         new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
         new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
-    /** DRIVER ORIENTED */
+    /** 
+     * All of these locations are relative to the WPILIB origin of the field, the blue corner.
+     * All of the arrays of coordinates begin with the side of the community zones and go to the side of the loading zone.
+     * The cone locations are alternating between middle and high.
+     * All of these values were gained through the CAD for the field.
+     */
     public static final Translation3d[] BLUE_CONE_PLACEMENT_LOCATIONS = new Translation3d[] {
         new Translation3d(
             0.795,
