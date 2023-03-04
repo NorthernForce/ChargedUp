@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,6 +29,9 @@ public class Drivetrain extends SubsystemBase
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
+    Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft/s)", () -> Units.metersToFeet(
+      (getSpeeds().leftMetersPerSecond + getSpeeds().rightMetersPerSecond) / 2
+    )).withPosition(0, 0);
   }
   /**
    * Drives the robot forward applying the speed proportions
