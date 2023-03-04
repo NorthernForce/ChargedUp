@@ -64,16 +64,16 @@ public class RobotContainer {
     {
       autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
         .andThen(new Stop(0.1))
-        .andThen(new TurnToCoordinates(null, 0.6))
+        .andThen(new TurnToCoordinates(Constants.RED_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), 0.6))
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
-        .andThen(new TurnToCoordinates(null, 0.6))
+        .andThen(new TurnToCoordinates(Constants.RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), 0.6))
         .andThen(new DriveAlongPath("Red1ToPiece2"))
         .andThen(new Stop(0.2))
-        .andThen(new TurnToCoordinates(null, 0.6))
+        .andThen(new TurnToCoordinates(Constants.RED_GAME_PIECE_AUTO_LOCATIONS[2].toTranslation2d(), 0.6))
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2))
-        .andThen(new TurnToCoordinates(null, 0.6)));
+        .andThen(new TurnToCoordinates(Constants.RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), 0.6)));
     }
     catch (IOException exception)
     {
