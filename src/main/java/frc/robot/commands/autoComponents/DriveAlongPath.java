@@ -31,15 +31,15 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(String pathName) throws IOException {
     super(
       TrajectoryUtil.fromPathweaverJson(
-        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
       ),
       navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
       new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
       drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
+      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
+      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
       drivetrain::driveVolts,
       drivetrain, navigation
     );
@@ -53,15 +53,15 @@ public class DriveAlongPath extends RamseteCommand {
   public DriveAlongPath(String pathName, Supplier<Boolean> canDrive) throws IOException {
     super(
       TrajectoryUtil.fromPathweaverJson(
-        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".json")
+        Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
       ),
       navigation::getPose2d,
       new RamseteController(),
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
       new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
       drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
+      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
+      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
       drivetrain::driveVolts,
       drivetrain, navigation
     );
