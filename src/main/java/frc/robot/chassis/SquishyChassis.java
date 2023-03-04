@@ -4,19 +4,26 @@
 
 package frc.robot.chassis;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.variants.DrivetrainSquishy;
+import frc.robot.subsystems.MotorGroup;
+import frc.robot.subsystems.variants.MotorGroupSpark;
 
 /** Chassis specific details about squishy. */
 public class SquishyChassis implements ChassisBase {
     public SquishyChassis() {}
     public Drivetrain getDrivetrain() {
-        return new DrivetrainSquishy();
-    }
-    public double getConstant(String key) {
-        return 0;
+        MotorGroup left = new MotorGroupSpark(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID}, MotorType.kBrushless);
+        left.setInverted(true);
+        MotorGroup right = new MotorGroupSpark(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID}, MotorType.kBrushless);
+        return new Drivetrain(left, right);
     }
     public String getChassisName() {
         return "Squishy";
     }
+    public static final int LEFT_PRIMARY_ID = 1;
+    public static final int RIGHT_PRIMARY_ID = 2;
+    public static final int LEFT_FOLLOWER_ID = 3;
+    public static final int RIGHT_FOLLOWER_ID = 4;
 }
