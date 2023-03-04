@@ -121,6 +121,131 @@ public final class Constants {
         new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
         new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
+    /** DRIVER ORIENTED */
+    public static final Translation3d[] BLUE_CONE_PLACEMENT_LOCATIONS = new Translation3d[] {
+        new Translation3d(
+            0.795,
+            0.519,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            0.519,
+            1.162
+        ),
+        new Translation3d(
+            0.795,
+            1.629,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            1.629,
+            1.162
+        ),
+        new Translation3d(
+            0.795,
+            2.195,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            2.195,
+            1.162
+        ),
+        new Translation3d(
+            0.795,
+            3.330,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            3.330,
+            1.162
+        ),
+        new Translation3d(
+            0.795,
+            3.865,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            3.865,
+            1.162
+        ),
+        new Translation3d(
+            0.795,
+            5.007,
+            0.866
+        ),
+        new Translation3d(
+            0.366,
+            5.007,
+            1.162
+        )
+    };
+    public static final Translation3d[] RED_CONE_PLACEMENT_LOCATIONS = new Translation3d[] {
+        new Translation3d(
+            15.717,
+            0.519,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            0.519,
+            1.162
+        ),
+        new Translation3d(
+            15.717,
+            1.629,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            1.629,
+            1.162
+        ),
+        new Translation3d(
+            15.717,
+            2.195,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            2.195,
+            1.162
+        ),
+        new Translation3d(
+            15.717,
+            3.330,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            3.330,
+            1.162
+        ),
+        new Translation3d(
+            15.717,
+            3.865,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            3.865,
+            1.162
+        ),
+        new Translation3d(
+            15.717,
+            5.007,
+            0.866
+        ),
+        new Translation3d(
+            16.182,
+            5.007,
+            1.162
+        )
+    };
     /** General Constants */
     /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
