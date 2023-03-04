@@ -123,7 +123,7 @@ public class Drivetrain extends SubsystemBase
     robotDrive.feed();
   }
   /**
-   * Drives using feet per second
+   * Drives using meters per second
    * @param speeds
    */
   public void driveUsingChassisSpeeds(ChassisSpeeds speeds) {
