@@ -53,7 +53,7 @@ public class MotorGroupTalon implements MotorGroup {
         return primary.get();
     }
     public double getEncoderRotations() {
-        return primary.getSensorCollection().getIntegratedSensorPosition() / COUNTS_PER_REVOLUTION;
+        return primary.getSelectedSensorPosition() / COUNTS_PER_REVOLUTION;
     }
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
@@ -76,7 +76,7 @@ public class MotorGroupTalon implements MotorGroup {
         primary.stopMotor();
     }
     public void resetEncoderRotations() {
-        primary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+        primary.setSelectedSensorPosition(0);
     }
     private void configureAllControllers() {
         configureController(primary, false);
