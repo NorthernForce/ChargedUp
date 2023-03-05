@@ -32,8 +32,9 @@ public class CG_Mob_E extends SequentialCommandGroup {
       new DriveMeters(-0.5, 0, 1.5),
       new DriveMeters(-0.4, 0, 1),
       // Reenter Charge Station
-      new DriveMeters(0.7, 0, 1.4),
-      new Stop(0.05)
+      new DriveMeters(0.7, 0, 2.3),
+      new Stop(0.05),
+      new Balance()
     );
   }
 }
