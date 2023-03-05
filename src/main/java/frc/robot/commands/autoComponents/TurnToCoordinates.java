@@ -54,6 +54,6 @@ public class TurnToCoordinates extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(targetRotation.minus(navigation.getPose2d().getRotation()).getDegrees()) < 2;
+    return Math.abs(targetRotation.minus(navigation.getPose2d().getRotation()).getDegrees()) < 5;
   }
 }
