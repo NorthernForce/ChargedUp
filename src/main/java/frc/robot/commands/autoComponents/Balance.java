@@ -19,7 +19,7 @@ public class Balance extends PIDCommand {
         // The controller that the command will use
         new PIDController(0.05, 0.01, 0),
         // This should return the measurement
-        () -> imu.getPitch(),
+        () -> imu.getPitch().getDegrees(),
         // This should return the setpoint (can also be a constant)
         () -> 0,
         // This uses the output
