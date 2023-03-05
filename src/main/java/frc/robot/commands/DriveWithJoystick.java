@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 
@@ -28,7 +30,10 @@ public class DriveWithJoystick extends CommandBase {
    */
   @Override
   public void execute() {
-      drivetrain.drive(driverSpeeds[0].getAsDouble(), driverSpeeds[1].getAsDouble());
+    SmartDashboard.putNumber("Driver[0]: ", driverSpeeds[0].getAsDouble());
+    SmartDashboard.putNumber("Driver[1]: ", driverSpeeds[1].getAsDouble());
+
+    drivetrain.drive(driverSpeeds[0].getAsDouble(), driverSpeeds[1].getAsDouble());
   }
   @Override
   public void end(boolean interrupted) {}

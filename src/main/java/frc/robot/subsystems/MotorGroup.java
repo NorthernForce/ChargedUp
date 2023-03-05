@@ -7,17 +7,17 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /** 
- * Motor controller that can be constructed with followers.
+ * Interface for motor controller that can be constructed with followers.
  * Also interfaces with encoders.
  */
 public interface MotorGroup extends MotorController {
     /**
-     * Gives the rotations done by the encoder
+     * Gives the rotations done by the encoder. Flips the value if the controller is inverted.
      * @return double value for full rotations of encoder
      */
     public double getEncoderRotations();
     /**
-     * Gets the rotational velocity of the encoder
+     * Gets the rotational velocity of the encoder. Flips the value if the controller is inverted.
      * @return double rotations per second
      */
     public double getEncoderRPS();

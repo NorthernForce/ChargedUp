@@ -24,10 +24,10 @@ import frc.robot.util.DynamicTransform3d;
 
 public final class Constants {
     /** Drive Constants */
-    public static final int LEFT_PRIMARY_ID = 1;
-    public static final int RIGHT_PRIMARY_ID = 2;
-    public static final int LEFT_FOLLOWER_ID = 3;
-    public static final int RIGHT_FOLLOWER_ID = 4;
+    public static final int LEFT_PRIMARY_ID = 2;
+    public static final int RIGHT_PRIMARY_ID = 1;
+    public static final int LEFT_FOLLOWER_ID = 4;
+    public static final int RIGHT_FOLLOWER_ID = 3;
     public static final double DRIVE_RAMP_RATE = 0.2;
     public static final int UNITS_PER_REVOLUTION = 2048;
     public static final double GEAR_RATIO = 11.37777778;
@@ -47,18 +47,7 @@ public final class Constants {
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
     public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
-    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d(
-        new Translation3d(
-            Units.inchesToMeters(11),
-            Units.inchesToMeters(3),
-            Units.inchesToMeters(12.5)
-        ),
-        new Rotation3d(
-            0,
-            0,
-            Math.toRadians(12)
-        )
-    );
+    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d();
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
         List.of(
             new AprilTag(1, new Pose3d(
@@ -113,19 +102,19 @@ public final class Constants {
         16.4846, 
         8.1026
     );
-    /** TODO */
+    /** DRIVER ORIENTED */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
-        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),
-        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),
-        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))
+        new Pose2d(),
+        new Pose2d(),
+        new Pose2d()
     };
-    /** TODO */
     public static final Pose2d[] RED_POSES = new Pose2d[] {
-        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)),
-        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)),
-        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0))
+        new Pose2d(),
+        new Pose2d(),
+        new Pose2d()
     };
     /** General Constants */
+    /** These constants determine whether a specific subsystem is enabled or not. */
     public static final boolean ARM_ENABLED = false;
     public static final boolean COMPRESSOR_ENABLED = false;
     public static final boolean DRIVETRAIN_ENABLED = true;
@@ -146,7 +135,8 @@ public final class Constants {
     public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
     /** Arm Constants */
 
-    public static final int ARM_MOTOR_ID = 5;
+    public static final int ARM_PRIMARY_MOTOR_ID = 5;
+    public static final int ARM_FOLLOWER_MOTOR_ID = 6;
 
     public static final int ARM_ROTATE_CANCODER_ID = 13;
     public static final double ARM_RAMP_RATE = 0.2;
