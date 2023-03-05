@@ -5,29 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.OI;
-
 import static frc.robot.RobotContainer.*;
 
-import java.util.function.DoubleSupplier;
-
-public class ManipulateArmWithJoystick extends CommandBase {
-  private DoubleSupplier[] Speeds = OI.getManipulatorSuppliers();
-  /** Creates a new ManipulateWithJoystick. */
-  public ManipulateArmWithJoystick() {
-    addRequirements(armRotate);
+public class RetractArm extends CommandBase {
+  /** Creates a new RetractArm. */
+  public RetractArm() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    armTelescope.retract();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    armRotate.setArmSpeed(Speeds[0].getAsDouble());
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +30,6 @@ public class ManipulateArmWithJoystick extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

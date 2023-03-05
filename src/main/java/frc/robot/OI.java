@@ -11,36 +11,45 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
-import frc.robot.commands.SlowMode;
-import frc.robot.commands.SwitchLED;
+import frc.robot.commands.LEDPurple;
+import frc.robot.commands.LEDYellow;
+import frc.robot.commands.RetractArm;
 
 /** Add your docs here. */
 public class OI {
     private static final XboxController driverController = new XboxController(0);
     private static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
+    /**
+     * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
+     * @return Index[0]: Joystick forward(positve)/back(negative).
+     * <li> Index[1]: Joystick left(positive)/right(negative). </li>
+     */
     public static DoubleSupplier[] getDriveSuppliers() {
             return new DoubleSupplier[] {
+            //Joystick defaults to forward being negative so we negate it.
             () -> -driverController.getLeftY(),
-            () -> driverController.getRightX()
+            () -> -driverController.getRightX()
         };
     }
+    /**
+     * Gets two double suppliers representing the two major axis of control on manipulator controller.
+     * @return two doubles that will be within [-1.0, 1.0]
+     */
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
             () -> -manipulatorController.getLeftY(),
             () -> manipulatorController.getRightX()
         };
     }
+    /** Binds the buttons of the OI */
     public void bindButtons() {
-        if (Constants.DRIVETRAIN_ENABLED)
-        {
-            //new JoystickButton(driverController, XboxController.Button.kA.value)
-              //  .toggleOnTrue(new SlowMode());
-        }
         if (Constants.ARM_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
                 .whileTrue(new ExtendArm());
+            new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+                .whileFalse(new RetractArm());
         }
         if (Constants.GRIPPER_ENABLED)
         {
@@ -52,7 +61,12 @@ public class OI {
         if (Constants.LED_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kY.value)
-                .onTrue(new SwitchLED());
+                .whileTrue(new LEDPurple());
+        }
+        if (Constants.LED_ENABLED)
+        {
+            new JoystickButton(manipulatorController, XboxController.Button.kX.value)
+                .whileTrue(new LEDYellow());
         }
     }
 }

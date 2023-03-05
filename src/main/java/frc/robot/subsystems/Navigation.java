@@ -21,7 +21,6 @@ public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
   private final PhotonPoseEstimator visionEstimator;
   private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
-  private final Transform3d transform3d = new DynamicTransform3d();
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
@@ -37,9 +36,9 @@ public class Navigation extends SubsystemBase {
     );
     visionEstimator = new PhotonPoseEstimator(
       Constants.APRILTAG_LAYOUT,
-      PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
+      PoseStrategy.MULTI_TAG_PNP,
       camera,
-      transform3d
+      Constants.NAVIGATION_CAMERA_TRANSFORM
     );
     camera.setPipelineIndex(0);
   }
@@ -50,6 +49,19 @@ public class Navigation extends SubsystemBase {
   public Pose2d getPose2d()
   {
     return poseEstimator.getEstimatedPosition();
+  }
+  /**
+   * Sets the robot position to a pose. This method does not check the validity of the pose.
+   * @param pose A Pose2d Object
+   */
+  public void setRobotPose(Pose2d pose)
+  {
+    poseEstimator.resetPosition(
+      imu.getRotation2d(),
+      drivetrain.getLeftDistance(),
+      drivetrain.getRightDistance(),
+      pose
+    );
   }
   /** Runs once every 20ms. */
   @Override

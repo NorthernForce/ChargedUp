@@ -27,7 +27,7 @@ public class CalibrateIMU extends CommandBase {
   @Override
   public void end(boolean interrupted) {}
   /**
-   * Returns true if more than 10 seconds have passed.
+   * Returns true if gyro is done calibrating
    */
   @Override
   public boolean isFinished() {

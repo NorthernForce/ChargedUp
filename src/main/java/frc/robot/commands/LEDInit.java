@@ -5,28 +5,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import static frc.robot.RobotContainer.led;
 
-import static frc.robot.RobotContainer.drivetrain;
-
-public class SlowMode extends CommandBase {
-  /** Creates a new SlowMode. */
-  public SlowMode() {
+public class LEDInit extends CommandBase {
+  /** Creates a new LEDInit. */
+  public LEDInit() {
     // Use addRequirements() here to declare subsystem dependencies.
+    if (led != null) {
+      addRequirements(led);
+    }
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setSpeedProportions(Constants.SLOW_SPEED_FORWARD, Constants.SLOW_SPEED_ROTATION);
+    led.enable();
   }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    led.setPink();
+  }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    drivetrain.setSpeedProportions(Constants.FAST_SPEED_FORWARD, Constants.FAST_SPEED_ROTATION);
-  }
+  public void end(boolean interrupted) {}
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

@@ -4,19 +4,17 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.OI;
+import frc.robot.subsystems.LED;
 
-import static frc.robot.RobotContainer.*;
+import static frc.robot.RobotContainer.led;
 
-import java.util.function.DoubleSupplier;
-
-public class ManipulateArmWithJoystick extends CommandBase {
-  private DoubleSupplier[] Speeds = OI.getManipulatorSuppliers();
-  /** Creates a new ManipulateWithJoystick. */
-  public ManipulateArmWithJoystick() {
-    addRequirements(armRotate);
+public class LEDYellow extends CommandBase {
+  /** Creates a new LEDOrange. */
+  public LEDYellow() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(led);
   }
 
   // Called when the command is initially scheduled.
@@ -26,12 +24,14 @@ public class ManipulateArmWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armRotate.setArmSpeed(Speeds[0].getAsDouble());
+    led.setYellow();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    led.setPink();
+  }
 
   // Returns true when the command should end.
   @Override
