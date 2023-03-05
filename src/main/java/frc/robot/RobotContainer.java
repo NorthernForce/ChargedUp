@@ -81,7 +81,7 @@ public class RobotContainer {
         .andThen(new Stop(0.1))
         .andThen(new DriveAlongPath("Piece3ToBlue3"))
         .andThen(new Stop(0.1)));
-      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Blue1ToPiece1")
+      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
         .andThen(new Stop(0.1))
         .andThen(new DriveAlongPath("Piece4ToRed3"))
         .andThen(new Stop(0.1))
