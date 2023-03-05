@@ -14,6 +14,8 @@ import frc.robot.subsystems.*;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -76,12 +78,18 @@ public class RobotContainer {
       exception.printStackTrace();
     }
     startingLocationChooser = new SendableChooser<>();
-    startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
-    startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
-    startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
-    startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
-    startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
-    startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    if (DriverStation.getAlliance() == Alliance.Red)
+    {
+      startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
+      startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
+      startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
+    }
+    else
+    {
+      startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
+      startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
+      startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    }
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
