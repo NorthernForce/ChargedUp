@@ -38,8 +38,8 @@ public class DriveAlongPath extends RamseteCommand {
       new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
       new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
       drivetrain::getSpeeds,
-      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0),
-      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0),
+      new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
+      new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
       drivetrain::driveVolts,
       drivetrain, navigation
     );

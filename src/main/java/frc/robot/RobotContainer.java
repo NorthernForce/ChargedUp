@@ -56,10 +56,10 @@ public class RobotContainer {
     autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     /**
-    * An IOException occurs when you access files that cause errors of a sort.
-    * Each path is loaded from a file, therefore there is a risk of an IOException.
-    * Instead of breaking the robot code when the robot runs, the IOException is caught and the stack trace is printed.
-    */
+     * An IOException occurs when you access files that cause errors of a sort.
+     * Each path is loaded from a file, therefore there is a risk of an IOException.
+     * Instead of breaking the robot code when the robot runs, the IOException is caught and the stack trace is printed.
+     */
     try
     {
       autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
@@ -119,7 +119,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    System.out.println(startingLocationChooser.getSelected());
     if (Constants.NAVIGATION_ENABLED) navigation.setRobotPose(startingLocationChooser.getSelected());
     // An ExampleCommand will run in autonomous
 

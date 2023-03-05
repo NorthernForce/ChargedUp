@@ -75,14 +75,10 @@ public class Navigation extends SubsystemBase {
     var results = visionEstimator.update();
     if (results.isPresent())
     {
-      Pose2d diff = results.get().estimatedPose.toPose2d().relativeTo(poseEstimator.getEstimatedPosition());
-      if (Math.sqrt(Math.pow(diff.getX(), 2) + Math.pow(diff.getY(), 2)) < 1.0)
-      {
-        /*poseEstimator.addVisionMeasurement(
-          results.get().estimatedPose.toPose2d(),
-          results.get().timestampSeconds
-        );*/
-      }
+      poseEstimator.addVisionMeasurement(
+        results.get().estimatedPose.toPose2d(),
+        results.get().timestampSeconds
+      );
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
     SmartDashboard.putData(field);
