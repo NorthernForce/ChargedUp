@@ -115,6 +115,13 @@ public class MotorGroupTalon implements MotorGroup {
     public double getSimulationOutputVoltage()
     {
         return invertCoefficient * sim.getMotorOutputLeadVoltage();
+    /**
+     * Sets the current encoder rotations
+     * @param rotations in rotations... does not factor in gear ratio
+     */
+    public void setEncoderRotations(double rotations)
+    {
+        primary.setSelectedSensorPosition(2048 * rotations);
     }
     private void configureAllControllers() {
         configureController(primary, false);
