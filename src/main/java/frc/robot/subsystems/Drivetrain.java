@@ -32,19 +32,11 @@ public class Drivetrain extends SubsystemBase
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
   }
-  public Drivetrain(MotorGroup leftSide, MotorGroup rightSide) {
-    this.leftSide = leftSide;
-    this.rightSide = rightSide;
-    robotDrive = new DifferentialDrive(leftSide, rightSide);
-  }
   /**
    * Drives the robot forward applying the speed proportions
    * @param speed forward speed [1.0.. -1.0]
    * @param rotation rotational speed [1.0.. -1.0]
    */
-  public void drive(double speed, double rotation) {
-    robotDrive.arcadeDrive(speed * speedProportion, rotation * rotationSpeedProportion);
-  }
   public void drive(double speed, double rotation) {
     robotDrive.arcadeDrive(speed * speedProportion, rotation * rotationSpeedProportion);
   }
@@ -57,10 +49,6 @@ public class Drivetrain extends SubsystemBase
     this.speedProportion = speedProportion;
     this.rotationSpeedProportion = rotationSpeedProportion;
   }
-  public void setSpeedProportions(double speedProportion, double rotationSpeedProportion) {
-    this.speedProportion = speedProportion;
-    this.rotationSpeedProportion = rotationSpeedProportion;
-  }
   /**
    * Gets the forward speed proportion
    * @return Forward speed proportion
@@ -69,18 +57,10 @@ public class Drivetrain extends SubsystemBase
   {
     return speedProportion;
   }
-  public double getSpeedProportion()
-  {
-    return speedProportion;
-  }
   /**
    * Gets the Rotational Speed Proportion
    * @return the rotational speed proportion
    */
-  public double getRotationSpeedProportion()
-  {
-    return rotationSpeedProportion;
-  }
   public double getRotationSpeedProportion()
   {
     return rotationSpeedProportion;
@@ -94,10 +74,6 @@ public class Drivetrain extends SubsystemBase
   {
     robotDrive.arcadeDrive(speed, rotation);
   }
-  public void driveUsingSpeeds(double speed, double rotation)
-  {
-    robotDrive.arcadeDrive(speed, rotation);
-  }
   /**
    * Resets the encoder rotations to (0, 0)
    */
@@ -105,16 +81,7 @@ public class Drivetrain extends SubsystemBase
     leftSide.resetEncoderRotations();
     rightSide.resetEncoderRotations();
   }
-  public void resetEncoderRotations() {
-    leftSide.resetEncoderRotations();
-    rightSide.resetEncoderRotations();
-  }
   /**
-    {
-      leftSide.getEncoderRotations(), 
-      rightSide.getEncoderRotations()
-    };
-  }
     {
       leftSide.getEncoderRotations(), 
       rightSide.getEncoderRotations()
@@ -128,10 +95,6 @@ public class Drivetrain extends SubsystemBase
   {
     return leftSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
   }
-  public double getLeftDistance()
-  {
-    return leftSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
-  }
   /**
    * Gets the distance traveled by the right encoder
    * @return right encoder distance in meters
@@ -140,21 +103,10 @@ public class Drivetrain extends SubsystemBase
   {
     return rightSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
   }
-  public double getRightDistance()
-  {
-    return rightSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
-  }
   /**
    * Gets the speed that the wheels are moving at
    * @return DifferentialDriveWheelSpeeds in m/s
    */
-  public DifferentialDriveWheelSpeeds getSpeeds()
-  {
-    return new DifferentialDriveWheelSpeeds(
-      leftSide.getEncoderRPS() * Constants.METERS_PER_REVOLUTION,
-      rightSide.getEncoderRPS() * Constants.METERS_PER_REVOLUTION
-    );
-  }
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
     return new DifferentialDriveWheelSpeeds(
