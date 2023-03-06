@@ -8,6 +8,8 @@ import java.util.*;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -64,6 +66,15 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public void set(double speed) {
         primary.set(speed);
+    }
+    /**
+     * Sets the arm position using motion magic
+     * @param position position in rotations... does not factor in gear ratio
+     * @param feedforward the feedforward value to be added
+     */
+    public void setArmMotionMagic(double position, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
