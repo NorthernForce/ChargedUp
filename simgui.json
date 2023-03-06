@@ -22,6 +22,7 @@
       "/Shuffleboard/Arm/Arm diagram": "Mechanism2d",
       "/SmartDashboard/Autonomous Routine Chooser": "String Chooser",
       "/SmartDashboard/Calibrate IMU": "Command",
+      "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/PID Balance": "Command",
       "/SmartDashboard/Starting Location Chooser": "String Chooser",
       "/SmartDashboard/Stop": "Command"

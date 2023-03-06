@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 
@@ -26,7 +27,8 @@ public class ManipulateArmWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armRotate.setArmVoltage(armRotate.getFeedforward().calculate(armRotate.getAngle().getRadians(), Speeds[0].getAsDouble()));
+    //armRotate.setArmVoltage(armRotate.getFeedforward().calculate(armRotate.getAngle().getRadians(), Speeds[0].getAsDouble()));
+    armRotate.setArmPosition(Rotation2d.fromDegrees(0));
   }
 
   // Called once the command ends or is interrupted.

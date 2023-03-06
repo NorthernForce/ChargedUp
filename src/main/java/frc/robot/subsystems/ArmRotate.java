@@ -90,6 +90,8 @@ public class ArmRotate extends SubsystemBase {
   {
     armSim.setState(new MatBuilder<N2, N1>(N2.instance, N1.instance).fill(angle.getDegrees(), 0));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
+    talonGroup.setEncoderRotations(angle.getRotations() * 2200.0 / 634);
+    setArmPosition(angle);
   }
   /**
    * Set arm angular speed
@@ -98,6 +100,10 @@ public class ArmRotate extends SubsystemBase {
   public void setArmVoltage(double speed)
   {
     talonGroup.setVoltage(speed);
+  }
+  public void setArmPosition(Rotation2d position)
+  {
+    talonGroup.setPosition(position.getRotations() * 2200.0 / 634);
   }
   public ArmFeedforward getFeedforward()
   {
