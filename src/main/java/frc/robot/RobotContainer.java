@@ -11,6 +11,8 @@ import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
+import java.io.IOException;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -55,6 +57,26 @@ public class RobotContainer {
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
     autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
+    /**
+     * An IOException occurs when you access files that cause errors of a sort.
+     * Each path is loaded from a file, therefore there is a risk of an IOException.
+     * Instead of breaking the robot code when the robot runs, the IOException is caught and the stack trace is printed.
+     */
+    try
+    {
+      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece1ToRed1"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Red1ToPiece2"))
+        .andThen(new Stop(0.2))
+        .andThen(new DriveAlongPath("Piece2ToRed1"))
+        .andThen(new Stop(0.2)));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
     startingLocationChooser = new SendableChooser<>();
     startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
     startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);

@@ -27,11 +27,11 @@ public final class Constants {
     public static final double DRIVE_RAMP_RATE = 0.2;
     public static final int UNITS_PER_REVOLUTION = 2048;
     public static final double GEAR_RATIO = 11.37777778;
-    public static final double TRACK_WIDTH = Units.inchesToMeters(24);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(22);
     public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
     public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / GEAR_RATIO;
-    public static final double MAX_SPEED = 0; // TODO
-    public static final double MAX_ACCELERATION = 0; // TODO
+    public static final double MAX_SPEED = 0.1; // TODO
+    public static final double MAX_ACCELERATION = 0.1; // TODO
     public static final double kS = 0.071975;
     public static final double kV = 2.6116;
     public static final double kA = 0.27655;
@@ -43,7 +43,19 @@ public final class Constants {
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
     public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
-    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d();
+    /** ROBOT CENTER TO Camera */
+    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11), /** X */
+            Units.inchesToMeters(3), /** Y */
+            Units.inchesToMeters(12.5) /** */
+        ),
+        new Rotation3d(
+            0, /** Roll */
+            0, /** Pitch */
+            Math.toRadians(12) /** Yaw */
+        )
+    );
     public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
         List.of(
             new AprilTag(1, new Pose3d(
@@ -98,17 +110,16 @@ public final class Constants {
         16.4846, 
         8.1026
     );
-    /** TODO */
+    /** DRIVER ORIENTED */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue left */
+        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue center */
+        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))  /* DRIVER ORIENTED Blue right */
     };
-    /** TODO */
     public static final Pose2d[] RED_POSES = new Pose2d[] {
-        new Pose2d(),
-        new Pose2d(),
-        new Pose2d()
+        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red left */
+        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
+        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
     /** General Constants */
     public static final boolean ARM_ENABLED = true;
@@ -117,7 +128,7 @@ public final class Constants {
     public static final boolean GRIPPER_ENABLED = false;
     public static final boolean IMU_ENABLED = true;
     public static final boolean LED_ENABLED = true;
-    public static final boolean NAVIGATION_ENABLED = false;
+    public static final boolean NAVIGATION_ENABLED = true;
     public static final boolean WRIST_ENABLED = false;
     public static final boolean VISION_ENABLED = false;
     /** IMU Constants */

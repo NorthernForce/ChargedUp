@@ -9,6 +9,7 @@ import java.util.*;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -66,7 +67,7 @@ public class MotorGroupTalon implements MotorGroup {
         return primary.get();
     }
     public double getEncoderRotations() {
-        return primary.getSensorCollection().getIntegratedSensorPosition() / COUNTS_PER_REVOLUTION;
+        return primary.getSelectedSensorPosition() / COUNTS_PER_REVOLUTION;
     }
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
@@ -77,6 +78,14 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public void set(double speed) {
         primary.set(speed);
+    }
+    /**
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations)
+    {
+        primary.set(ControlMode.Position, rotations * 2048);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -89,7 +98,7 @@ public class MotorGroupTalon implements MotorGroup {
         primary.stopMotor();
     }
     public void resetEncoderRotations() {
-        primary.getSensorCollection().setIntegratedSensorPosition(0, 0);
+        primary.setSelectedSensorPosition(0);
     }
     public void setSimulationBusVoltage(double busVoltage)
     {
