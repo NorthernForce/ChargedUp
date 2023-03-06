@@ -4,20 +4,15 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N2;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.simulation.BatterySim;
-import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -25,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.variants.MotorGroupTalon;
@@ -33,7 +27,7 @@ import frc.robot.subsystems.variants.MotorGroupTalon;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderSimCollection;
 
-public class ArmRotate extends ProfiledPIDSubsystem {
+public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalon talonGroup;
   private final CANCoder rotateEncoder;
@@ -49,19 +43,11 @@ public class ArmRotate extends ProfiledPIDSubsystem {
           new MechanismLigament2d(
               "Arm",
               30,
-              90,
+              0,
               6,
               new Color8Bit(Color.kYellow)));
   /** Creates a new Arm. */
   public ArmRotate() {
-    super(
-      new ProfiledPIDController(
-        Constants.ARM_PROPORTION,
-        0,
-        0,
-        new Constraints(Constants.ARM_MAX_RADIANS_PER_SECOND, Constants.ARM_MAX_RADIANS_PER_SECOND_SQUARED)
-      )
-    );
     talonGroup = new MotorGroupTalon(Constants.ARM_PRIMARY_MOTOR_ID, new int[]
     {
       Constants.ARM_FOLLOWER_MOTOR_ID
@@ -76,10 +62,12 @@ public class ArmRotate extends ProfiledPIDSubsystem {
         2200.0 / 634,
         SingleJointedArmSim.estimateMOI(Constants.ARM_RETRACTED_LENGTH, 9.07185),
         Constants.ARM_RETRACTED_LENGTH,
-        -Math.toRadians(-100),
-        Math.toRadians(210),
+        Math.toRadians(-150),
+        Math.toRadians(70),
         true
       );
+      armSim.setState(new MatBuilder<N2, N1>(N2.instance, N1.instance).fill(90, 0));
+      rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
     }
     else
     {
@@ -89,8 +77,6 @@ public class ArmRotate extends ProfiledPIDSubsystem {
     Shuffleboard.getTab("Arm").add("Arm diagram", mech2d);
     Shuffleboard.getTab("Arm").addNumber("Arm Angle", () -> getAngle().getDegrees());
     armTower.setColor(new Color8Bit(Color.kBlue));
-    setAngle(Rotation2d.fromDegrees(0));
-    enable();
   }
   /**
    * Get arm angle
@@ -100,45 +86,37 @@ public class ArmRotate extends ProfiledPIDSubsystem {
   {
     return Rotation2d.fromDegrees(rotateEncoder.getPosition());
   }
-  /**
-   * Set arm angle
-   * @param angle angle to set the arm to
-  */
-  public void setAngle(Rotation2d angle)
+  public void setSimAngle(Rotation2d angle)
   {
-    setGoal(angle.getRadians());
+    armSim.setState(new MatBuilder<N2, N1>(N2.instance, N1.instance).fill(angle.getDegrees(), 0));
+    rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
   }
   /**
    * Set arm angular speed
    * @param speed between 1.0 and -1.0
    */
-  public void setArmSpeed(double speed)
+  public void setArmVoltage(double speed)
   {
-    setGoal(getController().getGoal().position + Rotation2d.fromDegrees(speed).getRadians());
+    talonGroup.setVoltage(speed);
+  }
+  public ArmFeedforward getFeedforward()
+  {
+    return feedforward;
   }
   @Override
   public void periodic() {
     super.periodic();
     armMech.setAngle(getAngle());
-  }
-  @Override
-  protected void useOutput(double output, State setpoint) {
-    SmartDashboard.putNumber("setpoint.position", setpoint.position);
-    SmartDashboard.putNumber("output", output + feedforward.calculate(setpoint.position, setpoint.velocity));
-    talonGroup.setVoltage(output + feedforward.calculate(setpoint.position, setpoint.velocity));
-  }
-  @Override
-  protected double getMeasurement() {
-    return getAngle().getRadians();
+    
   }
   @Override
   public void simulationPeriodic()
   {
     talonGroup.setSimulationBusVoltage(RobotController.getBatteryVoltage());
     SmartDashboard.putNumber("talonGroup.get", talonGroup.getSimulationOutputVoltage());
-    armSim.setInputVoltage(2.5);
+    armSim.setInputVoltage(talonGroup.getSimulationOutputVoltage());
     armSim.update(0.02);
-    SmartDashboard.putNumber("tmp1", Math.toDegrees(armSim.getAngleRads()));
+    SmartDashboard.putNumber("Arm Sim Angle Rads.", Math.toDegrees(armSim.getAngleRads()));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
   }
 }

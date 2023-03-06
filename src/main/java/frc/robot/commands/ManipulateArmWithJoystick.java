@@ -26,7 +26,7 @@ public class ManipulateArmWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armRotate.setArmSpeed(Speeds[0].getAsDouble());
+    armRotate.setArmVoltage(armRotate.getFeedforward().calculate(armRotate.getAngle().getRadians(), Speeds[0].getAsDouble()));
   }
 
   // Called once the command ends or is interrupted.

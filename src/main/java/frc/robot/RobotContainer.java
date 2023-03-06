@@ -12,6 +12,8 @@ import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -81,7 +83,7 @@ public class RobotContainer {
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
     if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
-    //if (Constants.ARM_ENABLED) armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
+    if (Constants.ARM_ENABLED) armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
     if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
     if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }

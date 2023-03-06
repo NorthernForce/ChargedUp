@@ -5,12 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import static frc.robot.RobotContainer.led;
+import static frc.robot.RobotContainer.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -82,6 +84,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    if (RobotBase.isSimulation()) armRotate.setSimAngle(Rotation2d.fromDegrees(0));
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
