@@ -60,6 +60,10 @@ public class MotorGroupTalon implements MotorGroup {
         setInverted(false);
         configureAllControllers();
     }
+    public void setCountsPerRevolution(int countsPerRevolution)
+    {
+        COUNTS_PER_REVOLUTION = countsPerRevolution;
+    }
     public void disable() {
         primary.disable();
     }
