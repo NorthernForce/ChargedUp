@@ -84,7 +84,7 @@ public class MotorGroupTalon implements MotorGroup {
      */
     public void setEncoderRotations(double rotations)
     {
-        primary.setSelectedSensorPosition(2048 * rotations);
+        primary.setSelectedSensorPosition(COUNTS_PER_REVOLUTION * rotations);
     }
     private void configureAllControllers() {
         configureController(primary, false);
