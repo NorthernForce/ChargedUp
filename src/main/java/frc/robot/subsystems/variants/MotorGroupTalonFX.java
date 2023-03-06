@@ -19,7 +19,7 @@ import frc.robot.subsystems.MotorGroup;
 /** 
  * Group of Talons to be used like MotorController Class
 */
-public class MotorGroupTalon implements MotorGroup {
+public class MotorGroupTalonFX implements MotorGroup {
     private WPI_TalonFX primary;
     private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
     private int COUNTS_PER_REVOLUTION = 2048;
@@ -28,7 +28,7 @@ public class MotorGroupTalon implements MotorGroup {
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
      */
-    public MotorGroupTalon(int primaryID) {
+    public MotorGroupTalonFX(int primaryID) {
         this(primaryID, new int[]{});
     }
     /**
@@ -37,7 +37,7 @@ public class MotorGroupTalon implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupTalon(int primaryID, int[] followerIDs) {
+    public MotorGroupTalonFX(int primaryID, int[] followerIDs) {
         this.primary = new WPI_TalonFX(primaryID);
         for (int followerID: followerIDs) {
             this.followers.add(new WPI_TalonFX(followerID));
