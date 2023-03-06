@@ -68,7 +68,7 @@ public class MotorGroupTalon implements MotorGroup {
         primary.set(speed);
     }
     /**
-     * Sets the arm position using motion magic
+     * Sets the position using motion magic
      * @param position position in rotations... does not factor in gear ratio
      * @param feedforward the feedforward value to be added
      */
