@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -90,6 +91,10 @@ public class MotorGroupTalon implements MotorGroup {
     public void setPosition(double rotations)
     {
         primary.set(ControlMode.Position, rotations * 2048);
+    }
+    public void setArmMotionMagic(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, rotations * 2048, DemandType.ArbitraryFeedForward, feedforward);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);

@@ -53,7 +53,9 @@ public class ArmRotate extends SubsystemBase {
       Constants.ARM_FOLLOWER_MOTOR_ID
     });
     talonGroup.setFollowerOppose(0);
+    talonGroup.setCountsPerRevolution(RobotBase.isReal() ? 4096 : 2048);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
+    talonGroup.configClosedLoop(0, 0, 0, 0.5, 0, 0);
     if (RobotBase.isSimulation())
     {
       rotateEncoderSim = rotateEncoder.getSimCollection();
@@ -76,6 +78,7 @@ public class ArmRotate extends SubsystemBase {
     }
     Shuffleboard.getTab("Arm").add("Arm diagram", mech2d);
     Shuffleboard.getTab("Arm").addNumber("Arm Angle", () -> getAngle().getDegrees());
+    SmartDashboard.putNumber("Arm kG", 0.9);
     armTower.setColor(new Color8Bit(Color.kBlue));
   }
   /**
@@ -103,7 +106,7 @@ public class ArmRotate extends SubsystemBase {
   }
   public void setArmPosition(Rotation2d position)
   {
-    talonGroup.setPosition(position.getRotations() * 2200.0 / 634);
+    talonGroup.setArmMotionMagic(position.getRotations() * 2200.0 / 634, getAngle().getCos() * SmartDashboard.getNumber("Arm kG", 0.9));
   }
   public ArmFeedforward getFeedforward()
   {
@@ -113,15 +116,16 @@ public class ArmRotate extends SubsystemBase {
   public void periodic() {
     super.periodic();
     armMech.setAngle(getAngle());
-    
   }
   @Override
   public void simulationPeriodic()
   {
     talonGroup.setSimulationBusVoltage(RobotController.getBatteryVoltage());
+    SmartDashboard.putNumber("talonGroup Encoder Pos", talonGroup.getEncoderRotations());
     SmartDashboard.putNumber("talonGroup.get", talonGroup.getSimulationOutputVoltage());
     armSim.setInputVoltage(talonGroup.getSimulationOutputVoltage());
     armSim.update(0.02);
+    talonGroup.setSimulationPosition(Rotation2d.fromRadians(armSim.getAngleRads()).getRotations() * 2200.0 / 634);
     SmartDashboard.putNumber("Arm Sim Angle Rads.", Math.toDegrees(armSim.getAngleRads()));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
   }
