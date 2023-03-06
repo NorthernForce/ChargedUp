@@ -13,12 +13,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.wpilibj.RobotBase;
 
 import static frc.robot.Constants.*;
+
 import frc.robot.subsystems.MotorGroup;
 
 
@@ -90,11 +93,19 @@ public class MotorGroupTalon implements MotorGroup {
      */
     public void setPosition(double rotations)
     {
-        primary.set(ControlMode.Position, rotations * 2048);
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
     }
-    public void setArmMotionMagic(double rotations, double feedforward)
+    public void setVelocity(double speed, double feedforward)
     {
-        primary.set(ControlMode.MotionMagic, rotations * 2048, DemandType.ArbitraryFeedForward, feedforward);
+        primary.set(ControlMode.Velocity, speed * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setMotionMagic(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setSlot(int slot, int pid)
+    {
+        primary.selectProfileSlot(slot, pid);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -149,6 +160,22 @@ public class MotorGroupTalon implements MotorGroup {
 		primary.config_kP(slotIdx, kP, 0);
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
+    }
+    /**
+     * Links a CANCoder to a motor as a remote feedback filter
+     * @param cancoder CANCoder device
+     */
+    public void linkCANCoder(int slot, CANCoder cancoder)
+    {
+        primary.configRemoteFeedbackFilter(cancoder, slot);
+    }
+    /**
+     * Sets a feedback sensor
+     * @param device sensor to set it to. Must already be configured with motor.
+     */
+    public void setFeedbackSensor(FeedbackDevice device)
+    {
+        primary.configSelectedFeedbackSensor(device);
     }
     private void configureAllControllers() {
         configureController(primary, false);

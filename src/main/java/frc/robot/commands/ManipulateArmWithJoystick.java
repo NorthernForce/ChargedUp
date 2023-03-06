@@ -28,7 +28,7 @@ public class ManipulateArmWithJoystick extends CommandBase {
   @Override
   public void execute() {
     //armRotate.setArmVoltage(armRotate.getFeedforward().calculate(armRotate.getAngle().getRadians(), Speeds[0].getAsDouble()));
-    armRotate.setArmPosition(Rotation2d.fromDegrees(0));
+    armRotate.setArmSpeed(Speeds[0].getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
