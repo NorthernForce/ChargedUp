@@ -8,6 +8,8 @@ import java.util.*;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -84,6 +86,62 @@ public class MotorGroupTalonSRX implements MotorGroup {
         for (WPI_TalonSRX wpi_TalonFX : followers) {
             configureController(wpi_TalonFX, true);
         }
+    }
+    /**
+     * Sets the velocity of the motor
+     * Uses integrated PID.
+     * @param velocity does not factor in gear ratio
+     * @param feedforward value of feedforward
+     */
+    public void setVelocity(double velocity, double feedforward)
+    {
+        primary.set(ControlMode.Velocity, velocity * COUNTS_PER_REVOLUTION / 10, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    /**
+     * Sets the position using motion magic
+     * @param position position in rotations... does not factor in gear ratio
+     * @param feedforward the feedforward value to be added
+     */
+    public void setMotionMagic(double position, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setCountsPerRevolution(int countsPerRevolution)
+    {
+        COUNTS_PER_REVOLUTION = countsPerRevolution;
+    }
+    /**
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+    }
+    /**
+     * Configures a closed loop
+     * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
+     * @param allowableError allowableError in sensor units per 100ms.
+     * @param kF velocity feedforward gain
+     * @param kP proportion
+     * @param kI integral
+     * @param kD derivative
+     */
+    public void configClosedLoop(int slotIdx, double allowableError, double kF, double kP, double kI, double kD)
+    {
+        primary.configAllowableClosedloopError(slotIdx, allowableError, 0);
+        primary.config_kF(slotIdx, kF, 0);
+		primary.config_kP(slotIdx, kP, 0);
+		primary.config_kI(slotIdx, kI, 0);
+		primary.config_kD(slotIdx, kD, 0);
+    }
+    /**
+     * Sets the current encoder rotations
+     * @param rotations in rotations... does not factor in gear ratio
+     */
+    public void setEncoderRotations(double rotations)
+    {
+        primary.setSelectedSensorPosition(COUNTS_PER_REVOLUTION * rotations);
     }
     private void configureController(WPI_TalonSRX controller, Boolean isFollower) {
         /** These 3 values are used to prevent breakers from tripping*/
