@@ -72,7 +72,7 @@ public class MotorGroupTalon implements MotorGroup {
      * @param position position in rotations... does not factor in gear ratio
      * @param feedforward the feedforward value to be added
      */
-    public void setArmMotionMagic(double position, double feedforward)
+    public void setMotionMagic(double position, double feedforward)
     {
         primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
     }
