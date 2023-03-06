@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.CANCoder;
 
 import static frc.robot.Constants.*;
 import frc.robot.subsystems.MotorGroup;
@@ -86,6 +87,23 @@ public class MotorGroupTalonSRX implements MotorGroup {
         for (WPI_TalonSRX wpi_TalonFX : followers) {
             configureController(wpi_TalonFX, true);
         }
+    }
+    /**
+     * Links CANCoder to be used
+     * @param coder CANCoder reference
+     */
+    public void linkAndUseCANCoder(CANCoder coder)
+    {
+        primary.configRemoteFeedbackFilter(coder, 0);
+        primary.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        setCountsPerRevolution(4096);
+    }
+    /**
+     * Configures the internal closed loop to be used.
+     */
+    public void configSelectedSlot(int slotIdx, int pidIdx)
+    {
+        primary.selectProfileSlot(slotIdx, pidIdx);
     }
     /**
      * Sets the velocity of the motor
