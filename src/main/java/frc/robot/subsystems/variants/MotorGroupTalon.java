@@ -72,7 +72,7 @@ public class MotorGroupTalon implements MotorGroup {
      */
     public void setPosition(double rotations)
     {
-        primary.set(ControlMode.Position, rotations * 2048);
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
