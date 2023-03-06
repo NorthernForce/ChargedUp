@@ -21,7 +21,7 @@ public class DefaultWrist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    wrist.setAngle(armRotate.getAngle().unaryMinus());
+    //wrist.setAngle(armRotate.getAngle().unaryMinus());
   }
 
   // Called once the command ends or is interrupted.
