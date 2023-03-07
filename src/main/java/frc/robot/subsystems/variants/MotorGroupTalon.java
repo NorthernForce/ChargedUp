@@ -9,6 +9,7 @@ import java.util.*;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -70,9 +71,13 @@ public class MotorGroupTalon implements MotorGroup {
      * Sets the position of Falcon motor using integrated PIDControl
      * @param rotations Number of rotations. Does not factor in gear ratio.
      */
-    public void setPosition(double rotations)
+    public void setPosition(double rotations, double feedforward)
     {
-        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setPercent(double percent, double feedforward)
+    {
+        primary.set(ControlMode.PercentOutput, percent, DemandType.ArbitraryFeedForward, feedforward);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
