@@ -38,7 +38,7 @@ public class MotorGroupTalon implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupTalon(int primaryID, int[] followerIDs) {
+    public MotorGroupTalon(int primaryID, int... followerIDs) {
         this.primary = new WPI_TalonFX(primaryID);
         for (int followerID: followerIDs) {
             this.followers.add(new WPI_TalonFX(followerID));
