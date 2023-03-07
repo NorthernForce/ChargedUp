@@ -78,6 +78,23 @@ public class MotorGroupTalon implements MotorGroup {
     public void resetEncoderRotations() {
         primary.setSelectedSensorPosition(0);
     }
+    /**
+     * Configures a closed loop
+     * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
+     * @param allowableError allowableError in sensor units per 100ms.
+     * @param kF velocity feedforward gain
+     * @param kP proportion
+     * @param kI integral
+     * @param kD derivative
+     */
+    public void configClosedLoop(int slotIdx, double allowableError, double kF, double kP, double kI, double kD)
+    {
+        primary.configAllowableClosedloopError(slotIdx, allowableError, 0);
+        primary.config_kF(slotIdx, kF, 0);
+		primary.config_kP(slotIdx, kP, 0);
+		primary.config_kI(slotIdx, kI, 0);
+		primary.config_kD(slotIdx, kD, 0);
+    }
     private void configureAllControllers() {
         configureController(primary, false);
         for (WPI_TalonFX wpi_TalonFX : followers) {
