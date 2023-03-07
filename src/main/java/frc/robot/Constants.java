@@ -172,6 +172,15 @@ public final class Constants {
     public static final int MOTOR_SOLENOID_ID = 1;
     /** Wrist Constants */
     public static final int WRIST_MOTOR_ID = 10;
-    public static final double WRIST_PROPORTION = 0.0; // TODO
     public static final double WRIST_GEAT_RATIO = 0.0; // TODO
+    // Static gain
+    public static final double WRIST_KF = 0.0; // TODO
+    // Proportion
+    public static final double WRIST_KP = 0.0; // TODO
+    // Integral
+    public static final double WRIST_KI = 0.0; // TODO
+    // Derivative
+    public static final double WRIST_KD = 0.0; // TODO
+    // Feedforward or gravity Gain
+    public static final double WRIST_KFF = 0.0; // TODO
 }

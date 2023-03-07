@@ -132,9 +132,9 @@ public class MotorGroupTalonSRX implements MotorGroup {
      * Sets the position of Falcon motor using integrated PIDControl
      * @param rotations Number of rotations. Does not factor in gear ratio.
      */
-    public void setPosition(double rotations)
+    public void setPosition(double rotations, double feedforward)
     {
-        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
     }
     /**
      * Configures a closed loop
