@@ -95,6 +95,10 @@ public class MotorGroupTalon implements MotorGroup {
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
     }
+    public void configSelectedProfile(int slotIdx, int pidIdx)
+    {
+        primary.selectProfileSlot(slotIdx, pidIdx);
+    }
     private void configureAllControllers() {
         configureController(primary, false);
         for (WPI_TalonFX wpi_TalonFX : followers) {
