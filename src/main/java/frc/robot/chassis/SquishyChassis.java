@@ -23,7 +23,7 @@ public class SquishyChassis implements ChassisBase {
         MotorGroup left = new MotorGroupSpark(MotorType.kBrushless, LEFT_PRIMARY_ID, LEFT_FOLLOWER_ID);
         left.setInverted(true);
 
-        MotorGroup right = new MotorGroupSpark(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID}, MotorType.kBrushless);
+        MotorGroup right = new MotorGroupSpark(MotorType.kBrushless, RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
         return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
 
     }
