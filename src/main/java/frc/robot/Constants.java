@@ -495,7 +495,7 @@ public final class Constants {
     public static final boolean LED_ENABLED = true;
     public static final boolean NAVIGATION_ENABLED = true;
     public static final boolean WRIST_ENABLED = false;
-    public static final boolean VISION_ENABLED = false;
+    public static final boolean VISION_ENABLED = true;
     /** IMU Constants */
     public static final boolean ROLL_PITCH_SWAPPED = false;
     /** LED Constants */
