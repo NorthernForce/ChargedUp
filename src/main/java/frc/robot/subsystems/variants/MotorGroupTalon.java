@@ -87,6 +87,14 @@ public class MotorGroupTalon implements MotorGroup {
     public void resetEncoderRotations() {
         primary.setSelectedSensorPosition(0);
     }
+    /**
+     * Sets the current encoder rotations
+     * @param rotations in rotations... does not factor in gear ratio
+     */
+    public void setEncoderRotations(double rotations)
+    {
+        primary.setSelectedSensorPosition(COUNTS_PER_REVOLUTION * rotations);
+    }
     private void configureAllControllers() {
         configureController(primary, false);
         for (WPI_TalonFX wpi_TalonFX : followers) {
