@@ -8,8 +8,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.Motors.MotorGroupTalon;
 import frc.robot.Constants;
-import frc.robot.subsystems.variants.MotorGroupTalon;
 
 import com.ctre.phoenix.sensors.CANCoder;
 

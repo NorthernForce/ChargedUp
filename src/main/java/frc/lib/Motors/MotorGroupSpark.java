@@ -2,15 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.variants;
+package frc.lib.Motors;
 
 import java.util.*;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.subsystems.MotorGroup;
 
+import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
 */
