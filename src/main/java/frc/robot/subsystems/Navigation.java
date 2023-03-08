@@ -4,6 +4,11 @@ import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -80,5 +85,93 @@ public class Navigation extends SubsystemBase {
       );
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
+  }
+  /**
+   * Gets the nearest scoring location
+   * @return scoring location (Translation3d)
+   */
+  public Translation3d getNearestScoringLocation()
+  {
+    Pose2d pose = getPose2d();
+    if (DriverStation.getAlliance() == Alliance.Blue)
+    {
+      Translation3d nearest = Constants.BLUE_CONE_PLACEMENT_LOCATIONS[0];
+      for (var loc : Constants.BLUE_CONE_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.BLUE_CUBE_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.BLUE_FLOOR_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.BLUE_SHELF_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.BLUE_GAME_PIECE_AUTO_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      return nearest;
+    }
+    else
+    {
+      Translation3d nearest = Constants.RED_CONE_PLACEMENT_LOCATIONS[0];
+      for (var loc : Constants.RED_CONE_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.RED_CUBE_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.RED_FLOOR_PLACEMENT_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.RED_SHELF_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      for (var loc : Constants.RED_GAME_PIECE_AUTO_LOCATIONS)
+      {
+        if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
+        {
+          nearest = loc;
+        }
+      }
+      return nearest;
+    }
   }
 }
