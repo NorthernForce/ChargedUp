@@ -152,4 +152,17 @@ public class MotorGroupTalon implements MotorGroup {
             wpi_TalonFX.setInverted(InvertType.FollowMaster);
         }
     }
+    /**
+     * Gets iteratable of all of the motors, including the primary.
+     */
+    public List<WPI_TalonFX> getAllMotors()
+    {
+        ArrayList<WPI_TalonFX> list = new ArrayList<WPI_TalonFX>();
+        list.add(primary);
+        for (var follower : followers)
+        {
+            list.add(follower);
+        }
+        return list;
+    }
 }
