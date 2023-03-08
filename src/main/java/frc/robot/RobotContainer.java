@@ -118,7 +118,7 @@ public class RobotContainer {
     SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
     SmartDashboard.putData("Stop", new Stop(0.1));
-    SmartDashboard.putData("PID Balance", new PIDBalance());
+    SmartDashboard.putData("Balance", new Balance());
     SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
   /**
