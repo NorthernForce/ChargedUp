@@ -16,8 +16,9 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
 
+import frc.lib.Motors.MotorGroup;
+
 import static frc.robot.Constants.*;
-import frc.robot.subsystems.MotorGroup;
 
 
 /** 
