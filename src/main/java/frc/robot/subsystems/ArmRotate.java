@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.variants.MotorGroupTalon;
@@ -27,6 +27,7 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.setFollowerOppose(0);
     rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
+    Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
   }
   /**
    * Get arm angle
@@ -55,6 +56,5 @@ public class ArmRotate extends SubsystemBase {
   @Override
   public void periodic() {
     talonGroup.set(rotateController.calculate(getAngle().getRadians()));
-    SmartDashboard.putNumber("Arm Angle", getAngle().getDegrees());
   }
 }
