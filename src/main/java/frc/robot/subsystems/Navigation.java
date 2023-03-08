@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -19,11 +20,15 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 import static frc.robot.RobotContainer.*;
 
+import javax.xml.crypto.dsig.Transform;
+
 /** Simple subsystem to keep track of the current location of the robot. */
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
-  private final PhotonPoseEstimator visionEstimator;
-  private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
+  private final PhotonPoseEstimator visionEstimator1, visionEstimator2, visionEstimator3;
+  private final PhotonCamera camera1 = new PhotonCamera(Constants.NAVIGATION_CAMERA1_NAME);
+  private final PhotonCamera camera2 = new PhotonCamera(Constants.NAVIGATION_CAMERA2_NAME);
+  private final PhotonCamera camera3 = new PhotonCamera(Constants.NAVIGATION_CAMERA3_NAME);
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
@@ -37,13 +42,27 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance(),
       new Pose2d()
     );
-    visionEstimator = new PhotonPoseEstimator(
+    visionEstimator1 = new PhotonPoseEstimator(
       Constants.APRILTAG_LAYOUT,
       PoseStrategy.MULTI_TAG_PNP,
-      camera,
-      Constants.NAVIGATION_CAMERA_TRANSFORM
+      camera1,
+      Constants.NAVIGATION_CAMERA1_TRANSFORM
     );
-    camera.setPipelineIndex(0);
+    visionEstimator2 = new PhotonPoseEstimator(
+      Constants.APRILTAG_LAYOUT,
+      PoseStrategy.MULTI_TAG_PNP,
+      camera2,
+      Constants.NAVIGATION_CAMERA2_TRANSFORM
+    );
+    visionEstimator3 = new PhotonPoseEstimator(
+      Constants.APRILTAG_LAYOUT,
+      PoseStrategy.MULTI_TAG_PNP,
+      camera3,
+      Constants.NAVIGATION_CAMERA3_TRANSFORM
+    );
+    camera1.setPipelineIndex(0);
+    camera2.setPipelineIndex(0);
+    camera3.setPipelineIndex(0);
     Shuffleboard.getTab("Autonomous").add("Field", field).withSize(3, 2).withPosition(0, 0);
   }
   /**
@@ -75,14 +94,23 @@ public class Navigation extends SubsystemBase {
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance()
     );
-    visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
-    var results = visionEstimator.update();
-    if (results.isPresent())
+    visionEstimator1.setReferencePose(poseEstimator.getEstimatedPosition());
+    visionEstimator2.setReferencePose(poseEstimator.getEstimatedPosition());
+    visionEstimator3.setReferencePose(poseEstimator.getEstimatedPosition());
+    var results1 = visionEstimator1.update();
+    var results2 = visionEstimator2.update();
+    var results3 = visionEstimator3.update();
+    if (results1.isPresent())
     {
-      poseEstimator.addVisionMeasurement(
-        results.get().estimatedPose.toPose2d(),
-        results.get().timestampSeconds
-      );
+      poseEstimator.addVisionMeasurement(results1.get().estimatedPose.toPose2d(), results1.get().timestampSeconds);
+    }
+    if (results2.isPresent())
+    {
+      poseEstimator.addVisionMeasurement(results2.get().estimatedPose.toPose2d(), results2.get().timestampSeconds);
+    }
+    if (results3.isPresent())
+    {
+      poseEstimator.addVisionMeasurement(results3.get().estimatedPose.toPose2d(), results3.get().timestampSeconds);
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
   }
