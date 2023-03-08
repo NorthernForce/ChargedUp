@@ -11,11 +11,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.platform.DeviceType;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
+
+import frc.lib.Motors.MotorGroup;
 
 import static frc.robot.Constants.*;
 
@@ -23,16 +24,16 @@ import static frc.robot.Constants.*;
 /** 
  * Group of Talons to be used like MotorController Class
 */
-public class MotorGroupTalon implements MotorGroup {
-    private WPI_TalonFX primary;
-    private List<WPI_TalonFX> followers = new ArrayList<WPI_TalonFX>();
+public class MotorGroupTalonSRX implements MotorGroup {
+    private WPI_TalonSRX primary;
+    private List<WPI_TalonSRX> followers = new ArrayList<WPI_TalonSRX>();
     private int COUNTS_PER_REVOLUTION = 2048;
     private int invertCoefficient = 1;
     /**
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
      */
-    public MotorGroupTalon(int primaryID) {
+    public MotorGroupTalonSRX(int primaryID) {
         this(primaryID, new int[]{});
     }
     /**
@@ -41,18 +42,14 @@ public class MotorGroupTalon implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupTalon(int primaryID, int... followerIDs) {
-        this.primary = new WPI_TalonFX(primaryID);
+    public MotorGroupTalonSRX(int primaryID, int[] followerIDs) {
+        this.primary = new WPI_TalonSRX(primaryID);
         for (int followerID: followerIDs) {
-            this.followers.add(new WPI_TalonFX(followerID));
+            this.followers.add(new WPI_TalonSRX(followerID));
         }
         setFollowers();
         setInverted(false);
         configureAllControllers();
-    }
-    public void setCountsPerRevolution(int countsPerRevolution)
-    {
-        COUNTS_PER_REVOLUTION = countsPerRevolution;
     }
     public void disable() {
         primary.disable();
@@ -65,34 +62,13 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
-        return invertCoefficient * primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
+        return primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
     }
     public boolean getInverted() {
         return primary.getInverted();
     }
     public void set(double speed) {
         primary.set(speed);
-    }
-    /**
-     * Sets the position of Falcon motor using integrated PIDControl
-     * @param rotations Number of rotations. Does not factor in gear ratio.
-     */
-    public void setPosition(double rotations, double feedforward)
-    {
-        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
-    }
-    public void setPercent(double percent, double feedforward)
-    {
-        primary.set(ControlMode.PercentOutput, percent, DemandType.ArbitraryFeedForward, feedforward);
-    }
-    /*
-     * Sets the position using motion magic
-     * @param position position in rotations... does not factor in gear ratio
-     * @param feedforward the feedforward value to be added
-     */
-    public void setMotionMagic(double position, double feedforward)
-    { 
-        primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -107,17 +83,61 @@ public class MotorGroupTalon implements MotorGroup {
     public void resetEncoderRotations() {
         primary.setSelectedSensorPosition(0);
     }
+    private void configureAllControllers() {
+        configureController(primary, false);
+        for (WPI_TalonSRX wpi_TalonFX : followers) {
+            configureController(wpi_TalonFX, true);
+        }
+    }
     /**
-     * Links and selects the cancoder
-     * @param coder the CANCoder reference
+     * Links CANCoder to be used
+     * @param coder CANCoder reference
      */
     public void linkAndUseCANCoder(CANCoder coder)
     {
         primary.configRemoteFeedbackFilter(coder, 0);
         primary.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
-        COUNTS_PER_REVOLUTION = 4096;
+        setCountsPerRevolution(4096);
     }
-    /*
+    /**
+     * Configures the internal closed loop to be used.
+     */
+    public void configSelectedSlot(int slotIdx, int pidIdx)
+    {
+        primary.selectProfileSlot(slotIdx, pidIdx);
+    }
+    /**
+     * Sets the velocity of the motor
+     * Uses integrated PID.
+     * @param velocity does not factor in gear ratio
+     * @param feedforward value of feedforward
+     */
+    public void setVelocity(double velocity, double feedforward)
+    {
+        primary.set(ControlMode.Velocity, velocity * COUNTS_PER_REVOLUTION / 10, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    /**
+     * Sets the position using motion magic
+     * @param position position in rotations... does not factor in gear ratio
+     * @param feedforward the feedforward value to be added
+     */
+    public void setMotionMagic(double position, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setCountsPerRevolution(int countsPerRevolution)
+    {
+        COUNTS_PER_REVOLUTION = countsPerRevolution;
+    }
+    /**
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+    }
+    /**
      * Configures a closed loop
      * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
      * @param allowableError allowableError in sensor units per 100ms.
@@ -134,17 +154,15 @@ public class MotorGroupTalon implements MotorGroup {
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
     }
-    public void configSelectedProfile(int slotIdx, int pidIdx)
+    /**
+     * Sets the current encoder rotations
+     * @param rotations in rotations... does not factor in gear ratio
+     */
+    public void setEncoderRotations(double rotations)
     {
-        primary.selectProfileSlot(slotIdx, pidIdx);
+        primary.setSelectedSensorPosition(COUNTS_PER_REVOLUTION * rotations);
     }
-    private void configureAllControllers() {
-        configureController(primary, false);
-        for (WPI_TalonFX wpi_TalonFX : followers) {
-            configureController(wpi_TalonFX, true);
-        }
-    }
-    private void configureController(WPI_TalonFX controller, Boolean isFollower) {
+    private void configureController(WPI_TalonSRX controller, Boolean isFollower) {
         /** These 3 values are used to prevent breakers from tripping*/
         final double currentLimit = 40; //Holding current in amps to limit when feature is activated
         final double limitThreshold = 90; //Current must excede this threshold (amps) before limiting occurs
@@ -156,12 +174,12 @@ public class MotorGroupTalon implements MotorGroup {
           controller.configOpenloopRamp(DRIVE_RAMP_RATE);
         }
         controller.setNeutralMode(NeutralMode.Brake);
-        TalonFXConfiguration configs = new TalonFXConfiguration();
+        TalonSRXConfiguration configs = new TalonSRXConfiguration();
         configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
         controller.configAllSettings(configs);
     }
     private void setFollowers() {
-        for (WPI_TalonFX wpi_TalonFX : followers) {
+        for (WPI_TalonSRX wpi_TalonFX : followers) {
             wpi_TalonFX.follow(primary);
             wpi_TalonFX.setInverted(InvertType.FollowMaster);
         }
