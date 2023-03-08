@@ -8,19 +8,21 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.Motors.MotorGroupTalon;
+import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
+
+import frc.lib.Motors.MotorGroupTalonFX;
 
 import com.ctre.phoenix.sensors.CANCoder;
 
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
-  private final MotorGroupTalon talonGroup;
+  private final MotorGroupTalonFX talonGroup;
   private final PIDController rotateController;
   private final CANCoder rotateEncoder;
   /** Creates a new Arm. */
   public ArmRotate() {
-    talonGroup = new MotorGroupTalon(Constants.ARM_PRIMARY_MOTOR_ID, new int[]
+    talonGroup = new MotorGroupTalonFX(Constants.ARM_PRIMARY_MOTOR_ID, new int[]
     {
       Constants.ARM_FOLLOWER_MOTOR_ID
     });
