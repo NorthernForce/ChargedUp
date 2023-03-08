@@ -35,8 +35,8 @@ public class DriveAlongPath extends RamseteCommand {
       ),
       navigation::getPose2d,
       new RamseteController(),
-      new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA),
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
+      drivetrain.getFeedforward(),
+      drivetrain.getKinematics(),
       drivetrain::getSpeeds,
       new PIDController(Constants.LEFT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
       new PIDController(Constants.RIGHT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */

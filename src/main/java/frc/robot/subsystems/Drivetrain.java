@@ -6,7 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -17,16 +19,23 @@ public class Drivetrain extends SubsystemBase
   private MotorGroup leftSide;
   private MotorGroup rightSide;
   private DifferentialDrive robotDrive;
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
-  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
+  private final DifferentialDriveKinematics kinematics;
+  private final SimpleMotorFeedforward feedforward;
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
   /** 
    * Creates a new Drivetrain. 
    */
-  public Drivetrain(MotorGroup leftSide, MotorGroup rightSide) {
+  public Drivetrain(MotorGroup leftSide, MotorGroup rightSide, double trackWidth, double kS, double kV, double kA) {
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
+    kinematics = new DifferentialDriveKinematics(trackWidth);
+    feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+
+    Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft/s)", () -> Units.metersToFeet(
+      (getSpeeds().leftMetersPerSecond + getSpeeds().rightMetersPerSecond) / 2
+    )).withPosition(0, 0);
+
   }
   /**
    * Drives the robot forward applying the speed proportions
@@ -129,6 +138,22 @@ public class Drivetrain extends SubsystemBase
     leftSide.setVoltage(feedforward.calculate(driveSpeeds.leftMetersPerSecond));
     rightSide.setVoltage(feedforward.calculate(driveSpeeds.rightMetersPerSecond));
     robotDrive.feed();
+  }
+  /** 
+   * Returns SimpleMotorFeedforward
+   * @return feedforward
+   */
+  public SimpleMotorFeedforward getFeedforward()
+  {
+    return feedforward;
+  }
+  /** 
+   * Returns DifferentialDriveKinematics
+   * @return kinematics
+   */
+  public DifferentialDriveKinematics getKinematics()
+  {
+    return kinematics;
   }
   @Override
   public void periodic() {
