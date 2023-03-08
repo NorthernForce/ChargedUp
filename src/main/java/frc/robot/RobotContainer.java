@@ -14,6 +14,8 @@ import frc.robot.subsystems.*;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -70,18 +72,48 @@ public class RobotContainer {
         .andThen(new Stop(0.2))
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2)));
+      autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece1ToBlue1"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Blue1ToPiece2"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece2ToBlue1"))
+        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Blue3 to Piece4", new DriveAlongPath("Blue3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece4ToBlue3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Blue3ToPiece3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece3ToBlue3"))
+        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece4ToRed3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Red3ToPiece3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece3ToRed3"))
+        .andThen(new Stop(0.1)));
     }
     catch (IOException exception)
     {
       exception.printStackTrace();
     }
     startingLocationChooser = new SendableChooser<>();
-    startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
-    startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
-    startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
-    startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
-    startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
-    startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    if (DriverStation.getAlliance() == Alliance.Red)
+    {
+      startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
+      startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
+      startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
+    }
+    else
+    {
+      startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
+      startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
+      startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    }
     SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
     SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
     SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
