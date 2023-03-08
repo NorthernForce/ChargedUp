@@ -17,7 +17,6 @@ import com.ctre.phoenix.sensors.CANCoder;
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalonFX talonGroup;
-  private final PIDController rotateController;
   private final CANCoder rotateEncoder;
   /** Creates a new Arm. */
   public ArmRotate() {
