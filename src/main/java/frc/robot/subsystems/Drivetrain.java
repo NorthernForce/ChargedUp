@@ -29,6 +29,8 @@ public class Drivetrain extends SubsystemBase
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     robotDrive = new DifferentialDrive(leftSide, rightSide);
+    kinematics = new DifferentialDriveKinematics(trackWidth);
+    feedforward = new SimpleMotorFeedforward(kS, kV, kA);
 
     Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft/s)", () -> Units.metersToFeet(
       (getSpeeds().leftMetersPerSecond + getSpeeds().rightMetersPerSecond) / 2
