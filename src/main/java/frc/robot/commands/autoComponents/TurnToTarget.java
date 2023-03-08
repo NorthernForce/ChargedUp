@@ -11,7 +11,6 @@ import static frc.robot.RobotContainer.*;
 
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
-  private PIDController calculator;
 
   public TurnToTarget() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -21,15 +20,13 @@ public class TurnToTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    calculator = new PIDController(2e-2, 0, 0);
-    calculator.setSetpoint(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (vision.hasTarget()){
-      double requiredTurn = -calculator.calculate(vision.getTargetYaw().getDegrees());
+      double requiredTurn = (vision.getTargetYaw().getDegrees() > 0) ? -0.4 : 0.4;
       drivetrain.drive(0, requiredTurn);
     }
   }
@@ -41,6 +38,6 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return calculator.atSetpoint();
+    return Math.abs(vision.getTargetYaw().getDegrees()) < 3;
   }
 }

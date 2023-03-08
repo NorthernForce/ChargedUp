@@ -4,18 +4,23 @@
 
 package frc.robot.chassis;
 
+import edu.wpi.first.math.util.Units;
+import frc.lib.Motors.MotorGroup;
+import frc.lib.Motors.MotorGroupTalon;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.MotorGroup;
-import frc.robot.subsystems.variants.MotorGroupTalon;
 
 /** Chassis specific details about speedy. */
 public class SpeedyChassis implements ChassisBase {
+    public static final double TRACK_WIDTH = Units.inchesToMeters(24);
+    public static final double kS = 0.0;
+    public static final double kV = 0.0;
+    public static final double kA = 0.0;
     public SpeedyChassis() {}
     public Drivetrain getDrivetrain() {
         MotorGroup left = new MotorGroupTalon(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
         MotorGroup right = new MotorGroupTalon(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
         right.setInverted(true);
-        return new Drivetrain(left, right);
+        return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
     }
     public String getChassisName() {
         return "Speedy";

@@ -2,12 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.variants;
+package frc.lib.Motors;
 
 import java.util.*;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import com.ctre.phoenix.motorcontrol.DemandType;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -16,7 +20,6 @@ import com.ctre.phoenix.platform.DeviceType;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import static frc.robot.Constants.*;
-import frc.robot.subsystems.MotorGroup;
 
 
 /** 
@@ -40,7 +43,7 @@ public class MotorGroupTalon implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupTalon(int primaryID, int[] followerIDs) {
+    public MotorGroupTalon(int primaryID, int... followerIDs) {
         this.primary = new WPI_TalonFX(primaryID);
         for (int followerID: followerIDs) {
             this.followers.add(new WPI_TalonFX(followerID));
@@ -48,6 +51,10 @@ public class MotorGroupTalon implements MotorGroup {
         setFollowers();
         setInverted(false);
         configureAllControllers();
+    }
+    public void setCountsPerRevolution(int countsPerRevolution)
+    {
+        COUNTS_PER_REVOLUTION = countsPerRevolution;
     }
     public void disable() {
         primary.disable();
@@ -67,6 +74,25 @@ public class MotorGroupTalon implements MotorGroup {
     }
     public void set(double speed) {
         primary.set(speed);
+    }
+    /**
+
+     * Sets the position using motion magic
+     * @param position position in rotations... does not factor in gear ratio
+     * @param feedforward the feedforward value to be added
+     */
+    public void setMotionMagic(double position, double feedforward)
+    { 
+        primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+  }
+    /*
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -90,6 +116,24 @@ public class MotorGroupTalon implements MotorGroup {
         primary.configRemoteFeedbackFilter(coder, 0);
         primary.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
         COUNTS_PER_REVOLUTION = 4096;
+    }
+    /*
+     * Configures a closed loop
+     * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
+     * @param allowableError allowableError in sensor units per 100ms.
+     * @param kF velocity feedforward gain
+     * @param kP proportion
+     * @param kI integral
+     * @param kD derivative
+     */
+    public void configClosedLoop(int slotIdx, double allowableError, double kF, double kP, double kI, double kD)
+    {
+        primary.configAllowableClosedloopError(slotIdx, allowableError, 0);
+        primary.config_kF(slotIdx, kF, 0);
+		primary.config_kP(slotIdx, kP, 0);
+		primary.config_kI(slotIdx, kI, 0);
+		primary.config_kD(slotIdx, kD, 0);
+
     }
     private void configureAllControllers() {
         configureController(primary, false);

@@ -2,15 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.variants;
+package frc.lib.Motors;
 
 import java.util.*;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.subsystems.MotorGroup;
 
+import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
 */
@@ -22,8 +22,8 @@ public class MotorGroupSpark implements MotorGroup {
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
      */
-    public MotorGroupSpark(int primaryID, MotorType type) {
-        this(primaryID, new int[]{}, type);
+    public MotorGroupSpark(MotorType type, int primaryID) {
+        this(type, primaryID, new int[]{});
     }
     /**
      * Creates a new motor with optional followers controlled by talons. 
@@ -31,7 +31,7 @@ public class MotorGroupSpark implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupSpark(int primaryID, int[] followerIDs, MotorType type) {
+    public MotorGroupSpark(MotorType type, int primaryID, int... followerIDs) {
         this.primary = new CANSparkMax(primaryID, type);
         for (int followerID: followerIDs) {
             this.followers.add(new CANSparkMax(followerID, type));
