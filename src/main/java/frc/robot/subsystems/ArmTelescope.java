@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -13,7 +14,9 @@ import static frc.robot.RobotContainer.*;
 public class ArmTelescope extends SubsystemBase {
   private boolean isExtended = false;
   /** Creates a new ArmTelescope. */
-  public ArmTelescope() {}
+  public ArmTelescope() {
+    Shuffleboard.getTab("Arm").addBoolean("isExtended", () -> isExtended).withPosition(1, 0);
+  }
   public void extend()
   {
     isExtended = true;
