@@ -16,6 +16,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.platform.DeviceType;
+import com.ctre.phoenix.sensors.CANCoder;
 
 import static frc.robot.Constants.*;
 
@@ -106,7 +108,16 @@ public class MotorGroupTalon implements MotorGroup {
         primary.setSelectedSensorPosition(0);
     }
     /**
-
+     * Links and selects the cancoder
+     * @param coder the CANCoder reference
+     */
+    public void linkAndUseCANCoder(CANCoder coder)
+    {
+        primary.configRemoteFeedbackFilter(coder, 0);
+        primary.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        COUNTS_PER_REVOLUTION = 4096;
+    }
+    /*
      * Configures a closed loop
      * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
      * @param allowableError allowableError in sensor units per 100ms.
