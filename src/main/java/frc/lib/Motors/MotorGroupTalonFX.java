@@ -9,9 +9,7 @@ import java.util.*;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import com.ctre.phoenix.motorcontrol.DemandType;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -76,7 +74,18 @@ public class MotorGroupTalonFX implements MotorGroup {
         primary.set(speed);
     }
     /**
-
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setPercent(double percent, double feedforward)
+    {
+        primary.set(ControlMode.PercentOutput, percent, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    /*
      * Sets the position using motion magic
      * @param position position in rotations... does not factor in gear ratio
      * @param feedforward the feedforward value to be added
@@ -84,15 +93,6 @@ public class MotorGroupTalonFX implements MotorGroup {
     public void setMotionMagic(double position, double feedforward)
     { 
         primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
-  }
-    /*
-     * Sets the position of Falcon motor using integrated PIDControl
-     * @param rotations Number of rotations. Does not factor in gear ratio.
-     */
-    public void setPosition(double rotations)
-    {
-        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
-
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -133,7 +133,10 @@ public class MotorGroupTalonFX implements MotorGroup {
 		primary.config_kP(slotIdx, kP, 0);
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
-
+    }
+    public void configSelectedProfile(int slotIdx, int pidIdx)
+    {
+        primary.selectProfileSlot(slotIdx, pidIdx);
     }
     private void configureAllControllers() {
         configureController(primary, false);

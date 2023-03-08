@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,7 +17,6 @@ import com.ctre.phoenix.sensors.CANCoder;
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalonFX talonGroup;
-  private final PIDController rotateController;
   private final CANCoder rotateEncoder;
   /** Creates a new Arm. */
   public ArmRotate() {
@@ -27,7 +25,8 @@ public class ArmRotate extends SubsystemBase {
       Constants.ARM_FOLLOWER_MOTOR_ID
     });
     talonGroup.setFollowerOppose(0);
-    rotateController = new PIDController(Constants.ARM_PROPORTION, 0, 0);
+    talonGroup.configClosedLoop(0, 0, Constants.ARM_KF, Constants.ARM_KP, Constants.ARM_KI, Constants.ARM_KD);
+    talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
   }
@@ -37,7 +36,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromDegrees(rotateEncoder.getPosition());
+    return Rotation2d.fromRotations(talonGroup.getEncoderRotations());
   }
   /**
    * Set arm angle
@@ -45,7 +44,7 @@ public class ArmRotate extends SubsystemBase {
   */
   public void setAngle(Rotation2d angle)
   {
-    rotateController.setSetpoint(angle.getRadians());
+    talonGroup.setPosition(angle.getRotations(), getAngle().getCos() * Constants.ARM_KFF);
   }
   /**
    * Set arm angular speed
@@ -53,10 +52,9 @@ public class ArmRotate extends SubsystemBase {
    */
   public void setArmSpeed(double speed)
   {
-    rotateController.setSetpoint(rotateController.getSetpoint() + Rotation2d.fromDegrees(speed).getRadians());
+    talonGroup.setPercent(speed, getAngle().getCos() * Constants.ARM_KFF);
   }
   @Override
   public void periodic() {
-    talonGroup.set(rotateController.calculate(getAngle().getRadians()));
   }
 }
