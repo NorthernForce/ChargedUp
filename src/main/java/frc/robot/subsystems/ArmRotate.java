@@ -92,7 +92,11 @@ public class ArmRotate extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromDegrees(rotateEncoder.getPosition());
+    return Rotation2d.fromRotations(talonGroup.getEncoderRotations());
+  }
+  public void setAngle(Rotation2d angle)
+  {
+    talonGroup.setPosition(angle.getRotations(), getAngle().getCos() * Constants.ARM_KFF);
   }
   public void setSimAngle(Rotation2d angle)
   {
@@ -106,7 +110,6 @@ public class ArmRotate extends SubsystemBase {
    */
   public void setArmVoltage(double speed)
   {
-    talonGroup.setSlot(0, 0);
     talonGroup.setVoltage(speed);
   }
   public void setArmPercentage(double speed)
@@ -115,17 +118,11 @@ public class ArmRotate extends SubsystemBase {
   }
   public void setArmPosition(Rotation2d position)
   {
-    talonGroup.setSlot(1, 0);
-    talonGroup.setMotionMagic(position.getRotations() * 2200.0 / 634, getAngle().getCos() * SmartDashboard.getNumber("Arm kG", 0.9));
+    talonGroup.setPosition(position.getRotations() * 2200.0 / 634, getAngle().getCos() * SmartDashboard.getNumber("Arm kG", 0.9));
   }
   public void setArmSpeed(double speed)
   {
-    talonGroup.setSlot(2, 0);
-    talonGroup.setVelocity(speed * 2200.0 / 634, getAngle().getCos() * 0.9337);
-  }
-  public ArmFeedforward getFeedforward()
-  {
-    return feedforward;
+    talonGroup.setPercent(speed, getAngle().getCos() * Constants.ARM_KFF);
   }
   @Override
   public void periodic() {
