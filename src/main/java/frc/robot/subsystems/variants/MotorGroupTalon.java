@@ -93,11 +93,23 @@ public class MotorGroupTalon implements MotorGroup {
      */
     public void setPosition(double rotations, double feedforward)
     {
-        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+    }
+    public void setVelocity(double speed, double feedforward)
+    {
+        primary.set(ControlMode.Velocity, speed * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setMotionMagic(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.MotionMagic, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    public void setSlot(int slot, int pid)
+    {
+        primary.selectProfileSlot(slot, pid);
     }
     public void setPercent(double percent, double feedforward)
     {
-        primary.set(ControlMode.Position, rotations * 2048);
+        primary.set(ControlMode.PercentOutput, percent, DemandType.ArbitraryFeedForward, feedforward);
     }
     public void setFollowerOppose(int i) {
         followers.get(i).setInverted(InvertType.OpposeMaster);
@@ -152,6 +164,26 @@ public class MotorGroupTalon implements MotorGroup {
 		primary.config_kP(slotIdx, kP, 0);
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
+    }
+    /**
+     * Links a CANCoder to a motor as a remote feedback filter
+     * @param cancoder CANCoder device
+     */
+    public void linkCANCoder(int slot, CANCoder cancoder)
+    {
+        primary.configRemoteFeedbackFilter(cancoder, slot);
+    }
+    /**
+     * Sets a feedback sensor
+     * @param device sensor to set it to. Must already be configured with motor.
+     */
+    public void setFeedbackSensor(FeedbackDevice device)
+    {
+        primary.configSelectedFeedbackSensor(device);
+    }
+    public void configSelectedProfile(int slotIdx, int pidIdx)
+    {
+        primary.selectProfileSlot(slotIdx, pidIdx);
     }
     private void configureAllControllers() {
         configureController(primary, false);

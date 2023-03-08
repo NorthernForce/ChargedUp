@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import frc.robot.util.DynamicTransform3d;
 
@@ -156,7 +157,7 @@ public final class Constants {
     public static final double ARM_KF = 0.0; // TODO
     public static final double ARM_KI = 0.0; // TODO
     public static final double ARM_KD = 0.0; // TODO
-    public static final double ARM_KFF = 0.0; // TODO
+    public static final double ARM_KFF = 0.9405; // TODO
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO

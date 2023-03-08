@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MatBuilder;
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N2;
@@ -33,7 +32,6 @@ public class ArmRotate extends SubsystemBase {
   private final MotorGroupTalon talonGroup;
   private final CANCoder rotateEncoder;
   private final CANCoderSimCollection rotateEncoderSim;
-  private final ArmFeedforward feedforward = new ArmFeedforward(Constants.ARM_KS, Constants.ARM_KG, Constants.ARM_KV);
   private final SingleJointedArmSim armSim;
   private final Mechanism2d mech2d = new Mechanism2d(60, 60);
   private final MechanismRoot2d armPivot = mech2d.getRoot("ArmPivot", 30, 30);
@@ -55,9 +53,8 @@ public class ArmRotate extends SubsystemBase {
     });
     talonGroup.setFollowerOppose(0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
-    talonGroup.configClosedLoop(0, 0, 0.5, 0.5, 0, 0);
-    talonGroup.configClosedLoop(1, 0, 0.5, 0.5, 0, 0);
-    talonGroup.configClosedLoop(2, 0, 0.5, 0.5, 0, 0);
+    talonGroup.configClosedLoop(0, 0, Constants.ARM_KF, Constants.ARM_KP, Constants.ARM_KI, Constants.ARM_KD);
+    talonGroup.configSelectedProfile(0, 0);
     talonGroup.linkCANCoder(0, rotateEncoder);
     talonGroup.setFeedbackSensor(FeedbackDevice.RemoteSensor0);
     talonGroup.setCountsPerRevolution(4096);
@@ -102,7 +99,7 @@ public class ArmRotate extends SubsystemBase {
   {
     armSim.setState(new MatBuilder<N2, N1>(N2.instance, N1.instance).fill(angle.getRadians(), 0));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
-    talonGroup.setEncoderRotations(angle.getRotations() * 2200.0 / 634);
+    talonGroup.setEncoderRotations(angle.getRotations());
   }
   /**
    * Set arm angular speed
@@ -114,15 +111,15 @@ public class ArmRotate extends SubsystemBase {
   }
   public void setArmPercentage(double speed)
   {
-    talonGroup.set(speed);
+    talonGroup.setPercent(speed, getAngle().getCos() * Constants.ARM_KFF);
   }
   public void setArmPosition(Rotation2d position)
   {
-    talonGroup.setPosition(position.getRotations() * 2200.0 / 634, getAngle().getCos() * SmartDashboard.getNumber("Arm kG", 0.9));
+    talonGroup.setPosition(position.getRotations(), getAngle().getCos() * Constants.ARM_KFF);
   }
   public void setArmSpeed(double speed)
   {
-    talonGroup.setPercent(speed, getAngle().getCos() * Constants.ARM_KFF);
+    talonGroup.setVelocity(speed, getAngle().getCos() * Constants.ARM_KFF);
   }
   @Override
   public void periodic() {
@@ -137,8 +134,8 @@ public class ArmRotate extends SubsystemBase {
     SmartDashboard.putNumber("talonGroup.get", talonGroup.getSimulationOutputVoltage());
     armSim.setInputVoltage(talonGroup.getSimulationOutputVoltage());
     armSim.update(0.02);
-    talonGroup.setSimulationPosition(Rotation2d.fromRadians(armSim.getAngleRads()).getRotations() * 2200.0 / 634);
-    talonGroup.setSimulationVelocity(Rotation2d.fromRadians(armSim.getVelocityRadPerSec()).getRotations() * 2200.0 / 634);
+    talonGroup.setSimulationPosition(Rotation2d.fromRadians(armSim.getAngleRads()).getRotations());
+    talonGroup.setSimulationVelocity(Rotation2d.fromRadians(armSim.getVelocityRadPerSec()).getRotations());
     SmartDashboard.putNumber("Arm Sim Angle Rads.", Math.toDegrees(armSim.getAngleRads()));
     rotateEncoderSim.setRawPosition((int)(4096 * Rotation2d.fromRadians(armSim.getAngleRads()).getRotations()));
   }
