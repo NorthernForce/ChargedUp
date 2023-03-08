@@ -4,14 +4,13 @@ import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.FieldConstants;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -95,36 +94,36 @@ public class Navigation extends SubsystemBase {
     Pose2d pose = getPose2d();
     if (DriverStation.getAlliance() == Alliance.Blue)
     {
-      Translation3d nearest = Constants.BLUE_CONE_PLACEMENT_LOCATIONS[0];
-      for (var loc : Constants.BLUE_CONE_PLACEMENT_LOCATIONS)
+      Translation3d nearest = FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[0];
+      for (var loc : FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.BLUE_CUBE_PLACEMENT_LOCATIONS)
+      for (var loc : FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.BLUE_FLOOR_PLACEMENT_LOCATIONS)
+      for (var loc : FieldConstants.BLUE_FLOOR_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.BLUE_SHELF_LOCATIONS)
+      for (var loc : FieldConstants.BLUE_SHELF_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.BLUE_GAME_PIECE_AUTO_LOCATIONS)
+      for (var loc : FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
@@ -135,36 +134,36 @@ public class Navigation extends SubsystemBase {
     }
     else
     {
-      Translation3d nearest = Constants.RED_CONE_PLACEMENT_LOCATIONS[0];
-      for (var loc : Constants.RED_CONE_PLACEMENT_LOCATIONS)
+      Translation3d nearest = FieldConstants.RED_CONE_PLACEMENT_LOCATIONS[0];
+      for (var loc : FieldConstants.RED_CONE_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.RED_CUBE_PLACEMENT_LOCATIONS)
+      for (var loc : FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.RED_FLOOR_PLACEMENT_LOCATIONS)
+      for (var loc : FieldConstants.RED_FLOOR_PLACEMENT_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.RED_SHELF_LOCATIONS)
+      for (var loc : FieldConstants.RED_SHELF_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
           nearest = loc;
         }
       }
-      for (var loc : Constants.RED_GAME_PIECE_AUTO_LOCATIONS)
+      for (var loc : FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS)
       {
         if (loc.toTranslation2d().getDistance(pose.getTranslation()) < nearest.toTranslation2d().getDistance(pose.getTranslation()))
         {
