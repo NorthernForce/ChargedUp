@@ -6,11 +6,13 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
+import frc.robot.commands.autoComponents.TurnToCoordinates;
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
 import frc.robot.commands.RetractArm;
@@ -67,6 +69,11 @@ public class OI {
         {
             new JoystickButton(manipulatorController, XboxController.Button.kX.value)
                 .whileTrue(new LEDYellow());
+        }
+        if (Constants.NAVIGATION_ENABLED)
+        {
+            new JoystickButton(driverController, XboxController.Button.kB.value)
+                .whileTrue(new TurnToCoordinates(new Translation2d(), 0.5));
         }
     }
 }
