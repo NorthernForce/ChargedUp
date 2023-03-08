@@ -112,7 +112,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 2);
     Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
     Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
-    Shuffleboard.getTab("Utility").add("PID Balance", new PIDBalance()).withPosition(2, 0);
+    Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
     Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName()).withPosition(0, 1);
     if (DriverStation.getAlliance() == Alliance.Red)
     {
@@ -126,12 +126,6 @@ public class RobotContainer {
       startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
       startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
     }
-    SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
-    SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
-    SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
-    SmartDashboard.putData("Stop", new Stop(0.1));
-    SmartDashboard.putData("Balance", new Balance());
-    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
