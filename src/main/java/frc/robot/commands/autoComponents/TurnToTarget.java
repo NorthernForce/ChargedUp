@@ -6,36 +6,25 @@ package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 import static frc.robot.RobotContainer.*;
 
-public class TurnToTarget extends CommandBase {
+public class TurnToTarget extends PIDCommand {
   /** Creates a new TurnToTarget. */
 
   public TurnToTarget() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain, vision);
+    super(
+      new PIDController(
+        2e-2,
+        2e-3,
+        0
+      ),
+      () -> 0,
+      () -> vision.getTargetYaw().getDegrees(),
+      (output) -> drivetrain.drive(0, output),
+      drivetrain, vision);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (vision.hasTarget()){
-      double requiredTurn = (vision.getTargetYaw().getDegrees() > 0) ? -0.4 : 0.4;
-      drivetrain.drive(0, requiredTurn);
-    }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return Math.abs(vision.getTargetYaw().getDegrees()) < 3;
