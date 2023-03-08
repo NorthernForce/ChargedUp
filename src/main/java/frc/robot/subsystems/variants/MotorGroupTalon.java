@@ -83,6 +83,7 @@ public class MotorGroupTalon implements MotorGroup {
     { 
         primary.set(ControlMode.MotionMagic, position * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
   }
+    /*
      * Sets the position of Falcon motor using integrated PIDControl
      * @param rotations Number of rotations. Does not factor in gear ratio.
      */
