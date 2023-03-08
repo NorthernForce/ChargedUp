@@ -22,8 +22,8 @@ public class MotorGroupSpark implements MotorGroup {
      * Creates a new motor controlled by a talon
      * @param primaryID id for the Talon being created
      */
-    public MotorGroupSpark(int primaryID, MotorType type) {
-        this(primaryID, new int[]{}, type);
+    public MotorGroupSpark(MotorType type, int primaryID) {
+        this(type, primaryID, new int[]{});
     }
     /**
      * Creates a new motor with optional followers controlled by talons. 
@@ -31,7 +31,7 @@ public class MotorGroupSpark implements MotorGroup {
      * @param primaryID id for the Talon being created
      * @param followerIDs ids in integer array for the followers
      */
-    public MotorGroupSpark(int primaryID, int[] followerIDs, MotorType type) {
+    public MotorGroupSpark(MotorType type, int primaryID, int... followerIDs) {
         this.primary = new CANSparkMax(primaryID, type);
         for (int followerID: followerIDs) {
             this.followers.add(new CANSparkMax(followerID, type));
