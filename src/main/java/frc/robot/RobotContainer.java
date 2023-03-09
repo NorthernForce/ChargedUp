@@ -130,6 +130,7 @@ public class RobotContainer {
       startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
       startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
     }
+    Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -150,6 +151,5 @@ public class RobotContainer {
     if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }
   public void periodic() {
-    //Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
   }
 }
