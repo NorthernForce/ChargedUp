@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.variants;
+package frc.lib.Motors;
 
 import java.util.*;
 
@@ -16,8 +16,9 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
 
+import frc.lib.Motors.MotorGroup;
+
 import static frc.robot.Constants.*;
-import frc.robot.subsystems.MotorGroup;
 
 
 /** 
@@ -135,6 +136,14 @@ public class MotorGroupTalonSRX implements MotorGroup {
     public void setPosition(double rotations)
     {
         primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
+    }
+    /**
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
     }
     /**
      * Configures a closed loop

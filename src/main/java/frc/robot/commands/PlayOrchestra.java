@@ -4,29 +4,43 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.RobotContainer.*;
+import com.ctre.phoenix.music.Orchestra;
 
-public class DefaultWrist extends CommandBase {
-  /** Creates a new DefaultWrist. */
-  public DefaultWrist() {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.Motors.MotorGroupTalonFX;
+
+public class PlayOrchestra extends CommandBase {
+  private Orchestra orchestra;
+  /** Creates a new PlayOrchestra. */
+  public PlayOrchestra(String songName, MotorGroupTalonFX... motors) {
+    orchestra = new Orchestra();
+    for (var motor : motors)
+    {
+      for (var controller : motor.getAllMotors())
+      {
+        orchestra.addInstrument(controller);
+      }
+    }
+    orchestra.loadMusic(songName + ".chirp");
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(gripper);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    orchestra.play();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    wrist.setRotation(armRotate.getAngle().unaryMinus());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    orchestra.stop();
+  }
 
   // Returns true when the command should end.
   @Override
