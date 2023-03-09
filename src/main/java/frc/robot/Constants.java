@@ -131,7 +131,7 @@ public final class Constants {
     public static final boolean LED_ENABLED = true;
     public static final boolean NAVIGATION_ENABLED = true;
     public static final boolean WRIST_ENABLED = false;
-    public static final boolean VISION_ENABLED = false;
+    public static final boolean VISION_ENABLED = true;
     /** IMU Constants */
     public static final boolean ROLL_PITCH_SWAPPED = false;
     /** LED Constants */
@@ -155,7 +155,11 @@ public final class Constants {
         Units.inchesToMeters(0),
         Units.inchesToMeters(26.5)
     );
-    public static final double ARM_PROPORTION = 0.0; // TODO
+    public static final double ARM_KP = 0.0; // TODO
+    public static final double ARM_KF = 0.0; // TODO
+    public static final double ARM_KI = 0.0; // TODO
+    public static final double ARM_KD = 0.0; // TODO
+    public static final double ARM_KFF = 0.0; // TODO
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO

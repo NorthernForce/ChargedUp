@@ -14,8 +14,13 @@ import frc.robot.subsystems.*;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -44,6 +49,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autonomousChooser;
   private final SendableChooser<Pose2d> startingLocationChooser;
   private final OI oi = new OI();
+  private PowerDistribution pdh = new PowerDistribution(21, ModuleType.kRev);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -70,6 +76,30 @@ public class RobotContainer {
         .andThen(new Stop(0.2))
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2)));
+      autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece1ToBlue1"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Blue1ToPiece2"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece2ToBlue1"))
+        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Blue3 to Piece4", new DriveAlongPath("Blue3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece4ToBlue3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Blue3ToPiece3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece3ToBlue3"))
+        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece4ToRed3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Red3ToPiece3"))
+        .andThen(new Stop(0.1))
+        .andThen(new DriveAlongPath("Piece3ToRed3"))
+        .andThen(new Stop(0.1)));
     }
     catch (IOException exception)
     {
@@ -82,12 +112,24 @@ public class RobotContainer {
     startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
     startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
     startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
-    SmartDashboard.putData("Autonomous Routine Chooser", autonomousChooser);
-    SmartDashboard.putData("Starting Location Chooser", startingLocationChooser);
-    SmartDashboard.putData("Calibrate IMU", new CalibrateIMU());
-    SmartDashboard.putData("Stop", new Stop(0.1));
-    SmartDashboard.putData("PID Balance", new PIDBalance());
-    SmartDashboard.putString("Robot Name: ", activeChassis.getChassisName());
+    Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 2);
+    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 2);
+    Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
+    Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
+    Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
+    Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName()).withPosition(0, 1);
+    if (DriverStation.getAlliance() == Alliance.Red)
+    {
+      startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
+      startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
+      startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
+    }
+    else
+    {
+      startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
+      startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
+      startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -107,5 +149,7 @@ public class RobotContainer {
     if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
     if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }
-  public void periodic() {}
+  public void periodic() {
+    Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
+  }
 }
