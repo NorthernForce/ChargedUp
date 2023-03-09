@@ -42,13 +42,41 @@ public final class Constants {
     public static final double SLOW_SPEED_FORWARD = 0.25;
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
-    public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
+    public static final String NAVIGATION_CAMERA1_NAME = "apriltagCamera1";
+    public static final String NAVIGATION_CAMERA2_NAME = "apriltagCamera2";
+    public static final String NAVIGATION_CAMERA3_NAME = "apriltagCamera3";
     /** ROBOT CENTER TO Camera */
-    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d(
+    public static final Transform3d NAVIGATION_CAMERA1_TRANSFORM = new DynamicTransform3d(
         new Translation3d(
             Units.inchesToMeters(11), /** X */
             Units.inchesToMeters(3), /** Y */
-            Units.inchesToMeters(12.5) /** */
+            Units.inchesToMeters(12.5) /** A */
+        ),
+        new Rotation3d(
+            0, /** Roll */
+            0, /** Pitch */
+            Math.toRadians(12) /** Yaw */
+        )
+    );
+    /** ROBOT CENTER TO Camera */
+    public static final Transform3d NAVIGATION_CAMERA2_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11), /** X */
+            Units.inchesToMeters(3), /** Y */
+            Units.inchesToMeters(12.5) /** A */
+        ),
+        new Rotation3d(
+            0, /** Roll */
+            0, /** Pitch */
+            Math.toRadians(12) /** Yaw */
+        )
+    );
+    /** ROBOT CENTER TO Camera */
+    public static final Transform3d NAVIGATION_CAMERA3_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11), /** X */
+            Units.inchesToMeters(3), /** Y */
+            Units.inchesToMeters(12.5) /** A */
         ),
         new Rotation3d(
             0, /** Roll */

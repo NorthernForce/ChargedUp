@@ -10,19 +10,23 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.util.PhotonCameraWrapper;
 import frc.robot.FieldConstants;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.EstimatedRobotPose;
 
 import static frc.robot.RobotContainer.*;
+
+import java.util.List;
 
 /** Simple subsystem to keep track of the current location of the robot. */
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
-  private final PhotonPoseEstimator visionEstimator;
-  private final PhotonCamera camera = new PhotonCamera(Constants.NAVIGATION_CAMERA_NAME);
+  private final List<PhotonCameraWrapper> cameras = List.of(
+    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA1_NAME, Constants.NAVIGATION_CAMERA1_TRANSFORM),
+    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA2_NAME, Constants.NAVIGATION_CAMERA2_TRANSFORM),
+    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA3_NAME, Constants.NAVIGATION_CAMERA3_TRANSFORM)
+  );
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
@@ -36,13 +40,10 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance(),
       new Pose2d()
     );
-    visionEstimator = new PhotonPoseEstimator(
-      Constants.APRILTAG_LAYOUT,
-      PoseStrategy.MULTI_TAG_PNP,
-      camera,
-      Constants.NAVIGATION_CAMERA_TRANSFORM
-    );
-    camera.setPipelineIndex(0);
+    for (var camera : cameras)
+    {
+      camera.setPipelineIndex(0);
+    }
     Shuffleboard.getTab("Autonomous").add("Field", field).withSize(3, 2).withPosition(0, 0);
   }
   /**
@@ -74,14 +75,13 @@ public class Navigation extends SubsystemBase {
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance()
     );
-    visionEstimator.setReferencePose(poseEstimator.getEstimatedPosition());
-    var results = visionEstimator.update();
-    if (results.isPresent())
+    for (var camera : cameras)
     {
-      poseEstimator.addVisionMeasurement(
-        results.get().estimatedPose.toPose2d(),
-        results.get().timestampSeconds
-      );
+      EstimatedRobotPose pose;
+      if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
+      {
+        poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
+      }
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
   }
