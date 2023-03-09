@@ -1,57 +1,30 @@
 package frc.robot.subsystems;
 
+import java.util.List;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.util.CameraWrapper;
+import frc.robot.util.LimelightWrapper;
 
 public class Vision extends SubsystemBase {
-  private final NetworkTableEntry tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv");
-  private final NetworkTableEntry tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
-  private final NetworkTableEntry ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
-  private final NetworkTableEntry pipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline");
-  private double targetHeight;
-  /** Enum representing the various pipeline IDs */
-  public enum VisionPipeline
-  {
-    YELLOW_CONE,
-    PURPLE_CUBE,
-    REFLECTIVE_TARGET;
-    /** Gets index of pipeline */
-    public int getPipelineIndex()
-    {
-      switch (this)
-      {
-      case YELLOW_CONE:
-        return 1;
-      case PURPLE_CUBE:
-        return 2;
-      case REFLECTIVE_TARGET:
-        return 0;
-      default:
-        return 0;
-      }
-    }
-  };
+  private final List<CameraWrapper> cameras;
   /** Creates a new Vision. */
   public Vision() {
+    cameras = List.of(
+      new LimelightWrapper(Constants.VISION_TRANSFORM3D)
+    );
   }
   /**
    * Sets the pipeline index
    * @param pipeline VisionPipeline enum
    */
-  public void setPipeline(VisionPipeline pipeline)
+  public void setPipeline(int cameraIdx, int pipeline)
   {
-    this.pipeline.setDouble(pipeline.getPipelineIndex());
-  }
-  /**
-   * Sets the target height
-   * @param targetHeight height in meters
-   */
-  public void setTargetHeight(double targetHeight)
-  {
-    this.targetHeight = targetHeight;
+    cameras.get(cameraIdx).setPipelineIndex(pipeline);
   }
   /** This method will be called once per scheduler run */
   @Override
@@ -61,25 +34,25 @@ public class Vision extends SubsystemBase {
    * Does the camera see a target
    * @return has target?
    */
-  public boolean hasTarget()
+  public boolean hasTarget(int cameraIdx)
   {
-    return tv.getDouble(0.0) == 1.0;
+    return cameras.get(cameraIdx).hasTarget();
   }
   /**
    * Gets the target yaw (given by Limelight)
    * @return degree measure of yaw
    */
-  public Rotation2d getTargetYaw()
+  public Rotation2d getTargetYaw(int cameraIdx)
   {
-    return Rotation2d.fromDegrees(tx.getDouble(0.0));
+    return cameras.get(cameraIdx).getTargetYaw();
   }
   /**
    * Gets the target pitch (given by Limelight)
    * @return degree measure of pitch
    */
-  public Rotation2d getTargetPitch()
+  public Rotation2d getTargetPitch(int cameraIdx)
   {
-    return Rotation2d.fromDegrees(ty.getDouble(0.0));
+    return cameras.get(cameraIdx).getTargetPitch();
   }
   /**
    * Gets the range of the target.
@@ -87,8 +60,8 @@ public class Vision extends SubsystemBase {
    * and the pitches of the camera and the target pitch.
    * @return range in meters
    */
-  public double getTargetRange()
+  public double getTargetRange(int cameraIdx, double estimatedTargetHeight)
   {
-    return (targetHeight - Constants.VISION_CAMERA_HEIGHT) / Constants.VISION_CAMERA_PITCH.plus(getTargetPitch()).getTan();
+    return cameras.get(cameraIdx).getTargetDistance(estimatedTargetHeight);
   }
 }
