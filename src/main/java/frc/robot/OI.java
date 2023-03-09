@@ -60,9 +60,9 @@ public class OI {
         if (Constants.GRIPPER_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kA.value)
-                .onTrue(new RunConeIntake());
+                .whileTrue(new RunConeIntake());
             new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-                .onTrue(new RunConeOuttake());
+                .whileTrue(new RunConeOuttake());
         }
         if (Constants.LED_ENABLED)
         {

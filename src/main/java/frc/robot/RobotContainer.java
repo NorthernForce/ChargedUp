@@ -150,6 +150,6 @@ public class RobotContainer {
     if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
   }
   public void periodic() {
-    Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
+    //Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
   }
 }
