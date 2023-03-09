@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 
@@ -16,6 +17,7 @@ public class ManipulateArmWithJoystick extends CommandBase {
   /** Creates a new ManipulateWithJoystick. */
   public ManipulateArmWithJoystick() {
     addRequirements(armRotate);
+    Shuffleboard.getTab("Arm").addNumber("Arm input", () -> Speeds[0].getAsDouble());
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
