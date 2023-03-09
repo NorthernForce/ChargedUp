@@ -4,48 +4,55 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.lib.Motors.MotorGroupTalonSRX;
+import static frc.robot.RobotContainer.*;
 
-public class Wrist extends PIDSubsystem {
-  private final CANSparkMax wristMotor;
+public class Wrist extends SubsystemBase {
+  private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WRIST_MOTOR_ID);
   /** Creates a new Wrist. */
   public Wrist() {
-    super(
-        // The PIDController used by the subsystem
-        new PIDController(Constants.WRIST_PROPORTION, 0, 0));
-    wristMotor = new CANSparkMax(Constants.WRIST_MOTOR_ID, MotorType.kBrushless);
-    wristMotor.setIdleMode(IdleMode.kBrake);
-    wristMotor.getEncoder().setPositionConversionFactor(1 / Constants.GEAR_RATIO);
-    wristMotor.getEncoder().setPosition(Rotation2d.fromDegrees(-90).getRotations());
-    getController().setSetpoint(getAngle().getDegrees());
+    srx.configClosedLoop(0, 0, Constants.WRIST_KF, Constants.WRIST_KP, Constants.WRIST_KI, Constants.WRIST_KD);
+    srx.configSelectedSlot(0, 0);
+    Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
   }
-
-  public void setAngle(Rotation2d angle)
-  {
-    getController().setSetpoint(angle.getDegrees());
-  }
-
+  /**
+   * Returns angle off of the line of the arm
+   * @return Rotation2d
+   */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(wristMotor.getEncoder().getPosition());
+    return Rotation2d.fromDegrees(srx.getEncoderRotations() / Constants.WRIST_GEAT_RATIO);
   }
-
-  @Override
-  public void useOutput(double output, double setpoint) {
-    // Use the output here
-    wristMotor.set(output);
+  /**
+   * Sets the velocity of the wrist motor
+   * @param velocity degrees/sec
+   */
+  public void setVelocity(double speed)
+  {
+    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
   }
-
+  /**
+   * Sets the position of the wrist motor
+   * @param position Rotation to be
+   */
+  public void setRotation(Rotation2d rotation)
+  {
+    srx.setPosition(rotation.getRotations() / Constants.GEAR_RATIO, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
+  }
+  /**
+   * Sets the percent without calculating feedforward
+   * @param percent [-1.0.. 1.0]
+   */
+  public void setPercent(double percent)
+  {
+    srx.set(percent);
+  }
   @Override
-  public double getMeasurement() {
-    // Return the process variable measurement here
-    return wristMotor.getEncoder().getPosition();
+  public void periodic()
+  {
   }
 }

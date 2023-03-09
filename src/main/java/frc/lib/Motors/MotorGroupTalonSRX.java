@@ -138,6 +138,14 @@ public class MotorGroupTalonSRX implements MotorGroup {
         primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION);
     }
     /**
+     * Sets the position of Falcon motor using integrated PIDControl
+     * @param rotations Number of rotations. Does not factor in gear ratio.
+     */
+    public void setPosition(double rotations, double feedforward)
+    {
+        primary.set(ControlMode.Position, rotations * COUNTS_PER_REVOLUTION, DemandType.ArbitraryFeedForward, feedforward);
+    }
+    /**
      * Configures a closed loop
      * @param slotIdx the index of the closed loop to configure. Thus you can have multiple
      * @param allowableError allowableError in sensor units per 100ms.
