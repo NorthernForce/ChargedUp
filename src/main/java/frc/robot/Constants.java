@@ -188,6 +188,7 @@ public final class Constants {
     public static final double ARM_KI = 0.0; // TODO
     public static final double ARM_KD = 0.0; // TODO
     public static final double ARM_KFF = 0.0; // TODO
+    public static final double ARM_ANGLE_TOLERANCE = 1.0; // TODO
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO
