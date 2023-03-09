@@ -5,9 +5,10 @@
 package frc.robot.chassis;
 
 import edu.wpi.first.math.util.Units;
+import frc.lib.Motors.MotorGroup;
+import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.MotorGroup;
-import frc.robot.subsystems.variants.MotorGroupTalon;
+
 
 /** Chassis specific details about speedy. */
 public class MaxwellChassis implements ChassisBase {
@@ -17,8 +18,8 @@ public class MaxwellChassis implements ChassisBase {
     public static final double kA = 0.27655;
     public MaxwellChassis() {}
     public Drivetrain getDrivetrain() {
-        MotorGroup left = new MotorGroupTalon(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
-        MotorGroup right = new MotorGroupTalon(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
+        MotorGroup left = new MotorGroupTalonFX(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
+        MotorGroup right = new MotorGroupTalonFX(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
         left.setInverted(true);
         return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
     }

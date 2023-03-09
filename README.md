@@ -27,3 +27,7 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 ## Gripper/Intake:
 
 <li>Primary - 9</li>
+
+## PDH:
+
+<li>Power Distribution Hub - 21</li>
