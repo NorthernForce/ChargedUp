@@ -7,12 +7,12 @@ package frc.robot.commands;
 import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.variants.MotorGroupTalon;
+import frc.lib.Motors.MotorGroupTalonFX;
 
 public class PlayOrchestra extends CommandBase {
   private Orchestra orchestra;
   /** Creates a new PlayOrchestra. */
-  public PlayOrchestra(String songName, MotorGroupTalon... motors) {
+  public PlayOrchestra(String songName, MotorGroupTalonFX... motors) {
     orchestra = new Orchestra();
     for (var motor : motors)
     {
