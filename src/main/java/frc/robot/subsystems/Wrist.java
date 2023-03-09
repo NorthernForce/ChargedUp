@@ -8,7 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.variants.MotorGroupTalonSRX;
+import frc.lib.Motors.MotorGroupTalonSRX;
 import static frc.robot.RobotContainer.*;
 
 public class Wrist extends SubsystemBase {
