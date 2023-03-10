@@ -1,21 +1,24 @@
-package frc.robot.util;
+package frc.lib.cameras;
 
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Constants;
 
-public class LimelightWrapper implements CameraWrapper {
-    private final NetworkTableEntry tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv");
-    private final NetworkTableEntry tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
-    private final NetworkTableEntry ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
-    private final NetworkTableEntry pipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline");
+public class PhotonCameraWrapper implements CameraWrapper {
     private final Transform3d transformToCenter;
-    public LimelightWrapper(Transform3d transform)
+    private final PhotonPoseEstimator visionEstimator;
+    private final PhotonCamera camera;
+    public PhotonCameraWrapper(String name, Transform3d transform)
     {
+        camera = new PhotonCamera(name);
         transformToCenter = transform;
+        visionEstimator = new PhotonPoseEstimator(Constants.APRILTAG_LAYOUT, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
     }
     /**
      * Returns the Transform3d (X,Y,Z comp and Pitch, Roll, Yaw comp)
@@ -32,7 +35,7 @@ public class LimelightWrapper implements CameraWrapper {
      */
     @Override
     public void setPipelineIndex(int index) {
-        this.pipeline.setDouble(index);
+        camera.setPipelineIndex(index);
     }
     /**
      * Gets the index of the pipeline
@@ -40,7 +43,7 @@ public class LimelightWrapper implements CameraWrapper {
      */
     @Override
     public int getPipelineIndex() {
-        return (int)pipeline.getDouble(0.0);
+        return camera.getPipelineIndex();
     }
     /**
      * Gets whether a target exists
@@ -48,7 +51,7 @@ public class LimelightWrapper implements CameraWrapper {
      */
     @Override
     public boolean hasTarget() {
-        return tv.getDouble(0.0) == 1.0;
+        return camera.getLatestResult().hasTargets();
     }
     /**
      * Gets yaw to target
@@ -56,7 +59,7 @@ public class LimelightWrapper implements CameraWrapper {
      */
     @Override
     public Rotation2d getTargetYaw() {
-        return Rotation2d.fromDegrees(tx.getDouble(0.0));
+        return Rotation2d.fromDegrees(camera.getLatestResult().getBestTarget().getYaw());
     }
     /**
      * Gets pitch to target
@@ -64,7 +67,7 @@ public class LimelightWrapper implements CameraWrapper {
      */
     @Override
     public Rotation2d getTargetPitch() {
-        return Rotation2d.fromDegrees(ty.getDouble(0.0));
+        return Rotation2d.fromDegrees(camera.getLatestResult().getBestTarget().getPitch());
     }
     /**
      * Gets target distance
@@ -79,5 +82,16 @@ public class LimelightWrapper implements CameraWrapper {
             getTargetPitch().getRadians()
         );
     }
-    
+    /**
+     * Uses the apriltag ability to calculate the position of the robot
+     * @param referencePose the current computed position by the encoders
+     * @return the position of the robot estimated by the camera
+     */
+    public EstimatedRobotPose estimatePose(Pose2d referencePose)
+    {
+        visionEstimator.setReferencePose(referencePose);
+        var results = visionEstimator.update();
+        if (results.isPresent()) return results.get();
+        else return null;
+    }
 }
