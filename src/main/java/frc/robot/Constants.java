@@ -42,13 +42,41 @@ public final class Constants {
     public static final double SLOW_SPEED_FORWARD = 0.25;
     public static final double SLOW_SPEED_ROTATION = 0.4;
     /** Navigation Constants */
-    public static final String NAVIGATION_CAMERA_NAME = "apriltagCamera";
+    public static final String NAVIGATION_CAMERA1_NAME = "apriltagCamera1";
+    public static final String NAVIGATION_CAMERA2_NAME = "apriltagCamera2";
+    public static final String NAVIGATION_CAMERA3_NAME = "apriltagCamera3";
     /** ROBOT CENTER TO Camera */
-    public static final Transform3d NAVIGATION_CAMERA_TRANSFORM = new DynamicTransform3d(
+    public static final Transform3d NAVIGATION_CAMERA1_TRANSFORM = new DynamicTransform3d(
         new Translation3d(
             Units.inchesToMeters(11), /** X */
             Units.inchesToMeters(3), /** Y */
-            Units.inchesToMeters(12.5) /** */
+            Units.inchesToMeters(12.5) /** A */
+        ),
+        new Rotation3d(
+            0, /** Roll */
+            0, /** Pitch */
+            Math.toRadians(12) /** Yaw */
+        )
+    );
+    /** ROBOT CENTER TO Camera */
+    public static final Transform3d NAVIGATION_CAMERA2_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11), /** X */
+            Units.inchesToMeters(3), /** Y */
+            Units.inchesToMeters(12.5) /** A */
+        ),
+        new Rotation3d(
+            0, /** Roll */
+            0, /** Pitch */
+            Math.toRadians(12) /** Yaw */
+        )
+    );
+    /** ROBOT CENTER TO Camera */
+    public static final Transform3d NAVIGATION_CAMERA3_TRANSFORM = new DynamicTransform3d(
+        new Translation3d(
+            Units.inchesToMeters(11), /** X */
+            Units.inchesToMeters(3), /** Y */
+            Units.inchesToMeters(12.5) /** A */
         ),
         new Rotation3d(
             0, /** Roll */
@@ -172,6 +200,8 @@ public final class Constants {
     public static final double ARM_KI = 0.0; // TODO
     public static final double ARM_KD = 0.0; // TODO
     public static final double ARM_KFF = 0.0; // TODO
+    public static final double ARM_ANGLE_TOLERANCE = 1.0; // TODO
+    public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO
@@ -188,6 +218,15 @@ public final class Constants {
     public static final int MOTOR_SOLENOID_ID = 1;
     /** Wrist Constants */
     public static final int WRIST_MOTOR_ID = 10;
-    public static final double WRIST_PROPORTION = 0.0; // TODO
     public static final double WRIST_GEAT_RATIO = 0.0; // TODO
+    // Static gain
+    public static final double WRIST_KF = 0.0; // TODO
+    // Proportion
+    public static final double WRIST_KP = 0.0; // TODO
+    // Integral
+    public static final double WRIST_KI = 0.0; // TODO
+    // Derivative
+    public static final double WRIST_KD = 0.0; // TODO
+    // Feedforward or gravity Gain
+    public static final double WRIST_KFF = 0.0; // TODO
 }

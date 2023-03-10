@@ -4,14 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+
 import static frc.robot.RobotContainer.*;
 
-public class DefaultWrist extends CommandBase {
-  /** Creates a new DefaultWrist. */
-  public DefaultWrist() {
+public class SetArmAngle extends CommandBase {
+  private final Rotation2d angle;
+  /** Creates a new SetArmAngle. */
+  public SetArmAngle(Rotation2d angle) {
+    this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(gripper);
+    addRequirements(armRotate);
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +26,7 @@ public class DefaultWrist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    wrist.setRotation(armRotate.getAngle().unaryMinus());
+    armRotate.setAngle(angle);
   }
 
   // Called once the command ends or is interrupted.
@@ -31,6 +36,6 @@ public class DefaultWrist extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(armRotate.getAngle().minus(angle).getDegrees()) < Constants.ARM_ANGLE_TOLERANCE;
   }
 }

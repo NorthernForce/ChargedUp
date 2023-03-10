@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroupTalonFX;
@@ -18,6 +20,7 @@ public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalonFX talonGroup;
   private final CANCoder rotateEncoder;
+  private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Arm. */
   public ArmRotate() {
     talonGroup = new MotorGroupTalonFX(Constants.ARM_PRIMARY_MOTOR_ID, new int[]
@@ -28,7 +31,12 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.configClosedLoop(0, 0, Constants.ARM_KF, Constants.ARM_KP, Constants.ARM_KI, Constants.ARM_KD);
     talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
+    talonGroup.linkAndUseCANCoder(rotateEncoder);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
+    kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ARM_KF).getEntry();
+    kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ARM_KP).getEntry();
+    kIEntry = Shuffleboard.getTab("Arm").add("kI", Constants.ARM_KI).getEntry();
+    kDEntry = Shuffleboard.getTab("Arm").add("kD", Constants.ARM_KD).getEntry();
   }
   /**
    * Get arm angle
@@ -36,7 +44,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(talonGroup.getEncoderRotations());
+    return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + Constants.CANCODER_OFFSET);
   }
   /**
    * Set arm angle
@@ -44,7 +52,7 @@ public class ArmRotate extends SubsystemBase {
   */
   public void setAngle(Rotation2d angle)
   {
-    talonGroup.setPosition(angle.getRotations(), getAngle().getCos() * Constants.ARM_KFF);
+    talonGroup.setPosition(angle.getRotations() - Constants.CANCODER_OFFSET, getAngle().getCos() * Constants.ARM_KFF);
   }
   /**
    * Set arm angular speed
@@ -56,5 +64,13 @@ public class ArmRotate extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    talonGroup.configClosedLoop(
+      0,
+      0,
+      kFEntry.getDouble(Constants.ARM_KF),
+      kPEntry.getDouble(Constants.ARM_KP),
+      kIEntry.getDouble(Constants.ARM_KI),
+      kDEntry.getDouble(Constants.ARM_KD)
+    );
   }
 }
