@@ -36,16 +36,16 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class RobotContainer {
 
   public static final ChassisBase activeChassis = RobotChooser.getChassis();
-  public static final ArmRotate armRotate = Constants.ARM_ENABLED ? new ArmRotate() : null;
-  public static final ArmTelescope armTelescope = Constants.ARM_ENABLED ? new ArmTelescope() : null;
-  public static final PCM pcm = Constants.COMPRESSOR_ENABLED ? new PCM() : null;
-  public static final Drivetrain drivetrain = Constants.DRIVETRAIN_ENABLED ? activeChassis.getDrivetrain() : null;
-  public static final Gripper gripper = Constants.GRIPPER_ENABLED ? new Gripper() : null;
-  public static final IMU imu = Constants.IMU_ENABLED ? new IMU() : null;
-  public static final LED led = Constants.LED_ENABLED ? new LED() : null;
-  public static final Navigation navigation = Constants.NAVIGATION_ENABLED ? new Navigation() : null;
-  public static final Vision vision = Constants.VISION_ENABLED ? new Vision() : null;
-  public static final Wrist wrist = Constants.WRIST_ENABLED ? new Wrist() : null;
+  public static final ArmRotate armRotate =  new ArmRotate();
+  public static final ArmTelescope armTelescope = new ArmTelescope();
+  public static final PCM pcm = new PCM();
+  public static final Drivetrain drivetrain = activeChassis.getDrivetrain();
+  public static final Gripper gripper = new Gripper();
+  public static final IMU imu = new IMU();
+  public static final LED led = new LED();
+  public static final Navigation navigation = new Navigation();
+  public static final Vision vision = new Vision();
+  public static final Wrist wrist = new Wrist();
   private final SendableChooser<Command> autonomousChooser;
   private final SendableChooser<Pose2d> startingLocationChooser;
   private final OI oi = new OI();
@@ -138,17 +138,17 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    if (Constants.NAVIGATION_ENABLED) navigation.setRobotPose(startingLocationChooser.getSelected());
+    navigation.setRobotPose(startingLocationChooser.getSelected());
     // An ExampleCommand will run in autonomous
 
     return autonomousChooser.getSelected();
   }
   /** Initializes the default commands for each subsystem */
   private void initDefaultCommands() {
-    if (Constants.DRIVETRAIN_ENABLED) drivetrain.setDefaultCommand(new DriveWithJoystick());
-    if (Constants.ARM_ENABLED) armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
-    if (Constants.WRIST_ENABLED) wrist.setDefaultCommand(new DefaultWrist());
-    if (Constants.LED_ENABLED) led.setDefaultCommand(new LEDInit());
+    drivetrain.setDefaultCommand(new DriveWithJoystick());
+    armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
+    wrist.setDefaultCommand(new DefaultWrist());
+    led.setDefaultCommand(new LEDInit());
   }
   public void periodic() {
   }

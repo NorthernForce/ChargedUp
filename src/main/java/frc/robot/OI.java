@@ -51,40 +51,23 @@ public class OI {
     }
     /** Binds the buttons of the OI */
     public void bindButtons() {
-        if (Constants.COMPRESSOR_ENABLED)
-        {
-            new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
-                .onTrue(new ExtendArm());
-            new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
-                .onTrue(new RetractArm());
-        }
-        if (Constants.GRIPPER_ENABLED)
-        {
-            new JoystickButton(manipulatorController, XboxController.Button.kA.value)
-                .whileTrue(new RunConeIntake());
-            new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-                .whileTrue(new RunConeOuttake());
-        }
-        if (Constants.LED_ENABLED)
-        {
-            new JoystickButton(manipulatorController, XboxController.Button.kY.value)
-                .whileTrue(new LEDPurple());
-        }
-        if (Constants.LED_ENABLED)
-        {
-            new JoystickButton(manipulatorController, XboxController.Button.kX.value)
-                .whileTrue(new LEDYellow());
-        }
-
-        if (Constants.VISION_ENABLED)
-        {
-            new JoystickButton(driverController, XboxController.Button.kX.value)
-                .whileTrue(new TurnToCube());
-            new JoystickButton(driverController, XboxController.Button.kY.value)
-                .whileTrue(new TurnToCone());
-            new JoystickButton(driverController, XboxController.Button.kA.value)
-                .whileTrue(new TurnToReflectiveTape());
-
-        }
+        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+            .onTrue(new ExtendArm());
+        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+            .onTrue(new RetractArm());
+        new JoystickButton(manipulatorController, XboxController.Button.kA.value)
+            .whileTrue(new RunConeIntake());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(new RunConeOuttake());
+        new JoystickButton(manipulatorController, XboxController.Button.kY.value)
+            .whileTrue(new LEDPurple());
+        new JoystickButton(manipulatorController, XboxController.Button.kX.value)
+            .whileTrue(new LEDYellow());
+        new JoystickButton(driverController, XboxController.Button.kX.value)
+            .whileTrue(new TurnToCube());
+        new JoystickButton(driverController, XboxController.Button.kY.value)
+            .whileTrue(new TurnToCone());
+        new JoystickButton(driverController, XboxController.Button.kA.value)
+            .whileTrue(new TurnToReflectiveTape());
     }
 }
