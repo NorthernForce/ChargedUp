@@ -89,6 +89,6 @@ public class Vision extends SubsystemBase {
    */
   public double getTargetRange()
   {
-    return (targetHeight - Constants.VISION_CAMERA_HEIGHT) / Constants.VISION_CAMERA_PITCH.plus(getTargetPitch()).getTan();
+    return (targetHeight - Constants.VisionConstants.CAMERA_HEIGHT) / Constants.VisionConstants.CAMERA_PITCH.plus(getTargetPitch()).getTan();
   }
 }
