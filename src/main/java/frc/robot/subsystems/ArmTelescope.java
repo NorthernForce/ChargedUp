@@ -20,12 +20,12 @@ public class ArmTelescope extends SubsystemBase {
   public void extend()
   {
     isExtended = true;
-    pcm.setSolenoidState(Constants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kForward);
+    pcm.setSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kForward);
   }
   public void retract()
   {
     isExtended = false;
-    pcm.setSolenoidState(Constants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kReverse);
+    pcm.setSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kReverse);
   }
   public boolean isExtended()
   {
