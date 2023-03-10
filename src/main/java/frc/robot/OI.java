@@ -14,9 +14,6 @@ import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SetArmAngle;
-import frc.robot.commands.autoComponents.TurnToCone;
-import frc.robot.commands.autoComponents.TurnToCube;
-import frc.robot.commands.autoComponents.TurnToReflectiveTape;
 
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
