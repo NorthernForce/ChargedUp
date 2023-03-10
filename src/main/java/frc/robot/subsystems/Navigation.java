@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,6 +19,7 @@ import org.photonvision.EstimatedRobotPose;
 
 import static frc.robot.RobotContainer.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /** Simple subsystem to keep track of the current location of the robot. */
@@ -29,7 +32,13 @@ public class Navigation extends SubsystemBase {
   );
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
-  public Navigation() {
+  public Navigation(String fieldName) {
+    AprilTagFieldLayout layout = null;
+    try {
+      layout = new AprilTagFieldLayout(Filesystem.getDeployDirectory().toPath().resolve(fieldName + "Layout.json"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assert drivetrain != null;
     assert imu != null;
     drivetrain.resetEncoderRotations();
@@ -43,6 +52,7 @@ public class Navigation extends SubsystemBase {
     for (var camera : cameras)
     {
       camera.setPipelineIndex(0);
+      camera.setLayout(layout);
     }
     Shuffleboard.getTab("Autonomous").add("Field", field).withSize(3, 2).withPosition(0, 0);
   }

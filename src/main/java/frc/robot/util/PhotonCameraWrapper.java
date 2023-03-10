@@ -1,15 +1,16 @@
 package frc.robot.util;
 
+import java.util.List;
+
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import frc.robot.Constants;
-import frc.robot.FieldConstants;
 
 public class PhotonCameraWrapper implements CameraWrapper {
     private final Transform3d transformToCenter;
@@ -17,9 +18,13 @@ public class PhotonCameraWrapper implements CameraWrapper {
     private final PhotonCamera camera;
     public PhotonCameraWrapper(String name, Transform3d transform)
     {
+        this(name, transform, new AprilTagFieldLayout(List.of(), 0, 0));
+    }
+    public PhotonCameraWrapper(String name, Transform3d transform, AprilTagFieldLayout layout)
+    {
         camera = new PhotonCamera(name);
         transformToCenter = transform;
-        visionEstimator = new PhotonPoseEstimator(FieldConstants.APRILTAG_LAYOUT, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
+        visionEstimator = new PhotonPoseEstimator(new AprilTagFieldLayout(List.of(), 0, 0), PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
     }
     /**
      * Returns the Transform3d (X,Y,Z comp and Pitch, Roll, Yaw comp)
@@ -94,5 +99,13 @@ public class PhotonCameraWrapper implements CameraWrapper {
         var results = visionEstimator.update();
         if (results.isPresent()) return results.get();
         else return null;
+    }
+    /**
+     * Sets the field layout in use
+     * @param layout the layout of the field to use
+     */
+    public void setLayout(AprilTagFieldLayout layout)
+    {
+        visionEstimator.setFieldTags(layout);
     }
 }

@@ -43,7 +43,7 @@ public class RobotContainer {
   public static final Gripper gripper = new Gripper();
   public static final IMU imu = new IMU();
   public static final LED led = new LED();
-  public static final Navigation navigation = new Navigation();
+  public static final Navigation navigation = new Navigation("2023ChargedUp");
   public static final Vision vision = new Vision();
   public static final Wrist wrist = new Wrist();
   private final SendableChooser<Command> autonomousChooser;
