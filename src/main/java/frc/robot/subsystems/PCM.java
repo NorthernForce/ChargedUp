@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class PCM extends SubsystemBase {
-  private final Compressor compressor = new Compressor(Constants.COMPRESSOR_ID,
+  private final Compressor compressor = new Compressor(Constants.CompressorConstants.COMPRESSOR_ID,
     PneumaticsModuleType.REVPH);
   private final Map<Integer, DoubleSolenoid> solenoids = new HashMap<>();
   /** Creates a new Compressor. */
@@ -24,9 +24,9 @@ public class PCM extends SubsystemBase {
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
         Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
     );*/
-    solenoids.put(Constants.TELESCOPE_SOLENOID_ID,
+    solenoids.put(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID,
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.TELESCOPE_SOLENOID_FORWARD, Constants.TELESCOPE_SOLENOID_REVERSE)
+        Constants.CompressorConstants.TELESCOPE_SOLENOID_FORWARD, Constants.CompressorConstants.TELESCOPE_SOLENOID_REVERSE)
     );
   }
   /**
