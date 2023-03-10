@@ -58,11 +58,6 @@ public class OI {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
                 .onTrue(new RetractArm());
         }
-        if (Constants.ARM_ENABLED)
-        {
-            new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
-                .whileTrue(new SetArmAngle(Rotation2d.fromDegrees(30)));
-        }
         if (Constants.GRIPPER_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Button.kA.value)
