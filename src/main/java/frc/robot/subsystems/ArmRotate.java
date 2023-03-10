@@ -36,7 +36,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + 0.25); // Changes from height line = 0 degrees to horizon lne = defgrees
+    return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + 0.25); // Changes from height line = 0 degrees to horizon line = 0 defgrees
   }
   /**
    * Set arm angle
