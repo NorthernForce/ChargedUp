@@ -6,13 +6,14 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
-
+import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.TurnToCone;
 import frc.robot.commands.autoComponents.TurnToCube;
 import frc.robot.commands.autoComponents.TurnToReflectiveTape;
@@ -50,12 +51,12 @@ public class OI {
     }
     /** Binds the buttons of the OI */
     public void bindButtons() {
-        if (Constants.ARM_ENABLED)
+        if (Constants.COMPRESSOR_ENABLED)
         {
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
-                .whileTrue(new ExtendArm());
+                .onTrue(new ExtendArm());
             new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
-                .whileFalse(new RetractArm());
+                .onTrue(new RetractArm());
         }
         if (Constants.GRIPPER_ENABLED)
         {
