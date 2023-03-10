@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
 
+
 import frc.lib.Motors.MotorGroupTalonFX;
 
 import com.ctre.phoenix.sensors.CANCoder;
@@ -32,6 +33,7 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
+    talonGroup.setLimits(Constants.ARM_BACKWARD_LIMIT, Constants.ARM_FOWARD_LIMIT);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ARM_KF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ARM_KP).getEntry();
@@ -47,12 +49,22 @@ public class ArmRotate extends SubsystemBase {
     return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + Constants.CANCODER_OFFSET);
   }
   /**
-   * Set arm angle
+   * Set arm angle. Should be called repeatedly.
    * @param angle angle to set the arm to
   */
-  public void setAngle(Rotation2d angle)
+  public void setAngle(Rotation2d angle) {
+    setAngle(angle, false);
+  }
+  /**
+   * Set arm angle. Should be called repeatedly.
+   * @param angle angle to set the arm to
+   * @param ignoreLimit Whether or not the set angle can ignore angle limits
+  */
+  public void setAngle(Rotation2d angle, boolean ignoreLimit)
   {
-    talonGroup.setPosition(angle.getRotations() - Constants.CANCODER_OFFSET, getAngle().getCos() * Constants.ARM_KFF);
+    if (ignoreLimit || !limitRange()) {
+      talonGroup.setPosition(angle.getRotations() - Constants.CANCODER_OFFSET, getAngle().getCos() * Constants.ARM_KFF);
+    }
   }
   /**
    * Set arm angular speed
@@ -62,8 +74,22 @@ public class ArmRotate extends SubsystemBase {
   {
     talonGroup.setPercent(speed, getAngle().getCos() * Constants.ARM_KFF);
   }
+  public boolean limitRange() {
+    if (getAngle().getDegrees() < Constants.ARM_FOWARD_LIMIT.getDegrees()) {
+      setArmSpeed(0);
+      return true;
+      // setAngle(Constants.ARM_FOWARD_LIMIT);
+    }
+    if (getAngle().getDegrees() > Constants.ARM_BACKWARD_LIMIT.getDegrees()) {
+      setArmSpeed(0);
+      return true;
+      // setAngle(Constants.ARM_BACKWARD_LIMIT);
+    }
+    return false;
+  }
   @Override
   public void periodic() {
+    limitRange();
     talonGroup.configClosedLoop(
       0,
       0,
@@ -73,4 +99,4 @@ public class ArmRotate extends SubsystemBase {
       kDEntry.getDouble(Constants.ARM_KD)
     );
   }
-}
+} 

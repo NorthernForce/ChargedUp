@@ -17,6 +17,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.platform.DeviceType;
 import com.ctre.phoenix.sensors.CANCoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+
 import static frc.robot.Constants.*;
 
 
@@ -178,5 +181,11 @@ public class MotorGroupTalonFX implements MotorGroup {
             list.add(follower);
         }
         return list;
+    }
+    public void setLimits(Rotation2d forward, Rotation2d reverse) {
+        primary.configForwardSoftLimitThreshold(forward.getRotations() * COUNTS_PER_REVOLUTION, 0);
+        primary.configReverseSoftLimitThreshold(reverse.getRotations() * COUNTS_PER_REVOLUTION, 0);
+        primary.configForwardSoftLimitEnable(true, 0);
+        primary.configReverseSoftLimitEnable(true, 0);
     }
 }
