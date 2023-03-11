@@ -149,12 +149,7 @@ public final class Constants {
     {
         public static final int COMPRESSOR_ID = 20;
         /** Solenoids */
-        public static final int TELESCOPE_SOLENOID_FORWARD = 0;
-        public static final int TELESCOPE_SOLENOID_REVERSE = 1;
         public static final int TELESCOPE_SOLENOID_ID = 0;
-        public static final int MOTOR_SOLENOID_FORWARD = 2;
-        public static final int MOTOR_SOLENOID_REVERSE = 3;
-        public static final int MOTOR_SOLENOID_ID = 1;
     }
     /** Wrist Constants */
     public static class WristConstants
