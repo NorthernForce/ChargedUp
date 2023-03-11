@@ -16,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.lib.Motors.MotorGroup;
 import frc.robot.Constants;
 
@@ -191,5 +192,16 @@ public class MotorGroupTalonSRX implements MotorGroup {
             wpi_TalonFX.follow(primary);
             wpi_TalonFX.setInverted(InvertType.FollowMaster);
         }
+    }
+    /**
+     * Sets the soft limits of a TalonSRX Controller
+     * @param forward the forward angle maximum
+     * @param reverse the backward angle maximum
+     */
+    public void setLimits(Rotation2d forward, Rotation2d reverse) {
+        primary.configForwardSoftLimitThreshold(forward.getRotations() * COUNTS_PER_REVOLUTION, 0);
+        primary.configReverseSoftLimitThreshold(reverse.getRotations() * COUNTS_PER_REVOLUTION, 0);
+        primary.configForwardSoftLimitEnable(true, 0);
+        primary.configReverseSoftLimitEnable(true, 0);
     }
 }
