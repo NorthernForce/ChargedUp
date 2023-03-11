@@ -14,9 +14,6 @@ import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SetArmAngle;
-import frc.robot.commands.autoComponents.TurnToCone;
-import frc.robot.commands.autoComponents.TurnToCube;
-import frc.robot.commands.autoComponents.TurnToReflectiveTape;
 
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
@@ -74,17 +71,6 @@ public class OI {
         {
             new JoystickButton(manipulatorController, XboxController.Button.kX.value)
                 .whileTrue(new LEDYellow());
-        }
-
-        if (Constants.VISION_ENABLED)
-        {
-            new JoystickButton(driverController, XboxController.Button.kX.value)
-                .whileTrue(new TurnToCube());
-            new JoystickButton(driverController, XboxController.Button.kY.value)
-                .whileTrue(new TurnToCone());
-            new JoystickButton(driverController, XboxController.Button.kA.value)
-                .whileTrue(new TurnToReflectiveTape());
-
         }
     }
 }
