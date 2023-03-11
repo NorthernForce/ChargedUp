@@ -157,8 +157,20 @@ public final class Constants {
     public static final int LED_PORT = 0;
     /** Vision Constants */
     public static final String VISION_CAMERA_NAME = "visionCamera";
-    public static final double VISION_CAMERA_HEIGHT = Units.inchesToMeters(4);
-    public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0);
+    public static final double VISION_CAMERA_HEIGHT = Units.inchesToMeters(4); // TODO
+    public static final Rotation2d VISION_CAMERA_PITCH = Rotation2d.fromDegrees(0); // TODO
+    public static final Transform3d VISION_TRANSFORM3D = new DynamicTransform3d(
+        new Translation3d(
+            0, // TODO
+            0, // TODO
+            Units.inchesToMeters(VISION_CAMERA_HEIGHT)
+        ),
+        new Rotation3d(
+            0,
+            VISION_CAMERA_PITCH.getRadians(),
+            0
+        )
+    );
     /** Arm Constants */
 
     public static final int ARM_PRIMARY_MOTOR_ID = 5;

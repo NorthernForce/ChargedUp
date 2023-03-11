@@ -11,8 +11,10 @@ import static frc.robot.RobotContainer.*;
 
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
+  private final int cameraIdx;
 
-  public TurnToTarget() {
+  public TurnToTarget(int cameraIdx) {
+    this.cameraIdx = cameraIdx;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain, vision);
   }
@@ -25,8 +27,8 @@ public class TurnToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (vision.hasTarget()){
-      double requiredTurn = (vision.getTargetYaw().getDegrees() > 0) ? -0.4 : 0.4;
+    if (vision.hasTarget(cameraIdx)){
+      double requiredTurn = (vision.getTargetYaw(cameraIdx).getDegrees() > 0) ? -0.4 : 0.4;
       drivetrain.drive(0, requiredTurn);
     }
   }
@@ -38,6 +40,6 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(vision.getTargetYaw().getDegrees()) < 3;
+    return Math.abs(vision.getTargetYaw(cameraIdx).getDegrees()) < 3;
   }
 }
