@@ -31,7 +31,7 @@ public class PCM extends SubsystemBase {
     if (!solenoids.containsKey(ID))
     {
       solenoids.put(ID,
-        new Solenoid(PneumaticsModuleType.REVPH, ID)
+        new Solenoid(Constants.CompressorConstants.COMPRESSOR_ID, PneumaticsModuleType.REVPH, ID)
       );
     }
     solenoids.get(ID).set(state);
@@ -46,7 +46,7 @@ public class PCM extends SubsystemBase {
     if (!solenoids.containsKey(ID))
     {
       solenoids.put(ID,
-        new Solenoid(PneumaticsModuleType.REVPH, ID)
+        new Solenoid(Constants.CompressorConstants.COMPRESSOR_ID, PneumaticsModuleType.REVPH, ID)
       );
     }
     return solenoids.get(ID).get();
@@ -60,7 +60,7 @@ public class PCM extends SubsystemBase {
     if (!solenoids.containsKey(ID))
     {
       solenoids.put(ID,
-        new Solenoid(PneumaticsModuleType.REVPH, ID)
+        new Solenoid(Constants.CompressorConstants.COMPRESSOR_ID, PneumaticsModuleType.REVPH, ID)
       );
     }
     solenoids.get(ID).toggle();
