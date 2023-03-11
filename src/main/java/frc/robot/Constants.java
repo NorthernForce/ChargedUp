@@ -149,7 +149,7 @@ public final class Constants {
     {
         public static final int COMPRESSOR_ID = 20;
         /** Solenoids */
-        public static final int TELESCOPE_SOLENOID_ID = 0;
+        public static final int TELESCOPE_SOLENOID_ID = 8;
     }
     /** Wrist Constants */
     public static class WristConstants
