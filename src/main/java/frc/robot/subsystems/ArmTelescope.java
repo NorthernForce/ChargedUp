@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -12,24 +11,23 @@ import frc.robot.Constants;
 import static frc.robot.RobotContainer.*;
 
 public class ArmTelescope extends SubsystemBase {
-  private boolean isExtended = false;
   /** Creates a new ArmTelescope. */
   public ArmTelescope() {
-    Shuffleboard.getTab("Arm").addBoolean("isExtended", () -> isExtended).withPosition(1, 0);
+    Shuffleboard.getTab("Arm").addBoolean("isExtended", () ->
+      pcm.getSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID)
+    ).withPosition(1, 0);
   }
   public void extend()
   {
-    isExtended = true;
-    pcm.setSolenoidState(Constants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kForward);
+    pcm.setSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID, true);
   }
   public void retract()
   {
-    isExtended = false;
-    pcm.setSolenoidState(Constants.TELESCOPE_SOLENOID_ID, DoubleSolenoid.Value.kReverse);
+    pcm.setSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID, false);
   }
   public boolean isExtended()
   {
-    return isExtended;
+    return pcm.getSolenoidState(Constants.CompressorConstants.TELESCOPE_SOLENOID_ID);
   }
 
   @Override

@@ -8,43 +8,48 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class PCM extends SubsystemBase {
   private final Compressor compressor = new Compressor(Constants.COMPRESSOR_ID,
     PneumaticsModuleType.REVPH);
-  private final Map<Integer, DoubleSolenoid> solenoids = new HashMap<>();
+  private final Map<Integer, Solenoid> solenoids = new HashMap<>();
   /** Creates a new Compressor. */
   public PCM() {
     compressor.enableDigital();
-    /*solenoids.put(Constants.MOTOR_SOLENOID_ID,
-      new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
-    );*/
-    solenoids.put(Constants.TELESCOPE_SOLENOID_ID,
-      new DoubleSolenoid(PneumaticsModuleType.REVPH,
-        Constants.TELESCOPE_SOLENOID_FORWARD, Constants.TELESCOPE_SOLENOID_REVERSE)
-    );
   }
   /**
    * Sets state of the solenoid
    * @param ID solenoid ID
    * @param state the state to set it at
    */
-  public void setSolenoidState(int ID, DoubleSolenoid.Value state)
+  public void setSolenoidState(int ID, boolean state)
   {
+    if (!solenoids.containsKey(ID))
+    {
+      solenoids.put(ID,
+        new Solenoid(PneumaticsModuleType.REVPH, ID)
+      );
+    }
+    solenoids.get(ID).set(state);
   }
   /**
    * Gets the state of the solenoid
    * @param ID solenoid ID
    * @return the state it is at
    */
-  public DoubleSolenoid.Value getSolenoidState(int ID)
+  public boolean getSolenoidState(int ID)
   {
-    return null;
+    if (!solenoids.containsKey(ID))
+    {
+      solenoids.put(ID,
+        new Solenoid(PneumaticsModuleType.REVPH, ID)
+      );
+    }
+    return solenoids.get(ID).get();
   }
   /**
    * Toggles the solenoid
@@ -52,6 +57,13 @@ public class PCM extends SubsystemBase {
    */
   public void toggleSolenoid(int ID)
   {
+    if (!solenoids.containsKey(ID))
+    {
+      solenoids.put(ID,
+        new Solenoid(PneumaticsModuleType.REVPH, ID)
+      );
+    }
+    solenoids.get(ID).toggle();
   }
   @Override
   public void periodic() {
