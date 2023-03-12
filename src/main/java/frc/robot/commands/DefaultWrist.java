@@ -11,7 +11,7 @@ public class DefaultWrist extends CommandBase {
   /** Creates a new DefaultWrist. */
   public DefaultWrist() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(gripper);
+    addRequirements(wrist);
   }
 
   // Called when the command is initially scheduled.

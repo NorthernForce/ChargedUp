@@ -7,6 +7,7 @@ import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.DefaultWrist;
+import frc.robot.util.Point2D;
 import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
@@ -131,6 +132,7 @@ public class RobotContainer {
       startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
     }
     Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
+    Shuffleboard.getTab("Utility").add("Grid", new Point2D(0, 0));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
