@@ -48,9 +48,9 @@ public class OI {
     }
     /** Binds the buttons of the OI */
     public void bindButtons() {
-        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+        new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new ExtendArm());
-        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+        new JoystickButton(manipulatorController, XboxController.Button.kRightBumper.value)
             .onTrue(new RetractArm());
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .whileTrue(new RunConeIntake());
