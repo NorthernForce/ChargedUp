@@ -54,7 +54,6 @@ public class ArmRotate extends SubsystemBase {
     return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + Constants.ArmConstants.CANCODER_OFFSET);
   }
   /**
-   * Set arm angle. Should be called repeatedly.
    * @param angle angle to set the arm to
   */
   public void setAngle(Rotation2d angle) {
@@ -77,22 +76,8 @@ public class ArmRotate extends SubsystemBase {
   {
     talonGroup.setPercent(speed, getAngle().getCos() * Constants.ArmConstants.kFF);
   }
-  public boolean limitRange() {
-    if (getAngle().getDegrees() < Constants.ARM_FOWARD_LIMIT.getDegrees()) {
-      setArmSpeed(0);
-      return true;
-      // setAngle(Constants.ARM_FOWARD_LIMIT);
-    }
-    if (getAngle().getDegrees() > Constants.ARM_BACKWARD_LIMIT.getDegrees()) {
-      setArmSpeed(0);
-      return true;
-      // setAngle(Constants.ARM_BACKWARD_LIMIT);
-    }
-    return false;
-  }
   @Override
   public void periodic() {
-    limitRange();
     talonGroup.configClosedLoop(
       0,
       0,
