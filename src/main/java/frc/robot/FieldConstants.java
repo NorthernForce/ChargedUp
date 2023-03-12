@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.io.IOException;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Translation3d;
 
 public class FieldConstants
@@ -368,4 +372,12 @@ public class FieldConstants
             0
         )
     };
+    public static AprilTagFieldLayout APRILTAG_LAYOUT;
+    {
+        try {
+            APRILTAG_LAYOUT = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
