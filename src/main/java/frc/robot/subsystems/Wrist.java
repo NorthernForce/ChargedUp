@@ -24,10 +24,10 @@ public class Wrist extends SubsystemBase {
     );
     srx.configSelectedSlot(0, 0);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
-    kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WRIST_KF).getEntry();
-    kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WRIST_KP).getEntry();
-    kIEntry = Shuffleboard.getTab("Arm").add("Wrist - kI", Constants.WRIST_KI).getEntry();
-    kDEntry = Shuffleboard.getTab("Arm").add("Wrist - kD", Constants.WRIST_KD).getEntry();
+    kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
+    kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
+    kIEntry = Shuffleboard.getTab("Arm").add("Wrist - kI", Constants.WristConstants.kI).getEntry();
+    kDEntry = Shuffleboard.getTab("Arm").add("Wrist - kD", Constants.WristConstants.kD).getEntry();
   }
   /**
    * Returns angle off of the line of the arm
