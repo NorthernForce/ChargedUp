@@ -373,7 +373,7 @@ public class FieldConstants
         )
     };
     public static AprilTagFieldLayout APRILTAG_LAYOUT;
-    {
+    static {
         try {
             APRILTAG_LAYOUT = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
         } catch (IOException e) {
