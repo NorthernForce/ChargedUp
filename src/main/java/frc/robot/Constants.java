@@ -143,6 +143,7 @@ public final class Constants {
     public static class GripperConstants
     {
         public static final int MOTOR_ID = 9;
+        public static final int CANCODER_ID = 12;
         public static final double CONE_INTAKE_SPEED = -0.8; // TODO
         public static final double CONE_OUTTAKE_SPEED = 0.8; // TODO
     }

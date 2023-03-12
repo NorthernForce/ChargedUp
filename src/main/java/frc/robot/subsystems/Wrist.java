@@ -12,9 +12,12 @@ import frc.robot.Constants;
 import frc.lib.Motors.MotorGroupTalonSRX;
 import static frc.robot.RobotContainer.*;
 
+import com.ctre.phoenix.sensors.CANCoder;
+
 public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
+  private final CANCoder canCoder = new CANCoder(Constants.GripperConstants.CANCODER_ID);
   /** Creates a new Wrist. */
   public Wrist() {
     srx.configClosedLoop(
@@ -23,6 +26,7 @@ public class Wrist extends SubsystemBase {
       Constants.WristConstants.kI, Constants.WristConstants.kD
     );
     srx.configSelectedSlot(0, 0);
+    srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
@@ -35,11 +39,11 @@ public class Wrist extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromDegrees(srx.getEncoderRotations());
+    return Rotation2d.fromRotations(srx.getEncoderRotations());
   }
   /**
    * Sets the velocity of the wrist motor
-   * @param velocity degrees/sec
+   * @param velocity rotations/sec
    */
   public void setVelocity(double speed)
   {
@@ -68,9 +72,9 @@ public class Wrist extends SubsystemBase {
       0, 
       0, 
       kFEntry.getDouble(Constants.WristConstants.kF),
-      kFEntry.getDouble(Constants.WristConstants.kP),
-      kFEntry.getDouble(Constants.WristConstants.kI),
-      kFEntry.getDouble(Constants.WristConstants.kD)
+      kPEntry.getDouble(Constants.WristConstants.kP),
+      kIEntry.getDouble(Constants.WristConstants.kI),
+      kDEntry.getDouble(Constants.WristConstants.kD)
     );
   }
 }
