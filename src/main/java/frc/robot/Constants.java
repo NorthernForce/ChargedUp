@@ -190,13 +190,14 @@ public final class Constants {
     public static final double ARM_KI = 0.0; // TODO
     public static final double ARM_KD = 0.0; // TODO
     public static final double ARM_KFF = 0.0; // TODO
+    public static final Rotation2d ARM_FOWARD_LIMIT = Rotation2d.fromDegrees(-45);
+    public static final Rotation2d ARM_BACKWARD_LIMIT = Rotation2d.fromDegrees(205);
     public static final double ARM_ANGLE_TOLERANCE = 1.0; // TODO
     public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO
     public static final double GRIPPER_CONE_OUTTAKE_SPEED = 1.0; // TODO
-
     /** Compressor Constants */
     public static final int COMPRESSOR_ID = 20;
     /** Solenoids */

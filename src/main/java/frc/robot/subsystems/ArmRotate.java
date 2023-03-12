@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
 
+
 import frc.lib.Motors.MotorGroupTalonFX;
 
 import com.ctre.phoenix.sensors.CANCoder;
@@ -32,6 +33,7 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ARM_ROTATE_CANCODER_ID);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
+    talonGroup.setLimits(Constants.ARM_BACKWARD_LIMIT, Constants.ARM_FOWARD_LIMIT);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ARM_KF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ARM_KP).getEntry();
@@ -47,11 +49,9 @@ public class ArmRotate extends SubsystemBase {
     return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + Constants.CANCODER_OFFSET);
   }
   /**
-   * Set arm angle
    * @param angle angle to set the arm to
   */
-  public void setAngle(Rotation2d angle)
-  {
+  public void setAngle(Rotation2d angle) {
     talonGroup.setPosition(angle.getRotations() - Constants.CANCODER_OFFSET, getAngle().getCos() * Constants.ARM_KFF);
   }
   /**
@@ -81,4 +81,4 @@ public class ArmRotate extends SubsystemBase {
       kDEntry.getDouble(Constants.ARM_KD)
     );
   }
-}
+} 
