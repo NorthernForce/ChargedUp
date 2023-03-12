@@ -107,30 +107,18 @@ public class RobotContainer {
       exception.printStackTrace();
     }
     startingLocationChooser = new SendableChooser<>();
-    startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
-    startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
-    startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
-    startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
-    startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
-    startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
+    startingLocationChooser.setDefaultOption("Red Left", FieldConstants.RED_POSES[0]);
+    startingLocationChooser.addOption("Red Center", FieldConstants.RED_POSES[1]);
+    startingLocationChooser.addOption("Red Right", FieldConstants.RED_POSES[2]);
+    startingLocationChooser.addOption("Blue Left", FieldConstants.BLUE_POSES[0]);
+    startingLocationChooser.addOption("Blue Center", FieldConstants.BLUE_POSES[1]);
+    startingLocationChooser.addOption("Blue Right", FieldConstants.BLUE_POSES[2]);
     Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 2);
     Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 2);
     Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
     Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
     Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
     Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName()).withPosition(0, 1);
-    if (DriverStation.getAlliance() == Alliance.Red)
-    {
-      startingLocationChooser.setDefaultOption("Red Left", Constants.RED_POSES[0]);
-      startingLocationChooser.addOption("Red Center", Constants.RED_POSES[1]);
-      startingLocationChooser.addOption("Red Right", Constants.RED_POSES[2]);
-    }
-    else
-    {
-      startingLocationChooser.addOption("Blue Left", Constants.BLUE_POSES[0]);
-      startingLocationChooser.addOption("Blue Center", Constants.BLUE_POSES[1]);
-      startingLocationChooser.addOption("Blue Right", Constants.BLUE_POSES[2]);
-    }
     Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
     Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
   }

@@ -20,7 +20,10 @@ import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import static frc.robot.Constants.*;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+
+import frc.robot.Constants;
 
 
 /** 
@@ -155,8 +158,8 @@ public class MotorGroupTalonFX implements MotorGroup {
         controller.configFactoryDefault();
         controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
         if (!isFollower) {
-          controller.configClosedloopRamp(DRIVE_RAMP_RATE);
-          controller.configOpenloopRamp(DRIVE_RAMP_RATE);
+          controller.configClosedloopRamp(Constants.DrivetrainConstants.RAMP_RATE);
+          controller.configOpenloopRamp(Constants.DrivetrainConstants.RAMP_RATE);
         }
         controller.setNeutralMode(NeutralMode.Brake);
         TalonFXConfiguration configs = new TalonFXConfiguration();
