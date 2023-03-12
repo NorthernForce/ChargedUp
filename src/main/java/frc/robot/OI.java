@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
@@ -52,13 +53,13 @@ public class OI {
             .onTrue(new ExtendArm());
         new JoystickButton(manipulatorController, XboxController.Button.kRightBumper.value)
             .onTrue(new RetractArm());
-        new JoystickButton(manipulatorController, XboxController.Button.kA.value)
-            .whileTrue(new RunConeIntake());
-        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-            .whileTrue(new RunConeOuttake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new LEDPurple());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new LEDYellow());
+        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
+            .whileTrue(new RunConeIntake());
+        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
+            .whileTrue(new RunConeOuttake());
     }
 }
