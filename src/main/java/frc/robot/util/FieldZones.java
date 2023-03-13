@@ -12,7 +12,7 @@ import static frc.robot.RobotContainer.navigation;
 
 /** Add your docs here. */
 public class FieldZones {
-    enum Locations {
+    enum Zone {
         GRIDS,
         OUTER_LOAD,
         INNER_LOAD;
@@ -20,7 +20,7 @@ public class FieldZones {
          * Gets the coordinates that the zone is defined by
          * @return Two Pose2d. [0] = lower corner. [1] = upper corner.
          */
-        Pose2d[] getLocationRestraints() {
+        Pose2d[] getZoneRestraints() {
             Pose2d[] coords;
             switch (this) {
                 case GRIDS:
@@ -60,7 +60,7 @@ public class FieldZones {
          */
         boolean checkLocation() {
             Pose2d current = navigation.getPose2d();
-            Pose2d[] restraints = this.getLocationRestraints();
+            Pose2d[] restraints = this.getZoneRestraints();
             //If the robots current x position is outside of the restraints it returns false.
             if (!(restraints[0].getX() < current.getX() && current.getX() < restraints[1].getX())) {
                 return false;
@@ -71,6 +71,14 @@ public class FieldZones {
             }
             return true;
         }
+    }
+    public Zone getCurrentZone() {
+        for (Zone zone : Zone.values()) {
+            if (zone.checkLocation()) {
+                return zone;
+            }
+        }
+        return null;
     }
     /**
      * Takes a red/blue Pos and makes it the opposite one. Only flips across center line
