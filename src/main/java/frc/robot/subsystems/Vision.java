@@ -15,7 +15,7 @@ public class Vision extends SubsystemBase {
   /** Creates a new Vision. */
   public Vision() {
     cameras = List.of(
-      new LimelightWrapper(Constants.VISION_TRANSFORM3D)
+      new LimelightWrapper(Constants.VisionConstants.TRANSFORM3D)
     );
   }
   /**

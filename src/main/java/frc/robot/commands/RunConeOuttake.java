@@ -22,7 +22,7 @@ public class RunConeOuttake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gripper.setSpeed(Constants.GRIPPER_CONE_OUTTAKE_SPEED);
+    gripper.setSpeed(Constants.GripperConstants.CONE_OUTTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
