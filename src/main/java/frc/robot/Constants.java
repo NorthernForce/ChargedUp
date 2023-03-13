@@ -32,13 +32,14 @@ public final class Constants {
      * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
      * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation.
      * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
+     * @param armToCenter the amount of units that the arm is in front of the center of the robot
      * @return a pair of distance to the target, as well as the ideal angle
      */
-    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight)
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter)
     {
         double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
         Rotation2d armAngle = Rotation2d.fromRadians(Math.asin(heightDiff / armLength));
-        double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd;
+        double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
         return new Pair<Double,Rotation2d>(targetDistance, armAngle);
     }
     /** Drive Constants */
