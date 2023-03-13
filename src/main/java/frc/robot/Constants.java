@@ -194,6 +194,7 @@ public final class Constants {
     public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
     /** Gripper Constants */
     public static final int GRIPPER_MOTOR_ID = 9;
+    public static final int GRIPPER_CANCODER_ID = 12;
     public static final double GRIPPER_CONE_INTAKE_SPEED = -1.0; // TODO
     public static final double GRIPPER_CONE_OUTTAKE_SPEED = 1.0; // TODO
 
