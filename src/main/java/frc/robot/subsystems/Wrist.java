@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,14 +15,23 @@ import static frc.robot.RobotContainer.*;
 import com.ctre.phoenix.sensors.CANCoder;
 
 public class Wrist extends SubsystemBase {
-  private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WRIST_MOTOR_ID);
-  private final CANCoder canCoder = new CANCoder(Constants.GRIPPER_CANCODER_ID);
+  private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
+  private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
+  private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Wrist. */
   public Wrist() {
-    srx.configClosedLoop(0, 0, Constants.WRIST_KF, Constants.WRIST_KP, Constants.WRIST_KI, Constants.WRIST_KD);
+    srx.configClosedLoop(
+      0, 0,
+      Constants.WristConstants.kF, Constants.WristConstants.kP,
+      Constants.WristConstants.kI, Constants.WristConstants.kD
+    );
     srx.configSelectedSlot(0, 0);
     srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
+    kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
+    kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
+    kIEntry = Shuffleboard.getTab("Arm").add("Wrist - kI", Constants.WristConstants.kI).getEntry();
+    kDEntry = Shuffleboard.getTab("Arm").add("Wrist - kD", Constants.WristConstants.kD).getEntry();
   }
   /**
    * Returns angle off of the line of the arm
@@ -37,7 +47,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setVelocity(double speed)
   {
-    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
+    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
   }
   /**
    * Sets the position of the wrist motor
@@ -45,7 +55,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    srx.setPosition(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
+    srx.setPosition(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
   }
   /**
    * Sets the percent without calculating feedforward
@@ -66,5 +76,13 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic()
   {
+    srx.configClosedLoop(
+      0, 
+      0, 
+      kFEntry.getDouble(Constants.WristConstants.kF),
+      kPEntry.getDouble(Constants.WristConstants.kP),
+      kIEntry.getDouble(Constants.WristConstants.kI),
+      kDEntry.getDouble(Constants.WristConstants.kD)
+    );
   }
 }

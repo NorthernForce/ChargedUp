@@ -99,7 +99,7 @@ public class Drivetrain extends SubsystemBase
    */
   public double getLeftDistance()
   {
-    return leftSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
+    return leftSide.getEncoderRotations() * Constants.DrivetrainConstants.METERS_PER_REVOLUTION;
   }
   /**
    * Gets the distance traveled by the right encoder
@@ -107,7 +107,7 @@ public class Drivetrain extends SubsystemBase
    */
   public double getRightDistance()
   {
-    return rightSide.getEncoderRotations() * Constants.METERS_PER_REVOLUTION;
+    return rightSide.getEncoderRotations() * Constants.DrivetrainConstants.METERS_PER_REVOLUTION;
   }
   /**
    * Gets the speed that the wheels are moving at
@@ -116,8 +116,8 @@ public class Drivetrain extends SubsystemBase
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
     return new DifferentialDriveWheelSpeeds(
-      leftSide.getEncoderRPS() * Constants.METERS_PER_REVOLUTION,
-      rightSide.getEncoderRPS() * Constants.METERS_PER_REVOLUTION
+      leftSide.getEncoderRPS() * Constants.DrivetrainConstants.METERS_PER_REVOLUTION,
+      rightSide.getEncoderRPS() * Constants.DrivetrainConstants.METERS_PER_REVOLUTION
     );
   }
   /**
