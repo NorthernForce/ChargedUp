@@ -34,12 +34,12 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
-    talonGroup.setLimits(Constants.ArmConstants.ARM_FORWARD_LIMIT, Constants.ArmConstants.ARM_BACKWARD_LIMIT);
+    //talonGroup.setLimits(Constants.ArmConstants.ARM_FORWARD_LIMIT, Constants.ArmConstants.ARM_BACKWARD_LIMIT);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
-    kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).getEntry();
-    kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).getEntry();
-    kIEntry = Shuffleboard.getTab("Arm").add("kI", Constants.ArmConstants.kI).getEntry();
-    kDEntry = Shuffleboard.getTab("Arm").add("kD", Constants.ArmConstants.kD).getEntry();
+    kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).withPosition(0, 2).getEntry();
+    kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).withPosition(1, 2).getEntry();
+    kIEntry = Shuffleboard.getTab("Arm").add("kI", Constants.ArmConstants.kI).withPosition(2, 2).getEntry();
+    kDEntry = Shuffleboard.getTab("Arm").add("kD", Constants.ArmConstants.kD).withPosition(3, 2).getEntry();
   }
   /**
    * Get arm angle
