@@ -180,9 +180,9 @@ public class MotorGroupTalonFX implements MotorGroup {
         }
         return list;
     }
-    public void setLimits(Rotation2d forward, Rotation2d reverse) {
-        primary.configForwardSoftLimitThreshold(forward.getRotations() * COUNTS_PER_REVOLUTION, 0);
-        primary.configReverseSoftLimitThreshold(reverse.getRotations() * COUNTS_PER_REVOLUTION, 0);
+    public void setLimits(Rotation2d positive, Rotation2d negative) {
+        primary.configForwardSoftLimitThreshold(positive.getRotations() * COUNTS_PER_REVOLUTION, 0);
+        primary.configReverseSoftLimitThreshold(negative.getRotations() * COUNTS_PER_REVOLUTION, 0);
         primary.configForwardSoftLimitEnable(true, 0);
         primary.configReverseSoftLimitEnable(true, 0);
     }
