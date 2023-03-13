@@ -65,6 +65,14 @@ public class Wrist extends SubsystemBase {
   {
     srx.set(percent);
   }
+  /**
+   * Calibrates the wrist CANCoder with a known angle
+   * @param angle the known angle
+   */
+  public void calibrate(Rotation2d angle)
+  {
+    canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
+  }
   @Override
   public void periodic()
   {
