@@ -38,7 +38,7 @@ public class ArmRotate extends SubsystemBase {
     rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
-    talonGroup.setLimits(Constants.ARM_BACKWARD_LIMIT, Constants.ARM_FOWARD_LIMIT);
+    talonGroup.setLimits(Constants.ArmConstants.ARM_B, Constants.ARM_FOWARD_LIMIT);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).getEntry();
