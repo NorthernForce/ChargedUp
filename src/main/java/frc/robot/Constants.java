@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.util.DynamicTransform3d;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -158,6 +157,8 @@ public final class Constants {
         public static final double kFF = 0.0; // TODO
         public static final double ANGLE_TOLERANCE = 1.0; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-45);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(205);
     }
     /** Gripper Constants */
     public static class GripperConstants

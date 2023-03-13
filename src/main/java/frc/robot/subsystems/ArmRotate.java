@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
 
+
 import frc.lib.Motors.MotorGroupTalonFX;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
@@ -37,6 +38,7 @@ public class ArmRotate extends SubsystemBase {
     rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
+    talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT, Constants.ArmConstants.FORWARD_LIMIT);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).getEntry();
@@ -52,10 +54,17 @@ public class ArmRotate extends SubsystemBase {
     return Rotation2d.fromRotations(talonGroup.getEncoderRotations() + Constants.ArmConstants.CANCODER_OFFSET);
   }
   /**
-   * Set arm angle
    * @param angle angle to set the arm to
   */
-  public void setAngle(Rotation2d angle)
+  public void setAngle(Rotation2d angle) {
+    setAngle(angle, false);
+  }
+  /**
+   * Set arm angle. Should be called repeatedly.
+   * @param angle angle to set the arm to
+   * @param ignoreLimit Whether or not the set angle can ignore angle limits
+  */
+  public void setAngle(Rotation2d angle, boolean ignoreLimit)
   {
     talonGroup.setPosition(angle.getRotations() - Constants.ArmConstants.CANCODER_OFFSET, getAngle().getCos() * Constants.ArmConstants.kFF);
   }
@@ -86,4 +95,4 @@ public class ArmRotate extends SubsystemBase {
       kDEntry.getDouble(Constants.ArmConstants.kD)
     );
   }
-}
+} 
