@@ -24,10 +24,10 @@ public final class Constants {
     /**
      * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
      * Units does not matter as long as consistent. That said, this programming repository prefers to operate in the metric system in code.
-     * @param armHeight The height of the arm off of the same surface as the target, ideally the floor
-     * @param armLength The length of the arm
+     * @param armHeight The height of the arm fulcrum off of the same surface as the target, ideally the floor
+     * @param armLength The length of the arm from fulcrum to wrist fulcrum.
      * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
-     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation.
+     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation. Off of the floor.
      * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
      * @param armToCenter the amount of units that the arm is in front of the center of the robot
      * @return a pair of distance to the target, as well as the ideal angle
