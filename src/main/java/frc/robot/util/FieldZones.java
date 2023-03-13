@@ -12,7 +12,7 @@ import static frc.robot.RobotContainer.navigation;
 
 /** Add your docs here. */
 public class FieldZones {
-    enum Zone {
+    public enum Zone {
         GRIDS,
         OUTER_LOAD,
         INNER_LOAD;
