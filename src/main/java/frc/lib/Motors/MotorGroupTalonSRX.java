@@ -17,8 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import frc.lib.Motors.MotorGroup;
-
-import static frc.robot.Constants.*;
+import frc.robot.Constants;
 
 
 /** 
@@ -178,8 +177,8 @@ public class MotorGroupTalonSRX implements MotorGroup {
         controller.configFactoryDefault();
         controller.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, currentLimit, limitThreshold, triggerThreshTimeInSec));
         if (!isFollower) {
-          controller.configClosedloopRamp(DRIVE_RAMP_RATE);
-          controller.configOpenloopRamp(DRIVE_RAMP_RATE);
+          controller.configClosedloopRamp(Constants.DrivetrainConstants.RAMP_RATE);
+          controller.configOpenloopRamp(Constants.DrivetrainConstants.RAMP_RATE);
         }
         controller.setNeutralMode(NeutralMode.Brake);
         TalonSRXConfiguration configs = new TalonSRXConfiguration();
