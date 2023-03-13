@@ -32,3 +32,9 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 ## PDH:
 
 <li>Power Distribution Hub - 21</li>
+
+# Solenoids
+
+## Arm Telescoping
+
+<li>Telescoping Solenoid - 8</li>
