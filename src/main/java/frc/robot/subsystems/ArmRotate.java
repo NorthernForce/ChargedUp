@@ -34,12 +34,16 @@ public class ArmRotate extends SubsystemBase {
       Constants.ArmConstants.kI, Constants.ArmConstants.kD
     );
     talonGroup.configSelectedProfile(0, 0);
+
     rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
     rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+
     talonGroup.linkAndUseCANCoder(rotateEncoder);
-    talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT, Constants.ArmConstants.FORWARD_LIMIT);
+    talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT.minus(Rotation2d.fromDegrees(90)), Constants.ArmConstants.FORWARD_LIMIT.minus(Rotation2d.fromDegrees(90)));
+
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
+
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).getEntry();
     kIEntry = Shuffleboard.getTab("Arm").add("kI", Constants.ArmConstants.kI).getEntry();
