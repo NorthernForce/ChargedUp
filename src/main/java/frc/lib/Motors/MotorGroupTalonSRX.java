@@ -19,7 +19,6 @@ import com.ctre.phoenix.sensors.CANCoder;
 import frc.lib.Motors.MotorGroup;
 import frc.robot.Constants;
 
-import static frc.robot.Constants.*;
 
 
 /** 

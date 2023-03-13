@@ -100,8 +100,8 @@ public final class Constants {
     public static class VisionConstants
     {
         public static final String CAMERA_NAME = "visionCamera";
-        public static final double CAMERA_HEIGHT = Units.inchesToMeters(4);
-        public static final Rotation2d CAMERA_PITCH = Rotation2d.fromDegrees(0);
+        public static final double CAMERA_HEIGHT = Units.inchesToMeters(4); // TODO
+        public static final Rotation2d CAMERA_PITCH = Rotation2d.fromDegrees(0); // TODO
         public static final Transform3d TRANSFORM3D = new DynamicTransform3d(
             new Translation3d(
                 0, // TODO
