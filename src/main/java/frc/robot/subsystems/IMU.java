@@ -16,7 +16,7 @@ public class IMU extends SubsystemBase {
    * @return pitch in Rotation2d
    */
   public Rotation2d getPitch() {
-    return Rotation2d.fromDegrees(Constants.ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch());
+    return Rotation2d.fromDegrees(Constants.IMUConstants.ROLL_PITCH_SWAPPED ? ahrs.getRoll() : ahrs.getPitch());
   }
   /**
    * Gets the yaw.
@@ -30,7 +30,7 @@ public class IMU extends SubsystemBase {
    * @return roll in Rotation2d
    */
   public Rotation2d getRoll() {
-    return Rotation2d.fromDegrees(Constants.ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll());
+    return Rotation2d.fromDegrees(Constants.IMUConstants.ROLL_PITCH_SWAPPED ? ahrs.getPitch() : ahrs.getRoll());
   }
   /**
    * Gets the current Rotation2d
