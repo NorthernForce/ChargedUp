@@ -135,7 +135,7 @@ public final class Constants {
         public static final double kFF = 0.0; // TODO
         public static final double ANGLE_TOLERANCE = 1.0; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
-        public static final Rotation2d FOWARD_LIMIT = Rotation2d.fromDegrees(-45);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-45);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(205);
     }
     /** Gripper Constants */
