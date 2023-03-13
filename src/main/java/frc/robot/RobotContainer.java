@@ -5,6 +5,7 @@ import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
+import frc.robot.commands.CalibrateArm;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.DefaultWrist;
 import frc.robot.util.RobotChooser;
@@ -119,6 +120,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
     Shuffleboard.getTab("Utility").add("Robot Name: ", activeChassis.getChassisName()).withPosition(0, 1);
     Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
+    Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

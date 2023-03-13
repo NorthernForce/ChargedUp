@@ -67,6 +67,14 @@ public class ArmRotate extends SubsystemBase {
   {
     talonGroup.setPercent(speed, getAngle().getCos() * Constants.ArmConstants.kFF);
   }
+  /**
+    * Calibrates the arm magnetic offset to a known point.
+    * @param position The known point to calibrate to.
+   */
+  public void calibrate(Rotation2d position)
+  {
+    rotateEncoder.configMagnetOffset(-rotateEncoder.getAbsolutePosition());
+  }
   @Override
   public void periodic() {
     talonGroup.configClosedLoop(
