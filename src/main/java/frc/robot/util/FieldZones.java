@@ -4,14 +4,11 @@
 
 package frc.robot.util;
 
-import javax.swing.plaf.basic.BasicBorders.FieldBorder;
-
-import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import static frc.robot.Constants.APRILTAG_LAYOUT;
+import static frc.robot.RobotContainer.navigation;
 
 /** Add your docs here. */
 public class FieldZones {
@@ -37,8 +34,8 @@ public class FieldZones {
                     return coords;
                 case OUTER_LOAD:
                     coords = new Pose2d[]{
-                        new Pose2d(),
-                        new Pose2d(Units.inchesToMeters(640),0, null)
+                        new Pose2d(Units.inchesToMeters(500), Units.inchesToMeters(267), null),
+                        new Pose2d(Units.inchesToMeters(645),Units.inchesToMeters(323), null)
                     };
                     if (DriverStation.getAlliance () == Alliance.Red) {
                         return allianceFlip(coords);
@@ -46,8 +43,8 @@ public class FieldZones {
                     return coords;
                 case INNER_LOAD:
                     coords = new Pose2d[]{
-                        new Pose2d(),
-                        new Pose2d()
+                        new Pose2d(Units.inchesToMeters(500), Units.inchesToMeters(213), null),
+                        new Pose2d(Units.inchesToMeters(645),Units.inchesToMeters(267), null)
                     };
                     if (DriverStation.getAlliance() == Alliance.Red) {
                         return allianceFlip(coords);
@@ -57,9 +54,22 @@ public class FieldZones {
                     return null;
             }
         }
-
+        /**
+         * Used to check if the robot is within the given field zone location. Utilizes the Navigation subsystem
+         * @return boolen representing (robot in zone)
+         */
         boolean checkLocation() {
-            return false;
+            Pose2d current = navigation.getPose2d();
+            Pose2d[] restraints = this.getLocationRestraints();
+            //If the robots current x position is outside of the restraints it returns false.
+            if (!(restraints[0].getX() < current.getX() && current.getX() < restraints[1].getX())) {
+                return false;
+            }
+            //If the robots current y position is outside of the restraints it returns false
+            if (!(restraints[0].getY() < current.getY() && current.getY() < restraints[1].getY())) {
+                return false;
+            }
+            return true;
         }
     }
     /**
