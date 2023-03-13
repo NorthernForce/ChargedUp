@@ -14,7 +14,9 @@ import frc.robot.Constants;
 
 import frc.lib.Motors.MotorGroupTalonFX;
 
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
@@ -32,6 +34,8 @@ public class ArmRotate extends SubsystemBase {
     );
     talonGroup.configSelectedProfile(0, 0);
     rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
+    rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+    rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     talonGroup.linkAndUseCANCoder(rotateEncoder);
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
     kFEntry = Shuffleboard.getTab("Arm").add("kF", Constants.ArmConstants.kF).getEntry();
