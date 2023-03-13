@@ -23,9 +23,9 @@ import java.util.List;
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
   private final List<PhotonCameraWrapper> cameras = List.of(
-    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA1_NAME, Constants.NAVIGATION_CAMERA1_TRANSFORM),
-    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA2_NAME, Constants.NAVIGATION_CAMERA2_TRANSFORM),
-    new PhotonCameraWrapper(Constants.NAVIGATION_CAMERA3_NAME, Constants.NAVIGATION_CAMERA3_TRANSFORM)
+    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA1_NAME, Constants.NavigationConstants.CAMERA1_TRANSFORM),
+    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA2_NAME, Constants.NavigationConstants.CAMERA2_TRANSFORM),
+    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA3_NAME, Constants.NavigationConstants.CAMERA3_TRANSFORM)
   );
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
@@ -34,7 +34,7 @@ public class Navigation extends SubsystemBase {
     assert imu != null;
     drivetrain.resetEncoderRotations();
     poseEstimator = new DifferentialDrivePoseEstimator(
-      new DifferentialDriveKinematics(Constants.TRACK_WIDTH),
+      new DifferentialDriveKinematics(Constants.DrivetrainConstants.TRACK_WIDTH),
       imu.getRotation2d(),
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance(),

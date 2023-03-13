@@ -5,10 +5,10 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 
 ## Drivetrain:
 
-<li>Left Primary - 1</li>
-<li>Right Primary - 2</li>
-<li>Left Secondary - 3</li>
-<li>Right Secondary - 4</li>
+|       | Left | Right |
+|-------|------|-------|
+| Front |  1   |   2   |
+| Back  |  3   |   4   |
 
 ## ArmRotate:
 
@@ -19,6 +19,7 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 ## Wrist:
 
 <li>Primary - 10</li>
+<li>CanCoder - 12</li>
 
 ## PCM:
 
@@ -31,3 +32,9 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 ## PDH:
 
 <li>Power Distribution Hub - 21</li>
+
+# Solenoids
+
+## Arm Telescoping
+
+<li>Telescoping Solenoid - 8</li>

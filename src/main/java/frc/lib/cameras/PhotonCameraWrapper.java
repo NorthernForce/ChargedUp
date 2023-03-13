@@ -8,7 +8,7 @@ import org.photonvision.PhotonUtils;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import frc.robot.Constants;
+import frc.robot.FieldConstants;
 
 public class PhotonCameraWrapper implements CameraWrapper {
     private final Transform3d transformToCenter;
@@ -18,7 +18,7 @@ public class PhotonCameraWrapper implements CameraWrapper {
     {
         camera = new PhotonCamera(name);
         transformToCenter = transform;
-        visionEstimator = new PhotonPoseEstimator(Constants.APRILTAG_LAYOUT, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
+        visionEstimator = new PhotonPoseEstimator(FieldConstants.APRILTAG_LAYOUT, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
     }
     /**
      * Returns the Transform3d (X,Y,Z comp and Pitch, Roll, Yaw comp)
