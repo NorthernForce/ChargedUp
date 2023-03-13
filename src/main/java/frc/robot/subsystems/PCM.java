@@ -10,6 +10,7 @@ import java.util.Map;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,6 +21,9 @@ public class PCM extends SubsystemBase {
   /** Creates a new Compressor. */
   public PCM() {
     compressor.enableDigital();
+    /** Creates Shuffleboard widget that displays Compressor Pressure */
+    Shuffleboard.getTab("Utility")
+     .addNumber("Compressor Pressure", () -> compressor.getPressure());
     /*solenoids.put(Constants.MOTOR_SOLENOID_ID,
       new DoubleSolenoid(PneumaticsModuleType.REVPH,
         Constants.MOTOR_SOLENOID_FORWARD, Constants.MOTOR_SOLENOID_REVERSE)
