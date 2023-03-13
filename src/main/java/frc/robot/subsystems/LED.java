@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(Constants.LED_PORT);
-  private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LED_NUM_LEDS);
+  private final AddressableLED led = new AddressableLED(Constants.LEDConstants.PORT);
+  private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LEDConstants.NUM_LEDS);
   private Color currentColor = null;
   private int startHue = 0;
   /** Creates a new LED. */

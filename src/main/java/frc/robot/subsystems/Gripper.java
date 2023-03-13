@@ -15,7 +15,7 @@ public class Gripper extends SubsystemBase {
   private final CANSparkMax motor;
   /** Creates a new Gripper. */
   public Gripper() {
-    motor = new CANSparkMax(Constants.GRIPPER_MOTOR_ID, MotorType.kBrushless);
+    motor = new CANSparkMax(Constants.GripperConstants.MOTOR_ID, MotorType.kBrushless);
     motor.setIdleMode(IdleMode.kBrake);
   }
   public void setSpeed(double speed)
