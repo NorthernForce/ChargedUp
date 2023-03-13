@@ -12,13 +12,21 @@ import frc.robot.Constants;
 import frc.lib.Motors.MotorGroupTalonSRX;
 import static frc.robot.RobotContainer.*;
 
+import com.ctre.phoenix.sensors.CANCoder;
+
 public class Wrist extends SubsystemBase {
-  private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WRIST_MOTOR_ID);
+  private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
+  private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Wrist. */
   public Wrist() {
-    srx.configClosedLoop(0, 0, Constants.WRIST_KF, Constants.WRIST_KP, Constants.WRIST_KI, Constants.WRIST_KD);
+    srx.configClosedLoop(
+      0, 0,
+      Constants.WristConstants.kF, Constants.WristConstants.kP,
+      Constants.WristConstants.kI, Constants.WristConstants.kD
+    );
     srx.configSelectedSlot(0, 0);
+    srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WRIST_KF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WRIST_KP).getEntry();
@@ -31,15 +39,15 @@ public class Wrist extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromDegrees(srx.getEncoderRotations() / Constants.WRIST_GEAT_RATIO);
+    return Rotation2d.fromRotations(srx.getEncoderRotations());
   }
   /**
    * Sets the velocity of the wrist motor
-   * @param velocity degrees/sec
+   * @param velocity rotations/sec
    */
   public void setVelocity(double speed)
   {
-    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
+    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
   }
   /**
    * Sets the position of the wrist motor
@@ -47,7 +55,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    srx.setPosition(rotation.getRotations() / Constants.GEAR_RATIO, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WRIST_KFF);
+    srx.setPosition(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
   }
   /**
    * Sets the percent without calculating feedforward
