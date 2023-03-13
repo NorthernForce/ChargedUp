@@ -19,6 +19,7 @@ This the code used by Northern Force Robotics (Team 172) in 2023 for the Charged
 ## Wrist:
 
 <li>Primary - 10</li>
+<li>CanCoder - 12</li>
 
 ## PCM:
 

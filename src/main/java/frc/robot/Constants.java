@@ -155,6 +155,7 @@ public final class Constants {
     public static class WristConstants
     {
         public static final int MOTOR_ID = 10;
+        public static final int CANCODER_ID = 12;
         public static final double GEAT_RATIO = 0.0; // TODO
         // Static gain
         public static final double kF = 0.0; // TODO

@@ -11,8 +11,11 @@ import frc.robot.Constants;
 import frc.lib.Motors.MotorGroupTalonSRX;
 import static frc.robot.RobotContainer.*;
 
+import com.ctre.phoenix.sensors.CANCoder;
+
 public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
+  private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
   /** Creates a new Wrist. */
   public Wrist() {
     srx.configClosedLoop(
@@ -21,6 +24,7 @@ public class Wrist extends SubsystemBase {
       Constants.WristConstants.kI, Constants.WristConstants.kD
     );
     srx.configSelectedSlot(0, 0);
+    srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
   }
   /**
@@ -29,11 +33,11 @@ public class Wrist extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromDegrees(srx.getEncoderRotations());
+    return Rotation2d.fromRotations(srx.getEncoderRotations());
   }
   /**
    * Sets the velocity of the wrist motor
-   * @param velocity degrees/sec
+   * @param velocity rotations/sec
    */
   public void setVelocity(double speed)
   {
