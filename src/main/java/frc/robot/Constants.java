@@ -1,5 +1,9 @@
 package frc.robot;
 
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -17,6 +21,24 @@ import frc.robot.util.DynamicTransform3d;
  */
 
 public final class Constants {
+    /**
+     * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
+     * Units does not matter as long as consistent. That said, this programming repository prefers to operate in the metric system in code.
+     * @param armHeight The height of the arm fulcrum off of the same surface as the target, ideally the floor
+     * @param armLength The length of the arm from fulcrum to wrist fulcrum.
+     * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
+     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation. Off of the floor.
+     * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
+     * @param armToCenter the amount of units that the arm is in front of the center of the robot
+     * @return a pair of distance to the target, as well as the ideal angle
+     */
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter)
+    {
+        double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+        Rotation2d armAngle = Rotation2d.fromRadians(Math.asin(heightDiff / armLength));
+        double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+        return new Pair<Double,Rotation2d>(targetDistance, armAngle);
+    }
     /** Drive Constants */
     public static class DrivetrainConstants
     {
