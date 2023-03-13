@@ -1,6 +1,13 @@
 package frc.robot;
 
+import java.io.IOException;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
 
 public class FieldConstants
 {
@@ -367,5 +374,24 @@ public class FieldConstants
             4.583,
             0
         )
+    };
+    public static AprilTagFieldLayout APRILTAG_LAYOUT;
+    static {
+        try {
+            APRILTAG_LAYOUT = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /** DRIVER ORIENTED */
+    public static final Pose2d[] BLUE_POSES = new Pose2d[] {
+        new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue left */
+        new Pose2d(1.693, 2.761, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue center */
+        new Pose2d(1.693, 1.083, Rotation2d.fromDegrees(180))  /* DRIVER ORIENTED Blue right */
+    };
+    public static final Pose2d[] RED_POSES = new Pose2d[] {
+        new Pose2d(14.895, 1.083, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red left */
+        new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
+        new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
 }
