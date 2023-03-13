@@ -61,6 +61,7 @@ public class Wrist extends SubsystemBase {
    */
   public void calibrate(Rotation2d angle)
   {
+    canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
   }
   @Override
   public void periodic()
