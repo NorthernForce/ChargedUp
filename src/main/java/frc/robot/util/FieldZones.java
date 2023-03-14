@@ -15,7 +15,8 @@ public class FieldZones {
     public enum Zone {
         GRIDS,
         OUTER_LOAD,
-        INNER_LOAD;
+        INNER_LOAD,
+        NONE;
         /**
          * Gets the coordinates that the zone is defined by
          * @return Two Pose2d. [0] = lower corner. [1] = upper corner.
@@ -28,38 +29,29 @@ public class FieldZones {
                         new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(0), null),
                         new Pose2d(Units.inchesToMeters(110),  Units.inchesToMeters(208), null)
                     };
-                    if (DriverStation.getAlliance() == Alliance.Red) {
-                        return allianceFlip(coords);
-                    }
-                    return coords;
+                    return setAlliance(DriverStation.getAlliance(), coords);
                 case OUTER_LOAD:
                     coords = new Pose2d[]{
                         new Pose2d(Units.inchesToMeters(500), Units.inchesToMeters(267), null),
                         new Pose2d(Units.inchesToMeters(645),Units.inchesToMeters(323), null)
                     };
-                    if (DriverStation.getAlliance () == Alliance.Red) {
-                        return allianceFlip(coords);
-                    }
-                    return coords;
+                    return setAlliance(DriverStation.getAlliance(), coords);
                 case INNER_LOAD:
                     coords = new Pose2d[]{
                         new Pose2d(Units.inchesToMeters(500), Units.inchesToMeters(213), null),
                         new Pose2d(Units.inchesToMeters(645),Units.inchesToMeters(267), null)
                     };
-                    if (DriverStation.getAlliance() == Alliance.Red) {
-                        return allianceFlip(coords);
-                    }
-                    return coords;
+                    return setAlliance(DriverStation.getAlliance(), coords);
                 default:
                     return null;
             }
         }
         /**
-         * Used to check if the robot is within the given field zone location. Utilizes the Navigation subsystem
+         * Used to check if the robot is within the given field zone location.
+         * @param current the pose2d to be compared to current zone
          * @return boolen representing (robot in zone)
          */
-        boolean checkLocation() {
-            Pose2d current = navigation.getPose2d();
+        boolean inZone(Pose2d current) {
             Pose2d[] restraints = this.getZoneRestraints();
             //If the robots current x position is outside of the restraints it returns false.
             if (!(restraints[0].getX() < current.getX() && current.getX() < restraints[1].getX())) {
@@ -72,25 +64,38 @@ public class FieldZones {
             return true;
         }
     }
-    public Zone getCurrentZone() {
+    
+    /**
+     * Checks the zone of a passed in pose2d
+     * @param current
+     * @return
+     */
+    public Zone getCurrentZone(Pose2d current) {
         for (Zone zone : Zone.values()) {
-            if (zone.checkLocation()) {
+            if (zone.inZone(current)) {
                 return zone;
             }
         }
-        return null;
+        return Zone.NONE;
     }
     /**
      * Takes a red/blue Pos and makes it the opposite one. Only flips across center line
-     * @param originPos This is the pose2ds to be converted
+     * @param bluePoses This is the pose2ds of blue alliance to be calculated on.
      * @return Returns the pose2d for the other side of field
      */
-    private static Pose2d[] allianceFlip(Pose2d[] originPos) {
-        for (int i=0; i < originPos.length; i++) {
-            double FIELD_LENGTH = 16.4846; //METERS
-            double newX = FIELD_LENGTH - originPos[i].getX();
-            originPos[i] = new Pose2d(newX, originPos[i].getY(), originPos[i].getRotation());
+    private static Pose2d[] setAlliance(Alliance alliance, Pose2d[] bluePoses) {
+        if ( alliance == Alliance.Blue )
+        {
+            return bluePoses;
         }
-        return originPos;
+        else 
+        {
+            for (int i=0; i < bluePoses.length; i++) {
+                double FIELD_LENGTH = 16.4846; //METERS
+                double newX = FIELD_LENGTH - bluePoses[i].getX();
+                bluePoses[i] = new Pose2d(newX, bluePoses[i].getY(), bluePoses[i].getRotation());
+            }
+            return bluePoses;
+        }
     }
 }
