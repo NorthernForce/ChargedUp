@@ -14,9 +14,11 @@ import java.util.function.DoubleSupplier;
 
 public class DefaultWrist extends CommandBase {
   /** Creates a new DefaultWrist. */
+  DoubleSupplier[] manipulatorSuppliers;
   public DefaultWrist() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(wrist);
+    this.manipulatorSuppliers = OI.getManipulatorSuppliers();
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +28,7 @@ public class DefaultWrist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    wrist.setPercent(maniplulatorSuppliers[1].getAsDouble());
+    wrist.setPercent(manipulatorSuppliers[2].getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
