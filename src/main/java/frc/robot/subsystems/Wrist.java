@@ -37,10 +37,6 @@ public class Wrist extends SubsystemBase {
    * Returns angle off of the line of the arm
    * @return Rotation2d
    */
-  public void set(double speed)
-  {
-    srx.set(speed);
-  }
   public Rotation2d getAngle()
   {
     return Rotation2d.fromRotations(srx.getEncoderRotations());
