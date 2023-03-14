@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 
@@ -12,7 +13,6 @@ import static frc.robot.RobotContainer.*;
 import java.util.function.DoubleSupplier;
 
 public class DefaultWrist extends CommandBase {
-  private final DoubleSupplier[] maniplulatorSuppliers = OI.getManipulatorSuppliers();
   /** Creates a new DefaultWrist. */
   private DoubleSupplier[] manipulatorSpeeds = OI.getManipulatorSuppliers();
   public DefaultWrist() {

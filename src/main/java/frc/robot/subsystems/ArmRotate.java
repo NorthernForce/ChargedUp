@@ -22,7 +22,7 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalonFX talonGroup;
-  private final CANCoder rotateEncoder;
+  // private final CANCoder rotateEncoder;
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Arm. */
   public ArmRotate() {
@@ -35,12 +35,12 @@ public class ArmRotate extends SubsystemBase {
     );
     talonGroup.configSelectedProfile(0, 0);
 
-    rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
-    rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
-    rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+    // rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
+    // rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+    // rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
-    talonGroup.linkAndUseCANCoder(rotateEncoder);
-    talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT.minus(Rotation2d.fromDegrees(90)), Constants.ArmConstants.FORWARD_LIMIT.minus(Rotation2d.fromDegrees(90)));
+    // talonGroup.linkAndUseCANCoder(rotateEncoder);
+    // talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT.minus(Rotation2d.fromDegrees(90)), Constants.ArmConstants.FORWARD_LIMIT.minus(Rotation2d.fromDegrees(90)));
 
     Shuffleboard.getTab("Arm").addDouble("Angle", () -> getAngle().getDegrees()).withPosition(0, 0);
 
@@ -86,7 +86,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public void calibrate(Rotation2d position)
   {
-    rotateEncoder.configMagnetOffset(-rotateEncoder.getAbsolutePosition());
+    // rotateEncoder.configMagnetOffset(-rotateEncoder.getAbsolutePosition());
   }
   @Override
   public void periodic() {
