@@ -16,7 +16,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 
 public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
-  // private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
+  private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Wrist. */
   public Wrist() {
@@ -26,7 +26,7 @@ public class Wrist extends SubsystemBase {
       Constants.WristConstants.kI, Constants.WristConstants.kD
     );
     srx.configSelectedSlot(0, 0);
-    // srx.linkAndUseCANCoder(canCoder);
+    srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
@@ -43,8 +43,7 @@ public class Wrist extends SubsystemBase {
   }
   public Rotation2d getAngle()
   {
-    // return Rotation2d.fromRotations(srx.getEncoderRotations());
-    return Rotation2d.fromDegrees(0);
+    return Rotation2d.fromRotations(srx.getEncoderRotations());
   }
   /**
    * Sets the velocity of the wrist motor
@@ -76,7 +75,7 @@ public class Wrist extends SubsystemBase {
    */
   public void calibrate(Rotation2d angle)
   {
-    // canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
+    canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
   }
   @Override
   public void periodic()
