@@ -78,11 +78,11 @@ public class FieldZones {
         return Zone.NONE;
     }
     /**
-     * Takes a red/blue Pos and makes it the opposite one. Only flips across center line
+     * Takes a blue Pos and makes it the opposite one. Only flips across center line
      * @param bluePoses This is the pose2ds of blue alliance to be calculated on.
      * @return Returns the pose2d for the other side of field
      */
-    private static Pose2d[] setAlliance(Alliance alliance, Pose2d[] bluePoses) {
+    public static Pose2d[] setAlliance(Alliance alliance, Pose2d[] bluePoses) {
         if ( alliance == Alliance.Blue )
         {
             return bluePoses;

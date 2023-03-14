@@ -394,4 +394,10 @@ public class FieldConstants
         new Pose2d(14.895, 2.761, Rotation2d.fromDegrees(0)), /* DRIVER ORIENTED Red center */
         new Pose2d(14.895, 4.402, Rotation2d.fromDegrees(0)) /* DRIVER ORIENTED Red right */
     };
+    public static class AutoLocations {
+        public static final Pose2d OUTER_GRID = new Pose2d();
+        public static final Pose2d OUTER_GRID_DISTANCE = new Pose2d();
+        public static final Pose2d INNER_GRID = new Pose2d();
+        public static final Pose2d INNER_GRID_DISTANCE = new Pose2d();
+    }
 }
