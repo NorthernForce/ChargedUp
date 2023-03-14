@@ -17,9 +17,8 @@ public class TurnToCoordinates extends PIDCommand {
   /**
    * Creates a new TurnToCoordinates.
    * @param coords The coordinates of the thing to align with
-   * @param speed The speed to turn at
    */
-  public TurnToCoordinates(Translation2d coords, double speed) {
+  public TurnToCoordinates(Translation2d coords) {
     super(
       new PIDController(
         2e-2,
