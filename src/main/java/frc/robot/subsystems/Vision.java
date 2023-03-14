@@ -7,8 +7,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.util.CameraWrapper;
-import frc.robot.util.LimelightWrapper;
+import frc.lib.cameras.CameraWrapper;
+import frc.lib.cameras.LimelightWrapper;
 
 public class Vision extends SubsystemBase {
   private final List<CameraWrapper> cameras;

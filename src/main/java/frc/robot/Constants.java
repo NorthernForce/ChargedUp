@@ -1,12 +1,15 @@
 package frc.robot;
 
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.util.DynamicTransform3d;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -17,6 +20,24 @@ import frc.robot.util.DynamicTransform3d;
  */
 
 public final class Constants {
+    /**
+     * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
+     * Units does not matter as long as consistent. That said, this programming repository prefers to operate in the metric system in code.
+     * @param armHeight The height of the arm fulcrum off of the same surface as the target, ideally the floor
+     * @param armLength The length of the arm from fulcrum to wrist fulcrum.
+     * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
+     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation. Off of the floor.
+     * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
+     * @param armToCenter the amount of units that the arm is in front of the center of the robot
+     * @return a pair of distance to the target, as well as the ideal angle
+     */
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter)
+    {
+        double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+        Rotation2d armAngle = Rotation2d.fromRadians(Math.asin(heightDiff / armLength));
+        double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+        return new Pair<Double,Rotation2d>(targetDistance, armAngle);
+    }
     /** Drive Constants */
     public static class DrivetrainConstants
     {
@@ -136,6 +157,8 @@ public final class Constants {
         public static final double kFF = 0.0; // TODO
         public static final double ANGLE_TOLERANCE = 1.0; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-45);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(205);
     }
     /** Gripper Constants */
     public static class GripperConstants

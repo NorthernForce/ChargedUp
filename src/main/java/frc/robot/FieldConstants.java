@@ -1,13 +1,11 @@
 package frc.robot;
 
-import java.util.List;
+import java.io.IOException;
 
-import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 
@@ -377,60 +375,14 @@ public class FieldConstants
             0
         )
     };
-    public static final AprilTagFieldLayout APRILTAG_LAYOUT = new AprilTagFieldLayout(
-        List.of(
-            new AprilTag(1, new Pose3d(
-                Units.inchesToMeters(610.77),
-                Units.inchesToMeters(42.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(2, new Pose3d(
-                Units.inchesToMeters(610.77),
-                Units.inchesToMeters(108.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(3, new Pose3d(
-                Units.inchesToMeters(610.77),
-                Units.inchesToMeters(174.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(4, new Pose3d(
-                Units.inchesToMeters(636.96),
-                Units.inchesToMeters(265.74),
-                Units.inchesToMeters(27.38),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(5, new Pose3d(
-                Units.inchesToMeters(14.25),
-                Units.inchesToMeters(265.74),
-                Units.inchesToMeters(27.38),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(6, new Pose3d(
-                Units.inchesToMeters(40.45),
-                Units.inchesToMeters(174.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(7, new Pose3d(
-                Units.inchesToMeters(40.45),
-                Units.inchesToMeters(108.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            )),
-            new AprilTag(8, new Pose3d(
-                Units.inchesToMeters(40.45),
-                Units.inchesToMeters(42.19),
-                Units.inchesToMeters(18.22),
-                new Rotation3d(0, 0, Math.toRadians(180))
-            ))
-        ), 
-        16.4846, 
-        8.1026
-    );
+    public static AprilTagFieldLayout APRILTAG_LAYOUT;
+    static {
+        try {
+            APRILTAG_LAYOUT = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /** DRIVER ORIENTED */
     public static final Pose2d[] BLUE_POSES = new Pose2d[] {
         new Pose2d(1.693, 4.402, Rotation2d.fromDegrees(180)),  /* DRIVER ORIENTED Blue left */

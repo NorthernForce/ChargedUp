@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,6 +17,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
   private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
+  private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
   /** Creates a new Wrist. */
   public Wrist() {
     srx.configClosedLoop(
@@ -26,6 +28,10 @@ public class Wrist extends SubsystemBase {
     srx.configSelectedSlot(0, 0);
     srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
+    kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
+    kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
+    kIEntry = Shuffleboard.getTab("Arm").add("Wrist - kI", Constants.WristConstants.kI).getEntry();
+    kDEntry = Shuffleboard.getTab("Arm").add("Wrist - kD", Constants.WristConstants.kD).getEntry();
   }
   /**
    * Returns angle off of the line of the arm
@@ -59,8 +65,24 @@ public class Wrist extends SubsystemBase {
   {
     srx.set(percent);
   }
+  /**
+   * Calibrates the wrist CANCoder with a known angle
+   * @param angle the known angle
+   */
+  public void calibrate(Rotation2d angle)
+  {
+    canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
+  }
   @Override
   public void periodic()
   {
+    srx.configClosedLoop(
+      0, 
+      0, 
+      kFEntry.getDouble(Constants.WristConstants.kF),
+      kPEntry.getDouble(Constants.WristConstants.kP),
+      kIEntry.getDouble(Constants.WristConstants.kI),
+      kDEntry.getDouble(Constants.WristConstants.kD)
+    );
   }
 }
