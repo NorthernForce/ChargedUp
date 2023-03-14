@@ -19,7 +19,7 @@ public class DriveDistanceFromCoordinates extends ProfiledPIDCommand {
   public DriveDistanceFromCoordinates(double distance, Translation2d coordinates) {
     super(
       new ProfiledPIDController(
-        2e-1, 2e-2, 0, new Constraints(Constants.MAX_SPEED, Constants.MAX_ACCELERATION)
+        2e-1, 2e-2, 0, new Constraints(Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION)
       ),
       () -> navigation.getPose2d().getTranslation().getDistance(coordinates),
       distance,
