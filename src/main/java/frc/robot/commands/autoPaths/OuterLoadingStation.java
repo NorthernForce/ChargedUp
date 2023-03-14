@@ -7,7 +7,7 @@ package frc.robot.commands.autoPaths;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
 import frc.robot.commands.autoComponents.DriveToLocation;
-import frc.robot.commands.autoComponents.DriveToLocation;
+import frc.robot.commands.autoComponents.PidDriveToPoint;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,7 +18,8 @@ public class OuterLoadingStation extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      DriveToLocation(FieldConstants.AutoLocations.OUTER_GRID_DISTANCE),
+      new PidDriveToPoint(FieldConstants.AutoLocations.OUTER_GRID_DISTANCE, 1, 1),
+      new PidDriveToPoint(FieldConstants.AutoLocations.OUTER_GRID, 0, 0)
 
     );
   }
