@@ -35,6 +35,6 @@ public class SetWristAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(armRotate.getAngle().minus(targetAngle).getDegrees()) < Constants.ARM_ANGLE_TOLERANCE;
+    return Math.abs(armRotate.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
   }
 }
