@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroup;
+import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -54,6 +55,11 @@ public class Drivetrain extends SubsystemBase
   public void setSpeedProportions(double speedProportion, double rotationSpeedProportion) {
     this.speedProportion = speedProportion;
     this.rotationSpeedProportion = rotationSpeedProportion;
+  }
+  public MotorGroupTalonFX[] getMotorGroupsFX() {
+    return leftSide instanceof MotorGroupTalonFX 
+    ? new MotorGroupTalonFX[] {(MotorGroupTalonFX)leftSide, (MotorGroupTalonFX)rightSide}
+    : new MotorGroupTalonFX[] {};
   }
   /**
    * Gets the forward speed proportion

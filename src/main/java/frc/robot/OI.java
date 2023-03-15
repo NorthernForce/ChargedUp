@@ -18,6 +18,7 @@ import frc.robot.commands.SetArmAngle;
 
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
+import frc.robot.commands.PlayOrchestra;
 import frc.robot.commands.RetractArm;
 
 /** Add your docs here. */
@@ -62,5 +63,7 @@ public class OI {
             .whileTrue(new LEDPurple());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new LEDYellow());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .toggleOnTrue(new PlayOrchestra("test", RobotContainer.drivetrain.getMotorGroupsFX()));
     }
 }
