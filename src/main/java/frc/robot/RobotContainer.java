@@ -79,6 +79,11 @@ import frc.robot.subsystems.PCM;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
 import frc.robot.util.RobotChooser;
+import frc.robot.Constants;
+import static frc.robot.Constants.ArmConstants;
+import static frc.robot.Constants.GripperConstants;
+import static frc.robot.Constants.WristConstants;
+import static frc.robot.Constants.PiceConstants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
