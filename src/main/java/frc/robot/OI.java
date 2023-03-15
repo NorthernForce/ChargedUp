@@ -44,14 +44,15 @@ public class OI {
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
             () -> -manipulatorController.getLeftY(),
-            () -> -manipulatorController.getRightY()
+            () -> -manipulatorController.getRightX(),
+            () -> manipulatorController.getRightY()
         };
     }
     /** Binds the buttons of the OI */
     public void bindButtons() {
-        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+        new JoystickButton(manipulatorController, XboxController.Button.kRightBumper.value)
             .onTrue(new ExtendArm());
-        new JoystickButton(manipulatorController, XboxController.Axis.kRightTrigger.value)
+        new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
         new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
             .whileTrue(new RunConeIntake());
