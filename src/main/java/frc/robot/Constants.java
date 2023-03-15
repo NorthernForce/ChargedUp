@@ -19,7 +19,7 @@ import frc.robot.util.DynamicTransform3d;
  * constants are needed, to reduce verbosity.
  */
 
- 
+//  Constants.calculateArmAngleAndDistance(ArmConstants.ORIGIN.getZ(), ArmConstants.RETRACTED_LENGTH, GripperConstants.FOLCRUM_TO_CUBE, WristConstants.FLOOR_CONE_PICKUP_ANGLE, PiceConstants.CONE_HEIGHT, ArmConstants.ORIGIN.getX());
 
 public final class Constants {
     /**
@@ -253,6 +253,8 @@ public final class Constants {
         public static final double FULCRUM_TO_CUBE = Units.inchesToMeters(9); // 9" cube
         public static final double INTAKE_TIME = 0.5;
         public static final double OUTTAKE_TIME = 0.5;
+        public static final double FOLCRUM_TO_CONE = Units.inchesToMeters(14.5); // 14.5" cone
+        public static final double FOLCRUM_TO_CUBE = Units.inchesToMeters(9); // 9" cube
         
     }
     /** Compressor Constants */
