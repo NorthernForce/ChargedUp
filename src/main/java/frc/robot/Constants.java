@@ -19,6 +19,8 @@ import frc.robot.util.DynamicTransform3d;
  * constants are needed, to reduce verbosity.
  */
 
+//  Constants.calculateArmAngleAndDistance(ArmConstants.ORIGIN.getZ(), ArmConstants.RETRACTED_LENGTH, GripperConstants.FOLCRUM_TO_CUBE, WristConstants.FLOOR_CONE_PICKUP_ANGLE, PiceConstants.CONE_HEIGHT, ArmConstants.ORIGIN.getX());
+
 public final class Constants {
     /**
      * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
@@ -58,6 +60,10 @@ public final class Constants {
         public static final double FAST_SPEED_ROTATION = 0.75;
         public static final double SLOW_SPEED_FORWARD = 0.25;
         public static final double SLOW_SPEED_ROTATION = 0.4;
+    }
+    public static class PiceConstants {
+        public static final double CONE_HEIGHT = Units.inchesToMeters(13); //TODO
+        public static final double CUBE_HEIGHT = Units.inchesToMeters(9.5); //TODO
     }
     /** Navigation Constants */
     public static class NavigationConstants
@@ -166,6 +172,9 @@ public final class Constants {
         public static final int MOTOR_ID = 9;
         public static final double CONE_INTAKE_SPEED = -1.0; // TODO
         public static final double CONE_OUTTAKE_SPEED = 1.0; // TODO
+        public static final double FOLCRUM_TO_CONE = Units.inchesToMeters(14.5); // 14.5" cone
+        public static final double FOLCRUM_TO_CUBE = Units.inchesToMeters(9); // 9" cube
+        
     }
     /** Compressor Constants */
     public static class CompressorConstants
@@ -190,5 +199,9 @@ public final class Constants {
         public static final double kD = 0.0; // TODO
         // Feedforward or gravity Gain
         public static final double kFF = 0.0; // TODO
+
+        // these angles are field relative
+        public static final Rotation2d FLOOR_CONE_PICKUP_ANGLE = Rotation2d.fromDegrees(0); //TODO
+        public static final Rotation2d FLOOR_CUBE_PICKUP_ANGLE = Rotation2d.fromDegrees(0); //TODO
     }
 }
