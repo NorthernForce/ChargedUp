@@ -19,7 +19,7 @@ import frc.robot.util.DynamicTransform3d;
  * constants are needed, to reduce verbosity.
  */
 
-//  Constants.calculateArmAngleAndDistance(ArmConstants.ORIGIN.getZ(), ArmConstants.RETRACTED_LENGTH, GripperConstants.FOLCRUM_TO_CUBE, WristConstants.FLOOR_CONE_PICKUP_ANGLE, PiceConstants.CONE_HEIGHT, ArmConstants.ORIGIN.getX());
+ 
 
 public final class Constants {
     /**
@@ -61,6 +61,17 @@ public final class Constants {
         public static final double SLOW_SPEED_FORWARD = 0.25;
         public static final double SLOW_SPEED_ROTATION = 0.4;
     }
+    /** Angle and distance pairs*/
+    public static class AnglesAndDistances {
+        public static final Pair<Double, Rotation2d> FLOOR_CONE = calculateArmAngleAndDistance(
+            ArmConstants.ORIGIN.getZ(), 
+            ArmConstants.RETRACTED_LENGTH, 
+            GripperConstants.FULCRUM_TO_CUBE, 
+            WristConstants.FLOOR_CONE_PICKUP_ANGLE, 
+            PiceConstants.CONE_HEIGHT, 
+            ArmConstants.ORIGIN.getX());
+    }
+    /** Pice dimensions constants*/
     public static class PiceConstants {
         public static final double CONE_HEIGHT = Units.inchesToMeters(13); //TODO
         public static final double CUBE_HEIGHT = Units.inchesToMeters(9.5); //TODO
@@ -172,8 +183,8 @@ public final class Constants {
         public static final int MOTOR_ID = 9;
         public static final double CONE_INTAKE_SPEED = -1.0; // TODO
         public static final double CONE_OUTTAKE_SPEED = 1.0; // TODO
-        public static final double FOLCRUM_TO_CONE = Units.inchesToMeters(14.5); // 14.5" cone
-        public static final double FOLCRUM_TO_CUBE = Units.inchesToMeters(9); // 9" cube
+        public static final double FULCRUM_TO_CONE = Units.inchesToMeters(14.5); // 14.5" cone
+        public static final double FULCRUM_TO_CUBE = Units.inchesToMeters(9); // 9" cube
         
     }
     /** Compressor Constants */
