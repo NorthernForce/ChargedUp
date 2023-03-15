@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.Motors.MotorGroupTalonFX;
 import frc.robot.Constants;
@@ -37,8 +38,8 @@ public class ArmRotate extends SubsystemBase {
 
     rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
     rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
-    rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-
+    rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+    rotateEncoder.setPositionToAbsolute();
     talonGroup.linkAndUseCANCoder(rotateEncoder);
     talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT.minus(Rotation2d.fromDegrees(90)), Constants.ArmConstants.FORWARD_LIMIT.minus(Rotation2d.fromDegrees(90)));
 
@@ -87,6 +88,8 @@ public class ArmRotate extends SubsystemBase {
   public void calibrate(Rotation2d position)
   {
     rotateEncoder.configMagnetOffset(-rotateEncoder.getAbsolutePosition());
+    rotateEncoder.setPosition(0);
+
   }
   @Override
   public void periodic() {
@@ -98,5 +101,13 @@ public class ArmRotate extends SubsystemBase {
       kIEntry.getDouble(Constants.ArmConstants.kI),
       kDEntry.getDouble(Constants.ArmConstants.kD)
     );
+  }
+  /**
+   * Gets the current velocity of the rotating joint
+   * @return arm velocity
+   */
+  public Rotation2d getVelocity()
+  {
+    return Rotation2d.fromRotations(talonGroup.getEncoderRPS());
   }
 } 
