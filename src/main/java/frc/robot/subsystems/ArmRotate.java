@@ -101,9 +101,13 @@ public class ArmRotate extends SubsystemBase {
       kIEntry.getDouble(Constants.ArmConstants.kI),
       kDEntry.getDouble(Constants.ArmConstants.kD)
     );
-    SmartDashboard.putNumber("Absolute", rotateEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("RElative", rotateEncoder.getPosition());
-    SmartDashboard.putNumber("Talon group linked", talonGroup.getEncoderRotations());
-    SmartDashboard.putNumber("num", talonGroup.getAllMotors().get(0).getSelectedSensorPosition());
+  }
+  /**
+   * Gets the current velocity of the rotating joint
+   * @return arm velocity
+   */
+  public Rotation2d getVelocity()
+  {
+    return Rotation2d.fromRotations(talonGroup.getEncoderRPS());
   }
 } 
