@@ -151,14 +151,14 @@ public final class Constants {
             Units.inchesToMeters(26.5)
         );
         public static final double kP = 0.0; // TODO
-        public static final double kF = 0.0; // TODO
+        public static final double kF = 0.1; // TODO
         public static final double kI = 0.0; // TODO
         public static final double kD = 0.0; // TODO
         public static final double kFF = 0.0; // TODO
         public static final double ANGLE_TOLERANCE = 1.0; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
-        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-45);
-        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(205);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-40);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
     }
     /** Gripper Constants */
     public static class GripperConstants
