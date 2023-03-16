@@ -55,7 +55,7 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
         new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
-            .whileTrue(new RunConeIntake());
+            .whileTrue(new RunConeOuttake());
         new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
             .whileTrue(new RunConeIntake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
