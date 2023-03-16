@@ -4,6 +4,8 @@
 
 package frc.robot.chassis;
 
+import java.util.List;
+
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Pose3d;
@@ -13,6 +15,8 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.lib.Motors.MotorGroup;
 import frc.lib.Motors.MotorGroupSpark;
+import frc.lib.cameras.PhotonCameraWrapper;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 /** Chassis specific details about squishy. */
@@ -32,10 +36,19 @@ public class SquishyChassis implements ChassisBase {
     public String getChassisName() {
         return "Squishy";
     }
+    public List<PhotonCameraWrapper> getPhotonCameras() {
+        return List.of(
+            new PhotonCameraWrapper(CameraLocations.LEFT_NAME, CameraLocations.LEFT),
+            new PhotonCameraWrapper(CameraLocations.LEFT_FORWARD_NAME, CameraLocations.LEFT_FORWARD),
+            new PhotonCameraWrapper(CameraLocations.RIGHT_NAME, CameraLocations.RIGHT)
+          );
+    }
+
     public static final int LEFT_PRIMARY_ID = 1;
     public static final int RIGHT_PRIMARY_ID = 2;
     public static final int LEFT_FOLLOWER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
+    
     public static class CameraLocations {
         public static final String LEFT_NAME = "Left";
         public static final double LEFT_X = Units.inchesToMeters(1.5);

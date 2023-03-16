@@ -4,9 +4,12 @@
 
 package frc.robot.chassis;
 
+import java.util.List;
+
 import edu.wpi.first.math.util.Units;
 import frc.lib.Motors.MotorGroup;
 import frc.lib.Motors.MotorGroupTalonFX;
+import frc.lib.cameras.PhotonCameraWrapper;
 import frc.robot.subsystems.Drivetrain;
 
 
@@ -26,6 +29,10 @@ public class MaxwellChassis implements ChassisBase {
     public String getChassisName() {
         return "Maxwell";
     }
+    public List<PhotonCameraWrapper> getPhotonCameras()
+    {
+        return null;
+    };
     public static final int LEFT_PRIMARY_ID = 1;
     public static final int RIGHT_PRIMARY_ID = 2;
     public static final int LEFT_FOLLOWER_ID = 3;
