@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
@@ -78,6 +79,8 @@ import static frc.robot.Constants.ArmConstants;
 import static frc.robot.Constants.GripperConstants;
 import static frc.robot.Constants.WristConstants;
 import static frc.robot.Constants.PiceConstants;
+import frc.robot.commands.autoComponents.PositionWithTarget;
+import static frc.robot.Constants.AnglesAndDistances;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
