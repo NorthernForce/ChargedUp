@@ -43,6 +43,8 @@ import static frc.robot.Constants.ArmConstants;
 import static frc.robot.Constants.GripperConstants;
 import static frc.robot.Constants.WristConstants;
 import static frc.robot.Constants.PiceConstants;
+import frc.robot.commands.autoComponents.PositionWithTarget;
+import static frc.robot.Constants.AnglesAndDistances;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -111,7 +113,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2))
-        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PICKUP_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
         .andThen(new Stop(0.1))
