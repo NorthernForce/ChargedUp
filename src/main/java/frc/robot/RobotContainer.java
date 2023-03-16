@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
@@ -31,6 +32,8 @@ import static frc.robot.Constants.ArmConstants;
 import static frc.robot.Constants.GripperConstants;
 import static frc.robot.Constants.WristConstants;
 import static frc.robot.Constants.PiceConstants;
+import frc.robot.commands.autoComponents.PositionWithTarget;
+import static frc.robot.Constants.AnglesAndDistances;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -78,8 +81,12 @@ public class RobotContainer {
     {
       autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
         .andThen(new Stop(0.1))
+        .andThen(new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond().plus(WristConstants.CONE_OVERSHOOT), WristConstants.FLOOR_CUBE_PICKUP_ANGLE, false))
+        .andThen(new RunConeOuttake())
+        .andThen(new SetArmAngle(armRotate.getAngle().minus(WristConstants.CUBE_DROPDOWN)))
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
+        .andThen(new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), WristConstants.FLOOR_CUBE_PICKUP_ANGLE, false))
         .andThen(new DriveAlongPath("Red1ToPiece2"))
         .andThen(new Stop(0.2))
         .andThen(new DriveAlongPath("Piece2ToRed1"))
