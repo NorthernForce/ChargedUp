@@ -12,7 +12,9 @@ import frc.robot.Constants;
 import frc.lib.Motors.MotorGroupTalonSRX;
 import static frc.robot.RobotContainer.*;
 
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
@@ -26,6 +28,9 @@ public class Wrist extends SubsystemBase {
       Constants.WristConstants.kI, Constants.WristConstants.kD
     );
     srx.configSelectedSlot(0, 0);
+    canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+    canCoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+    canCoder.setPositionToAbsolute();
     srx.linkAndUseCANCoder(canCoder);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
@@ -72,6 +77,7 @@ public class Wrist extends SubsystemBase {
   public void calibrate(Rotation2d angle)
   {
     canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
+    canCoder.setPosition(0);
   }
   @Override
   public void periodic()
