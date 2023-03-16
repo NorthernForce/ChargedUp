@@ -102,7 +102,7 @@ public final class Constants {
             ArmConstants.ORIGIN.getZ(), 
             ArmConstants.RETRACTED_LENGTH, 
             GripperConstants.FULCRUM_TO_CUBE, 
-            WristConstants.FLOOR_CUBE_PLACEMENT_ANGLE,
+            WristConstants.LOW_CUBE_PLACEMENT_ANGLE,
             PiceConstants.CUBE_HEIGHT, 
             ArmConstants.ORIGIN.getX()
         );
@@ -127,7 +127,7 @@ public final class Constants {
             ArmConstants.ORIGIN.getZ(), 
             ArmConstants.RETRACTED_LENGTH, 
             GripperConstants.FULCRUM_TO_CUBE, 
-            WristConstants.FLOOR_CONE_PLACEMENT_ANGLE,
+            WristConstants.LOW_CONE_PLACEMENT_ANGLE,
             PiceConstants.CONE_HEIGHT, 
             ArmConstants.ORIGIN.getX()
         );
@@ -290,11 +290,11 @@ public final class Constants {
         // placement angles
         public static final Rotation2d HIGH_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
         public static final Rotation2d MID_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
-        public static final Rotation2d FLOOR_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
+        public static final Rotation2d LOW_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
         
         public static final Rotation2d HIGH_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
         public static final Rotation2d MID_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
-        public static final Rotation2d FLOOR_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
+        public static final Rotation2d LOW_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
 
         //overshot and dropdowns
         public static final Rotation2d CUBE_OVERSHOOT = Rotation2d.fromDegrees(20); // TODO
