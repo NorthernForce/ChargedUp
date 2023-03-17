@@ -181,9 +181,9 @@ public final class Constants {
         public static final int CANCODER_ID = 12;
         public static final double GEAT_RATIO = 0.0; // TODO
         // Static gain
-        public static final double kF = 2.0; // TODO
+        public static final double kF = 0.0; // TODO
         // Proportion
-        public static final double kP = 0.0; // TODO
+        public static final double kP = 2.0; // TODO
         // Integral
         public static final double kI = 0.0; // TODO
         // Derivative
