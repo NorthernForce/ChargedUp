@@ -298,9 +298,9 @@ public final class Constants {
         public static final Rotation2d FLOOR_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0); //TODO
 
         //overshot and dropdowns
-        public static final Rotation2d CUBE_OVERSHOOT = Rotation2d.fromDegrees(0);
-        public static final Rotation2d CONE_OVERSHOOT = Rotation2d.fromDegrees(0);
-        public static final Rotation2d CUBE_DROPDOWN = Rotation2d.fromDegrees(0);
-        public static final Rotation2d CONE_DROPDOWN = Rotation2d.fromDegrees(0);
+        public static final Rotation2d CUBE_OVERSHOOT = Rotation2d.fromDegrees(20); // TODO
+        public static final Rotation2d CONE_OVERSHOOT = Rotation2d.fromDegrees(20); // TODO
+        public static final Rotation2d CUBE_DROPDOWN = Rotation2d.fromDegrees(10); // TODO
+        public static final Rotation2d CONE_DROPDOWN = Rotation2d.fromDegrees(10); // TODO
     }   
 }
