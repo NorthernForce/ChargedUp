@@ -18,4 +18,14 @@ public class EmptyManipulatingState implements ManipulatingState {
     public double getWristDistance() {
         return 0;
     }
+
+    @Override
+    public double getIntakeSetSpeed() {
+        return 0;
+    }
+
+    @Override
+    public double getOuttakeSpeed() {
+        return 0;
+    }
 }

@@ -5,6 +5,9 @@ import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
+import frc.robot.states.manipulatingstate.EmptyManipulatingState;
+import frc.robot.states.manipulatingstate.ManipulatingState;
+import frc.robot.states.manipulatingstate.ManipulatingStateContainer;
 import frc.robot.commands.CalibrateArm;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.CalibrateWrist;
@@ -37,7 +40,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
 
+  /** State objects */
   public static final ChassisBase activeChassis = RobotChooser.getChassis();
+  public static final ManipulatingStateContainer manipulatingState = new ManipulatingStateContainer();
+
+  /** Subsystem Objects */
   public static final ArmRotate armRotate =  new ArmRotate();
   public static final ArmTelescope armTelescope = new ArmTelescope();
   public static final PCM pcm = new PCM();
@@ -48,6 +55,8 @@ public class RobotContainer {
   public static final Navigation navigation = new Navigation();
   public static final Vision vision = new Vision();
   public static final Wrist wrist = new Wrist();
+
+  /** Private Objects */
   private final SendableChooser<Command> autonomousChooser;
   private final SendableChooser<Pose2d> startingLocationChooser;
   private final OI oi = new OI();

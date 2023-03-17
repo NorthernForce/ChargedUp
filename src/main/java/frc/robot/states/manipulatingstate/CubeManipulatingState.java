@@ -19,4 +19,14 @@ public class CubeManipulatingState implements ManipulatingState {
     public double getWristDistance() {
         return Units.inchesToMeters(9);
     }
+
+    @Override
+    public double getIntakeSetSpeed() {
+        return 1.0;
+    }
+
+    @Override
+    public double getOuttakeSpeed() {
+        return -1.0;
+    }
 }
