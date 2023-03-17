@@ -45,7 +45,7 @@ public class OI {
             return new DoubleSupplier[] {
             () -> -manipulatorController.getLeftY(),
             () -> -manipulatorController.getRightX(),
-            () -> manipulatorController.getRightY()
+            () -> -manipulatorController.getRightY()
         };
     }
     /** Binds the buttons of the OI */

@@ -31,6 +31,8 @@ public class Wrist extends SubsystemBase {
     canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     canCoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
     canCoder.setPositionToAbsolute();
+    canCoder.configSensorDirection(true);
+    srx.setInverted(true);
     srx.linkAndUseCANCoder(canCoder);
     srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
@@ -70,6 +72,10 @@ public class Wrist extends SubsystemBase {
   public void setPercent(double percent)
   {
     srx.set(percent);
+  }
+  public Rotation2d getVelocity()
+  {
+    return Rotation2d.fromRotations(srx.getEncoderRPS());
   }
   /**
    * Calibrates the wrist CANCoder with a known angle
