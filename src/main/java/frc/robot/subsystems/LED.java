@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 
+import static frc.robot.RobotContainer.manipulatingState;
+
 public class LED extends SubsystemBase {
   private final AddressableLED led = new AddressableLED(Constants.LEDConstants.PORT);
   private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(Constants.LEDConstants.NUM_LEDS);
@@ -52,6 +54,12 @@ public class LED extends SubsystemBase {
   public void setPink() {
     for (int i = 0; i < buffer.getLength(); i++) {
       buffer.setHSV(i, 178, 255, 255);
+    }
+    led.setData(buffer);
+  }
+  public void setFromManipulatingState() {
+    for (int i = 0; i < buffer.getLength(); i++) {
+      buffer.setLED(i, manipulatingState.getCurrentState().getColor());
     }
     led.setData(buffer);
   }
