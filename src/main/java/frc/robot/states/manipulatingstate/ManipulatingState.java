@@ -4,6 +4,8 @@
 
 package frc.robot.states.manipulatingstate;
 
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
 
 /** Add your docs here. */
@@ -20,6 +22,23 @@ public interface ManipulatingState {
      * @return distance in meters
      */
     public double getWristDistance();
+
+    /**
+     * Returns the height that the arm needs to go to for the loading stations
+     * @return height in meters
+     */
+    public double getLoadingShelfHeight();
+
+    /**
+     * Returns the angle to set the wrist at when loading pieces from the shelf.
+     * @return Angle stored in Rotation2d
+     */
+    public Rotation2d getLoadingShelfWristAngle();
+
+    // Get the distance and arm angle we need to be in to pick up
+    public Pair<Double, Rotation2d> getLoadingStationApproachPosition();
+
+    public Pair<Double, Rotation2d> getLoadingStationPickUpPosition();
 
     /**
      * Returns the speed that the intake motors should be run at

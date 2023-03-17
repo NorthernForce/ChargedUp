@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.commands.Intake;
-import frc.robot.commands.RetractArm;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.PidDriveToPoint;
 import frc.robot.commands.autoComponents.PositionWithTarget;
@@ -21,29 +20,27 @@ import static frc.robot.RobotContainer.manipulatingState;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class OuterLoadingStation extends SequentialCommandGroup {
-  /** Creates a new OuterLoadingStation. */
-  public OuterLoadingStation() {
+public class InnerLoadingStation extends SequentialCommandGroup {
+  /** Creates a new InnerLoadingStation. */
+  public InnerLoadingStation() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-
     Pair<Double, Rotation2d> distanceAngle = manipulatingState.getCurrentState().getLoadingStationApproachPosition();
 
     addCommands(
-      new PidDriveToPoint(FieldConstants.AutoLocations.OUTER_GRID_DISTANCE, 1, 1),
+      new PidDriveToPoint(FieldConstants.AutoLocations.INNER_GRID_DISTANCE, 1, 1),
       new PositionWithTarget(
-        FieldConstants.AutoLocations.OUTER_GRID.getTranslation(), 
+        FieldConstants.AutoLocations.INNER_GRID.getTranslation(), 
         distanceAngle.getFirst(), 
         distanceAngle.getSecond(), 
         manipulatingState.getCurrentState().getLoadingShelfWristAngle(), 
         true),
       new Intake().raceWith(
-        new SetArmAngle(
-          manipulatingState.getCurrentState().getLoadingStationPickUpPosition().getSecond()
-          )
-        )
-      // new Intake().raceWith(new SetArmAngle(Rotation2d.fromDegrees(90))), // ARM UP
-      // new RetractArm()
+          new SetArmAngle(
+              manipulatingState.getCurrentState().getLoadingStationPickUpPosition().getSecond()) /** ARM DOWN */)
+    //   let the drivers do this part since we're not sure about it without being able to test it
+    //   new Intake().raceWith(new SetArmAngle(Rotation2d.fromDegrees(90))),  // ARM UP
+    //   new RetractArm()
     );
   }
 }

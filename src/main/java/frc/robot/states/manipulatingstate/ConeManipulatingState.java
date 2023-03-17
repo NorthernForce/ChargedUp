@@ -4,6 +4,11 @@
 
 package frc.robot.states.manipulatingstate;
 
+import org.opencv.core.RotatedRect;
+
+import frc.robot.Constants;
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -18,6 +23,38 @@ public class ConeManipulatingState implements ManipulatingState {
     @Override
     public double getWristDistance() {
         return Units.inchesToMeters(14.5);
+    }
+
+    @Override
+    public double getLoadingShelfHeight() {
+        return 0;
+    }
+
+    @Override
+    public Rotation2d getLoadingShelfWristAngle() {
+        return Rotation2d.fromDegrees(0);
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getLoadingStationApproachPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(), 
+            Constants.ArmConstants.EXTENDED_LENGTH, 
+            getWristDistance(), 
+            getLoadingShelfWristAngle(), 
+            getLoadingShelfHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getLoadingStationPickUpPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(), 
+            Constants.ArmConstants.EXTENDED_LENGTH, 
+            getWristDistance(), 
+            getLoadingShelfWristAngle(), 
+            getLoadingShelfHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
     }
 
     @Override

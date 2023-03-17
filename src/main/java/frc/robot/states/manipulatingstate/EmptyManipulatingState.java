@@ -4,6 +4,8 @@
 
 package frc.robot.states.manipulatingstate;
 
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
 
 /** Add your docs here. */
@@ -17,6 +19,26 @@ public class EmptyManipulatingState implements ManipulatingState {
     @Override
     public double getWristDistance() {
         return 0;
+    }
+
+    @Override
+    public double getLoadingShelfHeight() {
+        return 0;
+    }
+    
+    @Override
+    public Rotation2d getLoadingShelfWristAngle() {
+        return null;
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getLoadingStationApproachPosition() {
+        return null;
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getLoadingStationPickUpPosition() {
+        return null;
     }
 
     @Override
