@@ -36,6 +36,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -96,6 +97,35 @@ import static frc.robot.Constants.WristConstants.*;
 import static frc.robot.Constants.PiceConstants;
 import static frc.robot.Constants.AnglesAndDistances;
 import static frc.robot.FieldConstants.*;
+import frc.robot.Constants.AnglesAndDistances;
+import frc.robot.chassis.ChassisBase;
+import frc.robot.commands.CalibrateArm;
+import frc.robot.commands.CalibrateIMU;
+import frc.robot.commands.CalibrateWrist;
+import frc.robot.commands.DefaultWrist;
+import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.LEDInit;
+import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.autoComponents.AutoIntake;
+import frc.robot.commands.autoComponents.AutoOuttake;
+import frc.robot.commands.autoComponents.Balance;
+import frc.robot.commands.autoComponents.DriveAlongPath;
+import frc.robot.commands.autoComponents.PositionWithTarget;
+import frc.robot.commands.autoComponents.Stop;
+import frc.robot.commands.autoPaths.CG_Mob_E;
+import frc.robot.commands.autoPaths.HG_Mob;
+import frc.robot.commands.autoPaths.OG_1PieMob;
+import frc.robot.subsystems.ArmRotate;
+import frc.robot.subsystems.ArmTelescope;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.IMU;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Navigation;
+import frc.robot.subsystems.PCM;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Wrist;
+import frc.robot.util.RobotChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -185,8 +215,9 @@ public class RobotContainer {
         .andThen(new Stop(0.1))
         .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
-      autonomousChooser.addOption("Blue Right 2 Piece",
-      new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+      autonomousChooser.addOption("Blue Right 2 Piece", new DriveAlongPath("Blue3ToPiece4")
+        .andThen(new Stop(0.1))
+        .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue3ToPiece4"))
         .andThen(new Stop(0.1))
