@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Constants.WristConstants;
 
 import static frc.robot.RobotContainer.*;
 
@@ -15,7 +16,12 @@ public class SetWristAngle extends CommandBase {
   /** Creates a new SetWristAngle. */
   public SetWristAngle(Rotation2d targetAngle) {
     addRequirements(wrist);
-    this.targetAngle = targetAngle;
+    this.targetAngle = Rotation2d.fromDegrees(
+      Math.max(
+        Math.min(targetAngle.getRotations(), WristConstants.BACKWARD_LIMIT.getRotations()),
+        WristConstants.FORWARD_LIMIT.getRotations()
+      )
+    );
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
