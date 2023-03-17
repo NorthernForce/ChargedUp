@@ -21,7 +21,7 @@ import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 import static frc.robot.Constants.WristConstants.CUBE_OVERSHOOT;
 import static frc.robot.Constants.WristConstants.FLOOR_CUBE_PICKUP_ANGLE;
-import static frc.robot.Constants.WristConstants.LOW_CUBE_PLACEMENT_ANGLE;
+import static frc.robot.Constants.WristConstants.FLOOR_CUBE_PLACEMENT_ANGLE;
 import static frc.robot.Constants.WristConstants.HIGH_CUBE_PLACEMENT_ANGLE;
 import static frc.robot.Constants.WristConstants.MID_CUBE_PLACEMENT_ANGLE;
 import static frc.robot.FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS;
@@ -94,10 +94,10 @@ import static frc.robot.FieldConstants.*;
 import frc.robot.Constants;
 import static frc.robot.Constants.ArmConstants;
 import static frc.robot.Constants.GripperConstants;
-import static frc.robot.Constants.WristConstants;
+import static frc.robot.Constants.WristConstants.*;
 import static frc.robot.Constants.PiceConstants;
-import frc.robot.commands.autoComponents.PositionWithTarget;
 import static frc.robot.Constants.AnglesAndDistances;
+import static frc.robot.FieldConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -166,7 +166,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece2ToRed1"))
         .andThen(new Stop(0.2))
-        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), LOW_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Left 2 Piece",
         new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
@@ -185,7 +185,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece2ToBlue1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), LOW_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Right 2 Piece",
       new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
@@ -204,7 +204,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece3ToBlue3"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), LOW_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Red Left 2 Piece",
         new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
@@ -223,7 +223,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece3ToRed3"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), LOW_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
     }
     catch (IOException exception)
