@@ -6,20 +6,14 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExtendArm;
-import frc.robot.commands.RunConeIntake;
-import frc.robot.commands.RunConeOuttake;
-import frc.robot.commands.SetArmAngle;
-
-import frc.robot.commands.LEDPurple;
-import frc.robot.commands.LEDYellow;
+import frc.robot.commands.Intake;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
+import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 
 /** Add your docs here. */
@@ -57,9 +51,9 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
         new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
-            .whileTrue(new RunConeOuttake());
+            .whileTrue(new Outtake());
         new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
-            .whileTrue(new RunConeIntake());
+            .whileTrue(new Intake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
