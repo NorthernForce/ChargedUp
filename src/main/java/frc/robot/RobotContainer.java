@@ -27,13 +27,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import static frc.robot.Constants.ArmConstants;
 import static frc.robot.Constants.GripperConstants;
-import static frc.robot.Constants.WristConstants;
+import static frc.robot.Constants.WristConstants.*;
 import static frc.robot.Constants.PiceConstants;
-import frc.robot.commands.autoComponents.PositionWithTarget;
 import static frc.robot.Constants.AnglesAndDistances;
+import static frc.robot.FieldConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -79,18 +80,25 @@ public class RobotContainer {
      */
     try
     {
-      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
+      autonomousChooser.addOption("Red1 to Piece1", 
+        new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+        .andThen(new AutoOuttake())
+        .andThen(new DriveAlongPath("Red1ToPiece1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond().plus(WristConstants.CONE_OVERSHOOT), WristConstants.FLOOR_CUBE_PICKUP_ANGLE, false))
-        .andThen(new RunConeOuttake())
-        .andThen(new SetArmAngle(armRotate.getAngle().minus(WristConstants.CUBE_DROPDOWN)))
+        .andThen(new PositionWithTarget(RED_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond().plus(CUBE_OVERSHOOT), FLOOR_CUBE_PICKUP_ANGLE, false))
+        .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), WristConstants.FLOOR_CUBE_PICKUP_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece2"))
         .andThen(new Stop(0.2))
+        .andThen(new PositionWithTarget(RED_GAME_PIECE_AUTO_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond().plus(CUBE_OVERSHOOT), FLOOR_CUBE_PICKUP_ANGLE, false))
+        .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece2ToRed1"))
-        .andThen(new Stop(0.2)));
+        .andThen(new Stop(0.2))
+        .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
         .andThen(new Stop(0.1))
         .andThen(new DriveAlongPath("Piece1ToBlue1"))
