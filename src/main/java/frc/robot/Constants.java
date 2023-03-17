@@ -181,7 +181,7 @@ public final class Constants {
         public static final int CANCODER_ID = 12;
         public static final double GEAT_RATIO = 0.0; // TODO
         // Static gain
-        public static final double kF = 0.0; // TODO
+        public static final double kF = 2.0; // TODO
         // Proportion
         public static final double kP = 0.0; // TODO
         // Integral
@@ -191,6 +191,6 @@ public final class Constants {
         // Feedforward or gravity Gain
         public static final double kFF = 0.0; // TODO
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-10);
-        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(180);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(190);
     }
 }

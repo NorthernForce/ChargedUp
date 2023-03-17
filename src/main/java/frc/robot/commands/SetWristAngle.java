@@ -14,6 +14,7 @@ public class SetWristAngle extends CommandBase {
   private final Rotation2d targetAngle;
   /** Creates a new SetWristAngle. */
   public SetWristAngle(Rotation2d targetAngle) {
+    addRequirements(wrist);
     this.targetAngle = targetAngle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -35,6 +36,7 @@ public class SetWristAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(armRotate.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
+    return Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
+      && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
   }
 }
