@@ -18,6 +18,8 @@ import frc.robot.commands.SetArmAngle;
 
 import frc.robot.commands.LEDPurple;
 import frc.robot.commands.LEDYellow;
+import frc.robot.commands.ManipulateCone;
+import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.RetractArm;
 
 /** Add your docs here. */
@@ -59,8 +61,8 @@ public class OI {
         new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
             .whileTrue(new RunConeIntake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
-            .whileTrue(new LEDPurple());
+            .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
-            .whileTrue(new LEDYellow());
+            .whileTrue(new ManipulateCube());
     }
 }
