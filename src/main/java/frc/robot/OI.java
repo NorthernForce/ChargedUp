@@ -59,7 +59,6 @@ public class OI {
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
-<<<<<<< HEAD
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
@@ -84,7 +83,5 @@ public class OI {
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
-=======
->>>>>>> 73966de (Configure code to use manipulatingState and add functionality to OI)
     }
 }
