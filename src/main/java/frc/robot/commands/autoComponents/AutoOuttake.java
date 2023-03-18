@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.GripperConstants;
+import frc.robot.commands.Outtake;
 import frc.robot.commands.RunConeIntake;
 import frc.robot.commands.RunConeOuttake;
 import frc.robot.commands.SetArmAngle;
@@ -27,19 +28,8 @@ public class AutoOuttake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetArmAngle(armRotate.getAngle().minus(CUBE_OVERSHOOT)),
-      new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), new RunConeIntake(), new SetArmAngle(armRotate.getAngle().minus(CUBE_DROPDOWN)))
+      new SetArmAngle(armRotate.getAngle().plus(CUBE_OVERSHOOT)),
+      new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), new Outtake())
     );
-  }
-  /** Creates a new Intake. 
-   * @param isCube is the pice a cone?
-  */
-  public AutoOuttake(boolean isCube) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new SetArmAngle(armRotate.getAngle().minus(isCube ? CUBE_OVERSHOOT : CONE_OVERSHOOT)),
-      new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), isCube ? new RunConeIntake() : new RunConeOuttake(), isCube ? new SetArmAngle(armRotate.getAngle().minus(CUBE_DROPDOWN)) : new SetArmAngle(armRotate.getAngle().minus(CONE_DROPDOWN))
-    ));
   }
 }
