@@ -3,6 +3,8 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.ManipulateCone;
+import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
 import frc.robot.states.manipulatingstate.EmptyManipulatingState;
@@ -128,7 +130,8 @@ public class RobotContainer {
     try
     {
       autonomousChooser.addOption("Red Right 2 Piece", 
-        new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+        new ManipulateCube()
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece1"))
         .andThen(new Stop(0.1))
@@ -147,7 +150,8 @@ public class RobotContainer {
         .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Left 2 Piece",
-        new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+        new ManipulateCube()
+        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue1ToPiece1"))
         .andThen(new Stop(0.1))
@@ -166,7 +170,8 @@ public class RobotContainer {
         .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Right 2 Piece",
-      new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+        new ManipulateCube()
+        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue3ToPiece4"))
         .andThen(new Stop(0.1))
@@ -185,7 +190,8 @@ public class RobotContainer {
         .andThen(new PositionWithTarget(BLUE_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Red Left 2 Piece",
-        new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true)
+        new ManipulateCube()
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red3ToPiece4"))
         .andThen(new Stop(0.1))
