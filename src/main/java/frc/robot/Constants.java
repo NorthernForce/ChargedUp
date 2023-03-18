@@ -276,8 +276,8 @@ public final class Constants {
         public static final double kD = 0.0; // TODO
         // Feedforward or gravity Gain
         public static final double kFF = 0.0; // TODO
-        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-10);
-        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(190);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-30);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(170);
 
         // these angles are field relative
         // pickup angle

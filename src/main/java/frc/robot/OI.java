@@ -6,15 +6,22 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AnglesAndDistances;
+import frc.robot.Constants.WristConstants;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.Intake;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
+import frc.robot.commands.SetArmAngle;
+import frc.robot.commands.SetWristAngle;
+import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.ToggleLED;
 
 /** Add your docs here. */
@@ -61,5 +68,11 @@ public class OI {
             .whileTrue(new ManipulateCube());
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(
+                new ParallelCommandGroup(
+                    new SetArmAngle(AnglesAndDistances.MEDIUM_CUBE.getSecond()),
+                    new SetWristAngle(Rotation2d.fromDegrees(-20)),
+                    new ExtendArm()));
     }
 }
