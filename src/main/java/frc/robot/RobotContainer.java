@@ -131,7 +131,7 @@ public class RobotContainer {
     {
       autonomousChooser.addOption("Red Right 2 Piece", 
         new ManipulateCube()
-        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece1"))
         .andThen(new Stop(0.1))
@@ -139,7 +139,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece2"))
         .andThen(new Stop(0.2))
@@ -151,7 +151,7 @@ public class RobotContainer {
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Left 2 Piece",
         new ManipulateCube()
-        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
+        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue1ToPiece1"))
         .andThen(new Stop(0.1))

@@ -25,14 +25,16 @@ public class CG_Mob_E extends SequentialCommandGroup {
       //Push piece of front
       new DriveMeters(0.3, 0, 0.05),
       new DriveMeters(0.55, 0, 0.05),
-      new DriveMeters(-0.55, 0, 0.2),
+      new DriveMeters(-0.7, 0, 0.2),
       //Push piece forward
-      new DriveMeters(0.35, 0, 0.1),
+      new DriveMeters(0.5, 0, 0.1),
       //Exit Community
       new DriveMeters(-0.75, 0, 0.6),
-      new DriveMeters(-0.5, 0, 1.5),
-      new DriveMeters(-0.4, 0, 1),
-      new DriveMeters(0.3, 0, 0.3),
+      new DriveMeters(-0.8, 0, 1.5),
+      new DriveMeters(-0.8, 0, 1.8),
+      new Stop(0.1),
+      new WaitCommand(0.4),
+      new DriveMeters(0.85, 0, 2),
       // Reenter Charge Station
       new Stop(0.05),
       new Balance()
