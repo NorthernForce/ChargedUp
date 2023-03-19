@@ -236,7 +236,7 @@ public final class Constants {
         public static final double kFF = 0.0; // TODO
         public static final double ANGLE_TOLERANCE = 1.0; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
-        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-40);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-48);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
     }
     /** Gripper Constants */
@@ -276,7 +276,7 @@ public final class Constants {
         public static final double kD = 0.0; // TODO
         // Feedforward or gravity Gain
         public static final double kFF = 0.0; // TODO
-        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-30);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-50);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(170);
 
         // these angles are field relative

@@ -47,7 +47,7 @@ public class OI {
      */
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
-            () -> -manipulatorController.getLeftY(),
+            () -> Math.abs(manipulatorController.getLeftY()) > 0.15 ? -manipulatorController.getLeftY() : 0,
             () -> -manipulatorController.getRightX(),
             () -> -manipulatorController.getRightY()
         };
@@ -58,9 +58,9 @@ public class OI {
             .onTrue(new ExtendArm());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
-        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.2)
             .whileTrue(new Outtake());
-        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.2)
             .whileTrue(new Intake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new ManipulateCone());
@@ -71,8 +71,8 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kB.value)
             .whileTrue(
                 new ParallelCommandGroup(
-                    new SetArmAngle(AnglesAndDistances.MEDIUM_CUBE.getSecond()),
-                    new SetWristAngle(Rotation2d.fromDegrees(-20)),
-                    new ExtendArm()));
+                    new SetArmAngle(Rotation2d.fromDegrees(-45)),
+                    new SetWristAngle(Rotation2d.fromDegrees(-40)),
+                    new RetractArm()));
     }
 }
