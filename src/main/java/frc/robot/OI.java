@@ -18,6 +18,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
+import frc.robot.commands.PositionArm;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.SetWristAngle;
@@ -74,5 +75,11 @@ public class OI {
                     new SetArmAngle(AnglesAndDistances.MEDIUM_CUBE.getSecond()),
                     new SetWristAngle(Rotation2d.fromDegrees(-20)),
                     new ExtendArm()));
+        new Trigger(() -> manipulatorController.getPOV() == 180)
+            .whileTrue(new PositionArm(Rotation2d.fromDegrees(-42), Rotation2d.fromDegrees(40), false));
+        new Trigger(() -> manipulatorController.getPOV() == 0)
+            .whileTrue(new PositionArm(Rotation2d.fromDegrees(23), Rotation2d.fromDegrees(-20), true));
+        new Trigger(() -> manipulatorController.getPOV() == 270)
+            .whileTrue(new PositionArm(Rotation2d.fromDegrees(24), Rotation2d.fromDegrees(0), false));
     }
 }
