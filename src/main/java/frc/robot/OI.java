@@ -50,9 +50,9 @@ public class OI {
             .onTrue(new ExtendArm());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
-        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Outtake());
-        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Intake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new ManipulateCone());
