@@ -79,7 +79,7 @@ public class ArmRotate extends SubsystemBase {
    */
   public void setArmSpeed(double speed)
   {
-    talonGroup.setPercent(speed, getAngle().getCos() * Constants.ArmConstants.kFF);
+    talonGroup.setPercent(speed * Math.abs(speed), getAngle().getCos() * Constants.ArmConstants.kFF);
   }
   /**
     * Calibrates the arm magnetic offset to a known point.
