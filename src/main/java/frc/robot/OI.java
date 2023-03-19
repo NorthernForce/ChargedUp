@@ -20,6 +20,7 @@ import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.PositionArm;
 import frc.robot.commands.RetractArm;
+import frc.robot.commands.RumbleManipulator;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.SetWristAngle;
 import frc.robot.commands.autoComponents.*;
@@ -27,8 +28,8 @@ import frc.robot.commands.ToggleLED;
 
 /** Add your docs here. */
 public class OI {
-    private static final XboxController driverController = new XboxController(0);
-    private static final XboxController manipulatorController = new XboxController(1);
+    public static final XboxController driverController = new XboxController(0);
+    public static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
     /**
      * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
@@ -81,5 +82,7 @@ public class OI {
             .whileTrue(new PositionArm(Rotation2d.fromDegrees(23), Rotation2d.fromDegrees(-20), true));
         new Trigger(() -> manipulatorController.getPOV() == 270)
             .whileTrue(new PositionArm(Rotation2d.fromDegrees(24), Rotation2d.fromDegrees(0), false));
+        new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
+                .onTrue(new RumbleManipulator());
     }
 }
