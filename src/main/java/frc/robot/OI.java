@@ -15,11 +15,12 @@ import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
+import frc.robot.commands.RumbleManipulator;
 
 /** Add your docs here. */
 public class OI {
-    private static final XboxController driverController = new XboxController(0);
-    private static final XboxController manipulatorController = new XboxController(1);
+    public static final XboxController driverController = new XboxController(0);
+    public static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
     /**
      * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
@@ -58,5 +59,7 @@ public class OI {
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
+        new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
+                .onTrue(new RumbleManipulator());
     }
 }
