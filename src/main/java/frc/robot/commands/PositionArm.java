@@ -12,7 +12,7 @@ public class PositionArm extends ParallelCommandGroup {
   public PositionArm(Rotation2d armAngle, Rotation2d wristAngle, boolean extendArm) {
     addCommands(
       new SetArmAngle(armAngle),
-      new SetWristAngle(wristAngle),
+     // new SetWristAngle(wristAngle),
       extendArm ? new ExtendArm() : new RetractArm()
     );
   }
