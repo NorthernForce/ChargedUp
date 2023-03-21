@@ -36,7 +36,7 @@ public class SetArmAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(armRotate.getAngle().minus(angle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
-      && Math.abs(armRotate.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
+    return Math.abs(armRotate.getAngle().minus(angle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
+     // && Math.abs(armRotate.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
   }
 }
