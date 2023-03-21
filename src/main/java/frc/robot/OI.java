@@ -15,7 +15,9 @@ import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
+import frc.robot.commands.ToggleLED;
 import frc.robot.commands.RumbleManipulator;
+
 
 /** Add your docs here. */
 public class OI {
@@ -59,6 +61,8 @@ public class OI {
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
+        new JoystickButton(manipulatorController, XboxController.Button.kA.value)
+            .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
                 .onTrue(new RumbleManipulator());
     }
