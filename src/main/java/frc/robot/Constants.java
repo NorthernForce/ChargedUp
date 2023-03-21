@@ -151,7 +151,10 @@ public final class Constants {
             Units.inchesToMeters(26.5)
         );
         public static final double kP = 2.0; // TODO
-        public static final double kF = 0.0; // TODO
+        public static final double kMaxCountsPer100MS = 117.16;
+        public static final double kF = (0.85 * 1023) / 117.16;
+        public static final double kInitialVelocity = kMaxCountsPer100MS * 0.6;
+        public static final double kInitialAcceleration = kInitialVelocity * 5;
         public static final double kI = 0.0; // TODO
         public static final double kD = 0.0; // TODO
         public static final double kFF = 0.0; // TODO
