@@ -31,7 +31,7 @@ public class SpeedyChassis implements ChassisBase {
     }
     public List<PhotonCameraWrapper> getPhotonCameras()
     {
-        return null;
+        return List.of();
     };
     public static final int LEFT_PRIMARY_ID = 2;
     public static final int RIGHT_PRIMARY_ID = 1;
