@@ -34,7 +34,7 @@ public class Wrist extends SubsystemBase {
     canCoder.configSensorDirection(true);
     srx.setInverted(true);
     srx.linkAndUseCANCoder(canCoder);
-    srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
+    //srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
