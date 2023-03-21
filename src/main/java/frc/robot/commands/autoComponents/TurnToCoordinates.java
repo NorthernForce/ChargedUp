@@ -8,6 +8,7 @@ package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 import static frc.robot.RobotContainer.*;
@@ -22,13 +23,14 @@ public class TurnToCoordinates extends PIDCommand {
     super(
       new PIDController(
         2e-2,
-        2e-3,
+        0,
         0
       ),
-      () -> navigation.getPose2d().getTranslation().minus(coords).getAngle().getDegrees(),
+      () -> -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees(),
       () -> navigation.getPose2d().getRotation().getDegrees(),
-      (output) -> drivetrain.drive(0, output),
+      (output) -> drivetrain.drive(0, -output),
       drivetrain, navigation);
+      getController().setTolerance(8);
   }
   @Override
   public boolean isFinished()
