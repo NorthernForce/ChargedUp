@@ -16,11 +16,13 @@ import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
+import frc.robot.commands.RumbleManipulator;
+
 
 /** Add your docs here. */
 public class OI {
-    private static final XboxController driverController = new XboxController(0);
-    private static final XboxController manipulatorController = new XboxController(1);
+    public static final XboxController driverController = new XboxController(0);
+    public static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
     /**
      * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
@@ -51,9 +53,9 @@ public class OI {
             .onTrue(new ExtendArm());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
-        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Outtake());
-        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.5)
+        new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Intake());
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new ManipulateCone());
@@ -61,5 +63,7 @@ public class OI {
             .whileTrue(new ManipulateCube());
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
+        new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
+                .onTrue(new RumbleManipulator());
     }
 }
