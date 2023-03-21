@@ -6,17 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.RobotContainer.manipulatingState;
+import static frc.robot.RobotContainer.led;
 
 public class ManipulateCone extends CommandBase {
   /** Creates a new ManipulateCone. */
   public ManipulateCone() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(led);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     manipulatingState.setCone();
+    led.setFromManipulatingState();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
