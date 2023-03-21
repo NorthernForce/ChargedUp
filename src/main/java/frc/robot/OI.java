@@ -64,6 +64,8 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
-                .onTrue(new RumbleManipulator());
+            .onTrue(new RumbleManipulator());
+        new JoystickButton(driverController, XboxController.Button.kBack.value)
+            .onTrue(new ())
     }
 }
