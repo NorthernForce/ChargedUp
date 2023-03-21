@@ -71,7 +71,7 @@ public class ArmRotate extends SubsystemBase {
   */
   public void setAngle(Rotation2d angle, boolean ignoreLimit)
   {
-    talonGroup.setPosition(angle.getRotations() - Constants.ArmConstants.CANCODER_OFFSET, getAngle().getCos() * Constants.ArmConstants.kFF);
+    talonGroup.setMotionMagic(angle.getRotations() - Constants.ArmConstants.CANCODER_OFFSET, getAngle().getCos() * Constants.ArmConstants.kFF);
   }
   /**
    * Set arm angular speed
