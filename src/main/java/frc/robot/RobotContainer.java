@@ -3,6 +3,8 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
+import frc.robot.commands.ManipulateCube;
+import frc.robot.commands.Outtake;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
 import frc.robot.states.manipulatingstate.EmptyManipulatingState;
@@ -19,6 +21,8 @@ import frc.robot.subsystems.*;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -79,7 +83,12 @@ public class RobotContainer {
      */
     try
     {
-      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
+      var data = Constants.calculateArmAngleAndDistance(Constants.ArmConstants.ORIGIN.getZ() + Units.inchesToMeters(9), Constants.ArmConstants.EXTENDED_LENGTH, 9, Rotation2d.fromDegrees(0), FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[5].getZ(), 3);
+      autonomousChooser.addOption("Red1 to Piece1",
+        new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), data.getFirst(), Rotation2d.fromDegrees(29), Rotation2d.fromDegrees(0), true)
+        .andThen(new ManipulateCube())
+        .andThen(new Outtake())
+        .andThen(new DriveAlongPath("Red1ToPiece1"))
         .andThen(new Stop(0.1))
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
