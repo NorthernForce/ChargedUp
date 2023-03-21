@@ -15,7 +15,7 @@ public class ManipulatingStateContainer {
         coneManipulatingState = new ConeManipulatingState();
         cubeManipulatingState = new CubeManipulatingState();
         emptyManipulatingState = new EmptyManipulatingState();
-        currentState = emptyManipulatingState;
+        currentState = cubeManipulatingState;
     }
 
     /**
