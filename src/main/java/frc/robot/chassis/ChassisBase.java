@@ -4,10 +4,14 @@
 
 package frc.robot.chassis;
 
+import java.util.List;
+
+import frc.lib.cameras.PhotonCameraWrapper;
 import frc.robot.subsystems.Drivetrain;
 
 /** This is ChassisBase. It is an interface that allows you to get chassis specifics */
 public interface ChassisBase {
     public Drivetrain getDrivetrain();
     public String getChassisName();
+    public List<PhotonCameraWrapper> getPhotonCameras();
 }

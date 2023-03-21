@@ -22,11 +22,7 @@ import java.util.List;
 /** Simple subsystem to keep track of the current location of the robot. */
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
-  private final List<PhotonCameraWrapper> cameras = List.of(
-    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA1_NAME, Constants.NavigationConstants.CAMERA1_TRANSFORM),
-    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA2_NAME, Constants.NavigationConstants.CAMERA2_TRANSFORM),
-    new PhotonCameraWrapper(Constants.NavigationConstants.CAMERA3_NAME, Constants.NavigationConstants.CAMERA3_TRANSFORM)
-  );
+  private final List<PhotonCameraWrapper> cameras = activeChassis.getPhotonCameras();
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
