@@ -17,7 +17,12 @@ import frc.robot.commands.SetWristAngle;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PositionWithTarget extends ParallelCommandGroup {
-  /** Creates a new PositionWithTarget. */
+  /** Creates a new PositionWithTarget.
+   * @param targetPosition position on the 2d plane of the target
+   * @param targetArmAngle angle off of the horizon line for arm
+   * @param targetWristAngle angle off of the floor for the wrist. this factors in arm angle
+   * @param extendArm whether or not to extend the arm
+   */
   public PositionWithTarget(Translation2d targetPosition,
     double targetDistance,
     Rotation2d targetArmAngle,
