@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 import static frc.robot.RobotContainer.*;
 
+import javax.lang.model.util.ElementScanner14;
+
 
 public class TurnToCoordinates extends PIDCommand {
   /**
@@ -26,7 +28,18 @@ public class TurnToCoordinates extends PIDCommand {
         0,
         0
       ),
-      () -> -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees(),
+      () -> {
+        var val = -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
+        if (val > 180)
+        {
+          val -= 360;
+        }
+        else if (val < -180)
+        {
+          val += 360;
+        }
+        return val;
+      },
       () -> navigation.getPose2d().getRotation().getDegrees(),
       (output) -> drivetrain.drive(0, -output),
       drivetrain, navigation);
