@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
-import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
@@ -15,6 +14,14 @@ import frc.robot.commands.DefaultWrist;
 import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
+import static frc.robot.Constants.WristConstants.CUBE_OVERSHOOT;
+import static frc.robot.Constants.WristConstants.FLOOR_CUBE_PICKUP_ANGLE;
+import static frc.robot.Constants.WristConstants.FLOOR_CUBE_PLACEMENT_ANGLE;
+import static frc.robot.Constants.WristConstants.HIGH_CUBE_PLACEMENT_ANGLE;
+import static frc.robot.Constants.WristConstants.MID_CUBE_PLACEMENT_ANGLE;
+import static frc.robot.FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS;
+import static frc.robot.FieldConstants.RED_FLOOR_PLACEMENT_LOCATIONS;
+import static frc.robot.FieldConstants.*;
 
 import java.io.IOException;
 
@@ -22,13 +29,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import static frc.robot.Constants.WristConstants.*;
 import static frc.robot.Constants.AnglesAndDistances;
-import static frc.robot.FieldConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -82,7 +86,7 @@ public class RobotContainer {
     {
       autonomousChooser.addOption("Red Right 2 Piece", 
         new ManipulateCube()
-        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece1"))
         .andThen(new Stop(0.1))
@@ -90,7 +94,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece1ToRed1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Red1ToPiece2"))
         .andThen(new Stop(0.2))
@@ -102,7 +106,7 @@ public class RobotContainer {
         .andThen(new AutoOuttake()));
       autonomousChooser.addOption("Blue Left 2 Piece",
         new ManipulateCube()
-        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[6].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
+        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue1ToPiece1"))
         .andThen(new Stop(0.1))
@@ -110,7 +114,7 @@ public class RobotContainer {
         .andThen(new AutoIntake())
         .andThen(new DriveAlongPath("Piece1ToBlue1"))
         .andThen(new Stop(0.1))
-        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
+        .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(), AnglesAndDistances.MEDIUM_CUBE.getSecond(), MID_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake())
         .andThen(new DriveAlongPath("Blue1ToPiece2"))
         .andThen(new Stop(0.1))
