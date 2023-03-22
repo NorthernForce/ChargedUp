@@ -25,7 +25,6 @@ public class ArmRotate extends SubsystemBase {
   private final MotorGroupTalonFX talonGroup;
   private final CANCoder rotateEncoder;
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry, kIntegralZoneEntry;
-  private double maxSpeed = 0.0;
   /** Creates a new Arm. */
   public ArmRotate() {
     talonGroup = new MotorGroupTalonFX(Constants.ArmConstants.PRIMARY_MOTOR_ID, Constants.ArmConstants.FOLLOWER_MOTOR_ID);
@@ -109,11 +108,6 @@ public class ArmRotate extends SubsystemBase {
       Constants.ArmConstants.kInitialVelocity,
       Constants.ArmConstants.kInitialAcceleration
     );
-    if (Math.abs(rotateEncoder.getVelocity()) > maxSpeed)
-    {
-      maxSpeed = Math.abs(rotateEncoder.getVelocity());
-    }
-    SmartDashboard.putNumber("max speed", maxSpeed);
   }
   /**
    * Gets the current velocity of the rotating joint
