@@ -6,17 +6,13 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ExtendArm;
-import frc.robot.commands.Intake;
-import frc.robot.commands.ManipulateCone;
-import frc.robot.commands.ManipulateCube;
-import frc.robot.commands.Outtake;
-import frc.robot.commands.RetractArm;
-import frc.robot.commands.ToggleLED;
-import frc.robot.commands.RumbleManipulator;
+import frc.robot.commands.*;
 
 
 /** Add your docs here. */
@@ -64,6 +60,14 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
-                .onTrue(new RumbleManipulator());
+            .onTrue(new RumbleManipulator());
+        new Trigger(() -> manipulatorController.getPOV() == 0)
+            .whileTrue(new SetArmNorthState());
+        new Trigger(() -> manipulatorController.getPOV() == 90)
+            .whileTrue(new SetArmEastState());
+        new Trigger(() -> manipulatorController.getPOV() == 180)
+            .whileTrue(new SetArmSouthState());
+        new Trigger(() -> manipulatorController.getPOV() == 270)
+            .whileTrue(new SetArmWestState());
     }
 }
