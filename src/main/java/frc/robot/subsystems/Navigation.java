@@ -63,7 +63,6 @@ public class Navigation extends SubsystemBase {
       pose
     );
   }
-
   /**
    * Gets the nearest scoring location
    * @return scoring location (Translation3d)
