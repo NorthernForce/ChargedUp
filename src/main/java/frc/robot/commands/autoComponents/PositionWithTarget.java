@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.SetArmAngle;
@@ -30,12 +31,12 @@ public class PositionWithTarget extends ParallelCommandGroup {
     boolean extendArm) {
     addCommands(
       new SequentialCommandGroup(
-        new TurnToCoordinates(targetPosition)
+        //new TurnToCoordinates(targetPosition)
         //new DriveDistanceFromCoordinates(targetDistance, targetPosition)
       ),
       new SetArmAngle(targetArmAngle),
       //new SetWristAngle(targetWristAngle),
-      extendArm ? new ExtendArm() : new RetractArm()
+      extendArm ? new ExtendArm().andThen(new WaitCommand(0.5)) : new RetractArm()
     );
   }
 }
