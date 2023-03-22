@@ -180,10 +180,6 @@ public final class Constants {
         public static final int MOTOR_ID = 10;
         public static final int CANCODER_ID = 12;
         public static final double GEAT_RATIO = 0.0; // TODO
-        // Static gain
-        public static final double kF = 0.0; // TODO
-        // Proportion
-        public static final double kP = 2.0; // TODO
         // Integral
         public static final double kI = 0.0; // TODO
         // Derivative
@@ -192,5 +188,11 @@ public final class Constants {
         public static final double kFF = 0.0; // TODO
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-10);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(190);
+        public static final double kP = 1.2; // TODO
+        public static final double kMaxCountsPer100MS = 1; // TODO
+        public static final double kF = (0.85 * 1023) / kMaxCountsPer100MS; // TODO
+        public static final double kInitialVelocity = kMaxCountsPer100MS * 0.6;
+        public static final double kInitialAcceleration = kInitialVelocity * 5;
+        public static final double kIntegralZone = 0.0; // TODO
     }
 }

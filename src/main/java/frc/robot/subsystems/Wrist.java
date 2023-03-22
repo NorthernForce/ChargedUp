@@ -25,7 +25,10 @@ public class Wrist extends SubsystemBase {
     srx.configClosedLoop(
       0, 0,
       Constants.WristConstants.kF, Constants.WristConstants.kP,
-      Constants.WristConstants.kI, Constants.WristConstants.kD
+      Constants.WristConstants.kI, Constants.WristConstants.kD,
+      Constants.WristConstants.kIntegralZone,
+      Constants.WristConstants.kInitialVelocity,
+      Constants.WristConstants.kInitialAcceleration
     );
     srx.configSelectedSlot(0, 0);
     canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
@@ -63,7 +66,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    srx.setPosition(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
+    srx.setMotionMagic(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
   }
   /**
    * Sets the percent without calculating feedforward
@@ -95,7 +98,10 @@ public class Wrist extends SubsystemBase {
       kFEntry.getDouble(Constants.WristConstants.kF),
       kPEntry.getDouble(Constants.WristConstants.kP),
       kIEntry.getDouble(Constants.WristConstants.kI),
-      kDEntry.getDouble(Constants.WristConstants.kD)
+      kDEntry.getDouble(Constants.WristConstants.kD),
+      Constants.WristConstants.kIntegralZone,
+      Constants.WristConstants.kInitialVelocity,
+      Constants.WristConstants.kInitialAcceleration
     );
   }
 }
