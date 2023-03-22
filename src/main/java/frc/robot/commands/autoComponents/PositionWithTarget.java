@@ -31,12 +31,12 @@ public class PositionWithTarget extends ParallelCommandGroup {
     boolean extendArm) {
     addCommands(
       new SequentialCommandGroup(
-        //new TurnToCoordinates(targetPosition)
-        //new DriveDistanceFromCoordinates(targetDistance, targetPosition)
+        new TurnToCoordinates(targetPosition),
+        new DriveDistanceFromCoordinates(targetDistance, targetPosition)
       ),
       new SetArmAngle(targetArmAngle),
       //new SetWristAngle(targetWristAngle),
-      extendArm ? new ExtendArm().andThen(new WaitCommand(0.5)) : new RetractArm()
+      extendArm ? new ExtendArm().andThen(new WaitCommand(0.7)) : new RetractArm()
     );
   }
 }

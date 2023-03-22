@@ -44,7 +44,7 @@ public final class Constants {
     {
         public static final double RAMP_RATE = 0.2;
         public static final int UNITS_PER_REVOLUTION = 2048;
-        public static final double GEAR_RATIO = 11.37777778;
+        public static final double GEAR_RATIO = 9.76;
         public static final double TRACK_WIDTH = Units.inchesToMeters(22);
         public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
         public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / GEAR_RATIO;

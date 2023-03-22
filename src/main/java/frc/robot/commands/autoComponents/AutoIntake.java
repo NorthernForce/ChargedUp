@@ -26,7 +26,7 @@ public class AutoIntake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetArmAngle(armRotate.getAngle().plus(CUBE_OVERSHOOT)),
+      //new SetArmAngle(armRotate.getAngle().plus(CUBE_OVERSHOOT)),
       new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), new Intake(), new SetArmAngle(armRotate.getAngle().minus(CUBE_DROPDOWN)))
     );
   }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.RobotContainer.gripper;
 import static frc.robot.RobotContainer.manipulatingState;
@@ -18,7 +19,9 @@ public class Outtake extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putBoolean("running?", true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -30,6 +33,7 @@ public class Outtake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     gripper.setSpeed(0);
+    SmartDashboard.putBoolean("running?", false);
   }
 
   // Returns true when the command should end.
