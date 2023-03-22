@@ -166,6 +166,10 @@ public final class Constants {
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-40);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
+        public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(90),
+            SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            WEST_ANGLE = Rotation2d.fromDegrees(0); // TODO
     }
     /** Gripper Constants */
     public static class GripperConstants

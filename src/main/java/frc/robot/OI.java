@@ -6,7 +6,10 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExtendArm;
@@ -18,6 +21,7 @@ import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
 import frc.robot.commands.RumbleManipulator;
+import frc.robot.commands.*;
 
 
 /** Add your docs here. */
@@ -75,5 +79,13 @@ public class OI {
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
         new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
+        new Trigger(() -> manipulatorController.getPOV() == 0)
+            .whileTrue(new SetArmNorthState());
+        new Trigger(() -> manipulatorController.getPOV() == 90)
+            .whileTrue(new SetArmEastState());
+        new Trigger(() -> manipulatorController.getPOV() == 180)
+            .whileTrue(new SetArmSouthState());
+        new Trigger(() -> manipulatorController.getPOV() == 270)
+            .whileTrue(new SetArmWestState());
     }
 }
