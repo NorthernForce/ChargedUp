@@ -20,6 +20,7 @@ public class Wrist extends SubsystemBase {
   private final MotorGroupTalonSRX srx = new MotorGroupTalonSRX(Constants.WristConstants.MOTOR_ID);
   private final CANCoder canCoder = new CANCoder(Constants.WristConstants.CANCODER_ID);
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
+  private final boolean canCoderPresent;
   /** Creates a new Wrist. */
   public Wrist() {
     srx.configClosedLoop(
@@ -37,7 +38,9 @@ public class Wrist extends SubsystemBase {
     {
       srx.linkAndUseCANCoder(canCoder);
       srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
+      canCoderPresent = true;
     }
+    else canCoderPresent = false;
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
@@ -51,6 +54,10 @@ public class Wrist extends SubsystemBase {
   public Rotation2d getAngle()
   {
     return Rotation2d.fromRotations(srx.getEncoderRotations());
+  }
+  public boolean isCANCoderPresent()
+  {
+    return canCoderPresent;
   }
   /**
    * Sets the velocity of the wrist motor

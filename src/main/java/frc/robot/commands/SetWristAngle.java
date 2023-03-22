@@ -28,7 +28,8 @@ public class SetWristAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    wrist.setRotation(targetAngle);
+    if (wrist.isCANCoderPresent())
+      wrist.setRotation(targetAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +43,8 @@ public class SetWristAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
-      && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE;
+    return (Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
+      && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE)
+      || !wrist.isCANCoderPresent();
   }
 }
