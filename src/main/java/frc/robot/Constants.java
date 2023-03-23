@@ -164,8 +164,8 @@ public final class Constants {
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-40);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(90),
-            SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
-            EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            SOUTH_ANGLE = Rotation2d.fromDegrees(-40), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(180), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(0); // TODO
     }
     /** Gripper Constants */
@@ -208,6 +208,10 @@ public final class Constants {
         public static final Rotation2d LOW_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d MID_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d HIGH_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
+        public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(0),
+            SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
     }
     public static class AnglesAndDistances
     {
