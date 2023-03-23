@@ -66,6 +66,7 @@ public class Navigation extends SubsystemBase {
   /** Runs once every 20ms. */
   @Override
   public void periodic() {
+    
     poseEstimator.update(
       imu.getRotation2d(),
       drivetrain.getLeftDistance(),
