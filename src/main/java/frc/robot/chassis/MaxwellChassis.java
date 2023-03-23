@@ -51,21 +51,21 @@ public class MaxwellChassis implements ChassisBase {
         public static final double LEFT_X = Units.inchesToMeters(5.75);
         public static final double LEFT_Y = Units.inchesToMeters(5.625);
         public static final double LEFT_Z = Units.inchesToMeters(19.125);
-        public static final Rotation3d LEFT_ROTATION = new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(0), Units.degreesToRadians(60));
+        public static final Rotation3d LEFT_ROTATION = new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(0), Units.degreesToRadians(60));
         public static final Transform3d LEFT = new Transform3d(new Translation3d(LEFT_X, LEFT_Y, LEFT_Z), LEFT_ROTATION);
 
         public static final String LEFT_FORWARD_NAME = "LeftForward";
         public static final double LEFT_FORWARD_X = Units.inchesToMeters(4.5834);
         public static final double LEFT_FORWARD_Y = Units.inchesToMeters(4.72101);
         public static final double LEFT_FORWARD_Z = Units.inchesToMeters(23.625);
-        public static final Rotation3d LEFT_FORWARD_ROTATION = new Rotation3d(Units.degreesToRadians(180), 0, 0);
+        public static final Rotation3d LEFT_FORWARD_ROTATION = new Rotation3d(Units.degreesToRadians(0), 0, 0);
         public static final Transform3d LEFT_FORWARD = new Transform3d(new Translation3d(LEFT_FORWARD_X, LEFT_FORWARD_Y, LEFT_FORWARD_Z), LEFT_FORWARD_ROTATION);
     
         public static final String RIGHT_NAME = "Right";
         public static final double RIGHT_X = Units.inchesToMeters(5.625);
         public static final double RIGHT_Y = Units.inchesToMeters(-3.5);
         public static final double RIGHT_Z = Units.inchesToMeters(18.625);
-        public static final Rotation3d RIGHT_ROTATION = new Rotation3d(Units.degreesToRadians(180), 0, Units.degreesToRadians(-60));
+        public static final Rotation3d RIGHT_ROTATION = new Rotation3d(Units.degreesToRadians(0), 0, Units.degreesToRadians(-60));
         public static final Transform3d RIGHT = new Transform3d(new Translation3d(RIGHT_X, RIGHT_Y, RIGHT_Z), RIGHT_ROTATION);
     
         public static final String LIMELIGHT_NAME = "Limelight";
