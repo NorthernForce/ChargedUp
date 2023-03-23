@@ -150,12 +150,16 @@ public final class Constants {
             Units.inchesToMeters(0),
             Units.inchesToMeters(26.5)
         );
-        public static final double kP = 2.0; // TODO
-        public static final double kF = 0.0; // TODO
+        public static final double kP = 1.2; // TODO
+        public static final double kMaxCountsPer100MS = 117.16;
+        public static final double kF = (0.85 * 1023) / 117.16;
+        public static final double kInitialVelocity = kMaxCountsPer100MS * 0.6;
+        public static final double kInitialAcceleration = kInitialVelocity * 5;
         public static final double kI = 0.0; // TODO
         public static final double kD = 0.0; // TODO
         public static final double kFF = 0.0; // TODO
-        public static final double ANGLE_TOLERANCE = 1.0; // TODO
+        public static final double kIntegralZone = 0.0; // TODO
+        public static final double ANGLE_TOLERANCE = 5; // TODO
         public static final double CANCODER_OFFSET = 0.25;  // Changes from height line = 0 degrees to horizon line = 0 defgrees
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-40);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);

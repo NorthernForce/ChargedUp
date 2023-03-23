@@ -24,7 +24,7 @@ public class ArmRotate extends SubsystemBase {
   // We know we will have two talons
   private final MotorGroupTalonFX talonGroup;
   private final CANCoder rotateEncoder;
-  private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
+  private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry, kIntegralZoneEntry;
   /** Creates a new Arm. */
   public ArmRotate() {
     talonGroup = new MotorGroupTalonFX(Constants.ArmConstants.PRIMARY_MOTOR_ID, Constants.ArmConstants.FOLLOWER_MOTOR_ID);
@@ -32,7 +32,10 @@ public class ArmRotate extends SubsystemBase {
     talonGroup.configClosedLoop(
       0, 0,
       Constants.ArmConstants.kF, Constants.ArmConstants.kP,
-      Constants.ArmConstants.kI, Constants.ArmConstants.kD
+      Constants.ArmConstants.kI, Constants.ArmConstants.kD,
+      Constants.ArmConstants.kIntegralZone,
+      Constants.ArmConstants.kInitialVelocity,
+      Constants.ArmConstants.kInitialAcceleration
     );
     talonGroup.configSelectedProfile(0, 0);
 
@@ -49,6 +52,7 @@ public class ArmRotate extends SubsystemBase {
     kPEntry = Shuffleboard.getTab("Arm").add("kP", Constants.ArmConstants.kP).getEntry();
     kIEntry = Shuffleboard.getTab("Arm").add("kI", Constants.ArmConstants.kI).getEntry();
     kDEntry = Shuffleboard.getTab("Arm").add("kD", Constants.ArmConstants.kD).getEntry();
+    kIntegralZoneEntry = Shuffleboard.getTab("Arm").add("kIntegralZone", Constants.ArmConstants.kIntegralZone).getEntry();
   }
   /**
    * Get arm angle
@@ -71,7 +75,7 @@ public class ArmRotate extends SubsystemBase {
   */
   public void setAngle(Rotation2d angle, boolean ignoreLimit)
   {
-    talonGroup.setPosition(angle.getRotations() - Constants.ArmConstants.CANCODER_OFFSET, getAngle().getCos() * Constants.ArmConstants.kFF);
+    talonGroup.setMotionMagic(angle.getRotations() - Constants.ArmConstants.CANCODER_OFFSET, getAngle().getCos() * Constants.ArmConstants.kFF);
   }
   /**
    * Set arm angular speed
@@ -99,7 +103,10 @@ public class ArmRotate extends SubsystemBase {
       kFEntry.getDouble(Constants.ArmConstants.kF),
       kPEntry.getDouble(Constants.ArmConstants.kP),
       kIEntry.getDouble(Constants.ArmConstants.kI),
-      kDEntry.getDouble(Constants.ArmConstants.kD)
+      kDEntry.getDouble(Constants.ArmConstants.kD),
+      kIntegralZoneEntry.getDouble(Constants.ArmConstants.kIntegralZone),
+      Constants.ArmConstants.kInitialVelocity,
+      Constants.ArmConstants.kInitialAcceleration
     );
   }
   /**
