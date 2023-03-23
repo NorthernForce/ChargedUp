@@ -17,6 +17,8 @@ public class LED extends SubsystemBase {
   public LED() {
     led.setLength(buffer.getLength());
     led.setData(buffer);
+    led.start();
+    setPink();
   }
   /** Turns the led on */
   public void enable(){
