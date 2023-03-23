@@ -13,6 +13,16 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
+import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.commands.ExtendArm;
+import frc.robot.commands.Intake;
+import frc.robot.commands.ManipulateCone;
+import frc.robot.commands.ManipulateCube;
+import frc.robot.commands.Outtake;
+import frc.robot.commands.RetractArm;
+import frc.robot.commands.ToggleLED;
+import frc.robot.commands.autoComponents.TurnToTarget;
+import frc.robot.commands.RumbleManipulator;
 
 
 /** Add your docs here. */
@@ -69,5 +79,8 @@ public class OI {
             .whileTrue(new SetArmDPadDownState());
         new Trigger(() -> manipulatorController.getPOV() == 270)
             .whileTrue(new SetArmDPadLeftState());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
+            .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
     }
 }
