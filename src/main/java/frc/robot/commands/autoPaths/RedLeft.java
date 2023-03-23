@@ -63,7 +63,8 @@ public class RedLeft extends SequentialCommandGroup {
         new ParallelDeadlineGroup(
           new WaitCommand(0.5),
           new Outtake()
-        )
+        ),
+        new SetArmAngle(Rotation2d.fromDegrees(90))
       );
     }
     if (numPieces > 2)
