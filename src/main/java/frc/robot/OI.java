@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExtendArm;
@@ -16,6 +17,7 @@ import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
+import frc.robot.commands.autoComponents.TurnToTarget;
 import frc.robot.commands.RumbleManipulator;
 
 
@@ -65,5 +67,7 @@ public class OI {
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
                 .onTrue(new RumbleManipulator());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)).andThen(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1))));
     }
 }
