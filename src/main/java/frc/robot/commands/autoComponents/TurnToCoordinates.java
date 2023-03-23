@@ -40,7 +40,7 @@ public class TurnToCoordinates extends PIDCommand {
         }
         return val;
       },
-      () -> navigation.getPose2d().getRotation().getDegrees(),
+      () -> 0,
       (output) -> drivetrain.drive(0, -output),
       drivetrain, navigation);
       getController().setTolerance(8);
