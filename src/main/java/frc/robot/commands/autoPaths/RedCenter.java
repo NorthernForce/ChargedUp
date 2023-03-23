@@ -34,8 +34,9 @@ public class RedCenter extends SequentialCommandGroup {
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(180)),
       new DriveMeters(-0.7, 0, 6),
-      new SetArmAngle(Rotation2d.fromDegrees(90)),
+      new SetArmAngle(Rotation2d.fromDegrees(0)),
       new DriveMeters(0.7, 0, 2.5),
+      new SetArmAngle(Rotation2d.fromDegrees(90)),
       new Stop(0.1),
       new Balance()
     );
