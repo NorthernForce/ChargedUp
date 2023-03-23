@@ -18,7 +18,6 @@ public class MicroAdjust extends CommandBase {
   /** Creates a new MicroAdjust. */
   public MicroAdjust(double rotationSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain);
     this.rotationSpeed = rotationSpeed;
   }
 
