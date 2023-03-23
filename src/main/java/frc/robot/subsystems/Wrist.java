@@ -34,7 +34,7 @@ public class Wrist extends SubsystemBase {
     canCoder.setPositionToAbsolute();
     canCoder.configSensorDirection(true);
     srx.setInverted(true);
-    if (canCoder.getFirmwareVersion() != 0)
+    if (canCoder.getFirmwareVersion() != -1)
     {
       srx.linkAndUseCANCoder(canCoder);
       srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
