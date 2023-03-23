@@ -12,6 +12,7 @@ import frc.robot.commands.CalibrateArm;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.CalibrateWrist;
 import frc.robot.commands.DefaultWrist;
+import frc.robot.util.FieldDirections;
 import frc.robot.util.RobotChooser;
 import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
@@ -111,7 +112,9 @@ public class RobotContainer {
         .andThen(new PositionWithTarget(BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(), AnglesAndDistances.HIGH_CUBE.getSecond().plus(CUBE_OVERSHOOT), HIGH_CUBE_PLACEMENT_ANGLE, true))
         .andThen(new AutoOuttake())
         .andThen(new RetractArm())
-        .andThen(new DriveAlongPath("Blue1ToPiece1"))
+        .andThen(new DriveMeters(-0.7, 0, 4.5))
+        //.andThen(new TurnToAngleAbs(drivetrain, imu, FieldDirections.AWAY))
+        //.andThen(new DriveAlongPath("Blue1ToPiece1"))
         .andThen(new Stop(0.1))
         .andThen(new PositionWithTarget(BLUE_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond().plus(CUBE_OVERSHOOT), FLOOR_CUBE_PICKUP_ANGLE, false))
         .andThen(new AutoIntake())
@@ -169,6 +172,7 @@ public class RobotContainer {
         .andThen(new Stop(0.1))
         .andThen(new PositionWithTarget(RED_FLOOR_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.FLOOR_CUBE.getFirst(), AnglesAndDistances.FLOOR_CUBE.getSecond(), FLOOR_CUBE_PLACEMENT_ANGLE, false))
         .andThen(new AutoOuttake()));
+      autonomousChooser.addOption("Tmp", new DriveMeters(-0.5, 0, 6).andThen(new Stop(0.1)));
     }
     catch (IOException exception)
     {

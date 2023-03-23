@@ -16,10 +16,11 @@ public class DriveDistanceFromCoordinates extends ProfiledPIDCommand {
   /** Creates a new DriveDistanceFromCoordinates.
    * Assumes aligned with coordinates.
    */
-  public DriveDistanceFromCoordinates(double distance, Translation2d coordinates) {
+  public 
+  DriveDistanceFromCoordinates(double distance, Translation2d coordinates) {
     super(
       new ProfiledPIDController(
-        2e-1, 0, 0, new Constraints(Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION)
+        1, 0, 0, new Constraints(Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION)
       ),
       () -> navigation.getPose2d().getTranslation().getDistance(coordinates),
       distance,
@@ -29,6 +30,11 @@ public class DriveDistanceFromCoordinates extends ProfiledPIDCommand {
       ),
       navigation, drivetrain
     );
-    getController().setTolerance(0.2);
+    getController().setTolerance(0.5);
+  }
+  @Override
+  public boolean isFinished()
+  {
+    return getController().atSetpoint();
   }
 }

@@ -36,7 +36,7 @@ public class PositionWithTarget extends ParallelCommandGroup {
       ),
       new SetArmAngle(targetArmAngle),
       //new SetWristAngle(targetWristAngle),
-      extendArm ? new ExtendArm().andThen(new WaitCommand(0.7)) : new RetractArm()
+      extendArm ? new ExtendArm().andThen(new WaitCommand(2)) : new RetractArm()
     );
   }
 }

@@ -24,7 +24,7 @@ public class TurnToCoordinates extends PIDCommand {
   public TurnToCoordinates(Translation2d coords) {
     super(
       new PIDController(
-        2e-2,
+        1.5e-2,
         0,
         0
       ),
@@ -40,7 +40,7 @@ public class TurnToCoordinates extends PIDCommand {
         }
         return val;
       },
-      () -> navigation.getPose2d().getRotation().getDegrees(),
+      () -> 0,
       (output) -> drivetrain.drive(0, -output),
       drivetrain, navigation);
       getController().setTolerance(8);

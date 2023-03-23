@@ -34,6 +34,7 @@ public class TurnToAngleAbs extends PIDCommand {
           // Use the output here
           drivetrain.drive(0, output);
         });
+      getController().setTolerance(10);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
@@ -41,6 +42,6 @@ public class TurnToAngleAbs extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

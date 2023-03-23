@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autoComponents;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -27,7 +28,8 @@ public class AutoIntake extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       //new SetArmAngle(armRotate.getAngle().plus(CUBE_OVERSHOOT)),
-      new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), new Intake(), new SetArmAngle(armRotate.getAngle().minus(CUBE_DROPDOWN)))
+      new ParallelDeadlineGroup(Commands.waitSeconds(GripperConstants.INTAKE_TIME), new Intake(), new SetArmAngle(armRotate.getAngle().minus(CUBE_DROPDOWN))),
+      new SetArmAngle(Rotation2d.fromDegrees(90))
     );
   }
 }
