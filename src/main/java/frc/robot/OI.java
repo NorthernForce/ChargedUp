@@ -79,7 +79,7 @@ public class OI {
             .whileTrue(new SetArmDPadDownState());
         new Trigger(() -> manipulatorController.getPOV() == 270)
             .whileTrue(new SetArmDPadLeftState());
-        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+        new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
     }
