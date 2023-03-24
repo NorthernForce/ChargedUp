@@ -17,7 +17,7 @@ public class Balance extends PIDCommand {
   public Balance() {
     super(
         // The controller that the command will use
-        new PIDController(0.05, 0.01, 0),
+        new PIDController(0.038, 0, 0),
         // This should return the measurement
         () -> imu.getPitch().getDegrees(),
         // This should return the setpoint (can also be a constant)
@@ -34,6 +34,6 @@ public class Balance extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
   }
 }
