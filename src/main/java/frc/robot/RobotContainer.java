@@ -78,38 +78,95 @@ public class RobotContainer {
      */
     try
     {
-      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece1ToRed1"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Red1ToPiece2"))
-        .andThen(new Stop(0.2))
-        .andThen(new DriveAlongPath("Piece2ToRed1"))
-        .andThen(new Stop(0.2)));
-      autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece1ToBlue1"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Blue1ToPiece2"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece2ToBlue1"))
-        .andThen(new Stop(0.1)));
-      autonomousChooser.addOption("Blue3 to Piece4", new DriveAlongPath("Blue3ToPiece4")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece4ToBlue3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Blue3ToPiece3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece3ToBlue3"))
-        .andThen(new Stop(0.1)));
-      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece4ToRed3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Red3ToPiece3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece3ToRed3"))
-        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Red Left 1 Piece", new RedLeft(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 1 Piece", new RedRight(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 1 Piece", new BlueLeft(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 1 Piece", new BlueRight(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Left 2 Piece", new RedLeft(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 2 Piece", new RedRight(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 2 Piece", new BlueLeft(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 2 Piece", new BlueRight(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Left 3 Piece", new RedLeft(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 3 Piece", new RedRight(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 3 Piece", new BlueLeft(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 3 Piece", new BlueRight(3));
     }
     catch (IOException exception)
     {
