@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.FieldConstants;
 import frc.robot.Constants.AnglesAndDistances;
 import frc.robot.Constants.WristConstants;
+import frc.robot.commands.FoldWristBack;
 import frc.robot.commands.Intake;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
@@ -32,6 +33,7 @@ public class BlueLeft extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
         AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
