@@ -5,6 +5,7 @@ import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
+import frc.robot.states.manipulatingstate.CubeManipulatingState;
 import frc.robot.states.manipulatingstate.EmptyManipulatingState;
 import frc.robot.states.manipulatingstate.ManipulatingState;
 import frc.robot.states.manipulatingstate.ManipulatingStateContainer;
@@ -17,6 +18,7 @@ import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -132,6 +134,9 @@ public class RobotContainer {
     Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
     Shuffleboard.getTab("Utility").add("Calibrate Wrist", new CalibrateWrist());
     Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
+    Shuffleboard.getTab("Drivers").addBoolean("Manipulating State", () -> manipulatingState.getCurrentState().getClass().equals(CubeManipulatingState.class))
+      .withPosition(5, 1)
+      .withProperties(Map.of("colorWhenTrue", "purple", "colorWhenFalse", "yellow"));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
