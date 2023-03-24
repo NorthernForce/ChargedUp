@@ -11,13 +11,13 @@ import frc.robot.Constants;
 
 import static frc.robot.RobotContainer.*;
 
-public class SetArmSouthState extends ParallelCommandGroup {
+public class SetArmDPadRightState extends ParallelCommandGroup {
   /** Creates a new SetArmEastState. */
-  public SetArmSouthState() {
+  public SetArmDPadRightState() {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE),
-      new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)
+      new SetArmAngle(Constants.ArmConstants.EAST_ANGLE),
+      new SetWristAngle(Constants.WristConstants.EAST_ANGLE)
     );
   }
 }

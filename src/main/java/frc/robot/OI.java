@@ -80,12 +80,12 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
         new Trigger(() -> manipulatorController.getPOV() == 0)
-            .whileTrue(new SetArmNorthState());
+            .whileTrue(new SetArmDPadUpState());
         new Trigger(() -> manipulatorController.getPOV() == 90)
-            .whileTrue(new SetArmEastState());
+            .whileTrue(new SetArmDPadRightState());
         new Trigger(() -> manipulatorController.getPOV() == 180)
-            .whileTrue(new SetArmSouthState());
+            .whileTrue(new SetArmDPadDownState());
         new Trigger(() -> manipulatorController.getPOV() == 270)
-            .whileTrue(new SetArmWestState());
+            .whileTrue(new SetArmDPadLeftState());
     }
 }
