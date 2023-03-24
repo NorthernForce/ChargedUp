@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.FoldWristBack;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
@@ -73,6 +74,7 @@ public class RobotContainer {
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
+    autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
      * Each path is loaded from a file, therefore there is a risk of an IOException.
