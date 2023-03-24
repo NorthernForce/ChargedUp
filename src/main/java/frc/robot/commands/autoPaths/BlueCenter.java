@@ -32,10 +32,10 @@ public class BlueCenter extends SequentialCommandGroup {
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[3].toTranslation2d(), placingInformation.getFirst(), placingInformation.getSecond(), Rotation2d.fromDegrees(10), true),
       new ParallelDeadlineGroup(new WaitCommand(0.8), new Outtake()),
       new RetractArm(),
+      new SetArmAngle(Rotation2d.fromDegrees(60)),
+      new DriveMeters(-0.65, 0, 1.5),
       new SetArmAngle(Rotation2d.fromDegrees(180)),
-      new DriveMeters(-0.7, 0, 6),
-      new SetArmAngle(Rotation2d.fromDegrees(0)),
-      new DriveMeters(0.7, 0, 2.5),
+      new DriveMeters(-0.7, 0, 1),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
       new Stop(0.1),
       new Balance()
