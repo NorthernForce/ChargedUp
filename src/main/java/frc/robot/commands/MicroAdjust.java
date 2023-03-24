@@ -10,6 +10,7 @@ import static frc.robot.RobotContainer.drivetrain;
 import static frc.robot.RobotContainer.navigation;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MicroAdjust extends CommandBase {
@@ -43,6 +44,7 @@ public class MicroAdjust extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    Rotation2d currentAngle = navigation.getPose2d().getRotation();
+    return Math.abs(currentAngle.minus(this.startAngle).getDegrees()) > Constants.DrivetrainConstants.MICRO_ADJUST_DEGREES.getDegrees();
   }
 }
