@@ -18,6 +18,7 @@ public class MicroAdjust extends CommandBase {
   /** Creates a new MicroAdjust. */
   public MicroAdjust(double rotationSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain);
     this.rotationSpeed = rotationSpeed;
   }
 
@@ -42,7 +43,6 @@ public class MicroAdjust extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    final Rotation2d currentAngle = (navigation.getPose2d().getRotation());
-    return Math.abs(currentAngle.minus(this.startAngle).getDegrees()) > Constants.DrivetrainConstants.MICRO_ADJUST_DEGREES.getDegrees();
+    return false;
   }
 }

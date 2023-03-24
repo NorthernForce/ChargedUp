@@ -67,8 +67,8 @@ public class OI {
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
             .onTrue(new RumbleManipulator());
         new JoystickButton(driverController, XboxController.Button.kBack.value)
-            .onTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
         new JoystickButton(driverController, XboxController.Button.kStart.value)
-            .onTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
     }
 }
