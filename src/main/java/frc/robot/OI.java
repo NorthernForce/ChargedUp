@@ -62,12 +62,12 @@ public class OI {
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
             .onTrue(new RumbleManipulator());
         new Trigger(() -> manipulatorController.getPOV() == 0)
-            .whileTrue(new SetArmNorthState());
+            .whileTrue(new SetArmDPadUpState());
         new Trigger(() -> manipulatorController.getPOV() == 90)
-            .whileTrue(new SetArmEastState());
+            .whileTrue(new SetArmDPadRightState());
         new Trigger(() -> manipulatorController.getPOV() == 180)
-            .whileTrue(new SetArmSouthState());
+            .whileTrue(new SetArmDPadDownState());
         new Trigger(() -> manipulatorController.getPOV() == 270)
-            .whileTrue(new SetArmWestState());
+            .whileTrue(new SetArmDPadLeftState());
     }
 }
