@@ -6,6 +6,7 @@
 package frc.robot.commands.autoComponents;
 
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,15 +28,7 @@ public class TurnToCoordinates extends PIDCommand {
       ),
       () -> {
         var val = -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
-        if (val > 180)
-        {
-          val -= 360;
-        }
-        else if (val < -180)
-        {
-          val += 360;
-        }
-        return val;
+        return MathUtil.inputModulus(val, -180.0, 180.0);
       },
       () -> 0,
       (output) -> drivetrain.drive(0, -output),
