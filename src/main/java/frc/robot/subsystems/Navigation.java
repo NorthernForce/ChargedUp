@@ -40,7 +40,7 @@ public class Navigation extends SubsystemBase {
     {
       camera.setPipelineIndex(0);
     }
-    Shuffleboard.getTab("Autonomous").add("Field", field).withSize(3, 2).withPosition(0, 0);
+    Shuffleboard.getTab("Drivers").add("Field", field).withSize(3, 2).withPosition(0, 0);
   }
   /**
    * Gets the current location in Meters

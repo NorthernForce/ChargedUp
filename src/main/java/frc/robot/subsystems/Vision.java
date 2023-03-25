@@ -5,6 +5,7 @@ import java.util.List;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.lib.cameras.CameraWrapper;
@@ -17,6 +18,7 @@ public class Vision extends SubsystemBase {
     cameras = List.of(
       new LimelightWrapper(Constants.VisionConstants.TRANSFORM3D)
     );
+    Shuffleboard.getTab("Drivers").addCamera("Camera Stream", "Limelight", "10.1.72.15:5800").withPosition(0, 0).withSize(4, 3);
   }
   /**
    * Sets the pipeline index
