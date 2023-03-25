@@ -195,7 +195,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Utility").add("Calibrate Wrist", new CalibrateWrist());
     Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
     Shuffleboard.getTab("Drivers").addBoolean("Manipulating State", () -> manipulatingState.getCurrentState().getClass().equals(CubeManipulatingState.class))
-      .withPosition(5, 1)
+      .withPosition(4, 1).withSize(1, 4)
       .withProperties(Map.of("colorWhenTrue", "purple", "colorWhenFalse", "yellow"));
   }
   /**
