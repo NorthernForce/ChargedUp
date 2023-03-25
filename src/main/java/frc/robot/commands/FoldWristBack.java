@@ -21,7 +21,7 @@ public class FoldWristBack extends SequentialCommandGroup {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
     addCommands(
-      new ParallelDeadlineGroup(new WaitCommand(0.5), Commands.run(() -> {wrist.setPercent(-0.8);}, wrist)),
+      new ParallelDeadlineGroup(new WaitCommand(2), Commands.run(() -> {wrist.setPercent(-0.8);}, wrist)),
       Commands.runOnce(() -> {wrist.setPercent(0);}, wrist)
     );
     // addCommands(new FooCommand(), new BarCommand());
