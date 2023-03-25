@@ -36,7 +36,7 @@ public class RedLeft extends SequentialCommandGroup {
       new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
-        AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+        AnglesAndDistances.HIGH_CUBE.getSecond(),
         WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, true),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5),

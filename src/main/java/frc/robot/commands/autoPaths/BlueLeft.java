@@ -36,7 +36,7 @@ public class BlueLeft extends SequentialCommandGroup {
       new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
-        AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+        AnglesAndDistances.HIGH_CUBE.getSecond(),
         WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, true),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5),
