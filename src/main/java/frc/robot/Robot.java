@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     PortForwarder.add(5800, "photonvision", 5800);
+    PortForwarder.add(5800, "10.1.72.15", 5800);
     led.enable();
   }
 
