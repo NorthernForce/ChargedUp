@@ -82,10 +82,15 @@ public class OI {
             .whileTrue(new SetArmDPadLeftState());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
-            .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
+            .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));  
+        // As per their request, the micro adjustment is on both controllers
         new JoystickButton(driverController, XboxController.Button.kBack.value)
-            .onTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
         new JoystickButton(driverController, XboxController.Button.kStart.value)
-            .onTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));
+        new JoystickButton(manipulatorController, XboxController.Button.kBack.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+        new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
     }
 }
