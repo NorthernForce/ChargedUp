@@ -127,13 +127,17 @@ public class MotorGroupTalonFX implements MotorGroup {
      * @param kI integral
      * @param kD derivative
      */
-    public void configClosedLoop(int slotIdx, double allowableError, double kF, double kP, double kI, double kD)
+    public void configClosedLoop(int slotIdx, double allowableError, double kF, double kP, double kI, double kD, double integralZone,
+        double initialVelocity, double initialAcceleration)
     {
         primary.configAllowableClosedloopError(slotIdx, allowableError, 0);
         primary.config_kF(slotIdx, kF, 0);
 		primary.config_kP(slotIdx, kP, 0);
 		primary.config_kI(slotIdx, kI, 0);
 		primary.config_kD(slotIdx, kD, 0);
+        //primary.config_IntegralZone(slotIdx, integralZone);
+        primary.configMotionCruiseVelocity(initialVelocity);
+        primary.configMotionAcceleration(initialAcceleration);
     }
     public void configSelectedProfile(int slotIdx, int pidIdx)
     {

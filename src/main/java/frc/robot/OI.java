@@ -13,6 +13,7 @@ import frc.robot.commands.ExtendArm;
 import frc.robot.commands.Intake;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
+import frc.robot.commands.MicroAdjust;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
@@ -44,7 +45,7 @@ public class OI {
             return new DoubleSupplier[] {
             () -> -manipulatorController.getLeftY(),
             () -> -manipulatorController.getRightX(),
-            () -> -manipulatorController.getRightY()
+            () -> Math.abs(manipulatorController.getRightY()) > 0.15 ? -manipulatorController.getRightY() : 0
         };
     }
     /** Binds the buttons of the OI */
@@ -64,6 +65,15 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
-                .onTrue(new RumbleManipulator());
+            .onTrue(new RumbleManipulator());
+        // As per their request, the micro adjustment is on both controllers
+        new JoystickButton(driverController, XboxController.Button.kBack.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+        new JoystickButton(driverController, XboxController.Button.kStart.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));
+        new JoystickButton(manipulatorController, XboxController.Button.kBack.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+        new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
     }
 }

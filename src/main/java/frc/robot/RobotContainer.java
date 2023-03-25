@@ -1,10 +1,10 @@
 package frc.robot;
 
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.LEDInit;
 import frc.robot.commands.ManipulateArmWithJoystick;
 import frc.robot.commands.autoComponents.*;
 import frc.robot.commands.autoPaths.*;
+import frc.robot.states.manipulatingstate.CubeManipulatingState;
 import frc.robot.states.manipulatingstate.EmptyManipulatingState;
 import frc.robot.states.manipulatingstate.ManipulatingState;
 import frc.robot.states.manipulatingstate.ManipulatingStateContainer;
@@ -17,6 +17,7 @@ import frc.robot.chassis.ChassisBase;
 import frc.robot.subsystems.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -72,6 +73,8 @@ public class RobotContainer {
     autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
     autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
+    autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
+    autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
      * Each path is loaded from a file, therefore there is a risk of an IOException.
@@ -79,38 +82,95 @@ public class RobotContainer {
      */
     try
     {
-      autonomousChooser.addOption("Red1 to Piece1", new DriveAlongPath("Red1ToPiece1")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece1ToRed1"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Red1ToPiece2"))
-        .andThen(new Stop(0.2))
-        .andThen(new DriveAlongPath("Piece2ToRed1"))
-        .andThen(new Stop(0.2)));
-      autonomousChooser.addOption("Blue1 to Piece1", new DriveAlongPath("Blue1ToPiece1")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece1ToBlue1"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Blue1ToPiece2"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece2ToBlue1"))
-        .andThen(new Stop(0.1)));
-      autonomousChooser.addOption("Blue3 to Piece4", new DriveAlongPath("Blue3ToPiece4")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece4ToBlue3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Blue3ToPiece3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece3ToBlue3"))
-        .andThen(new Stop(0.1)));
-      autonomousChooser.addOption("Red3 to Piece4", new DriveAlongPath("Red3ToPiece4")
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece4ToRed3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Red3ToPiece3"))
-        .andThen(new Stop(0.1))
-        .andThen(new DriveAlongPath("Piece3ToRed3"))
-        .andThen(new Stop(0.1)));
+      autonomousChooser.addOption("Red Left 1 Piece", new RedLeft(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 1 Piece", new RedRight(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 1 Piece", new BlueLeft(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 1 Piece", new BlueRight(1));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Left 2 Piece", new RedLeft(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 2 Piece", new RedRight(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 2 Piece", new BlueLeft(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 2 Piece", new BlueRight(2));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Left 3 Piece", new RedLeft(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Red Right 3 Piece", new RedRight(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Left 3 Piece", new BlueLeft(3));
+    }
+    catch (IOException exception)
+    {
+      exception.printStackTrace();
+    }
+    try
+    {
+      autonomousChooser.addOption("Blue Right 3 Piece", new BlueRight(3));
     }
     catch (IOException exception)
     {
@@ -132,6 +192,9 @@ public class RobotContainer {
     Shuffleboard.getTab("Utility").addNumber("Current Draw (Amp)", () -> pdh.getTotalCurrent());
     Shuffleboard.getTab("Utility").add("Calibrate Wrist", new CalibrateWrist());
     Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
+    Shuffleboard.getTab("Drivers").addBoolean("Manipulating State", () -> manipulatingState.getCurrentState().getClass().equals(CubeManipulatingState.class))
+      .withPosition(5, 1)
+      .withProperties(Map.of("colorWhenTrue", "purple", "colorWhenFalse", "yellow"));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -149,7 +212,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DriveWithJoystick());
     armRotate.setDefaultCommand(new ManipulateArmWithJoystick());
     wrist.setDefaultCommand(new DefaultWrist());
-    led.setDefaultCommand(new LEDInit());
   }
   public void periodic() {
   }
