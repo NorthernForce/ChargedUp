@@ -26,8 +26,8 @@ public class PositionWithTarget extends SequentialCommandGroup {
     boolean extendArm) {
     addCommands(
       new SequentialCommandGroup(
-        new TurnToCoordinates(targetPosition),
-        new DriveDistanceFromCoordinates(targetDistance, targetPosition)
+        new TurnToCoordinates(targetPosition)
+       // new DriveDistanceFromCoordinates(targetDistance, targetPosition)
       ),
       new SetArmAngle(targetArmAngle.plus(Rotation2d.fromDegrees(25))),
       new SetWristAngle(targetWristAngle),
