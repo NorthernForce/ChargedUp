@@ -33,7 +33,14 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    PortForwarder.add(5800, "photonvision", 5800);
+    //PortForwarder.add(5800, "photonvision", 5800);
+    for (int i = 0; i < 5; i++)
+    {
+      PortForwarder.add(5800 + i, "10.1.72.15", 5800 + i);
+    }
+    PortForwarder.add(5805, "photonvisionRight.local", 5800);
+    PortForwarder.add(5806, "photonvisionLeft.local", 5800);
+    PortForwarder.add(5807, "photonvisionLeftForward.local", 5800);
     led.enable();
   }
 
