@@ -76,6 +76,13 @@ public class RobotContainer {
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
+    autonomousChooser.addOption("Blue Right MID", new BlueRightMid());
+    autonomousChooser.addOption("Blue Left MID", new BlueLeftMid());
+    autonomousChooser.addOption("Red Right MID", new RedRightMid());
+    autonomousChooser.addOption("Red Left MID", new RedLeftMid());
+    autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
+    autonomousChooser.addOption("Red Mob", getAutonomousCommand());
+    //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
      * Each path is loaded from a file, therefore there is a risk of an IOException.
