@@ -6,6 +6,7 @@ package frc.robot.commands.autoPaths;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -34,13 +35,12 @@ public class RedCenter extends SequentialCommandGroup {
       new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[3].toTranslation2d(), placingInformation.getFirst(), placingInformation.getSecond(), Rotation2d.fromDegrees(10), true),
       new ParallelDeadlineGroup(new WaitCommand(0.8), new Outtake()),
       new RetractArm(),
-      new SetArmAngle(Rotation2d.fromDegrees(60)),
-      new DriveMeters(-0.65, 0, 1.5),
-      new SetArmAngle(Rotation2d.fromDegrees(180)),
-      new DriveMeters(-0.7, 0, 1),
-      new SetArmAngle(Rotation2d.fromDegrees(90)),
-      new Stop(0.1),
-      new Balance()
+      new ParallelCommandGroup(new SetArmAngle(Rotation2d.fromDegrees(60))),
+      new DriveMeters(-0.55, 0, 1.5),
+      new ParallelCommandGroup(//new SetArmAngle(Rotation2d.fromDegrees(180)),
+      new DriveMeters(-0.6, 0, 0.2)),
+      new ParallelCommandGroup(//new SetArmAngle(Rotation2d.fromDegrees(90)),
+      new Balance())
     );
   }
 }
