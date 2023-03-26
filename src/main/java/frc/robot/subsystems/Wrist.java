@@ -40,7 +40,11 @@ public class Wrist extends SubsystemBase {
       srx.setLimits(Constants.WristConstants.BACKWARD_LIMIT, Constants.WristConstants.FORWARD_LIMIT);
       canCoderPresent = true;
     }
-    else canCoderPresent = false;
+    else
+    {
+      canCoderPresent = false;
+      Shuffleboard.getTab("Arm").add("cancoder", false);
+    }
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
