@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.Intake;
+import frc.robot.commands.LEDAdjustment;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.MicroAdjust;
@@ -65,7 +66,9 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
-            .onTrue(new RumbleManipulator());
+            .onTrue(new RumbleManipulator());                                                               
+        new JoystickButton(driverController, XboxController.Button.kRightBumper.value)
+            .onTrue(new LEDAdjustment(10));            
         // As per their request, the micro adjustment is on both controllers
         new JoystickButton(driverController, XboxController.Button.kBack.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
