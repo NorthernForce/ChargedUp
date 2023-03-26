@@ -24,7 +24,7 @@ public class BlueLeftMid extends SequentialCommandGroup {
     addCommands(
       new ManipulateCube(),
       new FoldWristBack(),
-      new PositionWithTarget(FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[4].toTranslation2d(), Constants.AnglesAndDistances.MEDIUM_CUBE.getFirst(), Constants.AnglesAndDistances.MEDIUM_CUBE.getSecond(), Rotation2d.fromDegrees(0), false),
+      new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), Constants.AnglesAndDistances.MEDIUM_CUBE.getFirst(), Constants.AnglesAndDistances.MEDIUM_CUBE.getSecond(), Rotation2d.fromDegrees(0), false),
       new DriveMeters(-0.5, 0, 5)
     );
   }
