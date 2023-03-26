@@ -38,6 +38,9 @@ public class Robot extends TimedRobot {
     {
       PortForwarder.add(5800 + i, "10.1.72.15", 5800 + i);
     }
+    PortForwarder.add(5806, "photonvisionRight.local", 5800);
+    PortForwarder.add(5807, "photonvisionLeft.local", 5800);
+    PortForwarder.add(5808, "photonvisionLeftForward.local", 5800);
     led.enable();
   }
 
