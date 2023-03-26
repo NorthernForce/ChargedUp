@@ -80,6 +80,8 @@ public class RobotContainer {
     autonomousChooser.addOption("Blue Left MID", new BlueLeftMid());
     autonomousChooser.addOption("Red Right MID", new RedRightMid());
     autonomousChooser.addOption("Red Left MID", new RedLeftMid());
+    autonomousChooser.addOption("Red Center Balance Only", new RedOnlyCenter());
+    autonomousChooser.addOption("Blue Center Balance Only", new BlueOnlyCenter());
     autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
     autonomousChooser.addOption("Red Mob", getAutonomousCommand());
     //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
