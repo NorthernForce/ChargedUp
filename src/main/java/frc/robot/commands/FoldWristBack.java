@@ -5,8 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import static frc.robot.RobotContainer.*;
@@ -14,12 +14,15 @@ import static frc.robot.RobotContainer.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class FoldWristBack extends ParallelDeadlineGroup {
+public class FoldWristBack extends SequentialCommandGroup {
   /** Creates a new FoldWristBack. */
   public FoldWristBack() {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new WaitCommand(0.5), Commands.run(() -> wrist.setPercent(-0.8), wrist));
+    addCommands(
+      new ParallelDeadlineGroup(new WaitCommand(2), Commands.run(() -> {wrist.setPercent(0.8);}, wrist)),
+      Commands.runOnce(() -> {wrist.setPercent(0);}, wrist)
+    );
     // addCommands(new FooCommand(), new BarCommand());
   }
 }
