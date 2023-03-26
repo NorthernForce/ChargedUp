@@ -83,7 +83,6 @@ public class RobotContainer {
     autonomousChooser.addOption("Red Center Balance Only", new RedOnlyCenter());
     autonomousChooser.addOption("Blue Center Balance Only", new BlueOnlyCenter());
     autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
-    autonomousChooser.addOption("Red Mob", getAutonomousCommand());
     //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
