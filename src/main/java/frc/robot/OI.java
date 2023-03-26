@@ -16,6 +16,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.ExtendArm;
 import frc.robot.commands.Intake;
+import frc.robot.commands.LEDAdjustment;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.MicroAdjust;
@@ -82,7 +83,9 @@ public class OI {
             .whileTrue(new SetArmDPadLeftState());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
-            .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));  
+            .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));                                                           
+        new JoystickButton(driverController, XboxController.Button.kRightBumper.value)
+            .onTrue(new LEDAdjustment(10));            
         // As per their request, the micro adjustment is on both controllers
         new JoystickButton(driverController, XboxController.Button.kBack.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
