@@ -5,6 +5,7 @@
 package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import static frc.robot.RobotContainer.*;
@@ -14,6 +15,8 @@ import static frc.robot.RobotContainer.*;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Balance extends PIDCommand {
   /** Creates a new Balance. */
+  private final Timer timer = new Timer();
+
   public Balance() {
     super(
         // The controller that the command will use
@@ -34,16 +37,29 @@ public class Balance extends PIDCommand {
   public void end(boolean interrupted) {
     if (!interrupted) {
       
-      led.rainbow();
+      
 
     }
 
+  }
+  @Override
+  public void execute()
+  {
+    super.execute();
+    if (!getController().atSetpoint())
+    {
+      timer.reset();
+    }
+    if (timer.hasElapsed(0.2))
+    {
+      led.rainbow();
+    }
   }
   // Returns true when the command should end.
   @Override
   public boolean isFinished()
    {
-    return getController().atSetpoint();
+    return false;
 
   }
 }
