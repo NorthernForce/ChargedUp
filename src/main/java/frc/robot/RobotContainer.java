@@ -70,13 +70,14 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
-    autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
-    autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
+    //autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
+    //autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
+    //autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
     autonomousChooser.addOption("Red Center Balance Only", new RedOnlyCenter());
     autonomousChooser.addOption("Blue Center Balance Only", new BlueOnlyCenter());
+    autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
     //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
@@ -115,7 +116,7 @@ public class RobotContainer {
     {
       exception.printStackTrace();
     }
-    try
+    /*try
     {
       autonomousChooser.addOption("Red Left 2 Piece", new RedLeft(2));
     }
@@ -178,7 +179,7 @@ public class RobotContainer {
     catch (IOException exception)
     {
       exception.printStackTrace();
-    }
+    }*/
     startingLocationChooser = new SendableChooser<>();
     startingLocationChooser.setDefaultOption("Red Left", FieldConstants.RED_POSES[0]);
     startingLocationChooser.addOption("Red Center", FieldConstants.RED_POSES[1]);
