@@ -16,7 +16,10 @@ public class ExtendArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armTelescope.extend();
+    if (!(armRotate.getAngle().getDegrees() > 56 && armRotate.getAngle().getDegrees() < 124))
+    {
+      armTelescope.extend();
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
