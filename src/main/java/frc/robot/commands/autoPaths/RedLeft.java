@@ -43,9 +43,10 @@ public class RedLeft extends SequentialCommandGroup {
         new Outtake()
       ),
       new RetractArm(),
+      new WaitCommand(0.5),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath("Red1ToPiece1")
+      new DriveMeters(-0.5, 0, 4)
+      //new DriveAlongPath("Red3ToPiece4")
     );
     if (numPieces > 1)
     {
@@ -58,7 +59,7 @@ public class RedLeft extends SequentialCommandGroup {
           new Intake()
         ),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece1ToRed1"),
+        new DriveAlongPath("Piece4ToRed3"),
         new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
           AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
