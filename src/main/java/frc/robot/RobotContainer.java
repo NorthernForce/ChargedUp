@@ -71,12 +71,13 @@ public class RobotContainer {
     oi.bindButtons();
     autonomousChooser = new SendableChooser<>();
     autonomousChooser.addOption("Instant Command(Do nothing)", new InstantCommand());
-    autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
-    autonomousChooser.setDefaultOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
-    autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
+    //autonomousChooser.addOption("Human Grid. Mobility", new HG_Mob());
+    //autonomousChooser.addOption("Outer Grid. 1 piece mobility", new OG_1PieMob());
+    //autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
-    autonomousChooser.addOption("Temporary Test", new FoldWristBack());
+    autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
+    //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
      * Each path is loaded from a file, therefore there is a risk of an IOException.
@@ -114,7 +115,7 @@ public class RobotContainer {
     {
       exception.printStackTrace();
     }
-    try
+    /*try
     {
       autonomousChooser.addOption("Red Left 2 Piece", new RedLeft(2));
     }
@@ -177,7 +178,7 @@ public class RobotContainer {
     catch (IOException exception)
     {
       exception.printStackTrace();
-    }
+    }*/
     startingLocationChooser = new SendableChooser<>();
     startingLocationChooser.setDefaultOption("Red Left", FieldConstants.RED_POSES[0]);
     startingLocationChooser.addOption("Red Center", FieldConstants.RED_POSES[1]);
@@ -185,8 +186,8 @@ public class RobotContainer {
     startingLocationChooser.addOption("Blue Left", FieldConstants.BLUE_POSES[0]);
     startingLocationChooser.addOption("Blue Center", FieldConstants.BLUE_POSES[1]);
     startingLocationChooser.addOption("Blue Right", FieldConstants.BLUE_POSES[2]);
-    Shuffleboard.getTab("Drivers").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 4);
-    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 4);
+    Shuffleboard.getTab("Autonomous").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 2);
+    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 2);
     Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
     Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
     Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
