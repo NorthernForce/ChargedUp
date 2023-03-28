@@ -6,12 +6,11 @@ package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
+import frc.robot.Constants.Path;
 
 import static frc.robot.RobotContainer.*;
 
@@ -33,6 +32,22 @@ public class DriveAlongPath extends RamseteCommand {
       TrajectoryUtil.fromPathweaverJson(
         Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
       ),
+      navigation::getPose2d,
+      new RamseteController(),
+      drivetrain.getFeedforward(),
+      drivetrain.getKinematics(),
+      drivetrain::getSpeeds,
+      new PIDController(Constants.DrivetrainConstants.LEFT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
+      new PIDController(Constants.DrivetrainConstants.RIGHT_DRIVE_PROPORTION, 0, 0), /** These values don't matter as far as testing shows */
+      drivetrain::driveVolts,
+      drivetrain, navigation
+    );
+    canDrive = () -> true;
+  }
+  public DriveAlongPath(Path path) throws IOException
+  {
+    super(
+      path.load(),
       navigation::getPose2d,
       new RamseteController(),
       drivetrain.getFeedforward(),

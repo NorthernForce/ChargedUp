@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.io.IOException;
+
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -8,7 +10,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.util.DynamicTransform3d;
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -266,4 +271,34 @@ public final class Constants {
         public static final double CONE_HEIGHT = Units.inchesToMeters(13); //TODO
         public static final double CUBE_HEIGHT = Units.inchesToMeters(9.5); //TODO
     }
+    public static enum Path
+    {
+        BLUE_LEFT_TO_PIECE_LEFT("Blue3ToPiece4"),
+        PIECE_LEFT_TO_BLUE_LEFT("Piece4ToBlue3"),
+        BLUE_LEFT_TO_PIECE_LEFT_CENTER("Blue3ToPiece3"),
+        PIECE_LEFT_CENTER_TO_BLUE_LEFT("Piece3ToBlue3"),
+        BLUE_RIGHT_TO_PIECE_RIGHT("Blue1ToPiece1"),
+        PIECE_RIGHT_TO_BLUE_RIGHT("Piece1ToBlue1"),
+        BLUE_RIGHT_TO_PIECE_RIGHT_CENTER("Blue3ToPiece3"),
+        PIECE_RIGHT_CENTER_TO_BLUE_RIGHT("Piece3ToBlue3"),
+        RED_LEFT_TO_PIECE_LEFT("Red1ToPiece1"),
+        PIECE_LEFT_TO_RED_LEFT("Piece1ToRed1"),
+        RED_LEFT_TO_PIECE_LEFT_CENTER("Red1ToPiece2"),
+        PIECE_LEFT_CENTER_TO_RED_LEFT("Piece2ToRed1"),
+        RED_RIGHT_TO_PIECE_RIGHT("Red3ToPiece4"),
+        PIECE_RIGHT_TO_RED_RIGHT("Piece4ToRed3"),
+        RED_RIGHT_TO_PIECE_RIGHT_CENTER("Red3ToPiece3"),
+        PIECE_RIGHT_CENTER_TO_RED_RIGHT("Red3ToBlue3");
+        private String pathName;
+        private Path(String pathName)
+        {
+            this.pathName = pathName;
+        }
+        public Trajectory load() throws IOException
+        {
+            return TrajectoryUtil.fromPathweaverJson(
+              Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
+            );
+        }
+    };
 }
