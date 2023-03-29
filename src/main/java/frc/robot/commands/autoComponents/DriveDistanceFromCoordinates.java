@@ -26,7 +26,7 @@ public class DriveDistanceFromCoordinates extends ProfiledPIDCommand {
         1, 0, 0, new Constraints(Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION)
       ),
       () -> navigation.getPose2d().getTranslation().getDistance(coordinates),
-      distance,
+      reversed ? -distance : distance,
       (output, state) -> drivetrain.driveVolts(
         -(output + drivetrain.getFeedforward().calculate(state.velocity)),
         -(output + drivetrain.getFeedforward().calculate(state.velocity))
