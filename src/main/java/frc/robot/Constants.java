@@ -282,34 +282,56 @@ public final class Constants {
         public static final double CONE_HEIGHT = Units.inchesToMeters(13); //TODO
         public static final double CUBE_HEIGHT = Units.inchesToMeters(9.5); //TODO
     }
+    public static enum PathSource
+    {
+        PATHWEAVER("paths/"),
+        PATHPLANNER("pathplanner/generatedJSON/");
+        private final String directory;
+        private PathSource(String directory)
+        {
+            this.directory = directory;
+        }
+        public Trajectory load(String pathName) throws IOException
+        {
+            return TrajectoryUtil.fromPathweaverJson(
+              Filesystem.getDeployDirectory().toPath().resolve(directory + pathName + ".wpilib.json")
+            );
+        }
+    };
     public static enum Path
     {
-        BLUE_LEFT_TO_PIECE_LEFT("Blue3ToPiece4"),
-        PIECE_LEFT_TO_BLUE_LEFT("Piece4ToBlue3"),
-        BLUE_LEFT_TO_PIECE_LEFT_CENTER("Blue3ToPiece3"),
-        PIECE_LEFT_CENTER_TO_BLUE_LEFT("Piece3ToBlue3"),
-        BLUE_RIGHT_TO_PIECE_RIGHT("Blue1ToPiece1"),
-        PIECE_RIGHT_TO_BLUE_RIGHT("Piece1ToBlue1"),
-        BLUE_RIGHT_TO_PIECE_RIGHT_CENTER("Blue3ToPiece3"),
-        PIECE_RIGHT_CENTER_TO_BLUE_RIGHT("Piece3ToBlue3"),
-        RED_LEFT_TO_PIECE_LEFT("Red1ToPiece1"),
-        PIECE_LEFT_TO_RED_LEFT("Piece1ToRed1"),
-        RED_LEFT_TO_PIECE_LEFT_CENTER("Red1ToPiece2"),
-        PIECE_LEFT_CENTER_TO_RED_LEFT("Piece2ToRed1"),
-        RED_RIGHT_TO_PIECE_RIGHT("Red3ToPiece4"),
-        PIECE_RIGHT_TO_RED_RIGHT("Piece4ToRed3"),
-        RED_RIGHT_TO_PIECE_RIGHT_CENTER("Red3ToPiece3"),
-        PIECE_RIGHT_CENTER_TO_RED_RIGHT("Red3ToBlue3");
+        // Pathweaver paths
+        BLUE_LEFT_TO_PIECE_LEFT("Blue3ToPiece4", PathSource.PATHWEAVER),
+        PIECE_LEFT_TO_BLUE_LEFT("Piece4ToBlue3", PathSource.PATHWEAVER),
+        BLUE_LEFT_TO_PIECE_LEFT_CENTER("Blue3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_LEFT_CENTER_TO_BLUE_LEFT("Piece3ToBlue3", PathSource.PATHWEAVER),
+        BLUE_RIGHT_TO_PIECE_RIGHT("Blue1ToPiece1", PathSource.PATHWEAVER),
+        PIECE_RIGHT_TO_BLUE_RIGHT("Piece1ToBlue1", PathSource.PATHWEAVER),
+        BLUE_RIGHT_TO_PIECE_RIGHT_CENTER("Blue3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_RIGHT_CENTER_TO_BLUE_RIGHT("Piece3ToBlue3", PathSource.PATHWEAVER),
+        RED_LEFT_TO_PIECE_LEFT("Red1ToPiece1", PathSource.PATHWEAVER),
+        PIECE_LEFT_TO_RED_LEFT("Piece1ToRed1", PathSource.PATHWEAVER),
+        RED_LEFT_TO_PIECE_LEFT_CENTER("Red1ToPiece2", PathSource.PATHWEAVER),
+        PIECE_LEFT_CENTER_TO_RED_LEFT("Piece2ToRed1", PathSource.PATHWEAVER),
+        RED_RIGHT_TO_PIECE_RIGHT("Red3ToPiece4", PathSource.PATHWEAVER),
+        PIECE_RIGHT_TO_RED_RIGHT("Piece4ToRed3", PathSource.PATHWEAVER),
+        RED_RIGHT_TO_PIECE_RIGHT_CENTER("Red3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_RIGHT_CENTER_TO_RED_RIGHT("Red3ToBlue3", PathSource.PATHWEAVER),
+        // Path Planner Paths
+        BACKWARD_BLUE_LEFT_TO_PIECE_LEFT("BlueLeftPieceLeft", PathSource.PATHPLANNER),
+        FORWARD_PIECE_LEFT_TO_BLUE_LEFT("PieceLeftBlueLeft", PathSource.PATHPLANNER),
+        BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT("BlueRightPieceRight", PathSource.PATHPLANNER),
+        FORWARD_PIECE_RIGHT_TO_BLUE_RIGHT("PieceRightBlueRight", PathSource.PATHPLANNER);
         private String pathName;
-        private Path(String pathName)
+        private final PathSource pathSource;
+        private Path(String pathName, PathSource source)
         {
             this.pathName = pathName;
+            this.pathSource = source;
         }
         public Trajectory load() throws IOException
         {
-            return TrajectoryUtil.fromPathweaverJson(
-              Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
-            );
+            return pathSource.load(pathName);
         }
     };
 }
