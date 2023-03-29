@@ -322,6 +322,14 @@ public final class Constants {
             Rotation2d.fromDegrees(360 -15),
             true
         );
+        public static final Pair<Double, Rotation2d> BACKWARD_FLOOR_CUBE = calculateArmAngleAndDistance(
+            ArmConstants.ORIGIN.getZ(),
+            ArmConstants.EXTENDED_LENGTH,
+            GripperConstants.FULCRUM_TO_CUBE,
+            WristConstants.BACKWARD_PICKUP_ANGLE,
+            PiceConstants.CUBE_HEIGHT,
+            ArmConstants.ORIGIN.getX()
+        );
     }
     /** Pice dimensions constants*/
     public static class PiceConstants {
