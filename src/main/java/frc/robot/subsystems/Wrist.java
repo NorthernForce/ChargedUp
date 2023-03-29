@@ -21,34 +21,32 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Wrist extends SubsystemBase {
   private final MotorGroupSpark spark = new MotorGroupSpark(MotorType.kBrushed, Constants.WristConstants.MOTOR_ID);
   private final GenericEntry kFEntry, kPEntry, kIEntry, kDEntry;
+  private final GenericEntry kMaxAccelEntry, kMaxVelocityEntry, kMinOutputVelocityEntry;
   /** Creates a new Wrist. */
   public Wrist() {
     spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
+    spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 0, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
     kIEntry = Shuffleboard.getTab("Arm").add("Wrist - kI", Constants.WristConstants.kI).getEntry();
     kDEntry = Shuffleboard.getTab("Arm").add("Wrist - kD", Constants.WristConstants.kD).getEntry();
+    kMaxAccelEntry = Shuffleboard.getTab("Arm").add("Wrist - MaxAccel", Constants.WristConstants.kMaxAccel).getEntry();
+    kMaxVelocityEntry = Shuffleboard.getTab("Arm").add("Wrist - MaxVelocity", Constants.WristConstants.kMaxVelocity).getEntry();
+    kMinOutputVelocityEntry = Shuffleboard.getTab("Arm").add("Wrist - MinOutputVelocity", Constants.WristConstants.kMinOutputVelocity).getEntry();
   }
+
   /**
    * Returns angle off of the line of the arm
    * @return Rotation2d
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(srx.getEncoderRotations());
+    return Rotation2d.fromRotations(spark.getAbsolute());
   }
   public boolean isCANCoderPresent()
   {
-    return canCoderPresent;
-  }
-  /**
-   * Sets the velocity of the wrist motor
-   * @param velocity rotations/sec
-   */
-  public void setVelocity(double speed)
-  {
-    srx.setVelocity(speed, armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
+    return true;
   }
   /**
    * Sets the position of the wrist motor
@@ -56,7 +54,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    srx.setPosition(rotation.getRotations(), armRotate.getAngle().plus(getAngle()).getCos() * Constants.WristConstants.kFF);
+    spark.setUsingSmartMotion(rotation.getRotations(), 0);
   }
   /**
    * Sets the percent without calculating feedforward
@@ -64,11 +62,11 @@ public class Wrist extends SubsystemBase {
    */
   public void setPercent(double percent)
   {
-    srx.set(percent);
+    spark.set(percent);
   }
   public Rotation2d getVelocity()
   {
-    return Rotation2d.fromRotations(srx.getEncoderRPS());
+    return Rotation2d.fromRotations(spark.getAbsoluteRPS());
   }
   /**
    * Calibrates the wrist CANCoder with a known angle
@@ -76,19 +74,20 @@ public class Wrist extends SubsystemBase {
    */
   public void calibrate(Rotation2d angle)
   {
-    canCoder.configMagnetOffset(-canCoder.getAbsolutePosition());
-    canCoder.setPosition(0);
+    spark.resetAbsolute(angle.getRotations());
   }
   @Override
   public void periodic()
   {
-    srx.configClosedLoop(
-      0, 
-      0, 
-      kFEntry.getDouble(Constants.WristConstants.kF),
+    spark.configurePID(
+      0,  
       kPEntry.getDouble(Constants.WristConstants.kP),
       kIEntry.getDouble(Constants.WristConstants.kI),
-      kDEntry.getDouble(Constants.WristConstants.kD)
+      kDEntry.getDouble(Constants.WristConstants.kD),
+      0,
+      kMaxAccelEntry.getDouble(Constants.WristConstants.kMaxAccel),
+      kMaxVelocityEntry.getDouble(Constants.WristConstants.kMaxVelocity),
+      kMinOutputVelocityEntry.getDouble(Constants.WristConstants.kMinOutputVelocity)
     );
   }
 }
