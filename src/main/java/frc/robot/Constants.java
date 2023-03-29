@@ -223,6 +223,7 @@ public final class Constants {
             SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
             EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
+        public static final Rotation2d BACKWARD_PICKUP_ANGLE = Rotation2d.fromDegrees(160);
     }
     public static class AnglesAndDistances
     {
@@ -274,6 +275,14 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.LOW_CONE_PLACEMENT_ANGLE,
             PiceConstants.CONE_HEIGHT, 
+            ArmConstants.ORIGIN.getX()
+        );
+        public static final Pair<Double, Rotation2d> BACKWARD_FLOOR_CUBE = calculateArmAngleAndDistance(
+            ArmConstants.ORIGIN.getZ(),
+            ArmConstants.EXTENDED_LENGTH,
+            GripperConstants.FULCRUM_TO_CUBE,
+            WristConstants.BACKWARD_PICKUP_ANGLE,
+            PiceConstants.CUBE_HEIGHT,
             ArmConstants.ORIGIN.getX()
         );
     }
