@@ -321,7 +321,11 @@ public final class Constants {
         BACKWARD_BLUE_LEFT_TO_PIECE_LEFT("BlueLeftPieceLeft", PathSource.PATHPLANNER),
         FORWARD_PIECE_LEFT_TO_BLUE_LEFT("PieceLeftBlueLeft", PathSource.PATHPLANNER),
         BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT("BlueRightPieceRight", PathSource.PATHPLANNER),
-        FORWARD_PIECE_RIGHT_TO_BLUE_RIGHT("PieceRightBlueRight", PathSource.PATHPLANNER);
+        FORWARD_PIECE_RIGHT_TO_BLUE_RIGHT("PieceRightBlueRight", PathSource.PATHPLANNER),
+        BACKWARD_RED_LEFT_TO_PIECE_LEFT("RedLeftPieceLeft", PathSource.PATHPLANNER),
+        FORWARD_PIECE_LEFT_TO_RED_LEFT("PieceLeftRedLeft", PathSource.PATHPLANNER),
+        BACKWARD_RED_RIGHT_TO_PIECE_RIGHT("RedRightPieceRight", PathSource.PATHPLANNER),
+        FORWARD_PIECE_RIGHT_TO_RED_RIGHT("PieceRightRedRight", PathSource.PATHPLANNER);
         private String pathName;
         private final PathSource pathSource;
         private Path(String pathName, PathSource source)
