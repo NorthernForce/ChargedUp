@@ -51,13 +51,14 @@ public class BlueRight extends SequentialCommandGroup {
     if (numPieces > 1)
     {
       addCommands(
-        new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.LOW_CUBE.getFirst(),
-          AnglesAndDistances.LOW_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
-          WristConstants.LOW_CUBE_PLACEMENT_ANGLE, false),
+        new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
+          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+          WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
         new ParallelDeadlineGroup(
           new WaitCommand(1),
           new Intake()
         ),
+        new RetractArm(),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
         new DriveAlongPath(Constants.Path.FORWARD_PIECE_RIGHT_TO_BLUE_RIGHT),
         new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
