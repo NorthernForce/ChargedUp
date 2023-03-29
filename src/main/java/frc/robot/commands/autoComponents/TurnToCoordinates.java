@@ -31,6 +31,11 @@ public class TurnToCoordinates extends PIDCommand {
         0
       ),
       () -> {
+        if (reversed)
+        {
+          var val = -navigation.getPose2d().getTranslation().minus(coords).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
+          return MathUtil.inputModulus(val, -180.0, 180.0);
+        }
         var val = -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
         return MathUtil.inputModulus(val, -180.0, 180.0);
       },
