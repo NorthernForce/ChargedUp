@@ -8,8 +8,10 @@ import java.util.*;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
@@ -86,5 +88,16 @@ public class MotorGroupSpark implements MotorGroup {
         for (CANSparkMax canSparkMax : followers) {
             canSparkMax.follow(primary);
         }
+    }
+    /**
+     * Sets up soft limits for a spark max.
+     * @param forward
+     * @param backward
+     */
+    public void setLimits(Rotation2d forward, Rotation2d backward) {
+        primary.setSoftLimit(SoftLimitDirection.kForward, (float)forward.getRotations());
+        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)backward.getRotations());
+        primary.enableSoftLimit(SoftLimitDirection.kForward, true);
+        primary.enableSoftLimit(SoftLimitDirection.kReverse, false);
     }
 }
