@@ -16,7 +16,11 @@ public class DriveDistanceFromCoordinates extends ProfiledPIDCommand {
   /** Creates a new DriveDistanceFromCoordinates.
    * Assumes aligned with coordinates.
    */
-  public DriveDistanceFromCoordinates(double distance, Translation2d coordinates) {
+  public DriveDistanceFromCoordinates(double distance, Translation2d coordinates)
+  {
+    this(distance, coordinates, false);
+  }
+  public DriveDistanceFromCoordinates(double distance, Translation2d coordinates, boolean reversed) {
     super(
       new ProfiledPIDController(
         1, 0, 0, new Constraints(Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION)

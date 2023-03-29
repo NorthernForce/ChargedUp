@@ -24,10 +24,17 @@ public class PositionWithTarget extends SequentialCommandGroup {
     Rotation2d targetArmAngle,
     Rotation2d targetWristAngle,
     boolean extendArm) {
+    this(targetPosition, targetDistance, targetArmAngle, targetWristAngle, extendArm, false);
+  }
+  public PositionWithTarget(Translation2d targetPosition,
+    double targetDistance,
+    Rotation2d targetArmAngle,
+    Rotation2d targetWristAngle,
+    boolean extendArm, boolean reversed) {
     addCommands(
       new SequentialCommandGroup(
-        new TurnToCoordinates(targetPosition),
-        new DriveDistanceFromCoordinates(targetDistance, targetPosition)
+        new TurnToCoordinates(targetPosition, reversed),
+        new DriveDistanceFromCoordinates(targetDistance, targetPosition, reversed)
       ),
       new SetArmAngle(targetArmAngle.plus(Rotation2d.fromDegrees(25))),
       new SetWristAngle(targetWristAngle),

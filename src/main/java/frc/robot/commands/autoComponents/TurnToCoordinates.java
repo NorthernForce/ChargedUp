@@ -19,7 +19,11 @@ public class TurnToCoordinates extends PIDCommand {
    * Creates a new TurnToCoordinates.
    * @param coords The coordinates of the thing to align with
    */
-  public TurnToCoordinates(Translation2d coords) {
+  public TurnToCoordinates(Translation2d coords)
+  {
+    this(coords, false);
+  }
+  public TurnToCoordinates(Translation2d coords, boolean reversed) {
     super(
       new PIDController(
         2e-2,
