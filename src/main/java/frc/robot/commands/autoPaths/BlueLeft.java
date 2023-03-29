@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.Constants.AnglesAndDistances;
 import frc.robot.Constants.WristConstants;
@@ -45,7 +46,7 @@ public class BlueLeft extends SequentialCommandGroup {
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
       new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath("Blue3ToPiece4")
+      new DriveAlongPath(Constants.Path.BACKWARD_BLUE_LEFT_TO_PIECE_LEFT)
     );
     if (numPieces > 1)
     {
@@ -58,7 +59,7 @@ public class BlueLeft extends SequentialCommandGroup {
           new Intake()
         ),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece4ToBlue3"),
+        new DriveAlongPath(Constants.Path.FORWARD_PIECE_LEFT_TO_BLUE_LEFT),
         new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
           AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
