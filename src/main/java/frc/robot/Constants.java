@@ -319,7 +319,7 @@ public final class Constants {
             WristConstants.BACKWARD_PICKUP_ANGLE,
             PiceConstants.CUBE_HEIGHT,
             ArmConstants.ORIGIN.getX(),
-            Rotation2d.fromDegrees(360 -19),
+            Rotation2d.fromDegrees(360 -15),
             true
         );
     }
