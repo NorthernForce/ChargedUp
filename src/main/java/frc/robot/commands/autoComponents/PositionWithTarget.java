@@ -33,10 +33,10 @@ public class PositionWithTarget extends SequentialCommandGroup {
     boolean extendArm, boolean reversed) {
     addCommands(
       new SequentialCommandGroup(
-        new TurnToCoordinates(targetPosition, reversed),
-        new DriveDistanceFromCoordinates(targetDistance, targetPosition, reversed)
+        //new TurnToCoordinates(targetPosition, reversed),
+        //new DriveDistanceFromCoordinates(targetDistance, targetPosition, reversed)
       ),
-      new SetArmAngle(targetArmAngle.plus(Rotation2d.fromDegrees(25))),
+      new SetArmAngle(targetArmAngle),
       new SetWristAngle(targetWristAngle),
       extendArm ? new AutoExtend() : new RetractArm()
     );

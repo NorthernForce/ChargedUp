@@ -45,7 +45,7 @@ public class BlueRight extends SequentialCommandGroup {
       ),
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      new DriveMeters(-0.4, 0, 1),
+      //new DriveMeters(-0.4, 0, 1),
       new DriveAlongPath(Constants.Path.BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT)
     );
     if (numPieces > 1)

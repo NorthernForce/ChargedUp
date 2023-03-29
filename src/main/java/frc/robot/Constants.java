@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -36,12 +37,40 @@ public final class Constants {
      * @param armToCenter the amount of units that the arm is in front of the center of the robot
      * @return a pair of distance to the target, as well as the ideal angle
      */
-    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter)
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter, Rotation2d armOvershoot)
     {
         double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
         Rotation2d armAngle = Rotation2d.fromRadians(Math.asin(heightDiff / armLength));
         double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
-        return new Pair<Double,Rotation2d>(targetDistance, armAngle);
+        return new Pair<Double,Rotation2d>(targetDistance, armAngle.plus(armOvershoot));
+    }
+    /**
+     * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
+     * Units does not matter as long as consistent. That said, this programming repository prefers to operate in the metric system in code.
+     * @param armHeight The height of the arm fulcrum off of the same surface as the target, ideally the floor
+     * @param armLength The length of the arm from fulcrum to wrist fulcrum.
+     * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
+     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation. Off of the floor.
+     * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
+     * @param armToCenter the amount of units that the arm is in front of the center of the robot
+     * @return a pair of distance to the target, as well as the ideal angle
+     */
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter, Rotation2d armOvershoot, boolean reversed)
+    {
+        if (!reversed)
+        {
+            double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+            Rotation2d armAngle = Rotation2d.fromRadians(MathUtil.inputModulus(Math.asin(heightDiff / armLength), Math.toRadians(-90), Math.toRadians(270)));
+            double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+            return new Pair<Double,Rotation2d>(targetDistance, armAngle.plus(armOvershoot));
+        }
+        else
+        {
+            double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+            Rotation2d armAngle = Rotation2d.fromRadians(MathUtil.inputModulus(Math.asin(heightDiff / armLength), Math.toRadians(-90), Math.toRadians(270)));
+            double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+            return new Pair<Double,Rotation2d>(targetDistance, Rotation2d.fromRotations(0.5).minus(armAngle).plus(armOvershoot));
+        }
     }
     /** Drive Constants */
     public static class DrivetrainConstants
@@ -234,7 +263,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[1].getZ() + PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> MEDIUM_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -242,7 +272,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.MID_CUBE_PLACEMENT_ANGLE,
             FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[0].getZ() + PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> LOW_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -250,7 +281,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.LOW_CUBE_PLACEMENT_ANGLE,
             PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
 
         public static final Pair<Double, Rotation2d> HIGH_CONE = calculateArmAngleAndDistance(
@@ -259,7 +291,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CONE, 
             WristConstants.HIGH_CONE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[1].getZ() + PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> MEDIUM_CONE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -267,7 +300,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CONE, 
             WristConstants.MID_CONE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[0].getZ() + PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> LOW_CONE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -275,7 +309,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.LOW_CONE_PLACEMENT_ANGLE,
             PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> BACKWARD_FLOOR_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(),
@@ -283,7 +318,9 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE,
             WristConstants.BACKWARD_PICKUP_ANGLE,
             PiceConstants.CUBE_HEIGHT,
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(360 -19),
+            true
         );
     }
     /** Pice dimensions constants*/

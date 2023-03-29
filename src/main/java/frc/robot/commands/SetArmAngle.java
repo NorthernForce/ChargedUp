@@ -4,7 +4,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
@@ -14,7 +16,7 @@ public class SetArmAngle extends CommandBase {
   private final Rotation2d angle;
   /** Creates a new SetArmAngle. */
   public SetArmAngle(Rotation2d angle) {
-    this.angle = angle;
+    this.angle = Rotation2d.fromDegrees(MathUtil.inputModulus(angle.getDegrees(), -90, 270));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armRotate);
   }
@@ -22,6 +24,8 @@ public class SetArmAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("armAngle", angle.getRotations() * 360);
+    SmartDashboard.putNumber("armAngle (getDegrees)", angle.getDegrees());
     armRotate.setAngle(angle);
   }
 
