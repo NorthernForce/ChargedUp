@@ -17,7 +17,7 @@ import frc.robot.commands.SetWristAngle;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PositionWithTarget extends SequentialCommandGroup {
+public class PositionWithTarget extends ParallelCommandGroup {
   /** Creates a new PositionWithTarget. */
   public PositionWithTarget(Translation2d targetPosition,
     double targetDistance,
@@ -33,7 +33,7 @@ public class PositionWithTarget extends SequentialCommandGroup {
     boolean extendArm, boolean reversed) {
     addCommands(
       new SequentialCommandGroup(
-        //new TurnToCoordinates(targetPosition, reversed),
+        new TurnToCoordinates(targetPosition, reversed)
         //new DriveDistanceFromCoordinates(targetDistance, targetPosition, reversed)
       ),
       new SetArmAngle(targetArmAngle),
