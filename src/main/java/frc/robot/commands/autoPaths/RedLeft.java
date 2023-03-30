@@ -7,6 +7,7 @@ package frc.robot.commands.autoPaths;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -45,8 +46,10 @@ public class RedLeft extends SequentialCommandGroup {
       ),
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      //new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath(Constants.Path.BACKWARD_RED_LEFT_TO_PIECE_LEFT)
+      new ParallelCommandGroup(
+        new DriveAlongPath(Constants.Path.BACKWARD_RED_LEFT_TO_PIECE_LEFT),
+        new SetArmAngle(Rotation2d.fromDegrees(140))
+      )
     );
     if (numPieces > 1)
     {

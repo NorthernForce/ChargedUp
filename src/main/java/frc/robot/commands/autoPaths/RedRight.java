@@ -46,10 +46,9 @@ public class RedRight extends SequentialCommandGroup {
       ),
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      //new DriveMeters(-0.4, 0, 1),
       new ParallelDeadlineGroup(
-      new DriveAlongPath(Constants.Path.BACKWARD_RED_RIGHT_TO_PIECE_RIGHT),
-      new SetArmAngle(Rotation2d.fromDegrees(140))
+        new DriveAlongPath(Constants.Path.BACKWARD_RED_RIGHT_TO_PIECE_RIGHT),
+        new SetArmAngle(Rotation2d.fromDegrees(140))
       )
     );
     if (numPieces > 1)
@@ -58,21 +57,21 @@ public class RedRight extends SequentialCommandGroup {
         new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
       AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond(),
       WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
-    new ParallelDeadlineGroup(
-      new WaitCommand(0.6),
-      new Intake()
-    ),
-    new RetractArm(),
-    new SetArmAngle(Rotation2d.fromDegrees(90)),
-    new DriveAlongPath(Constants.Path.FORWARD_PIECE_RIGHT_TO_RED_RIGHT),
-    new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
-      AnglesAndDistances.MEDIUM_CUBE.getSecond(),
-      WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
-    new ParallelDeadlineGroup(
-      new WaitCommand(0.5),
-      new Outtake()
+      new ParallelDeadlineGroup(
+        new WaitCommand(0.6),
+        new Intake()
       ),
-      new SetArmAngle(Rotation2d.fromDegrees(90))
+      new RetractArm(),
+      new SetArmAngle(Rotation2d.fromDegrees(90)),
+      new DriveAlongPath(Constants.Path.FORWARD_PIECE_RIGHT_TO_RED_RIGHT),
+      new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
+        AnglesAndDistances.MEDIUM_CUBE.getSecond(),
+        WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
+      new ParallelDeadlineGroup(
+        new WaitCommand(0.5),
+        new Outtake()
+        ),
+        new SetArmAngle(Rotation2d.fromDegrees(90))
       );
     }
     if (numPieces > 2)
