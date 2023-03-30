@@ -33,14 +33,12 @@ public class Balance extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
-  @Override 
-  public void end(boolean interrupted) {
-    if (!interrupted) {
-      
-      
-
-    }
-
+  @Override
+  public void initialize()
+  {
+    super.initialize();
+    timer.reset();
+    timer.start();
   }
   @Override
   public void execute()
@@ -48,7 +46,7 @@ public class Balance extends PIDCommand {
     super.execute();
     if (!getController().atSetpoint())
     {
-      timer.reset();
+      timer.restart();
     }
     if (timer.hasElapsed(0.2))
     {
@@ -58,8 +56,7 @@ public class Balance extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished()
-   {
+  {
     return false;
-
   }
 }
