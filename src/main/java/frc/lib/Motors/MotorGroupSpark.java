@@ -7,9 +7,13 @@ package frc.lib.Motors;
 import java.util.*;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
@@ -86,5 +90,37 @@ public class MotorGroupSpark implements MotorGroup {
         for (CANSparkMax canSparkMax : followers) {
             canSparkMax.follow(primary);
         }
+    }
+    /**
+     * Sets up soft limits for a spark max.
+     * @param forward
+     * @param backward
+     */
+    public void setLimits(Rotation2d forward, Rotation2d backward) {
+        primary.setSoftLimit(SoftLimitDirection.kForward, (float)forward.getRotations());
+        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)backward.getRotations());
+        primary.enableSoftLimit(SoftLimitDirection.kForward, true);
+        primary.enableSoftLimit(SoftLimitDirection.kReverse, false);
+    }
+    public void configurePID(int slot, double kP, double kI, double kD, double allowedCloseLoopErrors, double maxAccel, double maxVelocity, double minOutputVelocity){
+        primary.getPIDController().setP(kP, slot);
+        primary.getPIDController().setI(kI, slot);
+        primary.getPIDController().setD(kD, slot);
+        primary.getPIDController().setSmartMotionAllowedClosedLoopError(allowedCloseLoopErrors, slot);
+        primary.getPIDController().setSmartMotionMaxAccel(maxAccel, slot);
+        primary.getPIDController().setSmartMotionMaxVelocity(allowedCloseLoopErrors, slot);
+        primary.getPIDController().setSmartMotionMinOutputVelocity(minOutputVelocity, slot);
+    }
+    public void setUsingSmartMotion(double position, int slot){
+        primary.getPIDController().setReference(position, ControlType.kSmartMotion, slot);
+    }
+    public double getAbsolute(){
+        return primary.getAbsoluteEncoder(Type.kDutyCycle).getPosition();
+    }
+    public void resetAbsolute(double position){
+            primary.getAbsoluteEncoder(Type.kDutyCycle).setZeroOffset(position - getAbsolute());
+    }
+    public double getAbsoluteRPS() {
+        return primary.getAbsoluteEncoder(Type.kDutyCycle).getVelocity();
     }
 }
