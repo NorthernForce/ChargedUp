@@ -6,7 +6,9 @@ package frc.lib.Motors;
 
 import java.util.*;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.MotorFeedbackSensor;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
@@ -122,5 +124,13 @@ public class MotorGroupSpark implements MotorGroup {
     }
     public double getAbsoluteRPS() {
         return primary.getAbsoluteEncoder(Type.kDutyCycle).getVelocity();
+    }
+    public void setFeedbackSensor(MotorFeedbackSensor sensor)
+    {
+        primary.getPIDController().setFeedbackDevice(sensor);
+    }
+    public AbsoluteEncoder getAbsoluteEncoder()
+    {
+        return primary.getAbsoluteEncoder(Type.kDutyCycle);
     }
 }
