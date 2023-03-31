@@ -16,6 +16,9 @@ import static frc.robot.RobotContainer.*;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.MotorFeedbackSensor;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Wrist extends SubsystemBase {
@@ -26,6 +29,7 @@ public class Wrist extends SubsystemBase {
   public Wrist() {
     spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
     spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 0, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
+    spark.setFeedbackSensor(spark.getAbsoluteEncoder());
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
