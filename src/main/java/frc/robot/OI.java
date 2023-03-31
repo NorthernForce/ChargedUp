@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
+import frc.robot.commands.autoComponents.TurnToAngleAbs;
+import frc.robot.util.FieldDirections;
 
 
 /** Add your docs here. */
@@ -78,5 +80,13 @@ public class OI {
         .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 270)
         .whileTrue(new SetArmAngle(Constants.ArmConstants.WEST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.WEST_ANGLE)));
+        new JoystickButton(driverController, XboxController.Button.kX.value)
+            .whileTrue(new TurnToAngleAbs(RobotContainer.drivetrain, RobotContainer.navigation, FieldDirections.AWAY));
+        new JoystickButton(driverController, XboxController.Button.kY.value)
+            .whileTrue(new TurnToAngleAbs(RobotContainer.drivetrain, RobotContainer.navigation, FieldDirections.LEFT));
+        new JoystickButton(driverController, XboxController.Button.kA.value)
+            .whileTrue(new TurnToAngleAbs(RobotContainer.drivetrain, RobotContainer.navigation, FieldDirections.RETURN));
+        new JoystickButton(driverController, XboxController.Button.kB.value)
+            .whileTrue(new TurnToAngleAbs(RobotContainer.drivetrain, RobotContainer.navigation, FieldDirections.RIGHT));
     }
 }

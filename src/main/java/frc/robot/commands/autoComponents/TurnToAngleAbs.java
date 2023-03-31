@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IMU;
+import frc.robot.subsystems.Navigation;
 import frc.robot.util.FieldDirections;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,13 +18,13 @@ import frc.robot.util.FieldDirections;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TurnToAngleAbs extends PIDCommand {
   /** Creates a new TurnToAngleAbs. */
-  public TurnToAngleAbs(Drivetrain drivetrain, IMU imu, FieldDirections direction) {
+  public TurnToAngleAbs(Drivetrain drivetrain, Navigation navigation, FieldDirections direction) {
     super(
         // The controller that the command will use
         new PIDController(2e-2, 0, 0),
         // This should return the measurement
         () -> {
-          double currentAngle = MathUtil.inputModulus(imu.getYaw().getDegrees(), -180, 180);
+          double currentAngle = MathUtil.inputModulus(navigation.getPose2d().getRotation().getDegrees(), -180, 180);
           double error = (currentAngle - direction.getAngle().getDegrees());
           return MathUtil.inputModulus(error, -180, 180);
         },
