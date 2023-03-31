@@ -29,6 +29,10 @@ public class ManipulateArmWithJoystick extends CommandBase {
   @Override
   public void execute() {
     armRotate.setArmSpeed(Speeds[0].getAsDouble() * Math.abs(Speeds[0].getAsDouble()));
+    if (armRotate.getAngle().getDegrees() > 56 && armRotate.getAngle().getDegrees() < 124)
+    {
+      armTelescope.retract();
+    }
   }
 
   // Called once the command ends or is interrupted.
