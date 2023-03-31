@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -76,7 +78,11 @@ public class Navigation extends SubsystemBase {
       EstimatedRobotPose pose;
       if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
       {
-        poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
+        if (pose.estimatedPose.getX() <= (Units.feetToMeters(54) + Units.inchesToMeters(1))
+          && pose.estimatedPose.getX() >= 0
+          && pose.estimatedPose.getY() <= (Units.feetToMeters(26) + Units.inchesToMeters(7))
+          && pose.estimatedPose.getY() >= 0)
+          poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
       }
     }
     field.setRobotPose(poseEstimator.getEstimatedPosition());
