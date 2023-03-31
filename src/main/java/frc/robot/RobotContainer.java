@@ -75,6 +75,9 @@ public class RobotContainer {
     autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
+    autonomousChooser.addOption("Red Center Balance Only", new RedOnlyCenter());
+    autonomousChooser.addOption("Blue Center Balance Only", new BlueOnlyCenter());
+    //autonomousChooser.addOption("Temporary Test", new FoldWristBack());
     /**
      * An IOException occurs when you access files that cause errors of a sort.
      * Each path is loaded from a file, therefore there is a risk of an IOException.
