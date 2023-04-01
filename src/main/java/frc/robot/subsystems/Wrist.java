@@ -63,18 +63,6 @@ public class Wrist extends SubsystemBase {
     spark.setUsingSmartMotion(rotation.getRotations() + 0.25, 0);
   }
   /**
-   * Sets the percent without calculating feedforward
-   * @param percent [-1.0.. 1.0]
-   */
-  public void setPercent(double percent)
-  {
-    spark.set(percent);
-  }
-  public Rotation2d getVelocity()
-  {
-    return Rotation2d.fromRotations(spark.getAbsoluteRPS());
-  }
-  /**
    * Calibrates the wrist CANCoder with a known angle
    * @param angle the known angle
    */
