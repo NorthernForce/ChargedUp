@@ -42,6 +42,6 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return vision.hasTarget(cameraIdx) && Math.abs(vision.getTargetYaw(cameraIdx).getDegrees()) < 2;
+    return vision.hasTarget(cameraIdx) && controller.atSetpoint();
   }
 }
