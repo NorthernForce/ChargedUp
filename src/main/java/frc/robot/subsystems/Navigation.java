@@ -63,24 +63,7 @@ public class Navigation extends SubsystemBase {
       pose
     );
   }
-  /** Runs once every 20ms. */
-  @Override
-  public void periodic() {
-    poseEstimator.update(
-      imu.getRotation2d(),
-      drivetrain.getLeftDistance(),
-      drivetrain.getRightDistance()
-    );
-    for (var camera : cameras)
-    {
-      EstimatedRobotPose pose;
-      if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
-      {
-        poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
-      }
-    }
-    field.setRobotPose(poseEstimator.getEstimatedPosition());
-  }
+
   /**
    * Gets the nearest scoring location
    * @return scoring location (Translation3d)
@@ -169,4 +152,27 @@ public class Navigation extends SubsystemBase {
       return nearest;
     }
   }
-}
+
+  /** Runs once every 20ms. */
+  @Override
+  public void periodic() {
+    poseEstimator.update(
+      imu.getRotation2d(),
+      drivetrain.getLeftDistance(),
+      drivetrain.getRightDistance()
+    );
+
+    for (var camera : cameras)
+    {
+      EstimatedRobotPose pose;
+      camera.updateLatestResult();
+      if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
+      {
+        poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
+      }
+    }
+
+    field.setRobotPose(poseEstimator.getEstimatedPosition());
+
+  }
+}  

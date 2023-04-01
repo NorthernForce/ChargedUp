@@ -4,6 +4,7 @@ import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,11 +15,13 @@ public class PhotonCameraWrapper implements CameraWrapper {
     private final Transform3d transformToCenter;
     private final PhotonPoseEstimator visionEstimator;
     private final PhotonCamera camera;
+    private PhotonPipelineResult latestResult;
     public PhotonCameraWrapper(String name, Transform3d transform)
     {
         camera = new PhotonCamera(name);
         transformToCenter = transform;
         visionEstimator = new PhotonPoseEstimator(FieldConstants.APRILTAG_LAYOUT, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, camera, transform);
+        updateLatestResult();
     }
     /**
      * Returns the Transform3d (X,Y,Z comp and Pitch, Roll, Yaw comp)
@@ -45,13 +48,18 @@ public class PhotonCameraWrapper implements CameraWrapper {
     public int getPipelineIndex() {
         return camera.getPipelineIndex();
     }
+
+    public void updateLatestResult() {
+        latestResult = camera.getLatestResult();
+    }
+
     /**
      * Gets whether a target exists
      * @return whether the camera sees a target
      */
     @Override
     public boolean hasTarget() {
-        return camera.getLatestResult().hasTargets();
+        return latestResult.hasTargets();
     }
     /**
      * Gets yaw to target
@@ -59,7 +67,7 @@ public class PhotonCameraWrapper implements CameraWrapper {
      */
     @Override
     public Rotation2d getTargetYaw() {
-        return Rotation2d.fromDegrees(camera.getLatestResult().getBestTarget().getYaw());
+        return Rotation2d.fromDegrees(latestResult.getBestTarget().getYaw());
     }
     /**
      * Gets pitch to target
@@ -67,7 +75,7 @@ public class PhotonCameraWrapper implements CameraWrapper {
      */
     @Override
     public Rotation2d getTargetPitch() {
-        return Rotation2d.fromDegrees(camera.getLatestResult().getBestTarget().getPitch());
+        return Rotation2d.fromDegrees(latestResult.getBestTarget().getPitch());
     }
     /**
      * Gets target distance
