@@ -22,11 +22,11 @@ public class CubeManipulatingState implements ManipulatingState {
 
     @Override
     public double getIntakeSetSpeed() {
-        return 1.0;
+        return -1.0;
     }
 
     @Override
     public double getOuttakeSpeed() {
-        return -1.0;
+        return 1.0;
     }
 }
