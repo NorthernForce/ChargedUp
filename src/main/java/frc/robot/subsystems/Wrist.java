@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -46,7 +47,7 @@ public class Wrist extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(spark.getAbsolute());
+    return Rotation2d.fromRotations(MathUtil.inputModulus(spark.getAbsolute(), -90, 270));
   }
   public boolean isCANCoderPresent()
   {
@@ -58,7 +59,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    spark.setUsingSmartMotion(rotation.getRotations(), 0);
+    spark.setUsingSmartMotion(MathUtil.inputModulus(rotation.getRotations(), 0, 360), 0);
   }
   /**
    * Sets the percent without calculating feedforward
