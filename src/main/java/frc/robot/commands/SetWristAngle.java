@@ -43,8 +43,8 @@ public class SetWristAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
-      && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE)
+    return Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
+     // && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE)
       || !wrist.isCANCoderPresent();
   }
 }
