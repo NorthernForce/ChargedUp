@@ -23,7 +23,6 @@ import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
 import frc.robot.commands.autoComponents.TurnToTarget;
-import frc.robot.commands.RumbleManipulator;
 
 
 /** Add your docs here. */
@@ -94,5 +93,7 @@ public class OI {
         new JoystickButton(driverController, XboxController.Button.kLeftBumper.value)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(new SetWristAngle(Rotation2d.fromDegrees(90)));
     }
 }
