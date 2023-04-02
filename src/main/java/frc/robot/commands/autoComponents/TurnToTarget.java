@@ -12,7 +12,7 @@ import static frc.robot.RobotContainer.*;
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
   private final int cameraIdx;
-  private final PIDController controller = new PIDController(2e-1, 0, 0);
+  private final PIDController controller = new PIDController(1e-1, 0, 0);
 
   public TurnToTarget(int cameraIdx) {
     this.cameraIdx = cameraIdx;
@@ -42,6 +42,6 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return vision.hasTarget(cameraIdx) && Math.abs(vision.getTargetYaw(cameraIdx).getDegrees()) < 2;
+    return vision.hasTarget(cameraIdx) && controller.atSetpoint();
   }
 }
