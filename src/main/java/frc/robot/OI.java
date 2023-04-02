@@ -15,13 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.ExtendArm;
-import frc.robot.commands.Intake;
-import frc.robot.commands.ManipulateCone;
-import frc.robot.commands.ManipulateCube;
-import frc.robot.commands.Outtake;
-import frc.robot.commands.RetractArm;
-import frc.robot.commands.ToggleLED;
 import frc.robot.commands.autoComponents.TurnToTarget;
 
 
@@ -79,7 +72,7 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
         new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-            .whileTrue(new InstantCommand());
+            .whileTrue(new PositionManipulatorForSingleSubstation());
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
 

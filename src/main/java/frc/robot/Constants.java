@@ -153,6 +153,7 @@ public final class Constants {
             Units.inchesToMeters(0),
             Units.inchesToMeters(26.5)
         );
+        public static final Rotation2d SINGLE_SUBSTATION_ANGLE = Rotation2d.fromDegrees(0);
         public static final double kP = 1.2; // TODO
         public static final double kMaxCountsPer100MS = 117.16;
         public static final double kF = (0.85 * 1023) / 117.16;
@@ -210,6 +211,9 @@ public final class Constants {
         public static final double kMinOutputVelocity = 0.0; // TODO
         public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(95);
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(265);
+
+        public static final Rotation2d SINGLE_SUBSTATION_ANGLE = Rotation2d.fromDegrees(0);
+
         public static final Rotation2d HIGH_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d LOW_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d MID_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
