@@ -29,7 +29,7 @@ public class Wrist extends SubsystemBase {
   /** Creates a new Wrist. */
   public Wrist() {
     spark.setInverted(true);
-    spark.setLimits(WristConstants.BACKWARD_LIMIT, WristConstants.FORWARD_LIMIT);
+    spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
     spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 0, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
     spark.setFeedbackSensor(spark.getAbsoluteEncoder());
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
@@ -60,7 +60,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    spark.setUsingSmartMotion(rotation.getDegrees() + 90, 0);
+    spark.setUsingSmartMotion(rotation.getRotations() + 0.25, 0);
   }
   /**
    * Sets the percent without calculating feedforward

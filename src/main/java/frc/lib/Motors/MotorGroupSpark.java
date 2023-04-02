@@ -99,8 +99,8 @@ public class MotorGroupSpark implements MotorGroup {
      * @param backward
      */
     public void setLimits(Rotation2d forward, Rotation2d backward) {
-        primary.setSoftLimit(SoftLimitDirection.kForward, (float)backward.getRotations());
-        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)forward.getRotations());
+        primary.setSoftLimit(SoftLimitDirection.kForward, (float)backward.getDegrees());
+        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)forward.getDegrees());
         primary.enableSoftLimit(SoftLimitDirection.kForward, true);
         primary.enableSoftLimit(SoftLimitDirection.kReverse, true);
     }
