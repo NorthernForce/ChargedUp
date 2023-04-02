@@ -18,7 +18,7 @@ public class Vision extends SubsystemBase {
     cameras = List.of(
       new LimelightWrapper(Constants.VisionConstants.TRANSFORM3D)
     );
-    Shuffleboard.getTab("Drivers").addCamera("Camera Stream", "Limelight", "10.1.72.15:5800").withPosition(0, 0).withSize(4, 3);
+    Shuffleboard.getTab("Drivers").addCamera("Camera Stream", "Limelight", "10.1.72.15:5800").withPosition(5, 0).withSize(4, 4);
   }
   /**
    * Sets the pipeline index
