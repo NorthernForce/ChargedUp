@@ -25,11 +25,21 @@ public class EmptyManipulatingState implements ManipulatingState {
     public double getLoadingShelfHeight() {
         return 0;
     }
+
+    @Override
+    public double getSlideHeight() {
+        return 0;
+    }
     
     @Override
     public Rotation2d getLoadingShelfWristAngle() {
         return null;
     }
+
+    @Override
+    public Rotation2d getSlideWristAngle() {
+        return null;
+    };
 
     @Override
     public Pair<Double, Rotation2d> getLoadingStationApproachPosition() {
@@ -38,6 +48,17 @@ public class EmptyManipulatingState implements ManipulatingState {
 
     @Override
     public Pair<Double, Rotation2d> getLoadingStationPickUpPosition() {
+        return null;
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlideApproachPosition()
+    {
+        return null;
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlidePickUpPosition() {
         return null;
     }
 

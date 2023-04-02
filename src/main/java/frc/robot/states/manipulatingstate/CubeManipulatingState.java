@@ -20,11 +20,16 @@ public class CubeManipulatingState implements ManipulatingState {
 
     @Override
     public double getWristDistance() {
-        return Units.inchesToMeters(9);
+        return Units.inchesToMeters(Constants.GripperConstants.FULCRUM_TO_CUBE);
     }
 
     @Override
     public double getLoadingShelfHeight() {
+        return 0;
+    }
+
+    @Override
+    public double getSlideHeight() {
         return 0;
     }
     
@@ -32,6 +37,14 @@ public class CubeManipulatingState implements ManipulatingState {
     public Rotation2d getLoadingShelfWristAngle() {
         return Rotation2d.fromDegrees(0);
     }
+
+    @Override
+    public Rotation2d getSlideWristAngle()
+    {
+        return Rotation2d.fromDegrees(0);
+    }
+
+    // TODO: Do these calculations ONCE, IN Constants??
 
     // Get the distance and arm angle we need to be in to pick up
     public Pair<Double, Rotation2d> getLoadingStationApproachPosition() {
@@ -52,6 +65,28 @@ public class CubeManipulatingState implements ManipulatingState {
             getWristDistance(), 
             getLoadingShelfWristAngle(), 
             getLoadingShelfHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlideApproachPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(), 
+            Constants.ArmConstants.EXTENDED_LENGTH, 
+            getWristDistance(), 
+            getSlideWristAngle(), 
+            getSlideHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlidePickUpPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(),
+            Constants.ArmConstants.EXTENDED_LENGTH,
+            getWristDistance(),
+            getSlideWristAngle(),
+            getSlideHeight(),
             Constants.ArmConstants.ORIGIN.getX());
     }
 

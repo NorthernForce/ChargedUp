@@ -15,6 +15,7 @@ public class FieldZones {
         GRIDS,
         OUTER_LOAD,
         INNER_LOAD,
+        SLIDE_DROP_LOAD,
         NONE;
         /**
          * Gets the coordinates that the zone is defined by
@@ -40,9 +41,23 @@ public class FieldZones {
                         new Pose2d(Units.inchesToMeters(500), Units.inchesToMeters(213), null),
                         new Pose2d(Units.inchesToMeters(645),Units.inchesToMeters(267), null)
                     };
+                case SLIDE_DROP_LOAD:
+                    coords = new Pose2d[]{
+                        /*
+                         * x bottom = slide xLeft at 548", slidewidth = 25", so midpoint = 560.5". Then, other zones are 145" wide, so found 560.5" - 72.5".
+                         * y bottom = slide y at 317". Other zones are 54" and 56" long. So 317 - 54" is 263".
+                         * 
+                         * x top    = as above. midpoint 560.5" + 72.5" = 633"
+                         * y top    = as above, slide y at 317".
+                         * 
+                         * TODO: do these zones overlap. Focusing on slide for now so not bothering to check.
+                         */
+                        new Pose2d(Units.inchesToMeters(488), Units.inchesToMeters(263), null), 
+                        new Pose2d(Units.inchesToMeters(633), Units.inchesToMeters(317), null) // 
+                    };
                     return setAlliance(DriverStation.getAlliance(), coords);
                 default:
-                    return null;
+                    return null; // TODO: Don't return null. Or. Who calls this, what do they want it to return.
             }
         }
         /**

@@ -22,7 +22,7 @@ public class ConeManipulatingState implements ManipulatingState {
     
     @Override
     public double getWristDistance() {
-        return Units.inchesToMeters(14.5);
+        return Units.inchesToMeters(Constants.GripperConstants.FULCRUM_TO_CONE);
     }
 
     @Override
@@ -31,7 +31,17 @@ public class ConeManipulatingState implements ManipulatingState {
     }
 
     @Override
+    public double getSlideHeight() {
+        return 0;
+    }
+
+    @Override
     public Rotation2d getLoadingShelfWristAngle() {
+        return Rotation2d.fromDegrees(0);
+    }
+
+    @Override
+    public Rotation2d getSlideWristAngle() {
         return Rotation2d.fromDegrees(0);
     }
 
@@ -54,6 +64,28 @@ public class ConeManipulatingState implements ManipulatingState {
             getWristDistance(), 
             getLoadingShelfWristAngle(), 
             getLoadingShelfHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlideApproachPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(), 
+            Constants.ArmConstants.EXTENDED_LENGTH, 
+            getWristDistance(), 
+            getSlideWristAngle(), 
+            getSlideHeight(), 
+            Constants.ArmConstants.ORIGIN.getX());
+    }
+
+    @Override
+    public Pair<Double, Rotation2d> getSlidePickUpPosition() {
+        return Constants.calculateArmAngleAndDistance(
+            Constants.ArmConstants.ORIGIN.getZ(), 
+            Constants.ArmConstants.EXTENDED_LENGTH, 
+            getWristDistance(), 
+            getSlideWristAngle(), 
+            getSlideHeight(), 
             Constants.ArmConstants.ORIGIN.getX());
     }
 

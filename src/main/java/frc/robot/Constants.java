@@ -177,6 +177,8 @@ public final class Constants {
         public static final int MOTOR_ID = 9;
         public static final double CONE_INTAKE_SPEED = -1.0; // TODO
         public static final double CONE_OUTTAKE_SPEED = 1.0; // TODO
+
+        // TODO: Replace usage of these numbers in the code with these constants?
         public static final double FULCRUM_TO_CUBE = Units.inchesToMeters(9);
         public static final double FULCRUM_TO_CONE = Units.inchesToMeters(14.5);
     }
@@ -219,6 +221,8 @@ public final class Constants {
             EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
     }
+    
+    // TODO: Add to these for Intake positions? Or do we prefer to do that in the Intake States?
     public static class AnglesAndDistances
     {
         //Outtake positions

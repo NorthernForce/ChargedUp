@@ -30,15 +30,30 @@ public interface ManipulatingState {
     public double getLoadingShelfHeight();
 
     /**
+     * Returns the height that the arm needs to go to for the slide station
+     * @return height in meters
+     */
+    public double getSlideHeight();
+
+    /**
      * Returns the angle to set the wrist at when loading pieces from the shelf.
      * @return Angle stored in Rotation2d
      */
     public Rotation2d getLoadingShelfWristAngle();
 
+    /** Returns the angle to set the wrist at when loading pieces from the shelf.
+     * @return Angle stored in Rotation2d
+     */
+    public Rotation2d getSlideWristAngle();
+
     // Get the distance and arm angle we need to be in to pick up
     public Pair<Double, Rotation2d> getLoadingStationApproachPosition();
 
     public Pair<Double, Rotation2d> getLoadingStationPickUpPosition();
+
+    public Pair<Double, Rotation2d> getSlideApproachPosition();
+
+    public Pair<Double, Rotation2d> getSlidePickUpPosition();
 
     /**
      * Returns the speed that the intake motors should be run at

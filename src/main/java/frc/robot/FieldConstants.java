@@ -399,5 +399,7 @@ public class FieldConstants
         public static final Pose2d OUTER_GRID_DISTANCE = new Pose2d();
         public static final Pose2d INNER_GRID = new Pose2d();
         public static final Pose2d INNER_GRID_DISTANCE = new Pose2d();
+        public static final Pose2d SLIDE_GRID = new Pose2d(); // TODO: What was the intent of these?
+        public static final Pose2d SLIDE_GRID_DISTANCE = new Pose2d();
     }
 }
