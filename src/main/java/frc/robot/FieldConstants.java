@@ -375,6 +375,7 @@ public class FieldConstants
             0
         )
     };
+    public final static Pose2d BLUE_SINGLE_SUBSTATION = new Pose2d(Units.inchesToMeters(566), Units.inchesToMeters(316), Rotation2d.fromDegrees(90));
     public static AprilTagFieldLayout APRILTAG_LAYOUT;
     static {
         try {
