@@ -113,7 +113,7 @@ public class MotorGroupSpark implements MotorGroup {
         primary.getPIDController().setSmartMotionMaxVelocity(allowedCloseLoopErrors, slot);
         primary.getPIDController().setSmartMotionMinOutputVelocity(minOutputVelocity, slot);
     }
-    public void setUsingSmartMotion(double position, int slot){
+    public void setUsingPID(double position, int slot){
         primary.getPIDController().setReference(position, ControlType.kPosition, slot);
     }
     public double getAbsolute(){

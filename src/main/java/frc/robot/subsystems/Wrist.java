@@ -30,8 +30,9 @@ public class Wrist extends SubsystemBase {
   public Wrist() {
     spark.setInverted(true);
     spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
-    spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 0, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
+    spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 5, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
     spark.setFeedbackSensor(spark.getAbsoluteEncoder());
+    spark.getAbsoluteEncoder().setPositionConversionFactor(360);
     Shuffleboard.getTab("Arm").addNumber("Wrist", () -> getAngle().getDegrees());
     kFEntry = Shuffleboard.getTab("Arm").add("Wrist - kF", Constants.WristConstants.kF).getEntry();
     kPEntry = Shuffleboard.getTab("Arm").add("Wrist - kP", Constants.WristConstants.kP).getEntry();
@@ -60,7 +61,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    spark.setUsingSmartMotion(rotation.getRotations() + 0.25, 0);
+    spark.setUsingPID(rotation.getDegrees() + 90, 0);
   }
   /**
    * Calibrates the wrist CANCoder with a known angle
