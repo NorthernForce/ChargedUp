@@ -56,7 +56,6 @@ public class RobotContainer {
   public static final Navigation navigation = new Navigation();
   public static final Vision vision = new Vision();
   public static final Wrist wrist = new Wrist();
-
   /** Private Objects */
   private final SendableChooser<Command> autonomousChooser;
   private final SendableChooser<Pose2d> startingLocationChooser;

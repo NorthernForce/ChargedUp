@@ -6,6 +6,8 @@ package frc.robot.chassis;
 
 import java.util.List;
 
+import javax.naming.NameNotFoundException;
+
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Pose3d;
@@ -25,11 +27,25 @@ public class SquishyChassis implements ChassisBase {
     public static final double kS = 0.0;
     public static final double kV = 0.0;
     public static final double kA = 0.0;
+    MotorGroup left;
+    MotorGroup right;
     public SquishyChassis() {}
     public Drivetrain getDrivetrain() {
-        MotorGroup left = new MotorGroupSpark(MotorType.kBrushless, LEFT_PRIMARY_ID, LEFT_FOLLOWER_ID);
-        MotorGroup right = new MotorGroupSpark(MotorType.kBrushless, RIGHT_PRIMARY_ID, RIGHT_FOLLOWER_ID);
-        right.setInverted(true);
+        try {
+            left = new MotorGroupSpark(MotorType.kBrushless, LEFT_PRIMARY_ID, LEFT_FOLLOWER_ID);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+            left = null;
+        }
+
+        try {
+            right = new MotorGroupSpark(MotorType.kBrushless, RIGHT_PRIMARY_ID, RIGHT_FOLLOWER_ID);
+            right.setInverted(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            right = null;
+        }
+
         return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
 
     }

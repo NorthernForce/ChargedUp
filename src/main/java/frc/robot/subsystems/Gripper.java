@@ -4,28 +4,49 @@
 
 package frc.robot.subsystems;
 
+import javax.naming.NameNotFoundException;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.Motors.MotorGroupSpark;
 import frc.robot.Constants;
 
 public class Gripper extends SubsystemBase {
-  private final CANSparkMax motor;
+  private CANSparkMax motor;
+
   /** Creates a new Gripper. */
   public Gripper() {
-    motor = new CANSparkMax(Constants.GripperConstants.MOTOR_ID, MotorType.kBrushless);
-    motor.setIdleMode(IdleMode.kBrake);
+    try {
+      motor = new MotorGroupSpark(MotorType.kBrushless, Constants.GripperConstants.MOTOR_ID);
+    }
+    catch (NameNotFoundException e) {
+      e.printStackTrace();
+      motor = null;
+    }
+
+    if (motor != null) {
+      motor.setIdleMode(IdleMode.kBrake);
+    }
   }
+  
   public void setSpeed(double speed)
   {
+    if (motor == null)
+    {
+      return;
+    }
+    
     motor.set(speed);
   }
+
   public boolean hasObject()
   {
     return false;
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

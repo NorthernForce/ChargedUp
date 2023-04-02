@@ -33,7 +33,7 @@ public class Drivetrain extends SubsystemBase
     kinematics = new DifferentialDriveKinematics(trackWidth);
     feedforward = new SimpleMotorFeedforward(kS, kV, kA);
 
-    Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft/s)", () -> Units.metersToFeet(
+    Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft\\/s)", () -> Units.metersToFeet(
       (getSpeeds().leftMetersPerSecond + getSpeeds().rightMetersPerSecond) / 2
     )).withPosition(0, 0);
 
