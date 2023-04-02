@@ -67,8 +67,6 @@ public class OI {
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
-        new JoystickButton(manipulatorController, XboxController.Button.kA.value)
-            .toggleOnTrue(new ToggleLED());
         new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
             .onTrue(new RumbleManipulator());
         // As per their request, the micro adjustment is on both controllers
@@ -83,11 +81,11 @@ public class OI {
         new Trigger(() -> manipulatorController.getPOV() == 0)
             .whileTrue(new SetArmAngle(Constants.ArmConstants.NORTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.NORTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 90)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
-        new Trigger(() -> manipulatorController.getPOV() == 180)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
+            .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
+        new JoystickButton(manipulatorController, XboxController.Button.kA.value)
+            .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 270)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.WEST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.WEST_ANGLE)));
+            .whileTrue(new SetArmAngle(Constants.ArmConstants.WEST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.WEST_ANGLE)));
         new JoystickButton(driverController, XboxController.Button.kLeftBumper.value)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
