@@ -14,6 +14,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.ExtendArm;
+import frc.robot.commands.Intake;
+import frc.robot.commands.ManipulateCone;
+import frc.robot.commands.ManipulateCube;
+import frc.robot.commands.Outtake;
+import frc.robot.commands.RetractArm;
+import frc.robot.commands.ToggleLED;
 import frc.robot.commands.autoComponents.TurnToTarget;
 
 
@@ -22,6 +30,7 @@ public class OI {
     public static final XboxController driverController = new XboxController(0);
     public static final XboxController manipulatorController = new XboxController(1);
     public OI() {}
+
     /**
      * Gets the joystick controls from the drivercontroller we use to control the robots drivetrain
      * @return Index[0]: Joystick forward(positve)/back(negative).
@@ -34,6 +43,7 @@ public class OI {
             () -> -driverController.getRightX()
         };
     }
+
     /**
      * Gets two double suppliers representing the two major axis of control on manipulator controller.
      * @return two doubles that will be within [-1.0, 1.0]
@@ -45,33 +55,40 @@ public class OI {
             () -> Math.abs(manipulatorController.getRightY()) > 0.15 ? -manipulatorController.getRightY() : 0
         };
     }
+
     /** Binds the buttons of the OI */
     public void bindButtons() {
+
+        /** MANIPULATOR CONTROLLER */
+
+        //BUMPERS
         new JoystickButton(manipulatorController, XboxController.Button.kRightBumper.value)
             .onTrue(new ExtendArm());
         new JoystickButton(manipulatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new RetractArm());
+
+        //TRIGGERS
         new Trigger(() -> manipulatorController.getRightTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Outtake());
         new Trigger(() -> manipulatorController.getLeftTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new Intake());
+
+        //BUTTONS
         new JoystickButton(manipulatorController, XboxController.Button.kY.value)
             .whileTrue(new ManipulateCone());
         new JoystickButton(manipulatorController, XboxController.Button.kX.value)
             .whileTrue(new ManipulateCube());
+        new JoystickButton(manipulatorController, XboxController.Button.kB.value)
+            .whileTrue(new InstantCommand());
         new JoystickButton(manipulatorController, XboxController.Button.kA.value)
             .toggleOnTrue(new ToggleLED());
-        new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
-            .onTrue(new RumbleManipulator());
-        // As per their request, the micro adjustment is on both controllers
-        new JoystickButton(driverController, XboxController.Button.kBack.value)
-            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
-        new JoystickButton(driverController, XboxController.Button.kStart.value)
-            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));
+
         new JoystickButton(manipulatorController, XboxController.Button.kBack.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
         new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
-            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST)); 
+
+        //D-PAD
         new Trigger(() -> manipulatorController.getPOV() == 0)
             .whileTrue(new SetArmAngle(Constants.ArmConstants.NORTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.NORTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 90)
@@ -80,8 +97,26 @@ public class OI {
         .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 270)
         .whileTrue(new SetArmAngle(Constants.ArmConstants.WEST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.WEST_ANGLE)));
-        new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
-            .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
+
+        //RUMBLE
+        new Trigger(() -> Math.abs(RobotContainer.armRotate.getAngle().getDegrees() - 90) < 5)
+            .onTrue(new RumbleManipulator());
+
+        /** DRIVER CONTROLLER */
+
+        //BUMPERS
+        new JoystickButton(driverController, XboxController.Button.kLeftBumper.value)
+            .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 0)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
+
+        //TRIGGER
+        new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
+        .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
+
+        //BUTTONS
+        new JoystickButton(driverController, XboxController.Button.kBack.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.LEFT_MIRCO_ADJUST));
+        new JoystickButton(driverController, XboxController.Button.kStart.value)
+            .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));
     }
 }
