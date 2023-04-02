@@ -99,10 +99,10 @@ public class MotorGroupSpark implements MotorGroup {
      * @param backward
      */
     public void setLimits(Rotation2d forward, Rotation2d backward) {
-        primary.setSoftLimit(SoftLimitDirection.kForward, (float)forward.getRotations());
-        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)backward.getRotations());
+        primary.setSoftLimit(SoftLimitDirection.kForward, (float)backward.getRotations());
+        primary.setSoftLimit(SoftLimitDirection.kReverse, (float)forward.getRotations());
         primary.enableSoftLimit(SoftLimitDirection.kForward, true);
-        primary.enableSoftLimit(SoftLimitDirection.kReverse, false);
+        primary.enableSoftLimit(SoftLimitDirection.kReverse, true);
     }
     public void configurePID(int slot, double kP, double kI, double kD, double allowedCloseLoopErrors, double maxAccel, double maxVelocity, double minOutputVelocity){
         primary.getPIDController().setP(kP, slot);
@@ -114,7 +114,7 @@ public class MotorGroupSpark implements MotorGroup {
         primary.getPIDController().setSmartMotionMinOutputVelocity(minOutputVelocity, slot);
     }
     public void setUsingSmartMotion(double position, int slot){
-        primary.getPIDController().setReference(position, ControlType.kSmartMotion, slot);
+        primary.getPIDController().setReference(position, ControlType.kPosition, slot);
     }
     public double getAbsolute(){
         return primary.getAbsoluteEncoder(Type.kDutyCycle).getPosition();
