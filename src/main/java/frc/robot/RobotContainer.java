@@ -186,8 +186,8 @@ public class RobotContainer {
     startingLocationChooser.addOption("Blue Left", FieldConstants.BLUE_POSES[0]);
     startingLocationChooser.addOption("Blue Center", FieldConstants.BLUE_POSES[1]);
     startingLocationChooser.addOption("Blue Right", FieldConstants.BLUE_POSES[2]);
-    Shuffleboard.getTab("Drivers").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 4);
-    Shuffleboard.getTab("Autonomous").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 4);
+    Shuffleboard.getTab("Drivers").add("Autonomous Routine Chooser", autonomousChooser).withSize(2, 1).withPosition(2, 3);
+    Shuffleboard.getTab("Drivers").add("Starting Location Chooser", startingLocationChooser).withSize(2, 1).withPosition(0, 3);
     Shuffleboard.getTab("Utility").add("Calibrate IMU", new CalibrateIMU()).withPosition(0, 0);
     Shuffleboard.getTab("Utility").add("Stop", new Stop(0.1)).withPosition(1, 0);
     Shuffleboard.getTab("Utility").add("Balance", new Balance()).withPosition(2, 0);
@@ -196,7 +196,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Utility").add("Calibrate Wrist", new CalibrateWrist());
     Shuffleboard.getTab("Arm").add("Calibrate Arm", new CalibrateArm());
     Shuffleboard.getTab("Drivers").addBoolean("Manipulating State", () -> manipulatingState.getCurrentState().getClass().equals(CubeManipulatingState.class))
-      .withPosition(4, 1).withSize(1, 4)
+      .withPosition(4, 0).withSize(1, 4)
       .withProperties(Map.of("colorWhenTrue", "purple", "colorWhenFalse", "yellow"));
   }
   /**
