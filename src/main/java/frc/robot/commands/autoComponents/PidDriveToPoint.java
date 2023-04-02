@@ -60,15 +60,14 @@ public class PidDriveToPoint extends CommandBase {
 
     // -1.0 required to ensure positive PID controller effort _increases_ range
     forwardSpeed = -forwardController.calculate(distanceToGo, 0);
+    SmartDashboard.putNumber("forwardSpeed", forwardSpeed);
 
     // Also calculate angular power
     // -1.0 required to ensure positive PID controller effort _increases_ yaw
     double yawToTarget = target.getRotation().minus(navigation.getPose2d().getRotation()).getDegrees();
     yawToTarget = MathUtil.inputModulus(yawToTarget, -180, 180);
     rotationSpeed = -turnController.calculate(yawToTarget, 0);
-
     drivetrain.drive(forwardSpeed * speed, rotationSpeed * speed);
-    SmartDashboard.putString("DriveToTag", "EndingExecute");
   }
   // Called once the command ends or is interrupted.
   @Override

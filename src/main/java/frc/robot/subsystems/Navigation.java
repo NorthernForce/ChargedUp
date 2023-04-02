@@ -41,6 +41,9 @@ public class Navigation extends SubsystemBase {
       camera.setPipelineIndex(0);
     }
     Shuffleboard.getTab("Drivers").add("Field", field).withSize(4, 3).withPosition(0, 0);
+    Shuffleboard.getTab("Drivers2").add("DrivetrainLeftDist", drivetrain.getLeftDistance()).withSize(1, 1).withPosition(0, 0);
+    Shuffleboard.getTab("Drivers2").add("DrivetrainRightDist", drivetrain.getRightDistance()).withSize(1, 1).withPosition(1, 0);
+    
   }
   /**
    * Gets the current location in Meters

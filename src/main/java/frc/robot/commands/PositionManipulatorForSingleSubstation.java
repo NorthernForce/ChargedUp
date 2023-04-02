@@ -25,8 +25,8 @@ public class PositionManipulatorForSingleSubstation extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSingleSubstationEntry = Shuffleboard.getTab("Arm").add("Arm Single Angle", Constants.ArmConstants.SINGLE_SUBSTATION_ANGLE).getEntry();
-    wristSingleSubstationEntry = Shuffleboard.getTab("Arm").add("Wrist Single Angle", Constants.WristConstants.SINGLE_SUBSTATION_ANGLE).getEntry();
+    armSingleSubstationEntry = Shuffleboard.getTab("Arm").add("Arm Single Angle", Constants.ArmConstants.SINGLE_SUBSTATION_ANGLE.getDegrees()).getEntry();
+    wristSingleSubstationEntry = Shuffleboard.getTab("Arm").add("Wrist Single Angle", Constants.WristConstants.SINGLE_SUBSTATION_ANGLE.getDegrees()).getEntry();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

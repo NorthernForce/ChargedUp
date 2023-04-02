@@ -79,6 +79,12 @@ public class DriveToLocation extends CommandBase {
       ChassisSpeeds speeds = controller.calculate(targetPose, state);
       SmartDashboard.putNumber("Ramsete vx: ", speeds.vxMetersPerSecond);
       SmartDashboard.putNumber("Ramsete vy: ", speeds.vyMetersPerSecond);
+      SmartDashboard.putNumber("Ramsete Target Pose x: ", targetPose.getX());
+      SmartDashboard.putNumber("Ramsete Target Pose y: ", targetPose.getY());
+      SmartDashboard.putNumber("Ramsete State poseMeters X: ", state.poseMeters.getX());
+      SmartDashboard.putNumber("Ramsete State poseMeters y: ", state.poseMeters.getY());
+
+      
 
       drivetrain.driveUsingChassisSpeeds(speeds);
     }

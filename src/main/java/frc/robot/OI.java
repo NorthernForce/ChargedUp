@@ -19,6 +19,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.autoComponents.DriveToLocation;
+import frc.robot.commands.autoComponents.PidDriveToPoint;
 import frc.robot.commands.autoComponents.TurnToTarget;
 import frc.robot.util.Field;
 
@@ -113,7 +114,7 @@ public class OI {
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
         .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
         new Trigger(() -> driverController.getRightTriggerAxis() > 0.2) // gripper trigger sensitivity
-            .whileTrue(new DriveToLocation(Field.setAlliance(FieldConstants.BLUE_SINGLE_SUBSTATION), Constants.DrivetrainConstants.MAX_SPEED, Constants.DrivetrainConstants.MAX_ACCELERATION));
+            .whileTrue(new PidDriveToPoint(Field.setAlliance(FieldConstants.BLUE_SINGLE_SUBSTATION), 0.45, 1));
 
         //BUTTONS
         new JoystickButton(driverController, XboxController.Button.kBack.value)

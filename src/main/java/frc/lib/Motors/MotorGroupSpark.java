@@ -11,15 +11,9 @@ import javax.naming.NameNotFoundException;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.MotorFeedbackSensor;
-import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
-import com.revrobotics.jni.RevJNIWrapper;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
 */
@@ -81,7 +75,8 @@ public class MotorGroupSpark extends CANSparkMax implements MotorGroup {
         this.getEncoder().setPosition(0);
     }
 
-    private void configureAllControllers() {
+    private void 
+    configureAllControllers() {
         configureController(this, false);
         for (CANSparkMax canSparkMax : followers) {
             configureController(canSparkMax, true);
