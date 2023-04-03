@@ -45,7 +45,7 @@ public class BlueLeft extends SequentialCommandGroup {
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
       new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath("Blue1ToPiece1")
+      new DriveAlongPath("Blue3ToPiece4")
     );
     if (numPieces > 1)
     {
@@ -58,7 +58,7 @@ public class BlueLeft extends SequentialCommandGroup {
           new Intake()
         ),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece1ToBlue1"),
+        new DriveAlongPath("Piece4ToBlue3"),
         new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
           AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
@@ -73,7 +73,7 @@ public class BlueLeft extends SequentialCommandGroup {
     {
       addCommands(
         new DriveMeters(-0.4, 0, 1),
-        new DriveAlongPath("Blue1ToPiece2"),
+        new DriveAlongPath("Blue3ToPiece3"),
         new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[2].toTranslation2d(), AnglesAndDistances.LOW_CUBE.getFirst(),
           AnglesAndDistances.LOW_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.LOW_CUBE_PLACEMENT_ANGLE, false),
@@ -82,7 +82,7 @@ public class BlueLeft extends SequentialCommandGroup {
           new Intake()
         ),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece2ToBlue1"),
+        new DriveAlongPath("Piece3ToBlue3"),
         new PositionWithTarget(FieldConstants.BLUE_FLOOR_PLACEMENT_LOCATIONS[7].toTranslation2d(), AnglesAndDistances.LOW_CUBE.getFirst(),
           AnglesAndDistances.LOW_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.LOW_CUBE_PLACEMENT_ANGLE, false),
