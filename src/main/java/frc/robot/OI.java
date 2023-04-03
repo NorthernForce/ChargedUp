@@ -6,24 +6,14 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.autoComponents.DriveToLocation;
 import frc.robot.commands.autoComponents.PidDriveToPoint;
 import frc.robot.commands.autoComponents.TurnToTarget;
 import frc.robot.util.Field;
-
-import static frc.robot.util.FieldZones.setAlliance;
 
 
 /** Add your docs here. */
@@ -112,7 +102,7 @@ public class OI {
 
         //TRIGGER
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
-        .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
+        .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)));
         new Trigger(() -> driverController.getRightTriggerAxis() > 0.2) // gripper trigger sensitivity
             .whileTrue(new PidDriveToPoint(Field.setAlliance(FieldConstants.BLUE_SINGLE_SUBSTATION), 0.45, 1));
 
