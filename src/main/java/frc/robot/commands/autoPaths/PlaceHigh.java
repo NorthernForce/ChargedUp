@@ -27,9 +27,9 @@ public class PlaceHigh extends SequentialCommandGroup {
   public PlaceHigh() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    var placingInformation = Constants.calculateArmAngleAndDistance(Constants.ArmConstants.ORIGIN.getZ(), Constants.ArmConstants.EXTENDED_LENGTH, Units.inchesToMeters(9), Rotation2d.fromDegrees(0), FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[3].getZ(), Constants.ArmConstants.ORIGIN.getX());
+    //var placingInformation = Constants.calculateArmAngleAndDistance(Constants.ArmConstants.ORIGIN.getZ(), Constants.ArmConstants.EXTENDED_LENGTH, Units.inchesToMeters(9), Rotation2d.fromDegrees(0), FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[3].getZ(), Constants.ArmConstants.ORIGIN.getX());
     addCommands(
-      new ParallelCommandGroup(new FoldWristBack(), new SetArmAngle(placingInformation.getSecond().plus(Rotation2d.fromDegrees(15)))),
+      new ParallelCommandGroup(new FoldWristBack(), new SetArmAngle(Constants.AnglesAndDistances.HIGH_CUBE.getSecond())),
       new ExtendArm().andThen(new WaitCommand(1.3)),
       new ParallelDeadlineGroup(new WaitCommand(0.8), new Outtake())
     );
