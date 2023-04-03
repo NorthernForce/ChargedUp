@@ -202,7 +202,7 @@ public final class Constants {
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(90),
             SOUTH_ANGLE = Rotation2d.fromDegrees(-43), // TODO
-            EAST_ANGLE = Rotation2d.fromDegrees(180), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(170), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(0); // TODO
     }
     /** Gripper Constants */
