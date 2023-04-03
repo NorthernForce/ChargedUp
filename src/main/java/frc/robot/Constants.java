@@ -50,8 +50,8 @@ public final class Constants {
         public static final int UNITS_PER_REVOLUTION = 2048;
         public static final double GEAR_RATIO = 11.37777778;
         public static final double TRACK_WIDTH = Units.inchesToMeters(22);
-        public static final double WHEEL_DIAMETER = Math.PI * Units.inchesToMeters(6);
-        public static final double METERS_PER_REVOLUTION = WHEEL_DIAMETER / GEAR_RATIO;
+        public static final double WHEEL_CIRCUMFERENCE = Math.PI * Units.inchesToMeters(6);
+        public static final double METERS_PER_REVOLUTION = WHEEL_CIRCUMFERENCE / GEAR_RATIO;
         public static final double MAX_SPEED = 0.4; // TODO
         public static final double MAX_ACCELERATION = 0.4; // TODO
         public static final double kS = 0.071975;
