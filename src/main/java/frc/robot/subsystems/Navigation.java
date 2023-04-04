@@ -161,7 +161,7 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance()
     );
 
-    for (var camera : cameras)
+/*    for (var camera : cameras)
     {
       EstimatedRobotPose pose;
       camera.updateLatestResult();
@@ -171,7 +171,7 @@ public class Navigation extends SubsystemBase {
           poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
       }
     }
-
+*/
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
   }
