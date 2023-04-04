@@ -97,6 +97,7 @@ public class ArmRotate extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    /*
     talonGroup.configClosedLoop(
       0,
       0,
@@ -107,7 +108,7 @@ public class ArmRotate extends SubsystemBase {
       kIntegralZoneEntry.getDouble(Constants.ArmConstants.kIntegralZone),
       Constants.ArmConstants.kInitialVelocity,
       Constants.ArmConstants.kInitialAcceleration
-    );
+    );*/
   }
   /**
    * Gets the current velocity of the rotating joint

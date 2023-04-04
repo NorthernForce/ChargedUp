@@ -86,7 +86,7 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic()
   {
-    spark.configurePID(
+    /*spark.configurePID(
       0,  
       kPEntry.getDouble(Constants.WristConstants.kP),
       kIEntry.getDouble(Constants.WristConstants.kI),
@@ -95,6 +95,6 @@ public class Wrist extends SubsystemBase {
       kMaxAccelEntry.getDouble(Constants.WristConstants.kMaxAccel),
       kMaxVelocityEntry.getDouble(Constants.WristConstants.kMaxVelocity),
       kMinOutputVelocityEntry.getDouble(Constants.WristConstants.kMinOutputVelocity)
-    );
+    );*/
   }
 }
