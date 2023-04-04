@@ -49,7 +49,7 @@ public class OI {
      */
     public static DoubleSupplier[] getManipulatorSuppliers() {
             return new DoubleSupplier[] {
-            () -> manipulatorController.getLeftY(),
+            () -> -manipulatorController.getLeftY(),
             () -> -manipulatorController.getRightX(),
             () -> Math.abs(manipulatorController.getRightY()) > 0.15 ? -manipulatorController.getRightY() : 0
         };
