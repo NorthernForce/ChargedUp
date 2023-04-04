@@ -63,7 +63,6 @@ public class Navigation extends SubsystemBase {
       pose
     );
   }
-
   /**
    * Gets the nearest scoring location
    * @return scoring location (Translation3d)
@@ -168,7 +167,8 @@ public class Navigation extends SubsystemBase {
       camera.updateLatestResult();
       if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
       {
-        poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
+        if (pose.estimatedPose.toPose2d().getTranslation().getDistance(poseEstimator.getEstimatedPosition().getTranslation()) < 1)
+          poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
       }
     }
 

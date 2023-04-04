@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.Constants.AnglesAndDistances;
 import frc.robot.Constants.WristConstants;
@@ -22,6 +23,7 @@ import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.DriveAlongPath;
 import frc.robot.commands.autoComponents.DriveMeters;
 import frc.robot.commands.autoComponents.PositionWithTarget;
+import frc.robot.commands.autoComponents.Stop;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -36,7 +38,7 @@ public class RedRight extends SequentialCommandGroup {
       new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
-        AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+        AnglesAndDistances.HIGH_CUBE.getSecond(),
         WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, true),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5),
@@ -44,27 +46,30 @@ public class RedRight extends SequentialCommandGroup {
       ),
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath("Red3ToPiece4")
+      new ParallelDeadlineGroup(
+        new DriveAlongPath(Constants.Path.BACKWARD_RED_RIGHT_TO_PIECE_RIGHT),
+        new SetArmAngle(Rotation2d.fromDegrees(140))
+      )
     );
     if (numPieces > 1)
     {
       addCommands(
-        new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.LOW_CUBE.getFirst(),
-          AnglesAndDistances.LOW_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
-          WristConstants.LOW_CUBE_PLACEMENT_ANGLE, false),
-        new ParallelDeadlineGroup(
-          new WaitCommand(1),
-          new Intake()
-        ),
-        new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece4ToRed3"),
-        new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
-          AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
-          WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
-        new ParallelDeadlineGroup(
-          new WaitCommand(0.5),
-          new Outtake()
+        new PositionWithTarget(FieldConstants.RED_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
+      AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond(),
+      WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
+      new ParallelDeadlineGroup(
+        new WaitCommand(0.6),
+        new Intake()
+      ),
+      new RetractArm(),
+      new SetArmAngle(Rotation2d.fromDegrees(90)),
+      new DriveAlongPath(Constants.Path.FORWARD_PIECE_RIGHT_TO_RED_RIGHT),
+      new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
+        AnglesAndDistances.MEDIUM_CUBE.getSecond(),
+        WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
+      new ParallelDeadlineGroup(
+        new WaitCommand(0.5),
+        new Outtake()
         ),
         new SetArmAngle(Rotation2d.fromDegrees(90))
       );

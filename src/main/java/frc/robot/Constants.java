@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -36,12 +37,40 @@ public final class Constants {
      * @param armToCenter the amount of units that the arm is in front of the center of the robot
      * @return a pair of distance to the target, as well as the ideal angle
      */
-    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter)
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter, Rotation2d armOvershoot)
     {
         double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
         Rotation2d armAngle = Rotation2d.fromRadians(Math.asin(heightDiff / armLength));
         double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
-        return new Pair<Double,Rotation2d>(targetDistance, armAngle);
+        return new Pair<Double,Rotation2d>(targetDistance, armAngle.plus(armOvershoot));
+    }
+    /**
+     * Utility function to calculate the arm position for any given target height, arm constants, and wrist position.
+     * Units does not matter as long as consistent. That said, this programming repository prefers to operate in the metric system in code.
+     * @param armHeight The height of the arm fulcrum off of the same surface as the target, ideally the floor
+     * @param armLength The length of the arm from fulcrum to wrist fulcrum.
+     * @param wristFulcrumToEnd The distance from the wrist fulcrum to the place that the gripper or rollers are.
+     * @param wristAngle Angle that the wrist will be at for the purposes of the arm calculation. Off of the floor.
+     * @param targetHeight The height of the target off of the same surface as the arm height, ideally the floor.
+     * @param armToCenter the amount of units that the arm is in front of the center of the robot
+     * @return a pair of distance to the target, as well as the ideal angle
+     */
+    public static Pair<Double, Rotation2d> calculateArmAngleAndDistance(double armHeight, double armLength, double wristFulcrumToEnd, Rotation2d wristAngle, double targetHeight, double armToCenter, Rotation2d armOvershoot, boolean reversed)
+    {
+        if (!reversed)
+        {
+            double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+            Rotation2d armAngle = Rotation2d.fromRadians(MathUtil.inputModulus(Math.asin(heightDiff / armLength), Math.toRadians(-90), Math.toRadians(270)));
+            double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+            return new Pair<Double,Rotation2d>(targetDistance, armAngle.plus(armOvershoot));
+        }
+        else
+        {
+            double heightDiff = targetHeight - armHeight - wristAngle.getSin() * wristFulcrumToEnd;
+            Rotation2d armAngle = Rotation2d.fromRadians(MathUtil.inputModulus(Math.asin(heightDiff / armLength), Math.toRadians(-90), Math.toRadians(270)));
+            double targetDistance = armAngle.getCos() * armLength + wristAngle.getCos() * wristFulcrumToEnd + armToCenter;
+            return new Pair<Double,Rotation2d>(targetDistance, Rotation2d.fromRotations(0.5).minus(armAngle).plus(armOvershoot));
+        }
     }
     /** Drive Constants */
     public static class DrivetrainConstants
@@ -223,6 +252,7 @@ public final class Constants {
             SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
             EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
+        public static final Rotation2d BACKWARD_PICKUP_ANGLE = Rotation2d.fromDegrees(160);
     }
     public static class AnglesAndDistances
     {
@@ -233,7 +263,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[1].getZ() + PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> MEDIUM_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -241,7 +272,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.MID_CUBE_PLACEMENT_ANGLE,
             FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[0].getZ() + PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> LOW_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -249,7 +281,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.LOW_CUBE_PLACEMENT_ANGLE,
             PiceConstants.CUBE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
 
         public static final Pair<Double, Rotation2d> HIGH_CONE = calculateArmAngleAndDistance(
@@ -258,7 +291,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CONE, 
             WristConstants.HIGH_CONE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[1].getZ() + PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> MEDIUM_CONE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -266,7 +300,8 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CONE, 
             WristConstants.MID_CONE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CONE_PLACEMENT_LOCATIONS[0].getZ() + PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
         );
         public static final Pair<Double, Rotation2d> LOW_CONE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
@@ -274,7 +309,18 @@ public final class Constants {
             GripperConstants.FULCRUM_TO_CUBE, 
             WristConstants.LOW_CONE_PLACEMENT_ANGLE,
             PiceConstants.CONE_HEIGHT, 
-            ArmConstants.ORIGIN.getX()
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(19)
+        );
+        public static final Pair<Double, Rotation2d> BACKWARD_FLOOR_CUBE = calculateArmAngleAndDistance(
+            ArmConstants.ORIGIN.getZ(),
+            ArmConstants.EXTENDED_LENGTH,
+            GripperConstants.FULCRUM_TO_CUBE,
+            WristConstants.BACKWARD_PICKUP_ANGLE,
+            PiceConstants.CUBE_HEIGHT,
+            ArmConstants.ORIGIN.getX(),
+            Rotation2d.fromDegrees(360 -15),
+            true
         );
     }
     /** Pice dimensions constants*/
@@ -282,34 +328,60 @@ public final class Constants {
         public static final double CONE_HEIGHT = Units.inchesToMeters(13); //TODO
         public static final double CUBE_HEIGHT = Units.inchesToMeters(9.5); //TODO
     }
+    public static enum PathSource
+    {
+        PATHWEAVER("paths/"),
+        PATHPLANNER("pathplanner/generatedJSON/");
+        private final String directory;
+        private PathSource(String directory)
+        {
+            this.directory = directory;
+        }
+        public Trajectory load(String pathName) throws IOException
+        {
+            return TrajectoryUtil.fromPathweaverJson(
+              Filesystem.getDeployDirectory().toPath().resolve(directory + pathName + ".wpilib.json")
+            );
+        }
+    };
     public static enum Path
     {
-        BLUE_LEFT_TO_PIECE_LEFT("Blue3ToPiece4"),
-        PIECE_LEFT_TO_BLUE_LEFT("Piece4ToBlue3"),
-        BLUE_LEFT_TO_PIECE_LEFT_CENTER("Blue3ToPiece3"),
-        PIECE_LEFT_CENTER_TO_BLUE_LEFT("Piece3ToBlue3"),
-        BLUE_RIGHT_TO_PIECE_RIGHT("Blue1ToPiece1"),
-        PIECE_RIGHT_TO_BLUE_RIGHT("Piece1ToBlue1"),
-        BLUE_RIGHT_TO_PIECE_RIGHT_CENTER("Blue3ToPiece3"),
-        PIECE_RIGHT_CENTER_TO_BLUE_RIGHT("Piece3ToBlue3"),
-        RED_LEFT_TO_PIECE_LEFT("Red1ToPiece1"),
-        PIECE_LEFT_TO_RED_LEFT("Piece1ToRed1"),
-        RED_LEFT_TO_PIECE_LEFT_CENTER("Red1ToPiece2"),
-        PIECE_LEFT_CENTER_TO_RED_LEFT("Piece2ToRed1"),
-        RED_RIGHT_TO_PIECE_RIGHT("Red3ToPiece4"),
-        PIECE_RIGHT_TO_RED_RIGHT("Piece4ToRed3"),
-        RED_RIGHT_TO_PIECE_RIGHT_CENTER("Red3ToPiece3"),
-        PIECE_RIGHT_CENTER_TO_RED_RIGHT("Red3ToBlue3");
+        // Pathweaver paths
+        BLUE_LEFT_TO_PIECE_LEFT("Blue3ToPiece4", PathSource.PATHWEAVER),
+        PIECE_LEFT_TO_BLUE_LEFT("Piece4ToBlue3", PathSource.PATHWEAVER),
+        BLUE_LEFT_TO_PIECE_LEFT_CENTER("Blue3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_LEFT_CENTER_TO_BLUE_LEFT("Piece3ToBlue3", PathSource.PATHWEAVER),
+        BLUE_RIGHT_TO_PIECE_RIGHT("Blue1ToPiece1", PathSource.PATHWEAVER),
+        PIECE_RIGHT_TO_BLUE_RIGHT("Piece1ToBlue1", PathSource.PATHWEAVER),
+        BLUE_RIGHT_TO_PIECE_RIGHT_CENTER("Blue3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_RIGHT_CENTER_TO_BLUE_RIGHT("Piece3ToBlue3", PathSource.PATHWEAVER),
+        RED_LEFT_TO_PIECE_LEFT("Red1ToPiece1", PathSource.PATHWEAVER),
+        PIECE_LEFT_TO_RED_LEFT("Piece1ToRed1", PathSource.PATHWEAVER),
+        RED_LEFT_TO_PIECE_LEFT_CENTER("Red1ToPiece2", PathSource.PATHWEAVER),
+        PIECE_LEFT_CENTER_TO_RED_LEFT("Piece2ToRed1", PathSource.PATHWEAVER),
+        RED_RIGHT_TO_PIECE_RIGHT("Red3ToPiece4", PathSource.PATHWEAVER),
+        PIECE_RIGHT_TO_RED_RIGHT("Piece4ToRed3", PathSource.PATHWEAVER),
+        RED_RIGHT_TO_PIECE_RIGHT_CENTER("Red3ToPiece3", PathSource.PATHWEAVER),
+        PIECE_RIGHT_CENTER_TO_RED_RIGHT("Red3ToBlue3", PathSource.PATHWEAVER),
+        // Path Planner Paths
+        BACKWARD_BLUE_LEFT_TO_PIECE_LEFT("BlueLeftPieceLeft", PathSource.PATHPLANNER),
+        FORWARD_PIECE_LEFT_TO_BLUE_LEFT("PieceLeftBlueLeft", PathSource.PATHPLANNER),
+        BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT("BlueRightPieceRight", PathSource.PATHPLANNER),
+        FORWARD_PIECE_RIGHT_TO_BLUE_RIGHT("PieceRightBlueRight", PathSource.PATHPLANNER),
+        BACKWARD_RED_LEFT_TO_PIECE_LEFT("RedLeftPieceLeft", PathSource.PATHPLANNER),
+        FORWARD_PIECE_LEFT_TO_RED_LEFT("PieceLeftRedLeft", PathSource.PATHPLANNER),
+        BACKWARD_RED_RIGHT_TO_PIECE_RIGHT("RedRightPieceRight", PathSource.PATHPLANNER),
+        FORWARD_PIECE_RIGHT_TO_RED_RIGHT("PieceRightRedRight", PathSource.PATHPLANNER);
         private String pathName;
-        private Path(String pathName)
+        private final PathSource pathSource;
+        private Path(String pathName, PathSource source)
         {
             this.pathName = pathName;
+            this.pathSource = source;
         }
         public Trajectory load() throws IOException
         {
-            return TrajectoryUtil.fromPathweaverJson(
-              Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathName + ".wpilib.json")
-            );
+            return pathSource.load(pathName);
         }
     };
 }

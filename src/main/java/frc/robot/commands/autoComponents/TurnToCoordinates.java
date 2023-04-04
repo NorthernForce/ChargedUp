@@ -19,21 +19,30 @@ public class TurnToCoordinates extends PIDCommand {
    * Creates a new TurnToCoordinates.
    * @param coords The coordinates of the thing to align with
    */
-  public TurnToCoordinates(Translation2d coords) {
+  public TurnToCoordinates(Translation2d coords)
+  {
+    this(coords, false);
+  }
+  public TurnToCoordinates(Translation2d coords, boolean reversed) {
     super(
       new PIDController(
-        2e-2,
-        0,
+        3.5e-2,
+        3.5e-4,
         0
       ),
       () -> {
+        if (reversed)
+        {
+          var val = -navigation.getPose2d().getTranslation().minus(coords).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
+          return MathUtil.inputModulus(val, -180.0, 180.0);
+        }
         var val = -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
         return MathUtil.inputModulus(val, -180.0, 180.0);
       },
       () -> 0,
       (output) -> drivetrain.drive(0, -output),
       drivetrain, navigation);
-      getController().setTolerance(8);
+      getController().setTolerance(5);
   }
   @Override
   public boolean isFinished()

@@ -7,9 +7,11 @@ package frc.robot.commands.autoPaths;
 import java.io.IOException;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.Constants.AnglesAndDistances;
 import frc.robot.Constants.WristConstants;
@@ -44,21 +46,24 @@ public class BlueLeft extends SequentialCommandGroup {
       ),
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
-      new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath("Blue3ToPiece4")
+      new ParallelCommandGroup(
+        new DriveAlongPath(Constants.Path.BACKWARD_BLUE_LEFT_TO_PIECE_LEFT),
+        new SetArmAngle(Rotation2d.fromDegrees(140))
+      )
     );
     if (numPieces > 1)
     {
       addCommands(
-        new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.LOW_CUBE.getFirst(),
-          AnglesAndDistances.LOW_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
-          WristConstants.LOW_CUBE_PLACEMENT_ANGLE, false),
+        new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
+          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+          WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
         new ParallelDeadlineGroup(
           new WaitCommand(1),
           new Intake()
         ),
+        new RetractArm(),
         new SetArmAngle(Rotation2d.fromDegrees(90)),
-        new DriveAlongPath("Piece4ToBlue3"),
+        new DriveAlongPath(Constants.Path.FORWARD_PIECE_LEFT_TO_BLUE_LEFT),
         new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
           AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
           WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
