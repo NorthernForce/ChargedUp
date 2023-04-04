@@ -16,12 +16,7 @@ public class SetWristAngle extends CommandBase {
   /** Creates a new SetWristAngle. */
   public SetWristAngle(Rotation2d targetAngle) {
     addRequirements(wrist);
-    this.targetAngle = Rotation2d.fromDegrees(
-      Math.max(
-        Math.min(targetAngle.getRotations(), WristConstants.BACKWARD_LIMIT.getRotations()),
-        WristConstants.FORWARD_LIMIT.getRotations()
-      )
-    );
+    this.targetAngle = targetAngle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
