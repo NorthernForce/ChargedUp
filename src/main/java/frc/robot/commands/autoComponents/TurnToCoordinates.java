@@ -26,23 +26,23 @@ public class TurnToCoordinates extends PIDCommand {
   public TurnToCoordinates(Translation2d coords, boolean reversed) {
     super(
       new PIDController(
-        3.5e-2,
+        7.5e-2,
         3.5e-4,
         0
       ),
       () -> {
         if (reversed)
         {
-          var val = -navigation.getPose2d().getTranslation().minus(coords).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
-          return MathUtil.inputModulus(val, -180.0, 180.0);
+          var val = coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
+          return -MathUtil.inputModulus(180 - val, -180.0, 180.0);
         }
-        var val = -coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
-        return MathUtil.inputModulus(val, -180.0, 180.0);
+        var val = coords.minus(navigation.getPose2d().getTranslation()).getAngle().getDegrees() - navigation.getPose2d().getRotation().getDegrees();
+        return -MathUtil.inputModulus(val, -180.0, 180.0);
       },
       () -> 0,
-      (output) -> drivetrain.drive(0, -output),
+      (output) -> drivetrain.drive(0, output),
       drivetrain, navigation);
-      getController().setTolerance(5);
+      getController().setTolerance(2);
   }
   @Override
   public boolean isFinished()

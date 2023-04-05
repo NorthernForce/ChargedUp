@@ -167,7 +167,6 @@ public class Navigation extends SubsystemBase {
       camera.updateLatestResult();
       if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
       {
-        if (pose.estimatedPose.toPose2d().getTranslation().getDistance(poseEstimator.getEstimatedPosition().getTranslation()) < 1)
           poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
       }
     }
