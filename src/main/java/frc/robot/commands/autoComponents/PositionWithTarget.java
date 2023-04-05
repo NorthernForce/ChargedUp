@@ -33,7 +33,7 @@ public class PositionWithTarget extends ParallelCommandGroup {
     boolean extendArm, boolean reversed) {
     addCommands(
       new SequentialCommandGroup(
-        new TurnToCoordinates(targetPosition, reversed)
+        //new TurnToCoordinates(targetPosition, reversed)
         //new DriveDistanceFromCoordinates(targetDistance, targetPosition, reversed)
       ),
       new SetArmAngle(targetArmAngle),
