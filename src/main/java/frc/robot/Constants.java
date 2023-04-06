@@ -250,7 +250,7 @@ public final class Constants {
         public static final Rotation2d HIGH_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(0),
             SOUTH_ANGLE = Rotation2d.fromDegrees(90), // TODO
-            EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(45), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
         public static final Rotation2d BACKWARD_PICKUP_ANGLE = Rotation2d.fromDegrees(160);
     }
