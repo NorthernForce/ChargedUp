@@ -35,7 +35,7 @@ public class BlueLeft extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new FoldWristBack(),
+      //new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
         AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),

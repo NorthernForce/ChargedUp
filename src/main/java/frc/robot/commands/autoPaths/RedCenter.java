@@ -31,7 +31,7 @@ public class RedCenter extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new FoldWristBack(),
+      //new FoldWristBack(),
       new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[3].toTranslation2d(), placingInformation.getFirst(), placingInformation.getSecond(), Rotation2d.fromDegrees(10), true),
       new ParallelDeadlineGroup(new WaitCommand(0.8), new Outtake()),
       new RetractArm(),

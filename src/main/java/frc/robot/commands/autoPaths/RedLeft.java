@@ -35,7 +35,7 @@ public class RedLeft extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new FoldWristBack(),
+     // new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
         AnglesAndDistances.HIGH_CUBE.getSecond(),
