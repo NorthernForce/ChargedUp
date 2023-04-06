@@ -17,6 +17,7 @@ import frc.robot.commands.FoldWristBack;
 import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.SetArmAngle;
+import frc.robot.commands.SetWristAngle;
 import pabeles.concurrency.ConcurrencyOps.NewInstance;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -29,7 +30,7 @@ public class PlaceHigh extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     //var placingInformation = Constants.calculateArmAngleAndDistance(Constants.ArmConstants.ORIGIN.getZ(), Constants.ArmConstants.EXTENDED_LENGTH, Units.inchesToMeters(9), Rotation2d.fromDegrees(0), FieldConstants.RED_CUBE_PLACEMENT_LOCATIONS[3].getZ(), Constants.ArmConstants.ORIGIN.getX());
     addCommands(
-      new ParallelCommandGroup(new FoldWristBack(), new SetArmAngle(Constants.AnglesAndDistances.HIGH_CUBE.getSecond())),
+      new ParallelCommandGroup(new SetWristAngle(Rotation2d.fromDegrees(0)), new SetArmAngle(Constants.AnglesAndDistances.HIGH_CUBE.getSecond())),
       new ExtendArm().andThen(new WaitCommand(1.3)),
       new ParallelDeadlineGroup(new WaitCommand(0.8), new Outtake())
     );
