@@ -24,6 +24,7 @@ import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.DriveAlongPath;
 import frc.robot.commands.autoComponents.DriveMeters;
 import frc.robot.commands.autoComponents.PositionWithTarget;
+import frc.robot.commands.autoComponents.Stop;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -49,7 +50,8 @@ public class BlueLeft extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new DriveAlongPath(Constants.Path.BACKWARD_BLUE_LEFT_TO_PIECE_LEFT),
         new SetArmAngle(Rotation2d.fromDegrees(140))
-      )
+      ),
+      new Stop(0.1)
     );
     if (numPieces > 1)
     {
