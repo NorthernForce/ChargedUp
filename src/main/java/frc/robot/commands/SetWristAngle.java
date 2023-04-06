@@ -38,13 +38,15 @@ public class SetWristAngle extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    wrist.setPercent(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
-      && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE)
+    return Math.abs(wrist.getAngle().minus(targetAngle).getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE
+     // && Math.abs(wrist.getVelocity().getDegrees()) < Constants.ArmConstants.ANGLE_TOLERANCE)
       || !wrist.isCANCoderPresent();
   }
 }

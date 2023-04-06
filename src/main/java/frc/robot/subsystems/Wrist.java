@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -27,6 +28,7 @@ public class Wrist extends SubsystemBase {
   private final GenericEntry kMaxAccelEntry, kMaxVelocityEntry, kMinOutputVelocityEntry;
   /** Creates a new Wrist. */
   public Wrist() {
+    spark.setInverted(true);
     spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
     spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 0, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
     spark.setFeedbackSensor(spark.getAbsoluteEncoder());
@@ -46,7 +48,7 @@ public class Wrist extends SubsystemBase {
    */
   public Rotation2d getAngle()
   {
-    return Rotation2d.fromRotations(spark.getAbsolute());
+    return Rotation2d.fromDegrees(spark.getAbsolute() - 90);
   }
   public boolean isCANCoderPresent()
   {
@@ -58,7 +60,7 @@ public class Wrist extends SubsystemBase {
    */
   public void setRotation(Rotation2d rotation)
   {
-    spark.setUsingSmartMotion(rotation.getRotations(), 0);
+    spark.setUsingSmartMotion(rotation.getRotations() + 0.25, 0);
   }
   /**
    * Sets the percent without calculating feedforward

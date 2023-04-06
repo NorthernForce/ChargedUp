@@ -230,18 +230,18 @@ public final class Constants {
         // Static gain
         public static final double kF = 0.0; // TODO
         // Proportion
-        public static final double kP = 2.0; // TODO
+        public static final double kP = 0.1; // TODO
         // Integral
         public static final double kI = 0.0; // TODO
         // Derivative
-        public static final double kD = 0.0; // TODO
+        public static final double kD = 2.0; // TODO
         // Feedforward or gravity Gain
         public static final double kFF = 0.0; // TODO
         public static final double kMaxAccel = 0.0; // TODO
         public static final double kMaxVelocity = 0.0; // TODO
         public static final double kMinOutputVelocity = 0.0; // TODO
-        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(-10);
-        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(190);
+        public static final Rotation2d FORWARD_LIMIT = Rotation2d.fromDegrees(95);
+        public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(265);
         public static final Rotation2d HIGH_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d LOW_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d MID_CUBE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
@@ -249,7 +249,7 @@ public final class Constants {
         public static final Rotation2d MID_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d HIGH_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(0),
-            SOUTH_ANGLE = Rotation2d.fromDegrees(0), // TODO
+            SOUTH_ANGLE = Rotation2d.fromDegrees(90), // TODO
             EAST_ANGLE = Rotation2d.fromDegrees(0), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
         public static final Rotation2d BACKWARD_PICKUP_ANGLE = Rotation2d.fromDegrees(160);

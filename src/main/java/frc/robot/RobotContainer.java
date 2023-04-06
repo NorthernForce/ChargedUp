@@ -75,6 +75,8 @@ public class RobotContainer {
     //autonomousChooser.addOption("Center. Mob. Balance", new CG_Mob_E());
     autonomousChooser.addOption("Blue Center 1 Piece Balance", new BlueCenter());
     autonomousChooser.addOption("Red Center 1 Piece Balance", new RedCenter());
+    autonomousChooser.addOption("Blue Center 1 Piece Mobility Balance", new BlueCenterMobilityBalance());
+    autonomousChooser.addOption("Red Center 1 Piece Mobility Balance", new RedCenterMobilityBalance());
     autonomousChooser.addOption("Red Center Balance Only", new RedOnlyCenter());
     autonomousChooser.addOption("Blue Center Balance Only", new BlueOnlyCenter());
     autonomousChooser.setDefaultOption("Just score high", new PlaceHigh());
