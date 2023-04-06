@@ -85,7 +85,7 @@ public class OI {
         new Trigger(() -> manipulatorController.getPOV() == 0)
             .whileTrue(new SetArmAngle(Constants.ArmConstants.NORTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.NORTH_ANGLE)));
         new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
+        .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)).andThen(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 180)
         .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 270)
