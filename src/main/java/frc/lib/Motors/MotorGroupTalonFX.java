@@ -190,4 +190,9 @@ public class MotorGroupTalonFX implements MotorGroup {
         primary.configForwardSoftLimitEnable(true, 0);
         primary.configReverseSoftLimitEnable(true, 0);
     }
+    @Override
+    public void setSpeed(double speed)
+    {
+        primary.set(ControlMode.Velocity, speed);
+    }
 }

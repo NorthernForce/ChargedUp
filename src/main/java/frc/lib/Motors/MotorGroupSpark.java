@@ -133,4 +133,9 @@ public class MotorGroupSpark implements MotorGroup {
     {
         return primary.getAbsoluteEncoder(Type.kDutyCycle);
     }
+    @Override
+    public void setSpeed(double speed)
+    {
+        primary.getPIDController().setReference(speed, ControlType.kVelocity);
+    }
 }

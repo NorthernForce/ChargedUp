@@ -31,4 +31,5 @@ public interface MotorGroup extends MotorController {
      * Resets the encoder rotations to (0,0)
      */
     public void resetEncoderRotations();
+    public void setSpeed(double speed);
 }
