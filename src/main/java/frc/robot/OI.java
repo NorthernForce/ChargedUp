@@ -38,7 +38,7 @@ public class OI {
     public static DoubleSupplier[] getDriveSuppliers() {
             return new DoubleSupplier[] {
             //Joystick defaults to forward being negative so we negate it.
-            () -> -driverController.getLeftY(),
+            () -> Math.abs(driverController.getRightY()) > 0.10 ? -driverController.getLeftY() : 0,
             () -> -driverController.getRightX()
         };
     }
