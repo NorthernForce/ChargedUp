@@ -95,5 +95,7 @@ public class OI {
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
         new JoystickButton(manipulatorController, XboxController.Button.kB.value)
             .whileTrue(new SetWristAngle(Rotation2d.fromDegrees(90)));
+        new JoystickButton(driverController, XboxController.Button.kRightBumper.value)
+            .whileTrue(new BrakeMode());
     }
 }
