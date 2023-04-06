@@ -27,8 +27,8 @@ public class MaxwellChassis implements ChassisBase {
     public Drivetrain getDrivetrain() {
         MotorGroupTalonFX left = new MotorGroupTalonFX(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
         MotorGroupTalonFX right = new MotorGroupTalonFX(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
-        left.configClosedLoop(0, 0, 0, 0.1, 0, 0, 0, 0, 0);
-        right.configClosedLoop(0, 0, 0, 0.1, 0, 0, 0, 0, 0);
+        left.configClosedLoop(0, 0, 0, 0.5, 0.2, 0, 0, 0, 0);
+        right.configClosedLoop(0, 0, 0, 0.5, 0, 0, 0, 0, 0);
         left.setInverted(true);
         return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
     }
