@@ -42,6 +42,7 @@ public class ArmRotate extends SubsystemBase {
     rotateEncoder = new CANCoder(Constants.ArmConstants.CANCODER_ID);
     rotateEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     rotateEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+    rotateEncoder.configSensorDirection(true);
     rotateEncoder.setPositionToAbsolute();
     talonGroup.linkAndUseCANCoder(rotateEncoder);
     talonGroup.setLimits(Constants.ArmConstants.BACKWARD_LIMIT.minus(Rotation2d.fromDegrees(90)), Constants.ArmConstants.FORWARD_LIMIT.minus(Rotation2d.fromDegrees(90)));
