@@ -39,7 +39,7 @@ public class BlueCenterMobilityBalance extends SequentialCommandGroup {
       new DriveMeters(-0.7, 0, 2.5),
       new DriveMeters(-0.5, 0, 2.6),
       new ParallelCommandGroup(new SetArmAngle(Rotation2d.fromDegrees(180)),
-      new DriveMeters(0.65, 0, 2.8)),
+      new DriveMeters(0.55, 0, 2.4)),
       new ParallelCommandGroup(new SetArmAngle(Rotation2d.fromDegrees(90)),
       new Balance())
     );
