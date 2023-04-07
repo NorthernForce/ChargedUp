@@ -39,7 +39,7 @@ public class BlueLeft extends SequentialCommandGroup {
       //new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[5].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
-        AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+        AnglesAndDistances.HIGH_CUBE.getSecond(),
         WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, true),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5),
@@ -57,7 +57,7 @@ public class BlueLeft extends SequentialCommandGroup {
     {
       addCommands(
         new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[3].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
-          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond(),
           WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
         new ParallelDeadlineGroup(
           new WaitCommand(1),
@@ -67,7 +67,7 @@ public class BlueLeft extends SequentialCommandGroup {
         new SetArmAngle(Rotation2d.fromDegrees(90)),
         new DriveAlongPath(Constants.Path.FORWARD_PIECE_LEFT_TO_BLUE_LEFT),
         new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[4].toTranslation2d(), AnglesAndDistances.MEDIUM_CUBE.getFirst(),
-          AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+          AnglesAndDistances.MEDIUM_CUBE.getSecond(),
           WristConstants.MID_CUBE_PLACEMENT_ANGLE, false),
         new ParallelDeadlineGroup(
           new WaitCommand(0.5),
