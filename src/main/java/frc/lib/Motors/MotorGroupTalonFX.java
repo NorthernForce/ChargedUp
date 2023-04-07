@@ -66,7 +66,7 @@ public class MotorGroupTalonFX implements MotorGroup {
     }
     public double getEncoderRPS() {
         //10 represents the amount of 100ms periods in a single second.
-        return invertCoefficient * primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
+        return primary.getSelectedSensorVelocity() / COUNTS_PER_REVOLUTION * 10;
     }
     public boolean getInverted() {
         return primary.getInverted();
