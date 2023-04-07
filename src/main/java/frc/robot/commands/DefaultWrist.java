@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
+import frc.robot.Constants.WristConstants;
 
 import static frc.robot.RobotContainer.*;
 
@@ -28,7 +29,7 @@ public class DefaultWrist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    wrist.setPercent(manipulatorSuppliers[2].getAsDouble());
+    wrist.setPercent(manipulatorSuppliers[2].getAsDouble() + armRotate.getAngle().plus(wrist.getAngle()).getCos() * WristConstants.kFF);
   }
 
   // Called once the command ends or is interrupted.
