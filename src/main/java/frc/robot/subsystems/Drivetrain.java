@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,6 +25,7 @@ public class Drivetrain extends SubsystemBase
   private final DifferentialDriveKinematics kinematics;
   private final SimpleMotorFeedforward feedforward;
   private double speedProportion = 1.0, rotationSpeedProportion = 0.75;
+  private double maxSpeed = 0;
   /** 
    * Creates a new Drivetrain. 
    */
@@ -36,7 +39,7 @@ public class Drivetrain extends SubsystemBase
     Shuffleboard.getTab("Drivetrain").addNumber("Speed (ft/s)", () -> Units.metersToFeet(
       (getSpeeds().leftMetersPerSecond + getSpeeds().rightMetersPerSecond) / 2
     )).withPosition(0, 0);
-
+    Shuffleboard.getTab("Drivetrain").addNumber("Max speed", () -> maxSpeed);
   }
   /**
    * Drives the robot forward applying the speed proportions
@@ -159,6 +162,14 @@ public class Drivetrain extends SubsystemBase
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Math.abs(leftSide.getEncoderRPS()) > maxSpeed)
+    {
+      maxSpeed = Math.abs(leftSide.getEncoderRPS());
+    }
+    else if (Math.abs(rightSide.getEncoderRPS()) > maxSpeed)
+    {
+      maxSpeed = Math.abs(rightSide.getEncoderRPS());
+    }
   }
   /** Sets closed loop velocity control */
   public void setVelocity(double speed) {
