@@ -23,12 +23,15 @@ public class MaxwellChassis implements ChassisBase {
     public static final double kS = 0.071975;
     public static final double kV = 2.6116;
     public static final double kA = 0.27655;
+    public static final double kMaxCountsPer100MS = 1.0; // TODO
+    public static final double kF = 1023 / kMaxCountsPer100MS; // TODO
+    public static final double kP = 0.2;
     public MaxwellChassis() {}
     public Drivetrain getDrivetrain() {
         MotorGroupTalonFX left = new MotorGroupTalonFX(LEFT_PRIMARY_ID, new int[]{LEFT_FOLLOWER_ID});
         MotorGroupTalonFX right = new MotorGroupTalonFX(RIGHT_PRIMARY_ID, new int[]{RIGHT_FOLLOWER_ID});
-        left.configClosedLoop(0, 0, 0, 0.5, 0.2, 0, 0, 0, 0);
-        right.configClosedLoop(0, 0, 0, 0.5, 0, 0, 0, 0, 0);
+        left.configClosedLoop(0, 0, kF, kP, 0, 0, 0, 0, 0);
+        right.configClosedLoop(0, 0, kF, kP, 0, 0, 0, 0, 0);
         left.setInverted(true);
         return new Drivetrain(left, right, TRACK_WIDTH, kS, kV, kA);
     }
