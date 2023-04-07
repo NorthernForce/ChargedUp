@@ -236,7 +236,7 @@ public final class Constants {
         // Derivative
         public static final double kD = 2.0; // TODO
         // Feedforward or gravity Gain
-        public static final double kFF = 0.0; // TODO
+        public static final double kFF = 0.25; // TODO
         public static final double kMaxAccel = 0.0; // TODO
         public static final double kMaxVelocity = 0.0; // TODO
         public static final double kMinOutputVelocity = 0.0; // TODO
