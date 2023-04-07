@@ -202,7 +202,7 @@ public final class Constants {
         public static final Rotation2d BACKWARD_LIMIT = Rotation2d.fromDegrees(197);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(90),
             SOUTH_ANGLE = Rotation2d.fromDegrees(-43), // TODO
-            EAST_ANGLE = Rotation2d.fromDegrees(170), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(160), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(0); // TODO
     }
     /** Gripper Constants */
@@ -228,7 +228,7 @@ public final class Constants {
         public static final int CANCODER_ID = 12;
         public static final double GEAT_RATIO = 0.0; // TODO
         // Static gain
-        public static final double kF = 0.0; // TODO
+        public static final double kF = 0.0; // TODOP
         // Proportion
         public static final double kP = 0.1; // TODO
         // Integral
@@ -250,7 +250,7 @@ public final class Constants {
         public static final Rotation2d HIGH_CONE_PLACEMENT_ANGLE = Rotation2d.fromDegrees(0);
         public static final Rotation2d NORTH_ANGLE = Rotation2d.fromDegrees(0),
             SOUTH_ANGLE = Rotation2d.fromDegrees(90), // TODO
-            EAST_ANGLE = Rotation2d.fromDegrees(45), // TODO
+            EAST_ANGLE = Rotation2d.fromDegrees(60), // TODO
             WEST_ANGLE = Rotation2d.fromDegrees(40); // TODO
         public static final Rotation2d BACKWARD_PICKUP_ANGLE = Rotation2d.fromDegrees(160);
     }
@@ -264,7 +264,7 @@ public final class Constants {
             WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, 
             FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[1].getZ() + PiceConstants.CUBE_HEIGHT, 
             ArmConstants.ORIGIN.getX(),
-            Rotation2d.fromDegrees(19)
+            Rotation2d.fromDegrees(14)
         );
         public static final Pair<Double, Rotation2d> MEDIUM_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 
