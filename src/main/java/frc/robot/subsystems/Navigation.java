@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -10,6 +12,13 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.cameras.PhotonCameraWrapper;
+import frc.lib.coprocessors.Coprocessor;
+import frc.lib.coprocessors.XavierROS;
+import frc.lib.coprocessors.ros.IsaacRosApriltag;
+import frc.lib.coprocessors.ros.ROSPackage;
+import frc.lib.coprocessors.ros.RosNavigation;
+import frc.lib.coprocessors.ros.RosOdometry;
+import frc.lib.coprocessors.ros.RosNavigation.RosNavigationCommand;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
 
@@ -22,7 +31,10 @@ import java.util.List;
 /** Simple subsystem to keep track of the current location of the robot. */
 public class Navigation extends SubsystemBase {
   private final DifferentialDrivePoseEstimator poseEstimator;
-  private final List<PhotonCameraWrapper> cameras = activeChassis.getPhotonCameras();
+  private final XavierROS xavier;
+  private final RosNavigation navigation;
+  private final RosOdometry odometry;
+  private final IsaacRosApriltag apriltag;
   private final Field2d field = new Field2d();
   /** Creates a new Navigation. */
   public Navigation() {
@@ -36,10 +48,16 @@ public class Navigation extends SubsystemBase {
       drivetrain.getRightDistance(),
       new Pose2d()
     );
-    for (var camera : cameras)
-    {
-      camera.setPipelineIndex(0);
-    }
+    xavier = new XavierROS();
+    navigation = new RosNavigation(xavier);
+    odometry = new RosOdometry(xavier, () -> drivetrain.getKinematics().toChassisSpeeds(drivetrain.getSpeeds()),
+      () -> poseEstimator.getEstimatedPosition());
+    apriltag = new IsaacRosApriltag(xavier, (timestamp, pose) -> {
+      poseEstimator.addVisionMeasurement(pose, timestamp);
+    }, FieldConstants.APRILTAG_LAYOUT, new Transform3d());
+    xavier.addPackage(apriltag);
+    xavier.addPackage(odometry);
+    xavier.addPackage(navigation);
     Shuffleboard.getTab("Drivers").add("Field", field).withSize(4, 3).withPosition(0, 0);
   }
   /**
@@ -152,6 +170,22 @@ public class Navigation extends SubsystemBase {
     }
   }
 
+  public Coprocessor.Status getCoprocessorStatus()
+  {
+    return xavier.getStatus();
+  }
+
+  public RosNavigation.RosNavigationCommand navigateTo(Pose2d pose)
+  {
+    return navigation.new RosNavigationCommand(
+      pose,
+      drivetrain::driveUsingChassisSpeeds,
+      this::getPose2d,
+      0.1,
+      5
+    );
+  }
+
   /** Runs once every 20ms. */
   @Override
   public void periodic() {
@@ -160,18 +194,7 @@ public class Navigation extends SubsystemBase {
       drivetrain.getLeftDistance(),
       drivetrain.getRightDistance()
     );
-
-    for (var camera : cameras)
-    {
-      EstimatedRobotPose pose;
-      camera.updateLatestResult();
-      if ((pose = camera.estimatePose(poseEstimator.getEstimatedPosition())) != null)
-      {
-        if (pose.estimatedPose.toPose2d().getTranslation().getDistance(poseEstimator.getEstimatedPosition().getTranslation()) < 1)
-          poseEstimator.addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
-      }
-    }
-
+    xavier.update();
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
   }
