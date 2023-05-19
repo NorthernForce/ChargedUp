@@ -72,6 +72,8 @@ public final class Constants {
             return new Pair<Double,Rotation2d>(targetDistance, Rotation2d.fromRotations(0.5).minus(armAngle).plus(armOvershoot));
         }
     }
+    public static final Pose2d RED_SINGLE_SUBSTATION = new Pose2d();
+    public static final Pose2d BLUE_SINGLE_SUBSTATION = new Pose2d();
     /** Drive Constants */
     public static class DrivetrainConstants
     {
