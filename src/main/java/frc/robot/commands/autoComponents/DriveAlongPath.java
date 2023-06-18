@@ -49,7 +49,7 @@ public class DriveAlongPath extends RamseteCommand {
     super(
       path.load(),
       navigation::getPose2d,
-      new RamseteController(),
+      new RamseteController(9, 0.3),
       drivetrain.getFeedforward(),
       drivetrain.getKinematics(),
       drivetrain::getSpeeds,
