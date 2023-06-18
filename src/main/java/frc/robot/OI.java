@@ -93,6 +93,5 @@ public class OI {
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
-
     }
 }
