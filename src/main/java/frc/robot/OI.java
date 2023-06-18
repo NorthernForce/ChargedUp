@@ -83,13 +83,13 @@ public class OI {
         new JoystickButton(manipulatorController, XboxController.Button.kStart.value)
             .whileTrue(new MicroAdjust(Constants.DrivetrainConstants.RIGHT_MIRCO_ADJUST));    
         new Trigger(() -> manipulatorController.getPOV() == 0)
-            .whileTrue(new SetArmAngle(Constants.ArmConstants.NORTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.NORTH_ANGLE)));
+            .whileTrue(new SetArmAngle(Constants.AnglesAndDistances.HIGH_CUBE.getSecond()).alongWith(new SetWristAngle(Rotation2d.fromDegrees(5))).andThen(new ExtendArm()));
         new JoystickButton(manipulatorController, XboxController.Button.kB.value)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
-        new Trigger(() -> manipulatorController.getPOV() == 180)
+        .whileTrue(new SetArmAngle(Constants.ArmConstants.EAST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)).andThen(new SetWristAngle(Constants.WristConstants.EAST_ANGLE)));
+        new Trigger(() -> manipulatorController.getPOV() == 90)
         .whileTrue(new SetArmAngle(Constants.ArmConstants.SOUTH_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.SOUTH_ANGLE)));
         new Trigger(() -> manipulatorController.getPOV() == 270)
-        .whileTrue(new SetArmAngle(Constants.ArmConstants.WEST_ANGLE).alongWith(new SetWristAngle(Constants.WristConstants.WEST_ANGLE)));
+        .whileTrue(new SetArmAngle(Constants.AnglesAndDistances.MEDIUM_CUBE.getSecond().plus(Rotation2d.fromDegrees(8))).alongWith(new SetWristAngle(Rotation2d.fromDegrees(5))));
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
