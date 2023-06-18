@@ -23,6 +23,7 @@ import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.DriveAlongPath;
 import frc.robot.commands.autoComponents.DriveMeters;
 import frc.robot.commands.autoComponents.PositionWithTarget;
+import frc.robot.commands.autoComponents.Stop;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -37,7 +38,7 @@ public class BlueRight extends SequentialCommandGroup {
       //new FoldWristBack(),
       new ManipulateCube(),
       new PositionWithTarget(FieldConstants.BLUE_CUBE_PLACEMENT_LOCATIONS[1].toTranslation2d(), AnglesAndDistances.HIGH_CUBE.getFirst(),
-        AnglesAndDistances.HIGH_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+        AnglesAndDistances.HIGH_CUBE.getSecond(),
         WristConstants.HIGH_CUBE_PLACEMENT_ANGLE, true),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5),
@@ -46,13 +47,14 @@ public class BlueRight extends SequentialCommandGroup {
       new RetractArm(),
       new SetArmAngle(Rotation2d.fromDegrees(90)),
       //new DriveMeters(-0.4, 0, 1),
-      new DriveAlongPath(Constants.Path.BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT)
+      new DriveAlongPath(Constants.Path.BACKWARD_BLUE_RIGHT_TO_PIECE_RIGHT),
+      new Stop(0.1)
     );
     if (numPieces > 1)
     {
       addCommands(
         new PositionWithTarget(FieldConstants.BLUE_GAME_PIECE_AUTO_LOCATIONS[0].toTranslation2d(), AnglesAndDistances.BACKWARD_FLOOR_CUBE.getFirst(),
-          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond().plus(Rotation2d.fromDegrees(20)),
+          AnglesAndDistances.BACKWARD_FLOOR_CUBE.getSecond(),
           WristConstants.BACKWARD_PICKUP_ANGLE, true, true),
         new ParallelDeadlineGroup(
           new WaitCommand(1),

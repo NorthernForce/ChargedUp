@@ -49,7 +49,8 @@ public class RedRight extends SequentialCommandGroup {
       new ParallelDeadlineGroup(
         new DriveAlongPath(Constants.Path.BACKWARD_RED_RIGHT_TO_PIECE_RIGHT),
         new SetArmAngle(Rotation2d.fromDegrees(140))
-      )
+      ),
+      new Stop(0.1)
     );
     if (numPieces > 1)
     {
