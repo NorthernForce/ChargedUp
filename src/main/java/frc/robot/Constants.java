@@ -95,6 +95,8 @@ public final class Constants {
         public static final double LEFT_MIRCO_ADJUST = 0.5;
         public static final double RIGHT_MIRCO_ADJUST = -0.5;
         public static final Rotation2d MICRO_ADJUST_DEGREES = Rotation2d.fromDegrees(2);
+        public static final double ALIGN_MAX_VEL = 0; // TODO
+        public static final double ALIGN_MAX_ACCEL = 0; // TODO
     }
     /** Navigation Constants */
     public static class NavigationConstants

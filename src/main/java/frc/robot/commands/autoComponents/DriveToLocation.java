@@ -26,7 +26,7 @@ public class DriveToLocation extends CommandBase {
   private final RamseteController controller;
   private final double maxVelocity, maxAcceleration;
   private Trajectory trajectory;
-  private final Pose2d targetPose;
+  protected Pose2d targetPose;
   private double timeStart;
   /**
    * Creates a new DriveToLocation
@@ -81,5 +81,10 @@ public class DriveToLocation extends CommandBase {
   @Override
   public boolean isFinished() {
     return controller.atReference();
+  }
+  @Override
+  public void end(boolean interrupted)
+  {
+    drivetrain.drive(0, 0);
   }
 }
