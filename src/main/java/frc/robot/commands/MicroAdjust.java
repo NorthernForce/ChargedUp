@@ -10,6 +10,8 @@ import static frc.robot.RobotContainer.drivetrain;
 import static frc.robot.RobotContainer.navigation;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -32,7 +34,13 @@ public class MicroAdjust extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (DriverStation.getAlliance() == Alliance.Red)
+    {
+      drivetrain.drive(0, -rotationSpeed);
+    }
+    else {
     drivetrain.drive(0,rotationSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.
