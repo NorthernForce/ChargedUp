@@ -256,6 +256,7 @@ public final class Constants {
     }
     public static class AnglesAndDistances
     {
+        public static final double APRILTAG_DIST = 0;
         //Outtake positions
         public static final Pair<Double, Rotation2d> HIGH_CUBE = calculateArmAngleAndDistance(
             ArmConstants.ORIGIN.getZ(), 

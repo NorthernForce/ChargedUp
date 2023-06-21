@@ -102,4 +102,8 @@ public class PhotonCameraWrapper implements CameraWrapper {
         if (results.isPresent()) return results.get();
         else return null;
     }
+    public int getFiducialId()
+    {
+        return latestResult.getBestTarget().getFiducialId();
+    }
 }
