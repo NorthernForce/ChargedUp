@@ -45,6 +45,8 @@ public class MotorGroupSpark implements MotorGroup {
         setFollowers();
         setInverted(false);
         configureAllControllers();
+        if (type == MotorType.kBrushless)
+        primary.getEncoder().setPositionConversionFactor(1);
     }
     public void disable() {
         primary.disable();

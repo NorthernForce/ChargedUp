@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,6 +23,7 @@ import frc.robot.commands.ManipulateCube;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.RetractArm;
 import frc.robot.commands.ToggleLED;
+import frc.robot.commands.autoComponents.AutoAlign;
 import frc.robot.commands.autoComponents.TurnToTarget;
 
 
@@ -93,5 +95,7 @@ public class OI {
         new Trigger(() -> driverController.getLeftTriggerAxis() > 0.5)
             .whileTrue(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 2)).andThen(new TurnToTarget(0)))
             .onFalse(Commands.runOnce(() -> RobotContainer.vision.setPipeline(0, 1)));
+        new JoystickButton(driverController, XboxController.Button.kB.value)
+            .whileTrue(new AutoAlign(new Pose2d(FieldConstants.BLUE_SHELF_LOCATIONS[0].toTranslation2d(), Rotation2d.fromDegrees(0))));
     }
 }
