@@ -5,22 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class Rotate90Degrees extends CommandBase {
-  private double startAngle;
   private PIDController controller;
-  private boolean direction;
   private double speed;
-  /** Creates a new Rotate90Degrees. 
-   * @param direction true for one direction false for the other you figure out which is which
+
+  /** Creates a new Rotate90Degrees.
    * @param speed make this positive or negative until it works (writing this code at 11:45pm)
   */
-  public Rotate90Degrees(boolean direction, double speed) {
+  public Rotate90Degrees(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.imu, RobotContainer.drivetrain);
-    controller = new PIDController(0.2, 0, 0);
+    controller = new PIDController(0.00555, 1e-5, 0);
     controller.enableContinuousInput(-180, 180);
     controller.setTolerance(5);
     this.speed = speed;
@@ -29,9 +30,8 @@ public class Rotate90Degrees extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startAngle = RobotContainer.imu.getYaw().getDegrees();
     controller.reset();
-    controller.setSetpoint(direction ? startAngle + 90 : startAngle - 90);
+    controller.setSetpoint(DriverStation.getAlliance() == Alliance.Red ? 90 : -90);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +42,9 @@ public class Rotate90Degrees extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    RobotContainer.drivetrain.drive(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override

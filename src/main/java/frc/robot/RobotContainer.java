@@ -208,6 +208,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    imu.calibrate();
     navigation.setRobotPose(startingLocationChooser.getSelected());
     // An ExampleCommand will run in autonomous
 
