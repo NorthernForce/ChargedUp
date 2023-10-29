@@ -28,7 +28,7 @@ public class Wrist extends SubsystemBase {
   private final GenericEntry kMaxAccelEntry, kMaxVelocityEntry, kMinOutputVelocityEntry;
   /** Creates a new Wrist. */
   public Wrist() {
-    spark.setInverted(true);
+    spark.setInverted(false);
     spark.setLimits(WristConstants.FORWARD_LIMIT, WristConstants.BACKWARD_LIMIT);
     spark.configurePID(0, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, 5, Constants.WristConstants.kMaxAccel, Constants.WristConstants.kMaxVelocity, Constants.WristConstants.kMinOutputVelocity);
     spark.setFeedbackSensor(spark.getAbsoluteEncoder());
