@@ -12,7 +12,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 import frc.lib.Motors.MotorGroupSpark;
 
-
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Wrist extends SubsystemBase {
