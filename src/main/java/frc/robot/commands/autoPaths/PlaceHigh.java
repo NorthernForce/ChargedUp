@@ -5,21 +5,15 @@
 package frc.robot.commands.autoPaths;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.FieldConstants;
-import frc.robot.commands.ExtendArm;
-import frc.robot.commands.FoldWristBack;
-import frc.robot.commands.ManipulateCone;
 import frc.robot.commands.Outtake;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.SetWristAngle;
 import frc.robot.commands.autoComponents.AutoExtend;
-import pabeles.concurrency.ConcurrencyOps.NewInstance;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

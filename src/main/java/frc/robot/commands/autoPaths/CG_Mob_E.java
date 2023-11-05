@@ -5,10 +5,7 @@
 package frc.robot.commands.autoPaths;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.autoComponents.Balance;
-import frc.robot.commands.autoComponents.DriveForMilliseconds;
-import frc.robot.commands.autoComponents.DriveForSeconds;
 import frc.robot.commands.autoComponents.DriveMeters;
 import frc.robot.commands.autoComponents.Stop;
 

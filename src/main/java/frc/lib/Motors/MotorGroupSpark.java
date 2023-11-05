@@ -16,7 +16,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.lib.Motors.MotorGroup;
 /** 
  * Group of Sparks to be used like MotorController Class
 */
