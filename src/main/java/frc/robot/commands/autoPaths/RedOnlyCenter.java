@@ -5,22 +5,11 @@
 package frc.robot.commands.autoPaths;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants;
-import frc.robot.FieldConstants;
-import frc.robot.commands.FoldWristBack;
-import frc.robot.commands.Outtake;
-import frc.robot.commands.RetractArm;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.autoComponents.Balance;
 import frc.robot.commands.autoComponents.DriveMeters;
-import frc.robot.commands.autoComponents.PositionWithTarget;
-import frc.robot.commands.autoComponents.Stop;
-
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html

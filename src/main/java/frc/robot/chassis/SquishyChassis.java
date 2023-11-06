@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -16,7 +15,6 @@ import edu.wpi.first.math.util.Units;
 import frc.lib.Motors.MotorGroup;
 import frc.lib.Motors.MotorGroupSpark;
 import frc.lib.cameras.PhotonCameraWrapper;
-import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 /** Chassis specific details about squishy. */

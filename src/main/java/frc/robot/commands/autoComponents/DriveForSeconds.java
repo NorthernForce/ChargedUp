@@ -6,7 +6,6 @@ package frc.robot.commands.autoComponents;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import java.time.Instant;
 import static frc.robot.RobotContainer.*;
 
 public class DriveForSeconds extends CommandBase {

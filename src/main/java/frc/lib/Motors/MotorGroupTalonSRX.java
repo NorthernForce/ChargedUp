@@ -17,7 +17,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.lib.Motors.MotorGroup;
 import frc.robot.Constants;
 
 

@@ -5,12 +5,10 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.OI;
 import static frc.robot.RobotContainer.drivetrain;
 import static frc.robot.RobotContainer.navigation;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MicroAdjust extends CommandBase {
